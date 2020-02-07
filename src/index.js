@@ -1,11 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {App} from "./components/app.jsx";
-
-const COUNT_PLACE_CARDS = 5;
+import {App} from "./components/app/app.jsx";
+import CARDS from "./mock/place-card";
 
 ReactDOM.render(
-    // eslint-disable-next-line react/prop-types
-    <App countPlace = {COUNT_PLACE_CARDS}></App>,
+    <App dataCards = {CARDS}></App>,
     document.getElementById(`root`)
 );

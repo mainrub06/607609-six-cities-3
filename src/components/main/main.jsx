@@ -1,9 +1,8 @@
 import React from "react";
-import {PlaceCard} from "./place-card.jsx";
+import {PlaceCard} from "../place-card/place-card.jsx";
+import PropTypes from "prop-types";
 
-export const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {countPlace} = props;
+export const Main = ({dataCards}) => {
 
   return <React.Fragment>
     <div className="page page--gray page--main">
@@ -97,7 +96,7 @@ export const Main = (props) => {
 
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(countPlace).fill(``).map((it, i) => <PlaceCard key={it + i} />)}
+                {dataCards.map((it) => <PlaceCard key={it.id} element={it}/>)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -110,3 +109,16 @@ export const Main = (props) => {
   </React.Fragment>;
 };
 
+Main.propTypes = {
+  dataCards: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        img: PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        })
+      })
+  )
+};
