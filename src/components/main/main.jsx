@@ -119,6 +119,6 @@ Main.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         })
-      }).isRequired
-  )
+      })
+  ).isRequired
 };

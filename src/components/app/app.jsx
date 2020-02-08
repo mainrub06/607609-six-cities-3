@@ -17,5 +17,5 @@ App.propTypes = {
           src: PropTypes.string.isRequired
         })
       })
-  )
+  ).isRequired
 };
