@@ -2,7 +2,7 @@ import React from "react";
 import {PlaceCard} from "../place-card/place-card.jsx";
 import PropTypes from "prop-types";
 
-export const Main = ({dataCards}) => {
+export const Main = ({dataCards, onTitleClick}) => {
 
   return <React.Fragment>
     <div className="page page--gray page--main">
@@ -30,7 +30,7 @@ export const Main = ({dataCards}) => {
       </header>
 
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
+        <h1 onClick={onTitleClick} className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
@@ -120,5 +120,6 @@ Main.propTypes = {
           src: PropTypes.string.isRequired
         })
       })
-  ).isRequired
+  ).isRequired,
+  onTitleClick: PropTypes.func
 };
