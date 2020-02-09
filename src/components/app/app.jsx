@@ -2,8 +2,11 @@ import React from "react";
 import {Main} from "../main/main.jsx";
 import PropTypes from "prop-types";
 
-export const App = ({dataCards, onTitleClick}) => {
-  return <Main dataCards={dataCards} onTitleClick={onTitleClick}></Main>;
+
+const onTitleClickFn = () => {};
+
+export const App = ({dataCards}) => {
+  return <Main dataCards={dataCards} onTitleClick={onTitleClickFn}></Main>;
 };
 
 App.propTypes = {
@@ -17,6 +20,5 @@ App.propTypes = {
           src: PropTypes.string.isRequired
         })
       })
-  ).isRequired,
-  onTitleClick: PropTypes.func
+  ).isRequired
 };

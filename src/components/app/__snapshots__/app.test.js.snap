@@ -61,6 +61,7 @@ exports[`Render App 1`] = `
   >
     <h1
       className="visually-hidden"
+      onClick={[Function]}
     >
       Cities
     </h1>
