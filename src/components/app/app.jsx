@@ -2,8 +2,11 @@ import React from "react";
 import {Main} from "../main/main.jsx";
 import PropTypes from "prop-types";
 
+
+const onTitleClickFn = () => {};
+
 export const App = ({dataCards}) => {
-  return <Main dataCards={dataCards}></Main>;
+  return <Main dataCards={dataCards} onTitleClick={onTitleClickFn}></Main>;
 };
 
 App.propTypes = {
