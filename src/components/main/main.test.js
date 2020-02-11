@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Main} from "./main.jsx";
-import PLACE_MOCK from "../../mock/place-card.js";
+import Main from "./main.jsx";
+import PLACE_MOCK from "../../mock/offers.js";
 
 
 it(`Render Main`, () => {

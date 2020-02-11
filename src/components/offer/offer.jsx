@@ -1,9 +1,16 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
-export const PlaceCard = ({element}) => {
-  return <React.Fragment>
-    <article className="cities__place-card place-card">
+class Offer extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const {element, handleOfferHover} = this.props;
+
+    return (
+      <article onMouseOver={handleOfferHover} className="cities__place-card place-card">
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -37,10 +44,11 @@ export const PlaceCard = ({element}) => {
         <p className="place-card__type">Apartment</p>
       </div>
     </article>
-  </React.Fragment>;
+    );
+  }
 };
 
-PlaceCard.propTypes = {
+Offer.propTypes = {
   element: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -51,3 +59,5 @@ PlaceCard.propTypes = {
     })
   })
 };
+
+export default Offer;

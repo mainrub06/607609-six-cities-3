@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {PlaceCard} from "./place-card.jsx";
-import PLACE_MOCK from "../../mock/place-card";
+import Offer from "./offer.jsx";
+import PLACE_MOCK from "../../mock/offers";
 
 it(`Render PlaceCard`, () => {
   const tree = renderer
-    .create(<PlaceCard
+    .create(<Offer
       element={PLACE_MOCK[1]}
     />)
     .toJSON();

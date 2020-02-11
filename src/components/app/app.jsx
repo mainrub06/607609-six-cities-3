@@ -1,13 +1,23 @@
-import React from "react";
-import {Main} from "../main/main.jsx";
+import React, { PureComponent } from "react";
+import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 
 
 const onTitleClickFn = () => {};
 
-export const App = ({dataCards}) => {
-  return <Main dataCards={dataCards} onTitleClick={onTitleClickFn}></Main>;
-};
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const {dataCards} = this.props;
+
+    return (
+      <Main dataCards={dataCards} onTitleClick={onTitleClickFn}></Main>
+    )
+  }
+}
 
 App.propTypes = {
   dataCards: PropTypes.arrayOf(
@@ -22,3 +32,5 @@ App.propTypes = {
       })
   ).isRequired
 };
+
+export default App;

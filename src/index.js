@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {App} from "./components/app/app.jsx";
-import CARDS from "./mock/place-card";
+import App from "./components/app/app.jsx";
+import CARDS from "./mock/offers";
 
 ReactDOM.render(
     <App dataCards = {CARDS}></App>,

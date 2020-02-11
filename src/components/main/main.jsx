@@ -1,11 +1,17 @@
-import React from "react";
-import {PlaceCard} from "../place-card/place-card.jsx";
+import React, { PureComponent } from "react";
+import OfferList from "../offers-list/offers-list.jsx"
 import PropTypes from "prop-types";
 
-export const Main = ({dataCards, onTitleClick}) => {
+class Main extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  return <React.Fragment>
-    <div className="page page--gray page--main">
+  render() {
+    const {dataCards, onTitleClick} = this.props;
+
+    return (
+      <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -95,9 +101,9 @@ export const Main = ({dataCards, onTitleClick}) => {
               </select> */}
 
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {dataCards.map((it) => <PlaceCard key={it.id} element={it}/>)}
-              </div>
+
+              {<OfferList dataCards={dataCards}/>}
+
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -106,8 +112,9 @@ export const Main = ({dataCards, onTitleClick}) => {
         </div>
       </main>
     </div>
-  </React.Fragment>;
-};
+    )
+  }
+}
 
 Main.propTypes = {
   dataCards: PropTypes.arrayOf(
@@ -123,3 +130,5 @@ Main.propTypes = {
   ).isRequired,
   onTitleClick: PropTypes.func
 };
+
+export default Main;
