@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 
@@ -15,7 +15,7 @@ class App extends PureComponent {
 
     return (
       <Main dataCards={dataCards} onTitleClick={onTitleClickFn}></Main>
-    )
+    );
   }
 }
 

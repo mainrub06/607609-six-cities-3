@@ -7,21 +7,18 @@ class OfferList extends PureComponent {
     super(props);
 
     this.state = {
-      activeOffer: ""
+      activeOffer: ``
     };
-  }
-
-  handleOfferHover(e) {
-
-    console.log(e)
   }
 
   render() {
     const {dataCards} = this.props;
     return (
       <div className="cities__places-list places__list tabs__content">
-        {dataCards.map(it => (
-          <Offer key={it.id} element={it} handleOfferHover={this.handleOfferHover}/>
+        {dataCards.map((it) => (
+          <Offer key={it.id} element={it} handleOfferHover={() => {
+            this.setState({activeOffer: it});
+          }}/>
         ))}
       </div>
     );
@@ -30,15 +27,15 @@ class OfferList extends PureComponent {
 
 OfferList.propTypes = {
   dataCards: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      img: PropTypes.shape({
-        alt: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        img: PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        })
       })
-    })
   ).isRequired
 };
 
