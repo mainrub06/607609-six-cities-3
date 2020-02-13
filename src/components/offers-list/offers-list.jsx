@@ -7,8 +7,15 @@ class OfferList extends PureComponent {
     super(props);
 
     this.state = {
-      activeOffer: ``
+      activeOfferId: null
     };
+    this._handleOfferHover = this._handleOfferHover.bind(this);
+  }
+
+  _handleOfferHover(id = null) {
+    this.setState({
+      activeOfferId: id
+    });
   }
 
   render() {
@@ -16,9 +23,7 @@ class OfferList extends PureComponent {
     return (
       <div className="cities__places-list places__list tabs__content">
         {dataCards.map((it) => (
-          <Offer key={it.id} element={it} handleOfferHover={() => {
-            this.setState({activeOffer: it});
-          }}/>
+          <Offer key={it.id} element={it} handleOfferHover={this._handleOfferHover}/>
         ))}
       </div>
     );

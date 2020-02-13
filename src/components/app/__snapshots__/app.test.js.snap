@@ -300,7 +300,7 @@ exports[`Render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -403,7 +403,7 @@ exports[`Render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -506,7 +506,7 @@ exports[`Render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -609,7 +609,7 @@ exports[`Render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -712,7 +712,7 @@ exports[`Render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />

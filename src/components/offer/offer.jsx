@@ -10,7 +10,9 @@ class Offer extends PureComponent {
     const {element, handleOfferHover} = this.props;
 
     return (
-      <article onMouseOver={handleOfferHover} className="cities__place-card place-card">
+      <article onMouseOver={() => {
+        handleOfferHover(element.id);
+      }} className="cities__place-card place-card">
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -34,7 +36,7 @@ class Offer extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style= {{width: ` 80%`}} ></span>
+              <span style={{width: `80%`}} ></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
