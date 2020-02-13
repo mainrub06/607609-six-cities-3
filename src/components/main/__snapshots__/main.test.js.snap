@@ -225,6 +225,7 @@ exports[`Render Main 1`] = `
           >
             <article
               className="cities__place-card place-card"
+              onMouseOver={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -298,7 +299,7 @@ exports[`Render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -327,6 +328,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseOver={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -400,7 +402,7 @@ exports[`Render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -429,6 +431,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseOver={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -502,7 +505,7 @@ exports[`Render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -531,6 +534,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseOver={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -604,7 +608,7 @@ exports[`Render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -633,6 +637,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseOver={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -706,7 +711,7 @@ exports[`Render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": " 80%",
+                          "width": "80%",
                         }
                       }
                     />
