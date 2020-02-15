@@ -19,11 +19,11 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {dataCards} = this.props;
+    const {dataCards, onOfferClick} = this.props;
     return (
       <div className="cities__places-list places__list tabs__content">
         {dataCards.map((it) => (
-          <Offer key={it.id} element={it} handleOfferHover={this.handleOfferHover}/>
+          <Offer key={it.id} element={it} handleOfferHover={this.handleOfferHover} onOfferClick={onOfferClick}/>
         ))}
       </div>
     );
@@ -39,7 +39,10 @@ OfferList.propTypes = {
         img: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
-        })
+        }),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired
       })
   ).isRequired
 };

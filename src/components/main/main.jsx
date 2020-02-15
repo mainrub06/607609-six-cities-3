@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import OfferList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -8,7 +9,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {dataCards, onTitleClick} = this.props;
+    const {dataCards, onOfferClick} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -36,7 +37,7 @@ class Main extends PureComponent {
         </header>
 
         <main className="page__main page__main--index">
-          <h1 onClick={onTitleClick} className="visually-hidden">Cities</h1>
+          <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
               <ul className="locations__list tabs__list">
@@ -102,7 +103,7 @@ class Main extends PureComponent {
 
                 </form>
 
-                {<OfferList dataCards={dataCards}/>}
+                {<OfferList onOfferClick={onOfferClick} dataCards={dataCards}/>}
 
               </section>
               <div className="cities__right-section">
@@ -125,10 +126,13 @@ Main.propTypes = {
         img: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
-        })
+        }),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired
       })
   ).isRequired,
-  onTitleClick: PropTypes.func
+  onOfferClick: PropTypes.func
 };
 
 export default Main;

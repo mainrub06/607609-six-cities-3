@@ -1,4 +1,4 @@
-const PLACE_MOCK = [
+const PLACE_DETAIL_MOCK = [
   {
     id: `0221552`,
     name: `Beautiful & luxurious apartment at great location`,
@@ -61,4 +61,4 @@ const PLACE_MOCK = [
   }
 ];
 
-export default PLACE_MOCK;
+export default PLACE_DETAIL_MOCK;
