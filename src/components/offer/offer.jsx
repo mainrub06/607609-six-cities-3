@@ -66,7 +66,7 @@ Offer.propTypes = {
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired
   }),
-  handleOfferHover: PropTypes.func,
+  handleOfferHover: PropTypes.func.isRequired,
   onOfferClick: PropTypes.func.isRequired
 };
 

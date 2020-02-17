@@ -35,6 +35,7 @@ it(`test Article-title click`, () => {
         onOfferClick={() => {
           onClickArticleName(MOCK_EL.id);
         }}
+        handleOfferHover={() => {}}
       />
   );
 
