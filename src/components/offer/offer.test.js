@@ -5,9 +5,9 @@ import PLACE_MOCK from "../../mock/offers";
 
 it(`Render Offer component`, () => {
   const tree = renderer
-    .create(<Offer
-      element={PLACE_MOCK[1]}
-    />)
+    .create(
+        <Offer onOfferClick={() => {}} handleOfferHover={() => {}} element={PLACE_MOCK[1]} />
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

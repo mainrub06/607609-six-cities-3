@@ -6,7 +6,10 @@ const PLACE_MOCK = [
     img: {
       alt: `ap-1`,
       src: `img/apartment-01.jpg`
-    }
+    },
+    class: `Premium`,
+    type: `room`,
+    rate: 3.2
   },
   {
     id: `5464564`,
@@ -15,7 +18,10 @@ const PLACE_MOCK = [
     img: {
       alt: `ap-2`,
       src: `img/apartment-02.jpg`
-    }
+    },
+    class: `Premium`,
+    type: `apartment`,
+    rate: 4
   },
   {
     id: `4589512`,
@@ -24,7 +30,10 @@ const PLACE_MOCK = [
     img: {
       alt: `ap-3`,
       src: `img/apartment-03.jpg`
-    }
+    },
+    class: `Premium`,
+    type: `hotel`,
+    rate: 3.6
   },
   {
     id: `7513497`,
@@ -33,7 +42,10 @@ const PLACE_MOCK = [
     img: {
       alt: `ap-4`,
       src: `img/apartment-01.jpg`
-    }
+    },
+    class: `Premium`,
+    type: `hotel`,
+    rate: 4.5
   },
   {
     id: `9431675`,
@@ -42,7 +54,10 @@ const PLACE_MOCK = [
     img: {
       alt: `ap-5`,
       src: `img/apartment-02.jpg`
-    }
+    },
+    class: `Premium`,
+    type: `house`,
+    rate: 0.5
   }
 ];
 

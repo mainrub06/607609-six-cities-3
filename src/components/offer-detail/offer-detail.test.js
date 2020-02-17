@@ -1,15 +1,13 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
-import PLACE_MOCK from "../../mock/offers";
+import OfferDetail from "./offer-detail.jsx";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
 
-it(`Render App`, () => {
+it(`Render OfferDetail component`, () => {
   const tree = renderer
-    .create(<App
-      dataCards={PLACE_MOCK}
-      dataCardsDetail={PLACE_MOCK_DETAIL}
-    />)
+    .create(
+        <OfferDetail element={PLACE_MOCK_DETAIL[0]} />
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

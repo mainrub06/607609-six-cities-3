@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {getStarsFromNum} from "../../utils";
 
 class Offer extends PureComponent {
   constructor(props) {
@@ -7,14 +8,14 @@ class Offer extends PureComponent {
   }
 
   render() {
-    const {element, handleOfferHover} = this.props;
+    const {element, handleOfferHover, onOfferClick} = this.props;
 
     return (
       <article onMouseOver={() => {
         handleOfferHover(element.id);
       }} className="cities__place-card place-card">
         <div className="place-card__mark">
-          <span>Premium</span>
+          <span>{element.class}</span>
         </div>
         <div className="cities__image-wrapper place-card__image-wrapper">
           <a href="#">
@@ -36,14 +37,16 @@ class Offer extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: `80%`}} ></span>
+              <span style={{width: getStarsFromNum(element.rate) + `%`}} ></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name">
+          <h2 onClick={() => {
+            onOfferClick(element.id);
+          }} className="place-card__name">
             <a href="#">{element.name}</a>
           </h2>
-          <p className="place-card__type">Apartment</p>
+          <p className="place-card__type">{element.type}</p>
         </div>
       </article>
     );
@@ -58,9 +61,13 @@ Offer.propTypes = {
     img: PropTypes.shape({
       alt: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired
-    })
+    }),
+    class: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    rate: PropTypes.number.isRequired
   }),
-  handleOfferHover: PropTypes.func
+  handleOfferHover: PropTypes.func.isRequired,
+  onOfferClick: PropTypes.func.isRequired
 };
 
 export default Offer;
