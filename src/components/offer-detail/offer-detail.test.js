@@ -1,14 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Offer from "./offer.jsx";
-import PLACE_MOCK from "../../mock/offers";
+import OfferDetail from "./offer-detail.jsx";
+import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
 import {BrowserRouter} from "react-router-dom";
 
-it(`Render Offer component`, () => {
+it(`Render OfferDetail component`, () => {
   const tree = renderer
     .create(
         <BrowserRouter>
-          <Offer element={PLACE_MOCK[1]} />
+          <OfferDetail dataCardsDetail={PLACE_MOCK_DETAIL} cardId={PLACE_MOCK_DETAIL[0].id} />
         </BrowserRouter>
     )
     .toJSON();

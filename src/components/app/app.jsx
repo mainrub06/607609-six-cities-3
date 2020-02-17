@@ -3,6 +3,7 @@ import Main from "../main/main.jsx";
 import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {LINKS} from "../../const";
 
 class App extends PureComponent {
   constructor(props) {
@@ -25,10 +26,10 @@ class App extends PureComponent {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path = "/">
+          <Route exact path = {LINKS.INDEX}>
             <Main dataCards = {dataCards} onOfferClick = {this.handleOfferClick}></Main>
           </Route>
-          <Route exact path = "/offer-detail">
+          <Route exact path = {LINKS.OFFER_DETAIL}>
             <OfferDetail dataCardsDetail = {dataCardsDetail} cardId = {this.state.activeId}/>
           </Route>
         </Switch>

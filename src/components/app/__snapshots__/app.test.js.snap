@@ -225,7 +225,6 @@ exports[`Render App 1`] = `
           >
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -313,6 +312,7 @@ exports[`Render App 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="/offer-detail"
@@ -330,7 +330,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -418,6 +417,7 @@ exports[`Render App 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="/offer-detail"
@@ -435,7 +435,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -523,6 +522,7 @@ exports[`Render App 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="/offer-detail"
@@ -540,7 +540,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -628,6 +627,7 @@ exports[`Render App 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="/offer-detail"
@@ -645,7 +645,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -733,6 +732,7 @@ exports[`Render App 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="/offer-detail"

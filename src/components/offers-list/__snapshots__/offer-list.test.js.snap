@@ -80,7 +80,7 @@ exports[`Render OfferList component 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "60%",
               }
             }
           />
@@ -93,9 +93,11 @@ exports[`Render OfferList component 1`] = `
       </div>
       <h2
         className="place-card__name"
+        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer-detail"
+          onClick={[Function]}
         >
           Beautiful & luxurious apartment at great location
         </a>
@@ -103,7 +105,7 @@ exports[`Render OfferList component 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        room
       </p>
     </div>
   </article>
@@ -196,9 +198,11 @@ exports[`Render OfferList component 1`] = `
       </div>
       <h2
         className="place-card__name"
+        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer-detail"
+          onClick={[Function]}
         >
           Wood and stone place
         </a>
@@ -206,7 +210,7 @@ exports[`Render OfferList component 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        apartment
       </p>
     </div>
   </article>
@@ -299,9 +303,11 @@ exports[`Render OfferList component 1`] = `
       </div>
       <h2
         className="place-card__name"
+        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer-detail"
+          onClick={[Function]}
         >
           Radisson SAS
         </a>
@@ -309,7 +315,7 @@ exports[`Render OfferList component 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        hotel
       </p>
     </div>
   </article>
@@ -389,7 +395,7 @@ exports[`Render OfferList component 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "100%",
               }
             }
           />
@@ -402,9 +408,11 @@ exports[`Render OfferList component 1`] = `
       </div>
       <h2
         className="place-card__name"
+        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer-detail"
+          onClick={[Function]}
         >
           Hilton palace
         </a>
@@ -412,7 +420,7 @@ exports[`Render OfferList component 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        hotel
       </p>
     </div>
   </article>
@@ -492,7 +500,7 @@ exports[`Render OfferList component 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "20%",
               }
             }
           />
@@ -505,9 +513,11 @@ exports[`Render OfferList component 1`] = `
       </div>
       <h2
         className="place-card__name"
+        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer-detail"
+          onClick={[Function]}
         >
           Bungalo
         </a>
@@ -515,7 +525,7 @@ exports[`Render OfferList component 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        house
       </p>
     </div>
   </article>

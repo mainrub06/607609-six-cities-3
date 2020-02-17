@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
 import {Link} from "react-router-dom";
+import {LINKS} from "../../const";
 
 class Offer extends PureComponent {
   constructor(props) {
@@ -12,9 +13,7 @@ class Offer extends PureComponent {
     const {element, handleOfferHover, onOfferClick} = this.props;
 
     return (
-      <article onClick={() => {
-        onOfferClick(element.id);
-      }} onMouseOver={() => {
+      <article onMouseOver={() => {
         handleOfferHover(element.id);
       }} className="cities__place-card place-card">
         <div className="place-card__mark">
@@ -44,8 +43,10 @@ class Offer extends PureComponent {
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name">
-            <Link to="/offer-detail">{element.name}</Link>
+          <h2 onClick={() => {
+            onOfferClick(element.id);
+          }} className="place-card__name">
+            <Link to={LINKS.OFFER_DETAIL}>{element.name}</Link>
           </h2>
           <p className="place-card__type">{element.type}</p>
         </div>

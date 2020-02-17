@@ -3,3 +3,9 @@ export const STAR_PARAMS = {
   MAX_VALUE: 5,
   STAR_STEP: 20
 };
+
+
+export const LINKS = {
+  INDEX: `/`,
+  OFFER_DETAIL: `/offer-detail`
+};
