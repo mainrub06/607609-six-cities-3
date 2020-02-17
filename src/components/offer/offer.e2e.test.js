@@ -16,6 +16,7 @@ it(`test Article hover`, () => {
   const OfferEl = shallow(
       <Offer
         element={MOCK_EL}
+        onOfferClick={() => {}}
         handleOfferHover={() => {
           onHoverArticle(MOCK_EL.id);
         }}
