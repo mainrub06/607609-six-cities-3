@@ -10,7 +10,7 @@ class App extends PureComponent {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
     this.state = {
-      activeId: ``
+      activeId: null
     };
   }
 
@@ -20,17 +20,31 @@ class App extends PureComponent {
     });
   }
 
-  render() {
+  renderMain() {
     const {dataCards, dataCardsDetail} = this.props;
+    const {activeId} = this.state;
 
+    if (activeId === null) {
+      return (
+        <Main dataCards = {dataCards} onOfferClick = {this.handleOfferClick}></Main>
+      );
+    } else {
+      const dataElement = dataCardsDetail.find((it) => it.id === activeId.toString());
+      return (
+        <OfferDetail element = {dataElement}/>
+      );
+    }
+  }
+
+  render() {
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path = {LINKS.INDEX}>
-            <Main dataCards = {dataCards} onOfferClick = {this.handleOfferClick}></Main>
+            {this.renderMain()}
           </Route>
           <Route exact path = {LINKS.OFFER_DETAIL}>
-            <OfferDetail dataCardsDetail = {dataCardsDetail} cardId = {this.state.activeId}/>
+            <OfferDetail />
           </Route>
         </Switch>
       </BrowserRouter>

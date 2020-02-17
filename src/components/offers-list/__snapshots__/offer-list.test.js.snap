@@ -96,8 +96,7 @@ exports[`Render OfferList component 1`] = `
         onClick={[Function]}
       >
         <a
-          href="/offer-detail"
-          onClick={[Function]}
+          href="#"
         >
           Beautiful & luxurious apartment at great location
         </a>
@@ -201,8 +200,7 @@ exports[`Render OfferList component 1`] = `
         onClick={[Function]}
       >
         <a
-          href="/offer-detail"
-          onClick={[Function]}
+          href="#"
         >
           Wood and stone place
         </a>
@@ -306,8 +304,7 @@ exports[`Render OfferList component 1`] = `
         onClick={[Function]}
       >
         <a
-          href="/offer-detail"
-          onClick={[Function]}
+          href="#"
         >
           Radisson SAS
         </a>
@@ -411,8 +408,7 @@ exports[`Render OfferList component 1`] = `
         onClick={[Function]}
       >
         <a
-          href="/offer-detail"
-          onClick={[Function]}
+          href="#"
         >
           Hilton palace
         </a>
@@ -516,8 +512,7 @@ exports[`Render OfferList component 1`] = `
         onClick={[Function]}
       >
         <a
-          href="/offer-detail"
-          onClick={[Function]}
+          href="#"
         >
           Bungalo
         </a>

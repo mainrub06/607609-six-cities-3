@@ -93,8 +93,7 @@ exports[`Render Offer component 1`] = `
       onClick={[Function]}
     >
       <a
-        href="/offer-detail"
-        onClick={[Function]}
+        href="#"
       >
         Wood and stone place
       </a>

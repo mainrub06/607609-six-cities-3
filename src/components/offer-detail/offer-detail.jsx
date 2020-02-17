@@ -1,9 +1,6 @@
 import React, {PureComponent} from "react";
-import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
-import {LINKS} from "../../const";
-
 
 class OfferDetail extends PureComponent {
   constructor(props) {
@@ -11,15 +8,14 @@ class OfferDetail extends PureComponent {
   }
 
   render() {
-    const {dataCardsDetail, cardId} = this.props;
-    const element = dataCardsDetail.find((it) => it.id === cardId.toString());
+    const {element} = this.props;
     return (
       <div className="page">
         <header className="header">
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <Link className="header__logo-link" to={LINKS.INDEX}>
+                <a className="header__logo-link" href="#">
                   <img
                     className="header__logo"
                     src="img/logo.svg"
@@ -27,7 +23,7 @@ class OfferDetail extends PureComponent {
                     width="81"
                     height="41"
                   />
-                </Link>
+                </a>
               </div>
               <nav className="header__nav">
                 <ul className="header__nav-list">
@@ -481,36 +477,36 @@ class OfferDetail extends PureComponent {
 }
 
 OfferDetail.propTypes = {
-  dataCardsDetail: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
-        photos: PropTypes.arrayOf(
-            PropTypes.shape({
-              alt: PropTypes.string.isRequired,
-              src: PropTypes.string.isRequired
-            }).isRequired
-        ),
-        class: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired,
-        rooms: PropTypes.number.isRequired,
-        guests: PropTypes.number.isRequired,
-        facilities: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ),
-        owner: PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          super: PropTypes.bool.isRequired,
-          img: PropTypes.shape({
-            src: PropTypes.string.isRequired,
-            alt: PropTypes.string.isRequired
-          })
-        })
+  element: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    photos: PropTypes.arrayOf(
+        PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }).isRequired
+    ),
+    class: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    rate: PropTypes.number.isRequired,
+    rooms: PropTypes.number.isRequired,
+    guests: PropTypes.number.isRequired,
+    description: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    facilities: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ),
+    owner: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      super: PropTypes.bool.isRequired,
+      img: PropTypes.shape({
+        src: PropTypes.string.isRequired,
+        alt: PropTypes.string.isRequired
       })
-  ).isRequired,
-  cardId: PropTypes.string.isRequired
+    })
+  })
 };
 
 export default OfferDetail;
