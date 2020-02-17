@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import OfferList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
 
 class Main extends PureComponent {
   constructor(props) {

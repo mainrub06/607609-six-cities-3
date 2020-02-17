@@ -1,8 +1,9 @@
-import React, { PureComponent } from "react";
+import React, {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
+import {getStarsFromNum} from "../../utils";
 
-class offerDetail extends PureComponent {
+class OfferDetail extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -48,59 +49,24 @@ class offerDetail extends PureComponent {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/room.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-02.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-03.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/studio-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
+                {element.photos.map((el, id) => (
+                  <div key={el.alt + id} className="property__image-wrapper">
+                    <img
+                      className="property__image"
+                      src={el.src}
+                      alt={el.alt}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
                 <div className="property__mark">
-                  <span>Premium</span>
+                  <span>{element.class}</span>
                 </div>
                 <div className="property__name-wrapper">
-                  <h1 className="property__name">
-                    Beautiful &amp; luxurious studio at great location
-                  </h1>
+                  <h1 className="property__name">{element.name}</h1>
                   <button
                     className="property__bookmark-button button"
                     type="button"
@@ -117,22 +83,24 @@ class offerDetail extends PureComponent {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: `80%`}}></span>
+                    <span
+                      style={{width: getStarsFromNum(element.rate) + `%`}}
+                    ></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
-                    4.8
+                    {element.rate}
                   </span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    Apartment
+                    {element.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                    3 Bedrooms
+                    {element.rooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
-                    Max 4 adults
+                    Max {element.guests} adults
                   </li>
                 </ul>
                 <div className="property__price">
@@ -142,44 +110,41 @@ class offerDetail extends PureComponent {
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
-                    <li className="property__inside-item">Wi-Fi</li>
-                    <li className="property__inside-item">Washing machine</li>
-                    <li className="property__inside-item">Towels</li>
-                    <li className="property__inside-item">Heating</li>
-                    <li className="property__inside-item">Coffee machine</li>
-                    <li className="property__inside-item">Baby seat</li>
-                    <li className="property__inside-item">Kitchen</li>
-                    <li className="property__inside-item">Dishwasher</li>
-                    <li className="property__inside-item">Cabel TV</li>
-                    <li className="property__inside-item">Fridge</li>
+                    {element.facilities.map((it, id) => (
+                      <li key={it + id} className="property__inside-item">
+                        {it}
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
-                    <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                    <div
+                      className={
+                        element.owner.super
+                          ? `property__avatar-wrapper--pro property__avatar-wrapper user__avatar-wrapper`
+                          : `property__avatar-wrapper user__avatar-wrapper`
+                      }
+                    >
                       <img
                         className="property__avatar user__avatar"
-                        src="img/avatar-angelina.jpg"
+                        src={element.owner.img.src}
                         width="74"
                         height="74"
-                        alt="Host avatar"
+                        alt={element.owner.img.alt}
                       />
                     </div>
-                    <span className="property__user-name">Angelina</span>
+                    <span className="property__user-name">
+                      {element.owner.name}
+                    </span>
                   </div>
                   <div className="property__description">
-                    <p className="property__text">
-                      A quiet cozy and picturesque that hides behind a a river
-                      by the unique lightness of Amsterdam. The building is
-                      green and from 18th century.
-                    </p>
-                    <p className="property__text">
-                      An independent House, strategically located between
-                      Rembrand Square and National Opera, but where the bustle
-                      of the city comes to rest in this alley flowery and
-                      colorful.
-                    </p>
+                    {element.description.map((it, id) => (
+                      <p key={it + id} className="property__text">
+                        {it}
+                      </p>
+                    ))}
                   </div>
                 </div>
                 <section className="property__reviews reviews">
@@ -219,7 +184,10 @@ class offerDetail extends PureComponent {
                     </li>
                   </ul>
                   <form className="reviews__form form" action="#" method="post">
-                    <label className="reviews__label form__label" htmlFor="review">
+                    <label
+                      className="reviews__label form__label"
+                      htmlFor="review"
+                    >
                       Your review
                     </label>
                     <div className="reviews__rating-form form__rating">
@@ -336,9 +304,9 @@ class offerDetail extends PureComponent {
                     ></textarea>
                     <div className="reviews__button-wrapper">
                       <p className="reviews__help">
-                        To submit review please make sure to set{" "}
+                        To submit review please make sure to set{` `}
                         <span className="reviews__star">rating</span> and
-                        describe your stay with at least{" "}
+                        describe your stay with at least{` `}
                         <b className="reviews__text-amount">50 characters</b>.
                       </p>
                       <button
@@ -510,4 +478,37 @@ class offerDetail extends PureComponent {
   }
 }
 
-export default offerDetail;
+OfferDetail.propTypes = {
+  dataCardsDetail: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string.isRequired,
+              src: PropTypes.string.isRequired
+            }).isRequired
+        ),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        rooms: PropTypes.number.isRequired,
+        guests: PropTypes.number.isRequired,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ),
+        owner: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          super: PropTypes.bool.isRequired,
+          img: PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            alt: PropTypes.string.isRequired
+          })
+        })
+      })
+  ).isRequired,
+  cardId: PropTypes.string.isRequired
+};
+
+export default OfferDetail;

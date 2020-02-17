@@ -18,4 +18,4 @@ export const getStarsFromNum = (num) => {
   } else {
     return STAR_PARAMS.MIN_VALUE;
   }
-}
+};
