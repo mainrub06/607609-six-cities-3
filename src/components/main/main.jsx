@@ -10,6 +10,7 @@ class Main extends PureComponent {
 
   render() {
     const {dataCards, onOfferClick} = this.props;
+    const points = dataCards.map((it) => it.cords);
 
     return (
       <div className="page page--gray page--main">
@@ -107,9 +108,7 @@ class Main extends PureComponent {
 
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
-                  {<MapMain></MapMain>}
-                </section>
+                {<MapMain points={points}></MapMain>}
               </div>
             </div>
           </div>
@@ -131,7 +130,10 @@ Main.propTypes = {
         }),
         class: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired
+        rate: PropTypes.number.isRequired,
+        cords: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired
       })
   ).isRequired,
   onOfferClick: PropTypes.func

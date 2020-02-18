@@ -62,7 +62,7 @@ const PLACE_MOCK = [
     class: `Premium`,
     type: `house`,
     rate: 0.5,
-    cords: [52.3809553943508, 4.940309666406198]
+    cords: [52.3909553943508, 4.940309666406198]
   }
 ];
 

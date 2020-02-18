@@ -1,50 +1,67 @@
-import React, { PureComponent } from "react";
+import React, {PureComponent, createRef} from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
 
 class MapMain extends PureComponent {
   constructor(props) {
     super(props);
-  }
 
-  componentDidMount() {
-    // const {x, y} = this.props.cords;
+    this.city = [52.38333, 4.9]; // Amsterdam
+    this.zoomMap = 12;
 
-    const city = [52.38333, 4.9]; // Amsterdam
-    const zoom = 12;
-
-    const icon = leaflet.icon({
+    this.mapConfig = {
+      center: this.city,
+      zoom: this.zoomMap,
+      zoomControl: false,
+      marker: true
+    };
+    this.iconConfig = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30]
     });
 
+    this.mainMapRef = createRef();
+    this.map = null;
+  }
 
-    const map = leaflet.map(`map`, {
-      center: city,
-      zoom: zoom,
-      zoomControl: false,
-      marker: true
-    });
-    map.setView(city, zoom);
+  componentDidMount() {
+    const {points} = this.props;
+
+    this.map = leaflet.map(this.mainMapRef.current, this.mapConfig);
+    this.map.setView(this.city, this.zoomMap);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(this.map);
 
-    const offerCords = [52.3709553943508, 4.89309666406198];
-    leaflet
-      .marker(offerCords, { icon })
-      .addTo(map);
+    points.map((it) => {
+      leaflet
+      .marker(it, this.iconConfig)
+      .addTo(this.map);
+    });
+  }
 
+  componentWillUnmount() {
+    this.map = null;
   }
 
   render() {
     return (
-      <div id="map"></div>
+      <React.Fragment>
+        <section ref={this.mainMapRef} className="cities__map map"/>
+      </React.Fragment>
     );
   }
 }
+
+MapMain.propTypes = {
+  points: PropTypes.arrayOf(
+      PropTypes.arrayOf(
+          PropTypes.number.isRequired
+      ).isRequired
+  ).isRequired
+};
 
 export default MapMain;
