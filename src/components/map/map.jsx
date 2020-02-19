@@ -51,9 +51,7 @@ class MapMain extends PureComponent {
 
   render() {
     return (
-      <React.Fragment>
-        <section ref={this.mainMapRef} className="cities__map map"/>
-      </React.Fragment>
+      <section ref={this.mainMapRef} className="cities__map map"/>
     );
   }
 }
