@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import OfferList from "../offers-list/offers-list.jsx";
+import MapMain from "../map/map.jsx";
 import PropTypes from "prop-types";
 
 class Main extends PureComponent {
@@ -9,6 +10,7 @@ class Main extends PureComponent {
 
   render() {
     const {dataCards, onOfferClick} = this.props;
+    const points = dataCards.map((it) => it.cords);
 
     return (
       <div className="page page--gray page--main">
@@ -106,7 +108,7 @@ class Main extends PureComponent {
 
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                {<MapMain points={points}/>}
               </div>
             </div>
           </div>
@@ -128,7 +130,10 @@ Main.propTypes = {
         }),
         class: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired
+        rate: PropTypes.number.isRequired,
+        cords: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired
       })
   ).isRequired,
   onOfferClick: PropTypes.func
