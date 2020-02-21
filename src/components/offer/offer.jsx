@@ -13,10 +13,17 @@ class Offer extends PureComponent {
     return (
       <article onMouseOver={() => {
         handleOfferHover(element.id);
-      }} className="cities__place-card place-card">
-        <div className="place-card__mark">
-          <span>{element.class}</span>
-        </div>
+      }} className= {`${this.props.offerDetail ? `near-places__card` : `cities__place-card`} place-card`}>
+
+        {!this.props.offerDetail ?
+          <div className="place-card__mark">
+            <span>{element.class}</span>
+          </div>
+
+          :
+          ``
+        }
+
         <div className="cities__image-wrapper place-card__image-wrapper">
           <a href="#">
             <img className="place-card__image" src={element.img.src} width="260" height="200" alt="Place image" />

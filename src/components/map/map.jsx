@@ -37,11 +37,13 @@ class MapMain extends PureComponent {
         })
         .addTo(this.map);
 
-      points.map((it) => {
-        leaflet
-        .marker(it, this.iconConfig)
-        .addTo(this.map);
-      });
+      if (points) {
+        points.map((it) => {
+          leaflet
+          .marker(it, this.iconConfig)
+          .addTo(this.map);
+        });
+      }
     }
   }
 
@@ -51,7 +53,7 @@ class MapMain extends PureComponent {
 
   render() {
     return (
-      <section ref={this.mainMapRef} className="cities__map map"/>
+      <section ref={this.mainMapRef} className={`${this.props.nearMap ? `property__map` : `cities__map`} map`}/>
     );
   }
 }

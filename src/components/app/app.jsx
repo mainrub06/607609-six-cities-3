@@ -29,10 +29,9 @@ class App extends PureComponent {
         <Main dataCards = {dataCards} onOfferClick = {this.handleOfferClick}></Main>
       );
     } else {
-      const dataElement = dataCardsDetail.find((it) => it.id === activeId.toString());
       const dataReview = reviews.find((it) => it.id === activeId.toString());
       return (
-        <OfferDetail review={dataReview} element = {dataElement}/>
+        <OfferDetail review={dataReview} dataCardsDetail = {dataCardsDetail} activeId = {activeId} dataCards = {dataCards}/>
       );
     }
   }
