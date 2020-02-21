@@ -21,7 +21,7 @@ class App extends PureComponent {
   }
 
   renderMain() {
-    const {dataCards, dataCardsDetail} = this.props;
+    const {dataCards, dataCardsDetail, reviews} = this.props;
     const {activeId} = this.state;
 
     if (activeId === null) {
@@ -30,8 +30,9 @@ class App extends PureComponent {
       );
     } else {
       const dataElement = dataCardsDetail.find((it) => it.id === activeId.toString());
+      const dataReview = reviews.find((it) => it.id === activeId.toString());
       return (
-        <OfferDetail element = {dataElement}/>
+        <OfferDetail review={dataReview} element = {dataElement}/>
       );
     }
   }

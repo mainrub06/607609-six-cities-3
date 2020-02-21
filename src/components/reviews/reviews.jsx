@@ -10,14 +10,13 @@ class Reviews extends PureComponent {
   }
 
   render() {
-
+    const {review} = this.props;
     return (
-      <React.Fragment>
         <section className="property__reviews reviews">
                   <h2 className="reviews__title">
-                    Reviews &middot; <span className="reviews__amount">1</span>
+    Reviews &middot; <span className="reviews__amount">{review.reviewsArr.length}</span>
                   </h2>
-                  {<ReviewsList/>}
+                  {<ReviewsList review = {review}/>}
                   <form className="reviews__form form" action="#" method="post">
                     <label
                       className="reviews__label form__label"
@@ -153,8 +152,7 @@ class Reviews extends PureComponent {
                       </button>
                     </div>
                   </form>
-                </section>
-      </React.Fragment>
+        </section>
     );
   }
 }

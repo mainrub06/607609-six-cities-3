@@ -9,7 +9,7 @@ class OfferDetail extends PureComponent {
   }
 
   render() {
-    const {element} = this.props;
+    const {element, review} = this.props;
     return (
       <div className="page">
         <header className="header">
@@ -146,7 +146,7 @@ class OfferDetail extends PureComponent {
                     ))}
                   </div>
                 </div>
-                {<Reviews/>}
+                {<Reviews review = {review}/>}
 
               </div>
             </div>
