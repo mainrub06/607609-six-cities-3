@@ -45,7 +45,8 @@ OfferList.propTypes = {
         rate: PropTypes.number.isRequired
       })
   ).isRequired,
-  onOfferClick: PropTypes.func.isRequired
+  onOfferClick: PropTypes.func.isRequired,
+  offerDetail: PropTypes.bool
 };
 
 export default OfferList;

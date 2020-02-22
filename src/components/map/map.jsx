@@ -63,7 +63,8 @@ MapMain.propTypes = {
       PropTypes.arrayOf(
           PropTypes.number.isRequired
       ).isRequired
-  ).isRequired
+  ).isRequired,
+  nearMap: PropTypes.bool
 };
 
 export default MapMain;

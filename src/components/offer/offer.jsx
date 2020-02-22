@@ -15,13 +15,10 @@ class Offer extends PureComponent {
         handleOfferHover(element.id);
       }} className= {`${this.props.offerDetail ? `near-places__card` : `cities__place-card`} place-card`}>
 
-        {!this.props.offerDetail ?
+        {!this.props.offerDetail &&
           <div className="place-card__mark">
             <span>{element.class}</span>
           </div>
-
-          :
-          ``
         }
 
         <div className="cities__image-wrapper place-card__image-wrapper">
@@ -74,7 +71,8 @@ Offer.propTypes = {
     rate: PropTypes.number.isRequired
   }),
   handleOfferHover: PropTypes.func.isRequired,
-  onOfferClick: PropTypes.func.isRequired
+  onOfferClick: PropTypes.func.isRequired,
+  offerDetail: PropTypes.bool
 };
 
 export default Offer;

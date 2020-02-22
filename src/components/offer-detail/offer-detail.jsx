@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
 import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
-import OfferList from "../offers-list/offers-list.jsx"
+import OfferList from "../offers-list/offers-list.jsx";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
@@ -11,7 +11,7 @@ class OfferDetail extends PureComponent {
   }
 
   render() {
-    const {dataCardsDetail, review, activeId, dataCards} = this.props;
+    const {dataCardsDetail, review, activeId, dataCards, onOfferClick} = this.props;
     const element = dataCardsDetail.find((it) => it.id === activeId.toString());
     const nearPoints = element.nearCords.map((it) => it.cords);
     const sameOffers = element.nearCords.map((it) => dataCards.find((el) => el.id === it.id));
@@ -166,7 +166,7 @@ class OfferDetail extends PureComponent {
                 Other places in the neighbourhood
               </h2>
 
-              {<OfferList offerDetail = {true} dataCards = {sameOffers}/>}
+              {<OfferList onOfferClick = {onOfferClick} offerDetail = {true} dataCards = {sameOffers}/>}
 
             </section>
           </div>
@@ -206,6 +206,66 @@ OfferDetail.propTypes = {
         alt: PropTypes.string.isRequired
       })
     })
+  }),
+  dataCardsDetail: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string.isRequired,
+              src: PropTypes.string.isRequired
+            }).isRequired
+        ),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        rooms: PropTypes.number.isRequired,
+        guests: PropTypes.number.isRequired,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ),
+        owner: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          super: PropTypes.bool.isRequired,
+          img: PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            alt: PropTypes.string.isRequired
+          })
+        })
+      })
+  ).isRequired,
+  activeId: PropTypes.string,
+  onOfferClick: PropTypes.func,
+  dataCards: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        img: PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired
+      })
+  ).isRequired,
+  review: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    reviewsArr: PropTypes.arrayOf(
+        PropTypes.shape({
+          author: PropTypes.string.isRequired,
+          rate: PropTypes.number.isRequired,
+          text: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+          photo: PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            alt: PropTypes.string.isRequired
+          })
+        })
+    ).isRequired
   })
 };
 

@@ -31,12 +31,13 @@ class App extends PureComponent {
     } else {
       const dataReview = reviews.find((it) => it.id === activeId.toString());
       return (
-        <OfferDetail review={dataReview} dataCardsDetail = {dataCardsDetail} activeId = {activeId} dataCards = {dataCards}/>
+        <OfferDetail onOfferClick = {this.handleOfferClick} review={dataReview} dataCardsDetail = {dataCardsDetail} activeId = {activeId} dataCards = {dataCards}/>
       );
     }
   }
 
   render() {
+    const {dataCards, dataCardsDetail} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -44,7 +45,7 @@ class App extends PureComponent {
             {this.renderMain()}
           </Route>
           <Route exact path = {LINKS.OFFER_DETAIL}>
-            <OfferDetail />
+            <OfferDetail dataCards = {dataCards} dataCardsDetail = {dataCardsDetail}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -94,6 +95,23 @@ App.propTypes = {
             alt: PropTypes.string.isRequired
           })
         })
+      })
+  ).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        reviewsArr: PropTypes.arrayOf(
+            PropTypes.shape({
+              author: PropTypes.string.isRequired,
+              rate: PropTypes.number.isRequired,
+              text: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
+              photo: PropTypes.shape({
+                src: PropTypes.string.isRequired,
+                alt: PropTypes.string.isRequired
+              })
+            })
+        ).isRequired
       })
   ).isRequired
 };
