@@ -13,9 +13,9 @@ class Offer extends PureComponent {
     return (
       <article onMouseOver={() => {
         handleOfferHover(element.id);
-      }} className= {`${this.props.offerDetail ? `near-places__card` : `cities__place-card`} place-card`}>
+      }} className= {`${this.props.isOfferDetailItem ? `near-places__card` : `cities__place-card`} place-card`}>
 
-        {!this.props.offerDetail &&
+        {!this.props.isOfferDetailItem &&
           <div className="place-card__mark">
             <span>{element.class}</span>
           </div>
@@ -72,7 +72,7 @@ Offer.propTypes = {
   }),
   handleOfferHover: PropTypes.func.isRequired,
   onOfferClick: PropTypes.func.isRequired,
-  offerDetail: PropTypes.bool
+  isOfferDetailItem: PropTypes.bool
 };
 
 export default Offer;

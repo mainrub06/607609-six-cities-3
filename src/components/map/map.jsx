@@ -37,13 +37,12 @@ class MapMain extends PureComponent {
         })
         .addTo(this.map);
 
-      if (points) {
-        points.map((it) => {
-          leaflet
-          .marker(it, this.iconConfig)
-          .addTo(this.map);
-        });
-      }
+
+      points.forEach((point) => {
+        leaflet
+        .marker(point, this.iconConfig)
+        .addTo(this.map);
+      });
     }
   }
 

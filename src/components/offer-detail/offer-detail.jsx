@@ -11,10 +11,16 @@ class OfferDetail extends PureComponent {
   }
 
   render() {
-    const {dataCardsDetail, review, activeId, dataCards, onOfferClick} = this.props;
-    const element = dataCardsDetail.find((it) => it.id === activeId.toString());
-    const nearPoints = element.nearCords.map((it) => it.cords);
-    const sameOffers = element.nearCords.map((it) => dataCards.find((el) => el.id === it.id));
+    const {
+      dataCardsDetail,
+      review,
+      activeId,
+      dataCards,
+      onOfferClick
+    } = this.props;
+    const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
+    const nearPoints = element.nearCords.map((nearCordsItem) => nearCordsItem.cords);
+    const sameOffers = element.nearCords.map((nearCordsItem) => dataCards.find((dataCardsItem) => dataCardsItem.id === nearCordsItem.id));
 
     return (
       <div className="page">
@@ -50,127 +56,137 @@ class OfferDetail extends PureComponent {
             </div>
           </div>
         </header>
-        <main className="page__main page__main--property">
-          <section className="property">
-            <div className="property__gallery-container container">
-              <div className="property__gallery">
-                {element.photos.map((el, id) => (
-                  <div key={el.alt + id} className="property__image-wrapper">
-                    <img
-                      className="property__image"
-                      src={el.src}
-                      alt={el.alt}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="property__container container">
-              <div className="property__wrapper">
-                <div className="property__mark">
-                  <span>{element.class}</span>
-                </div>
-                <div className="property__name-wrapper">
-                  <h1 className="property__name">{element.name}</h1>
-                  <button
-                    className="property__bookmark-button button"
-                    type="button"
-                  >
-                    <svg
-                      className="property__bookmark-icon"
-                      width="31"
-                      height="33"
-                    >
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
-                </div>
-                <div className="property__rating rating">
-                  <div className="property__stars rating__stars">
-                    <span
-                      style={{width: getStarsFromNum(element.rate) + `%`}}
-                    ></span>
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                  <span className="property__rating-value rating__value">
-                    {element.rate}
-                  </span>
-                </div>
-                <ul className="property__features">
-                  <li className="property__feature property__feature--entire">
-                    {element.type}
-                  </li>
-                  <li className="property__feature property__feature--bedrooms">
-                    {element.rooms} Bedrooms
-                  </li>
-                  <li className="property__feature property__feature--adults">
-                    Max {element.guests} adults
-                  </li>
-                </ul>
-                <div className="property__price">
-                  <b className="property__price-value">&euro;{element.price}</b>
-                  <span className="property__price-text">&nbsp;night</span>
-                </div>
-                <div className="property__inside">
-                  <h2 className="property__inside-title">What&apos;s inside</h2>
-                  <ul className="property__inside-list">
-                    {element.facilities.map((it, id) => (
-                      <li key={it + id} className="property__inside-item">
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="property__host">
-                  <h2 className="property__host-title">Meet the host</h2>
-                  <div className="property__host-user user">
-                    <div
-                      className={
-                        element.owner.super
-                          ? `property__avatar-wrapper--pro property__avatar-wrapper user__avatar-wrapper`
-                          : `property__avatar-wrapper user__avatar-wrapper`
-                      }
-                    >
+
+        {element !== undefined && (
+          <main className="page__main page__main--property">
+            <section className="property">
+              <div className="property__gallery-container container">
+                <div className="property__gallery">
+                  {element.photos.map((el, id) => (
+                    <div key={el.alt + id} className="property__image-wrapper">
                       <img
-                        className="property__avatar user__avatar"
-                        src={element.owner.img.src}
-                        width="74"
-                        height="74"
-                        alt={element.owner.img.alt}
+                        className="property__image"
+                        src={el.src}
+                        alt={el.alt}
                       />
                     </div>
-                    <span className="property__user-name">
-                      {element.owner.name}
+                  ))}
+                </div>
+              </div>
+              <div className="property__container container">
+                <div className="property__wrapper">
+                  <div className="property__mark">
+                    <span>{element.class}</span>
+                  </div>
+                  <div className="property__name-wrapper">
+                    <h1 className="property__name">{element.name}</h1>
+                    <button
+                      className="property__bookmark-button button"
+                      type="button"
+                    >
+                      <svg
+                        className="property__bookmark-icon"
+                        width="31"
+                        height="33"
+                      >
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
+                  </div>
+                  <div className="property__rating rating">
+                    <div className="property__stars rating__stars">
+                      <span
+                        style={{width: getStarsFromNum(element.rate) + `%`}}
+                      ></span>
+                      <span className="visually-hidden">Rating</span>
+                    </div>
+                    <span className="property__rating-value rating__value">
+                      {element.rate}
                     </span>
                   </div>
-                  <div className="property__description">
-                    {element.description.map((it, id) => (
-                      <p key={it + id} className="property__text">
-                        {it}
-                      </p>
-                    ))}
+                  <ul className="property__features">
+                    <li className="property__feature property__feature--entire">
+                      {element.type}
+                    </li>
+                    <li className="property__feature property__feature--bedrooms">
+                      {element.rooms} Bedrooms
+                    </li>
+                    <li className="property__feature property__feature--adults">
+                      Max {element.guests} adults
+                    </li>
+                  </ul>
+                  <div className="property__price">
+                    <b className="property__price-value">
+                      &euro;{element.price}
+                    </b>
+                    <span className="property__price-text">&nbsp;night</span>
                   </div>
+                  <div className="property__inside">
+                    <h2 className="property__inside-title">
+                      What&apos;s inside
+                    </h2>
+                    <ul className="property__inside-list">
+                      {element.facilities.map((it, id) => (
+                        <li key={it + id} className="property__inside-item">
+                          {it}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="property__host">
+                    <h2 className="property__host-title">Meet the host</h2>
+                    <div className="property__host-user user">
+                      <div
+                        className={
+                          element.owner.super
+                            ? `property__avatar-wrapper--pro property__avatar-wrapper user__avatar-wrapper`
+                            : `property__avatar-wrapper user__avatar-wrapper`
+                        }
+                      >
+                        <img
+                          className="property__avatar user__avatar"
+                          src={element.owner.img.src}
+                          width="74"
+                          height="74"
+                          alt={element.owner.img.alt}
+                        />
+                      </div>
+                      <span className="property__user-name">
+                        {element.owner.name}
+                      </span>
+                    </div>
+                    <div className="property__description">
+                      {element.description.map((it, id) => (
+                        <p key={it + id} className="property__text">
+                          {it}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                  {<Reviews review={review} />}
                 </div>
-                {<Reviews review = {review}/>}
-
               </div>
-            </div>
 
-            {<MapDetail points = {nearPoints} nearMap={true}/>}
-
-          </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-
-              {<OfferList onOfferClick = {onOfferClick} offerDetail = {true} dataCards = {sameOffers}/>}
-
+              {<MapDetail points={nearPoints} nearMap={true} />}
             </section>
-          </div>
-        </main>
+            <div className="container">
+              <section className="near-places places">
+                <h2 className="near-places__title">
+                  Other places in the neighbourhood
+                </h2>
+
+                {
+                  <OfferList
+                    onOfferClick={onOfferClick}
+                    isOfferDetailItem={true}
+                    dataCards={sameOffers}
+                  />
+                }
+              </section>
+            </div>
+          </main>
+        )}
       </div>
     );
   }
