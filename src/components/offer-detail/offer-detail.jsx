@@ -14,7 +14,7 @@ class OfferDetail extends PureComponent {
     if (cords) {
       return cords.map((nearCordsItem) => nearCordsItem.cords);
     } else {
-      return null;
+      return [];
     }
   }
 
@@ -22,7 +22,7 @@ class OfferDetail extends PureComponent {
     if (cords && dataCards) {
       return cords.map((nearCordsItem) => dataCards.find((dataCardsItem) => dataCardsItem.id === nearCordsItem.id));
     } else {
-      return null;
+      return [];
     }
   }
 
