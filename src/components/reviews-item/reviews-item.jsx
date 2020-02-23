@@ -10,7 +10,7 @@ class ReviewsItem extends PureComponent {
   render() {
     const {element} = this.props;
 
-    if (element !== undefined) {
+    if (element) {
       return (
         <li className="reviews__item">
           <div className="reviews__user user">

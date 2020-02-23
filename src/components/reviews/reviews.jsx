@@ -9,7 +9,7 @@ class Reviews extends PureComponent {
 
   render() {
     const {review} = this.props;
-    if (review !== undefined) {
+    if (review) {
       return (
         <section className="property__reviews reviews">
           <h2 className="reviews__title">

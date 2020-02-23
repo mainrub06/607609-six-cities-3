@@ -10,7 +10,7 @@ class ReviewsList extends PureComponent {
   render() {
     const {review} = this.props;
 
-    if (review !== undefined) {
+    if (review) {
       return (
         <ul className="reviews__list">
           {review.reviewsArr.map((reviewItem, id) => <ReviewsItem key = {id + reviewItem.author} element = {reviewItem}/>)}

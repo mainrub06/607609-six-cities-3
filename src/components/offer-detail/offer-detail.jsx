@@ -10,6 +10,22 @@ class OfferDetail extends PureComponent {
     super(props);
   }
 
+  getNearPoints(cords) {
+    if (cords) {
+      return cords.map((nearCordsItem) => nearCordsItem.cords);
+    } else {
+      return null;
+    }
+  }
+
+  getSameOffers(cords, dataCards) {
+    if (cords && dataCards) {
+      return cords.map((nearCordsItem) => dataCards.find((dataCardsItem) => dataCardsItem.id === nearCordsItem.id));
+    } else {
+      return null;
+    }
+  }
+
   render() {
     const {
       dataCardsDetail,
@@ -19,8 +35,8 @@ class OfferDetail extends PureComponent {
       onOfferClick
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
-    const nearPoints = element.nearCords.map((nearCordsItem) => nearCordsItem.cords);
-    const sameOffers = element.nearCords.map((nearCordsItem) => dataCards.find((dataCardsItem) => dataCardsItem.id === nearCordsItem.id));
+    const nearPoints = this.getNearPoints(element.nearCords);
+    const sameOffers = this.getSameOffers(element.nearCords, dataCards);
 
     return (
       <div className="page">
@@ -57,7 +73,8 @@ class OfferDetail extends PureComponent {
           </div>
         </header>
 
-        {element !== undefined && (
+        {element && (
+
           <main className="page__main page__main--property">
             <section className="property">
               <div className="property__gallery-container container">
