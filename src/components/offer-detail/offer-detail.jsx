@@ -1,14 +1,43 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
+import Reviews from "../reviews/reviews.jsx";
+import MapDetail from "../map/map.jsx";
+import OfferList from "../offers-list/offers-list.jsx";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
     super(props);
   }
 
+  getNearPoints(cords) {
+    if (cords) {
+      return cords.map((nearCordsItem) => nearCordsItem.cords);
+    } else {
+      return [];
+    }
+  }
+
+  getSameOffers(cords, dataCards) {
+    if (cords && dataCards) {
+      return cords.map((nearCordsItem) => dataCards.find((dataCardsItem) => dataCardsItem.id === nearCordsItem.id));
+    } else {
+      return [];
+    }
+  }
+
   render() {
-    const {element} = this.props;
+    const {
+      dataCardsDetail,
+      review,
+      activeId,
+      dataCards,
+      onOfferClick
+    } = this.props;
+    const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
+    const nearPoints = this.getNearPoints(element.nearCords);
+    const sameOffers = this.getSameOffers(element.nearCords, dataCards);
+
     return (
       <div className="page">
         <header className="header">
@@ -43,434 +72,138 @@ class OfferDetail extends PureComponent {
             </div>
           </div>
         </header>
-        <main className="page__main page__main--property">
-          <section className="property">
-            <div className="property__gallery-container container">
-              <div className="property__gallery">
-                {element.photos.map((el, id) => (
-                  <div key={el.alt + id} className="property__image-wrapper">
-                    <img
-                      className="property__image"
-                      src={el.src}
-                      alt={el.alt}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="property__container container">
-              <div className="property__wrapper">
-                <div className="property__mark">
-                  <span>{element.class}</span>
-                </div>
-                <div className="property__name-wrapper">
-                  <h1 className="property__name">{element.name}</h1>
-                  <button
-                    className="property__bookmark-button button"
-                    type="button"
-                  >
-                    <svg
-                      className="property__bookmark-icon"
-                      width="31"
-                      height="33"
-                    >
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
-                </div>
-                <div className="property__rating rating">
-                  <div className="property__stars rating__stars">
-                    <span
-                      style={{width: getStarsFromNum(element.rate) + `%`}}
-                    ></span>
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                  <span className="property__rating-value rating__value">
-                    {element.rate}
-                  </span>
-                </div>
-                <ul className="property__features">
-                  <li className="property__feature property__feature--entire">
-                    {element.type}
-                  </li>
-                  <li className="property__feature property__feature--bedrooms">
-                    {element.rooms} Bedrooms
-                  </li>
-                  <li className="property__feature property__feature--adults">
-                    Max {element.guests} adults
-                  </li>
-                </ul>
-                <div className="property__price">
-                  <b className="property__price-value">&euro;{element.price}</b>
-                  <span className="property__price-text">&nbsp;night</span>
-                </div>
-                <div className="property__inside">
-                  <h2 className="property__inside-title">What&apos;s inside</h2>
-                  <ul className="property__inside-list">
-                    {element.facilities.map((it, id) => (
-                      <li key={it + id} className="property__inside-item">
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="property__host">
-                  <h2 className="property__host-title">Meet the host</h2>
-                  <div className="property__host-user user">
-                    <div
-                      className={
-                        element.owner.super
-                          ? `property__avatar-wrapper--pro property__avatar-wrapper user__avatar-wrapper`
-                          : `property__avatar-wrapper user__avatar-wrapper`
-                      }
-                    >
+
+        {element && (
+
+          <main className="page__main page__main--property">
+            <section className="property">
+              <div className="property__gallery-container container">
+                <div className="property__gallery">
+                  {element.photos.map((el, id) => (
+                    <div key={el.alt + id} className="property__image-wrapper">
                       <img
-                        className="property__avatar user__avatar"
-                        src={element.owner.img.src}
-                        width="74"
-                        height="74"
-                        alt={element.owner.img.alt}
+                        className="property__image"
+                        src={el.src}
+                        alt={el.alt}
                       />
                     </div>
-                    <span className="property__user-name">
-                      {element.owner.name}
+                  ))}
+                </div>
+              </div>
+              <div className="property__container container">
+                <div className="property__wrapper">
+                  <div className="property__mark">
+                    <span>{element.class}</span>
+                  </div>
+                  <div className="property__name-wrapper">
+                    <h1 className="property__name">{element.name}</h1>
+                    <button
+                      className="property__bookmark-button button"
+                      type="button"
+                    >
+                      <svg
+                        className="property__bookmark-icon"
+                        width="31"
+                        height="33"
+                      >
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
+                  </div>
+                  <div className="property__rating rating">
+                    <div className="property__stars rating__stars">
+                      <span
+                        style={{width: getStarsFromNum(element.rate) + `%`}}
+                      ></span>
+                      <span className="visually-hidden">Rating</span>
+                    </div>
+                    <span className="property__rating-value rating__value">
+                      {element.rate}
                     </span>
                   </div>
-                  <div className="property__description">
-                    {element.description.map((it, id) => (
-                      <p key={it + id} className="property__text">
-                        {it}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-                <section className="property__reviews reviews">
-                  <h2 className="reviews__title">
-                    Reviews &middot; <span className="reviews__amount">1</span>
-                  </h2>
-                  <ul className="reviews__list">
-                    <li className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img
-                            className="reviews__avatar user__avatar"
-                            src="img/avatar-max.jpg"
-                            width="54"
-                            height="54"
-                            alt="Reviews avatar"
-                          />
-                        </div>
-                        <span className="reviews__user-name">Max</span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{width: `80%`}}></span>
-                            <span className="visually-hidden">Rating</span>
-                          </div>
-                        </div>
-                        <p className="reviews__text">
-                          A quiet cozy and picturesque that hides behind a a
-                          river by the unique lightness of Amsterdam. The
-                          building is green and from 18th century.
-                        </p>
-                        <time className="reviews__time" dateTime="2019-04-24">
-                          April 2019
-                        </time>
-                      </div>
+                  <ul className="property__features">
+                    <li className="property__feature property__feature--entire">
+                      {element.type}
+                    </li>
+                    <li className="property__feature property__feature--bedrooms">
+                      {element.rooms} Bedrooms
+                    </li>
+                    <li className="property__feature property__feature--adults">
+                      Max {element.guests} adults
                     </li>
                   </ul>
-                  <form className="reviews__form form" action="#" method="post">
-                    <label
-                      className="reviews__label form__label"
-                      htmlFor="review"
-                    >
-                      Your review
-                    </label>
-                    <div className="reviews__rating-form form__rating">
-                      <input
-                        className="form__rating-input visually-hidden"
-                        name="rating"
-                        value="5"
-                        id="5-stars"
-                        type="radio"
-                      />
-                      <label
-                        htmlFor="5-stars"
-                        className="reviews__rating-label form__rating-label"
-                        title="perfect"
+                  <div className="property__price">
+                    <b className="property__price-value">
+                      &euro;{element.price}
+                    </b>
+                    <span className="property__price-text">&nbsp;night</span>
+                  </div>
+                  <div className="property__inside">
+                    <h2 className="property__inside-title">
+                      What&apos;s inside
+                    </h2>
+                    <ul className="property__inside-list">
+                      {element.facilities.map((it, id) => (
+                        <li key={it + id} className="property__inside-item">
+                          {it}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="property__host">
+                    <h2 className="property__host-title">Meet the host</h2>
+                    <div className="property__host-user user">
+                      <div
+                        className={
+                          element.owner.super
+                            ? `property__avatar-wrapper--pro property__avatar-wrapper user__avatar-wrapper`
+                            : `property__avatar-wrapper user__avatar-wrapper`
+                        }
                       >
-                        <svg
-                          className="form__star-image"
-                          width="37"
-                          height="33"
-                        >
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input
-                        className="form__rating-input visually-hidden"
-                        name="rating"
-                        value="4"
-                        id="4-stars"
-                        type="radio"
-                      />
-                      <label
-                        htmlFor="4-stars"
-                        className="reviews__rating-label form__rating-label"
-                        title="good"
-                      >
-                        <svg
-                          className="form__star-image"
-                          width="37"
-                          height="33"
-                        >
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input
-                        className="form__rating-input visually-hidden"
-                        name="rating"
-                        value="3"
-                        id="3-stars"
-                        type="radio"
-                      />
-                      <label
-                        htmlFor="3-stars"
-                        className="reviews__rating-label form__rating-label"
-                        title="not bad"
-                      >
-                        <svg
-                          className="form__star-image"
-                          width="37"
-                          height="33"
-                        >
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input
-                        className="form__rating-input visually-hidden"
-                        name="rating"
-                        value="2"
-                        id="2-stars"
-                        type="radio"
-                      />
-                      <label
-                        htmlFor="2-stars"
-                        className="reviews__rating-label form__rating-label"
-                        title="badly"
-                      >
-                        <svg
-                          className="form__star-image"
-                          width="37"
-                          height="33"
-                        >
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input
-                        className="form__rating-input visually-hidden"
-                        name="rating"
-                        value="1"
-                        id="1-star"
-                        type="radio"
-                      />
-                      <label
-                        htmlFor="1-star"
-                        className="reviews__rating-label form__rating-label"
-                        title="terribly"
-                      >
-                        <svg
-                          className="form__star-image"
-                          width="37"
-                          height="33"
-                        >
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
+                        <img
+                          className="property__avatar user__avatar"
+                          src={element.owner.img.src}
+                          width="74"
+                          height="74"
+                          alt={element.owner.img.alt}
+                        />
+                      </div>
+                      <span className="property__user-name">
+                        {element.owner.name}
+                      </span>
                     </div>
-                    <textarea
-                      className="reviews__textarea form__textarea"
-                      id="review"
-                      name="review"
-                      placeholder="Tell how was your stay, what you like and what can be improved"
-                    ></textarea>
-                    <div className="reviews__button-wrapper">
-                      <p className="reviews__help">
-                        To submit review please make sure to set{` `}
-                        <span className="reviews__star">rating</span> and
-                        describe your stay with at least{` `}
-                        <b className="reviews__text-amount">50 characters</b>.
-                      </p>
-                      <button
-                        className="reviews__submit form__submit button"
-                        type="submit"
-                        disabled=""
-                      >
-                        Submit
-                      </button>
+                    <div className="property__description">
+                      {element.description.map((it, id) => (
+                        <p key={it + id} className="property__text">
+                          {it}
+                        </p>
+                      ))}
                     </div>
-                  </form>
-                </section>
+                  </div>
+                  {<Reviews review={review} />}
+                </div>
               </div>
-            </div>
-            <section className="property__map map"></section>
-          </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img
-                        className="place-card__image"
-                        src="img/room.jpg"
-                        width="260"
-                        height="200"
-                        alt="Place image"
-                      />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;80</b>
-                        <span className="place-card__price-text">
-                          &#47;&nbsp;night
-                        </span>
-                      </div>
-                      <button
-                        className="place-card__bookmark-button place-card__bookmark-button--active button"
-                        type="button"
-                      >
-                        <svg
-                          className="place-card__bookmark-icon"
-                          width="18"
-                          height="19"
-                        >
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">In bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: `80%`}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
-                    </h2>
-                    <p className="place-card__type">Private room</p>
-                  </div>
-                </article>
 
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img
-                        className="place-card__image"
-                        src="img/apartment-02.jpg"
-                        width="260"
-                        height="200"
-                        alt="Place image"
-                      />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;132</b>
-                        <span className="place-card__price-text">
-                          &#47;&nbsp;night
-                        </span>
-                      </div>
-                      <button
-                        className="place-card__bookmark-button button"
-                        type="button"
-                      >
-                        <svg
-                          className="place-card__bookmark-icon"
-                          width="18"
-                          height="19"
-                        >
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: `80%`}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Canal View Prinsengracht</a>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
-
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img
-                        className="place-card__image"
-                        src="img/apartment-03.jpg"
-                        width="260"
-                        height="200"
-                        alt="Place image"
-                      />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;180</b>
-                        <span className="place-card__price-text">
-                          &#47;&nbsp;night
-                        </span>
-                      </div>
-                      <button
-                        className="place-card__bookmark-button button"
-                        type="button"
-                      >
-                        <svg
-                          className="place-card__bookmark-icon"
-                          width="18"
-                          height="19"
-                        >
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: `100%`}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Nice, cozy, warm big bed apartment</a>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
-              </div>
+              {<MapDetail points={nearPoints} nearMap={true} />}
             </section>
-          </div>
-        </main>
+            <div className="container">
+              <section className="near-places places">
+                <h2 className="near-places__title">
+                  Other places in the neighbourhood
+                </h2>
+
+                {
+                  <OfferList
+                    onOfferClick={onOfferClick}
+                    isOfferDetailItem={true}
+                    dataCards={sameOffers}
+                  />
+                }
+              </section>
+            </div>
+          </main>
+        )}
       </div>
     );
   }
@@ -506,6 +239,66 @@ OfferDetail.propTypes = {
         alt: PropTypes.string.isRequired
       })
     })
+  }),
+  dataCardsDetail: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string.isRequired,
+              src: PropTypes.string.isRequired
+            }).isRequired
+        ),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        rooms: PropTypes.number.isRequired,
+        guests: PropTypes.number.isRequired,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ),
+        owner: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          super: PropTypes.bool.isRequired,
+          img: PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            alt: PropTypes.string.isRequired
+          })
+        })
+      })
+  ).isRequired,
+  activeId: PropTypes.string,
+  onOfferClick: PropTypes.func,
+  dataCards: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        img: PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired
+      })
+  ).isRequired,
+  review: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    reviewsArr: PropTypes.arrayOf(
+        PropTypes.shape({
+          author: PropTypes.string.isRequired,
+          rate: PropTypes.number.isRequired,
+          text: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+          photo: PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            alt: PropTypes.string.isRequired
+          })
+        })
+    ).isRequired
   })
 };
 

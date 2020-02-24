@@ -46,6 +46,20 @@ const PLACE_DETAIL_MOCK = [
     description: [
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+    ],
+    nearCords: [
+      {
+        id: `5464564`,
+        cords: [52.369553943508, 4.85309666406198]
+      },
+      {
+        id: `4589512`,
+        cords: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        id: `7513497`,
+        cords: [52.3809553943508, 4.939309666406198]
+      }
     ]
   },
   {
@@ -95,6 +109,20 @@ const PLACE_DETAIL_MOCK = [
     description: [
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+    ],
+    nearCords: [
+      {
+        id: `5464564`,
+        cords: [52.369553943508, 4.85309666406198]
+      },
+      {
+        id: `4589512`,
+        cords: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        id: `7513497`,
+        cords: [52.3809553943508, 4.939309666406198]
+      }
     ]
   },
   {
@@ -144,6 +172,20 @@ const PLACE_DETAIL_MOCK = [
     description: [
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+    ],
+    nearCords: [
+      {
+        id: `5464564`,
+        cords: [52.369553943508, 4.85309666406198]
+      },
+      {
+        id: `4589512`,
+        cords: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        id: `7513497`,
+        cords: [52.3809553943508, 4.939309666406198]
+      }
     ]
   },
   {
@@ -202,6 +244,20 @@ const PLACE_DETAIL_MOCK = [
     description: [
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+    ],
+    nearCords: [
+      {
+        id: `5464564`,
+        cords: [52.369553943508, 4.85309666406198]
+      },
+      {
+        id: `4589512`,
+        cords: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        id: `7513497`,
+        cords: [52.3809553943508, 4.939309666406198]
+      }
     ]
   },
   {
@@ -251,6 +307,20 @@ const PLACE_DETAIL_MOCK = [
     description: [
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
       `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+    ],
+    nearCords: [
+      {
+        id: `5464564`,
+        cords: [52.369553943508, 4.85309666406198]
+      },
+      {
+        id: `4589512`,
+        cords: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        id: `7513497`,
+        cords: [52.3809553943508, 4.939309666406198]
+      }
     ]
   }
 ];
