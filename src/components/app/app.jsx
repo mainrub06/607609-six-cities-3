@@ -4,6 +4,7 @@ import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
+import {connect} from "react-redux";
 
 class App extends PureComponent {
   constructor(props) {
@@ -116,4 +117,10 @@ App.propTypes = {
   ).isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.cityOffers
+});
+
+export {App};
+export default connect(mapStateToProps)(App);

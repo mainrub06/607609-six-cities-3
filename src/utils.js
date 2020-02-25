@@ -19,3 +19,7 @@ export const getStarsFromNum = (num) => {
     return STAR_PARAMS.MIN_VALUE;
   }
 };
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
