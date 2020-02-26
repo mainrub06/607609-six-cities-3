@@ -1,6 +1,4 @@
 import React, {PureComponent} from 'react';
-import {ActionCreator} from "../../reducer.js";
-import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 const cities = [

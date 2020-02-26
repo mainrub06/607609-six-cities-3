@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
+import {ActionCreator} from "../../reducer.js";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
@@ -21,32 +22,32 @@ class App extends PureComponent {
     });
   }
 
-  // getCityOffers(city) {
-  //   console.log(city);
-  // }
-
-  // onChangeCity(city) {
-  //   console.log(city);
-  // }
-
   renderMain() {
-    const {dataCards, dataCardsDetail, reviews, onChangeCity, getCityOffers} = this.props;
+    const {offersDetail, reviews, onChangeCity, getCityOffers, offers} = this.props;
     const {activeId} = this.state;
 
     if (activeId === null) {
       return (
-        <Main getCityOffers = {getCityOffers} onChangeCity = {onChangeCity} dataCards = {dataCards} onOfferClick = {this.handleOfferClick}></Main>
+        <Main getCityOffers = {getCityOffers}
+          onChangeCity = {onChangeCity}
+          dataCards = {offers}
+          onOfferClick = {this.handleOfferClick}/>
       );
     } else {
       const dataReview = reviews.find((it) => it.id === activeId.toString());
       return (
-        <OfferDetail onOfferClick = {this.handleOfferClick} review={dataReview} dataCardsDetail = {dataCardsDetail} activeId = {activeId} dataCards = {dataCards}/>
+        <OfferDetail onOfferClick = {this.handleOfferClick}
+          review={dataReview}
+          dataCardsDetail = {offersDetail}
+          activeId = {activeId}
+          dataCards = {offers}/>
       );
     }
   }
 
   render() {
-    const {dataCards, dataCardsDetail} = this.props;
+    const {offersDetail, offers} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -54,7 +55,7 @@ class App extends PureComponent {
             {this.renderMain()}
           </Route>
           <Route exact path = {LINKS.OFFER_DETAIL}>
-            <OfferDetail dataCards = {dataCards} dataCardsDetail = {dataCardsDetail}/>
+            <OfferDetail dataCards = {offers} dataCardsDetail = {offersDetail}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -63,7 +64,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -77,7 +78,7 @@ App.propTypes = {
         rate: PropTypes.number.isRequired
       })
   ).isRequired,
-  dataCardsDetail: PropTypes.arrayOf(
+  offersDetail: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -122,7 +123,9 @@ App.propTypes = {
             })
         ).isRequired
       })
-  ).isRequired
+  ).isRequired,
+  getCityOffers: PropTypes.func.isRequired,
+  onChangeCity: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -131,12 +134,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getCityOffers(city) {
     dispatch(ActionCreator.getCityOffers(city));
-  }
+    dispatch(ActionCreator.getCityOffersDetail(city));
+  },
 });
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.cityOffers
+  offers: state.offers,
+  offersDetail: state.offersDetail,
+  reviews: state.reviews
 });
 
 export {App};

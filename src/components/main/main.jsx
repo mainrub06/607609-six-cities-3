@@ -104,7 +104,9 @@ Main.propTypes = {
         ).isRequired
       })
   ).isRequired,
-  onOfferClick: PropTypes.func
+  onOfferClick: PropTypes.func,
+  getCityOffers: PropTypes.func.isRequired,
+  onChangeCity: PropTypes.func.isRequired
 };
 
 export default Main;
