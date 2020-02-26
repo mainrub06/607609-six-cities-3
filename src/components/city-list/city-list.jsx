@@ -11,22 +11,37 @@ const cities = [
 ];
 
 class CityList extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeLink: 0
+    };
+  }
+
+  setActiveLink(count) {
+    this.setState({
+      activeLink: count
+    });
+  }
 
   render() {
     const {onChangeCity, getCityOffers} = this.props;
+    let activeLink = this.state.activeLink;
 
     return (
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {cities.map((city) => (
+            {cities.map((city, count) => (
               <li className="locations__item" key={city}>
                 <a
-                  className="locations__item-link tabs__item"
+                  className={`${count === activeLink ? `tabs__item--active` : ``} locations__item-link tabs__item`}
                   href="#"
                   onClick={()=>{
                     onChangeCity(city);
                     getCityOffers(city);
+                    this.setActiveLink(count);
                   }}
                 >
                   <span>{city}</span>

@@ -7,7 +7,7 @@ const CITY_OFFERS = {
   "Brussels": OFFERS,
   "Amsterdam": OFFERS,
   "Hamburg": OFFERS,
-  "Dusseldorf": OFFERS
+  "Dusseldorf": []
 };
 
 export default CITY_OFFERS;

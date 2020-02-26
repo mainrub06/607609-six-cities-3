@@ -77,7 +77,7 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="tabs__item--active locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -90,7 +90,7 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -103,7 +103,7 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -116,7 +116,7 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -129,7 +129,7 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -142,7 +142,7 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -171,7 +171,9 @@ exports[`Render Main 1`] = `
           <b
             className="places__found"
           >
-            312 places to stay in Amsterdam
+            5
+             places to stay in 
+            Paris
           </b>
           <form
             action="#"

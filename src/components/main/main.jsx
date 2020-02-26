@@ -1,8 +1,9 @@
 import React, {PureComponent} from "react";
-import OfferList from "../offers-list/offers-list.jsx";
-import MapMain from "../map/map.jsx";
 import PropTypes from "prop-types";
 import CityList from "../city-list/city-list.jsx";
+import MainInner from "../main-inner/main-inner.jsx";
+import MainEmpty from "../main-empty/main-empty.jsx";
+import {connect} from "react-redux";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -10,8 +11,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, onChangeCity, getCityOffers} = this.props;
-    const points = dataCards.map((it) => it.cords);
+    const {dataCards, onOfferClick, onChangeCity, getCityOffers, city} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -41,45 +41,12 @@ class Main extends PureComponent {
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <CityList onChangeCity = {onChangeCity} getCityOffers = {getCityOffers}/>
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">312 places to stay in Amsterdam</b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" tabIndex="0">
-                    Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                    <li className="places__option" tabIndex="0">Price: low to high</li>
-                    <li className="places__option" tabIndex="0">Price: high to low</li>
-                    <li className="places__option" tabIndex="0">Top rated first</li>
-                  </ul>
 
-                  {/* <select className="places__sorting-type" id="places-sorting">
-                  <option className="places__option" value="popular" selected="">Popular</option>
-                  <option className="places__option" value="to-high">Price: low to high</option>
-                  <option className="places__option" value="to-low">Price: high to low</option>
-                  <option className="places__option" value="top-rated">Top rated first</option>
-                </select> */}
-
-                </form>
-
-                {<OfferList onOfferClick={onOfferClick} dataCards={dataCards}/>}
-
-              </section>
-              <div className="cities__right-section">
-
-                {<MapMain points={points}/>}
-
-              </div>
-            </div>
-          </div>
+          {dataCards.length !== 0 ?
+            <MainInner dataCards = {dataCards} onOfferClick = {onOfferClick} city = {city}/>
+            :
+            <MainEmpty/>
+          }
         </main>
       </div>
     );
@@ -106,7 +73,13 @@ Main.propTypes = {
   ).isRequired,
   onOfferClick: PropTypes.func,
   getCityOffers: PropTypes.func.isRequired,
-  onChangeCity: PropTypes.func.isRequired
+  onChangeCity: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  city: state.city
+});
+
+export {Main};
+export default connect(mapStateToProps)(Main);
