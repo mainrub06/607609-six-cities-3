@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import OfferList from "../offers-list/offers-list.jsx";
 import MapMain from "../map/map.jsx";
 import PropTypes from "prop-types";
-import {CityList} from "../city-list/city-list.jsx";
+import CityList from "../city-list/city-list.jsx";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -10,7 +10,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick} = this.props;
+    const {dataCards, onOfferClick, onChangeCity, getCityOffers} = this.props;
     const points = dataCards.map((it) => it.cords);
 
     return (
@@ -40,7 +40,7 @@ class Main extends PureComponent {
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <CityList />
+          <CityList onChangeCity = {onChangeCity} getCityOffers = {getCityOffers}/>
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">

@@ -21,13 +21,21 @@ class App extends PureComponent {
     });
   }
 
+  // getCityOffers(city) {
+  //   console.log(city);
+  // }
+
+  // onChangeCity(city) {
+  //   console.log(city);
+  // }
+
   renderMain() {
-    const {dataCards, dataCardsDetail, reviews} = this.props;
+    const {dataCards, dataCardsDetail, reviews, onChangeCity, getCityOffers} = this.props;
     const {activeId} = this.state;
 
     if (activeId === null) {
       return (
-        <Main dataCards = {dataCards} onOfferClick = {this.handleOfferClick}></Main>
+        <Main getCityOffers = {getCityOffers} onChangeCity = {onChangeCity} dataCards = {dataCards} onOfferClick = {this.handleOfferClick}></Main>
       );
     } else {
       const dataReview = reviews.find((it) => it.id === activeId.toString());
@@ -117,10 +125,19 @@ App.propTypes = {
   ).isRequired
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  onChangeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+  getCityOffers(city) {
+    dispatch(ActionCreator.getCityOffers(city));
+  }
+});
+
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.cityOffers
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

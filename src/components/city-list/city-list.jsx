@@ -41,21 +41,9 @@ class CityList extends PureComponent {
   }
 }
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-  getCityOffers(city) {
-    dispatch(ActionCreator.getCityOffers(city));
-  }
-});
-
 CityList.propTypes = {
   onChangeCity: PropTypes.func.isRequired,
   getCityOffers: PropTypes.func.isRequired
 };
 
-export {CityList};
-export default connect(mapStateToProps, mapDispatchToProps)(CityList);
+export default CityList;
