@@ -6,7 +6,7 @@ import PLACE_MOCK from "../../mock/offers.js";
 it(`Render Main`, () => {
   const tree = renderer
     .create(
-        <Main onOfferClick={() => {}} dataCards={PLACE_MOCK} />
+        <Main onChangeCity={() => {}} getCityOffers={() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} />
     )
     .toJSON();
 
