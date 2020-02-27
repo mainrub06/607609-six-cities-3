@@ -15,36 +15,29 @@ const initialState = {
 };
 
 const ActionType = {
-  CHENGE_CITY: `CHENGE_CITY`,
-  GET_CITY_OFFERS: `GET_CITY_OFFERS`,
-  GET_CITY_OFFERS_DETAIL: `GET_CITY_OFFERS_DETAIL`
+  CHENGE_CITY: `CHENGE_CITY`
+};
+
+const getCityData = (cityIn) => {
+  return {
+    city: cityIn,
+    offers: mockCityOffers[cityIn],
+    offersDetail: mockCityOffersDetail[cityIn],
+    reviews: mockReviews
+  };
 };
 
 const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHENGE_CITY,
     payload: city
-  }),
-
-  getCityOffers: (city) => ({
-    type: ActionType.GET_CITY_OFFERS,
-    payload: mockCityOffers[city]
-  }),
-
-  getCityOffersDetail: (city) => ({
-    type: ActionType.GET_CITY_OFFERS_DETAIL,
-    payload: mockCityOffersDetail[city]
   })
 };
 
 const reducer = (state = initialState, action)=>{
   switch (action.type) {
     case ActionType.CHENGE_CITY:
-      return extend(state, {city: action.payload});
-    case ActionType.GET_CITY_OFFERS:
-      return extend(state, {offers: action.payload});
-    case ActionType.GET_CITY_OFFERS_DETAIL:
-      return extend(state, {offersDetail: action.payload});
+      return extend(state, getCityData(action.payload));
   }
   return state;
 };

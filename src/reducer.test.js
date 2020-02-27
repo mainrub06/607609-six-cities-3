@@ -15,10 +15,7 @@ const initialState = {
 };
 
 const targetCity = Object.keys(mockCityOffers)[1];
-
 const actionChangeCity = ActionCreator.changeCity(targetCity);
-const actionChangeCityOffers = ActionCreator.getCityOffers(targetCity);
-const actionChangeCityOffersDetail = ActionCreator.getCityOffersDetail(targetCity);
 
 describe(`Reducer tests`, () => {
   it(`Reducer return initial state`, () => {
@@ -33,26 +30,8 @@ describe(`Reducer tests`, () => {
   it(`Reducer return target city state`, () => {
     expect(reducer(initialState, actionChangeCity)).toEqual({
       city: targetCity,
-      offers: initialCityOffers,
-      offersDetail: initialCityOffersDetail,
-      reviews: mockReviews
-    });
-  });
-
-  it(`Reducer return target CityOffers state`, () => {
-    expect(reducer(initialState, actionChangeCityOffers)).toEqual({
-      city: initialCity,
-      offers: actionChangeCityOffers.payload,
-      offersDetail: initialCityOffersDetail,
-      reviews: mockReviews
-    });
-  });
-
-  it(`Reducer return target CityOffersDetail state`, () => {
-    expect(reducer(initialState, actionChangeCityOffersDetail)).toEqual({
-      city: initialCity,
-      offers: initialCityOffers,
-      offersDetail: actionChangeCityOffersDetail.payload,
+      offers: mockCityOffers[targetCity],
+      offersDetail: mockCityOffersDetail[targetCity],
       reviews: mockReviews
     });
   });

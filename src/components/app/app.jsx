@@ -131,8 +131,6 @@ App.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getCityOffers(city));
-    dispatch(ActionCreator.getCityOffersDetail(city));
   }
 });
 
