@@ -77,8 +77,9 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="tabs__item--active locations__item-link tabs__item"
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Paris
@@ -89,8 +90,9 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Cologne
@@ -101,8 +103,9 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Brussels
@@ -113,7 +116,9 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item tabs__item--active"
+              className=" locations__item-link tabs__item"
+              href="#"
+              onClick={[Function]}
             >
               <span>
                 Amsterdam
@@ -124,8 +129,9 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Hamburg
@@ -136,8 +142,9 @@ exports[`Render Main 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className=" locations__item-link tabs__item"
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Dusseldorf
@@ -164,7 +171,9 @@ exports[`Render Main 1`] = `
           <b
             className="places__found"
           >
-            312 places to stay in Amsterdam
+            5
+             places to stay in 
+            Paris
           </b>
           <form
             action="#"

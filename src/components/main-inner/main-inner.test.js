@@ -1,15 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import MainInner from "./main-inner.jsx";
 import PLACE_MOCK from "../../mock/offers.js";
 
-const PARIS = `Paris`;
+const CITY = `Paris`;
 
 it(`Render Main`, () => {
-
   const tree = renderer
     .create(
-        <Main onChangeCity={() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} city = {PARIS}/>
+        <MainInner city = {CITY} onOfferClick={() => {}} dataCards={PLACE_MOCK} />
     )
     .toJSON();
 
