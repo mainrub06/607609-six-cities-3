@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import CityList from "../city-list/city-list.jsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
-import {connect} from "react-redux";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -11,7 +10,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, onChangeCity, getCityOffers, city} = this.props;
+    const {dataCards, onOfferClick, onChangeCity, city} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -40,7 +39,7 @@ class Main extends PureComponent {
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <CityList onChangeCity = {onChangeCity} getCityOffers = {getCityOffers}/>
+          <CityList onChangeCity = {onChangeCity} />
 
           {dataCards.length !== 0 ?
             <MainInner dataCards = {dataCards} onOfferClick = {onOfferClick} city = {city}/>
@@ -72,14 +71,8 @@ Main.propTypes = {
       })
   ).isRequired,
   onOfferClick: PropTypes.func,
-  getCityOffers: PropTypes.func.isRequired,
   onChangeCity: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city
-});
-
-export {Main};
-export default connect(mapStateToProps)(Main);
+export default Main;

@@ -5,7 +5,7 @@ import CityList from "./city-list.jsx";
 it(`Render City-List filter`, () => {
   const tree = renderer
     .create(
-        <CityList onChangeCity={() => {}} getCityOffers={() => {}} />
+        <CityList onChangeCity={() => {}} />
     )
     .toJSON();
 

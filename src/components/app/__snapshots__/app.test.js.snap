@@ -173,6 +173,7 @@ exports[`Render App 1`] = `
           >
             5
              places to stay in 
+            Paris
           </b>
           <form
             action="#"

@@ -20,39 +20,40 @@ const actionChangeCity = ActionCreator.changeCity(targetCity);
 const actionChangeCityOffers = ActionCreator.getCityOffers(targetCity);
 const actionChangeCityOffersDetail = ActionCreator.getCityOffersDetail(targetCity);
 
-
-it(`Reducer return initial state`, () => {
-  expect(reducer(undefined, {})).toEqual({
-    city: initialCity,
-    offers: initialCityOffers,
-    offersDetail: initialCityOffersDetail,
-    reviews: mockReviews
+describe(`Reducer tests`, () => {
+  it(`Reducer return initial state`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      city: initialCity,
+      offers: initialCityOffers,
+      offersDetail: initialCityOffersDetail,
+      reviews: mockReviews
+    });
   });
-});
 
-it(`Reducer return target city state`, () => {
-  expect(reducer(initialState, actionChangeCity)).toEqual({
-    city: targetCity,
-    offers: initialCityOffers,
-    offersDetail: initialCityOffersDetail,
-    reviews: mockReviews
+  it(`Reducer return target city state`, () => {
+    expect(reducer(initialState, actionChangeCity)).toEqual({
+      city: targetCity,
+      offers: initialCityOffers,
+      offersDetail: initialCityOffersDetail,
+      reviews: mockReviews
+    });
   });
-});
 
-it(`Reducer return target CityOffers state`, () => {
-  expect(reducer(initialState, actionChangeCityOffers)).toEqual({
-    city: initialCity,
-    offers: actionChangeCityOffers.payload,
-    offersDetail: initialCityOffersDetail,
-    reviews: mockReviews
+  it(`Reducer return target CityOffers state`, () => {
+    expect(reducer(initialState, actionChangeCityOffers)).toEqual({
+      city: initialCity,
+      offers: actionChangeCityOffers.payload,
+      offersDetail: initialCityOffersDetail,
+      reviews: mockReviews
+    });
   });
-});
 
-it(`Reducer return target CityOffersDetail state`, () => {
-  expect(reducer(initialState, actionChangeCityOffersDetail)).toEqual({
-    city: initialCity,
-    offers: initialCityOffers,
-    offersDetail: actionChangeCityOffersDetail.payload,
-    reviews: mockReviews
+  it(`Reducer return target CityOffersDetail state`, () => {
+    expect(reducer(initialState, actionChangeCityOffersDetail)).toEqual({
+      city: initialCity,
+      offers: initialCityOffers,
+      offersDetail: actionChangeCityOffersDetail.payload,
+      reviews: mockReviews
+    });
   });
 });
