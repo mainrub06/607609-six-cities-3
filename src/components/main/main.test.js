@@ -9,7 +9,7 @@ it(`Render Main`, () => {
 
   const tree = renderer
     .create(
-        <Main onChangeCity={() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} city = {PARIS}/>
+        <Main onChangeCity={() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} city = {PARIS} onChangeFilterType = {() => {}}/>
     )
     .toJSON();
 

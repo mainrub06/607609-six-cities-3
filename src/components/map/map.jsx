@@ -15,18 +15,23 @@ class MapMain extends PureComponent {
       zoomControl: false,
       marker: true
     };
-    this.iconConfig = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
+
+    this.icons = {
+      iconBlue: leaflet.icon({
+        iconUrl: `img/pin.svg`,
+        iconSize: [30, 45]
+      }),
+      iconOrange: leaflet.icon({
+        iconUrl: `img/pin-active.svg`,
+        iconSize: [30, 45]
+      })
+    }
 
     this.mainMapRef = createRef();
     this.map = null;
   }
 
   componentDidMount() {
-    const {points} = this.props;
-
     if (this.mainMapRef.current) {
       this.map = leaflet.map(this.mainMapRef.current, this.mapConfig);
       this.map.setView(this.city, this.zoomMap);
@@ -37,13 +42,24 @@ class MapMain extends PureComponent {
         })
         .addTo(this.map);
 
-
-      points.forEach((point) => {
-        leaflet
-        .marker(point, this.iconConfig)
-        .addTo(this.map);
-      });
+      this.updateMap();
     }
+  }
+
+  componentDidUpdate() {
+    this.updateMap();
+  }
+
+  updateMap() {
+    const {points, activePointId} = this.props;
+
+    points.forEach((point) => {
+      const icon = activePointId && activePointId === point.id ? this.icons.iconOrange : this.icons.iconBlue;
+
+      leaflet
+      .marker(point.cords, {icon})
+      .addTo(this.map);
+    });
   }
 
   componentWillUnmount() {
@@ -58,12 +74,22 @@ class MapMain extends PureComponent {
 }
 
 MapMain.propTypes = {
+  nearMap: PropTypes.bool,
   points: PropTypes.arrayOf(
-      PropTypes.arrayOf(
-          PropTypes.number.isRequired
-      ).isRequired
-  ).isRequired,
-  nearMap: PropTypes.bool
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.string.isRequired,
+      img: PropTypes.shape({
+        alt: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired
+      }),
+      class: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      rate: PropTypes.number.isRequired,
+      cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+    })
+).isRequired,
 };
 
 export default MapMain;

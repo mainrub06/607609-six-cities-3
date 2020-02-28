@@ -10,7 +10,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, onChangeCity, city} = this.props;
+    const {dataCards, onOfferClick, onChangeCity, city, onChangeFilterType, handleOfferHover, activePointId} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -42,7 +42,7 @@ class Main extends PureComponent {
           <CityList onChangeCity = {onChangeCity} />
 
           {dataCards.length !== 0 ?
-            <MainInner dataCards = {dataCards} onOfferClick = {onOfferClick} city = {city}/>
+            <MainInner activePointId = {activePointId} handleOfferHover = {handleOfferHover} onChangeFilterType = {onChangeFilterType} dataCards = {dataCards} onOfferClick = {onOfferClick} city = {city}/>
             :
             <MainEmpty/>
           }
@@ -72,7 +72,9 @@ Main.propTypes = {
   ).isRequired,
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  onChangeFilterType: PropTypes.func.isRequired,
+  handleOfferHover: PropTypes.func.isRequired
 };
 
 export default Main;

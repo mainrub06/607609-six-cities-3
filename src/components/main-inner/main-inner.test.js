@@ -8,7 +8,7 @@ const CITY = `Paris`;
 it(`Render Main`, () => {
   const tree = renderer
     .create(
-        <MainInner city = {CITY} onOfferClick={() => {}} dataCards={PLACE_MOCK} />
+        <MainInner city = {CITY} onOfferClick={() => {}} dataCards={PLACE_MOCK} onChangeFilterType = {() => {}}/>
     )
     .toJSON();
 

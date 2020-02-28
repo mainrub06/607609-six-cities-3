@@ -11,8 +11,10 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
+    this.handleOfferHover = this.handleOfferHover.bind(this);
     this.state = {
-      activeId: null
+      activeId: null,
+      activePointId: null
     };
   }
 
@@ -22,8 +24,14 @@ class App extends PureComponent {
     });
   }
 
+  handleOfferHover(id) {
+    this.setState({
+      activePointId: id
+    });
+  }
+
   renderMain() {
-    const {offersDetail, reviews, onChangeCity, offers, city} = this.props;
+    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType} = this.props;
     const {activeId} = this.state;
 
     if (activeId === null) {
@@ -31,7 +39,10 @@ class App extends PureComponent {
         <Main onChangeCity = {onChangeCity}
           dataCards = {offers}
           onOfferClick = {this.handleOfferClick}
-          city = {city}/>
+          city = {city}
+          onChangeFilterType = {onChangeFilterType}
+          handleOfferHover = {this.handleOfferHover}
+          activePointId = {this.state.activePointId}/>
       );
     } else {
       const dataReview = reviews.find((it) => it.id === activeId.toString());
@@ -40,7 +51,9 @@ class App extends PureComponent {
           review={dataReview}
           dataCardsDetail = {offersDetail}
           activeId = {activeId}
-          dataCards = {offers}/>
+          dataCards = {offers}
+          handleOfferHover = {this.handleOfferHover}
+          activePointId = {this.state.activePointId}/>
       );
     }
   }
@@ -125,12 +138,16 @@ App.propTypes = {
       })
   ).isRequired,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  onChangeFilterType: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(city) {
     dispatch(ActionCreator.changeCity(city));
+  },
+  onChangeFilterType(type) {
+    dispatch(ActionCreator.setFilteredOffers(type));
   }
 });
 

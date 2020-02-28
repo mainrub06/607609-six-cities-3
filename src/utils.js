@@ -23,3 +23,15 @@ export const getStarsFromNum = (num) => {
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
+
+export const getGrowingArrayByPrice = (array) => {
+  return array.sort((a, b) => Number(a.price) - Number(b.price));
+};
+
+export const getFallingArrayByPrice = (array) => {
+  return array.sort((a, b) => Number(b.price) - Number(a.price));
+};
+
+export const getTopRated = (array) => {
+  return array.sort((a, b) => b.rate - a.rate);
+};
