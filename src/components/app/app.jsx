@@ -20,7 +20,8 @@ class App extends PureComponent {
 
   handleOfferClick(id) {
     this.setState({
-      activeId: id
+      activeId: id,
+      activePointId: null
     });
   }
 

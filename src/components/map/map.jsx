@@ -46,12 +46,18 @@ class MapMain extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
-    this.updateMap();
+  componentDidUpdate(prevProps) {
+    this.updateMap(prevProps);
   }
 
-  updateMap() {
+  updateMap(prevData) {
     const {points, activePointId} = this.props;
+
+    if (prevData) {
+      prevData.points.forEach((prevPoint) => {
+        this.map.removeLayer(prevPoint.cords);
+      });
+    }
 
     points.forEach((point) => {
       const icon = activePointId && activePointId === point.id ? this.icons.iconOrange : this.icons.iconBlue;
