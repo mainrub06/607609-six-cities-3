@@ -5,6 +5,8 @@ exports[`Render OfferSort component 1`] = `
   action="#"
   className="places__sorting"
   method="get"
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
 >
   <span
     className="places__sorting-caption"
@@ -27,7 +29,7 @@ exports[`Render OfferSort component 1`] = `
     </svg>
   </span>
   <ul
-    className="places__options places__options--custom places__options--opened"
+    className="places__options places__options--custom "
   >
     <li
       className="places__option--active places__option"

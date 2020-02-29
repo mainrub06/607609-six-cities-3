@@ -2,6 +2,7 @@ import mockCityOffers from "./mock/city-offers";
 import mockCityOffersDetail from "./mock/city-offers-detail";
 import mockReviews from "./mock/reviews";
 import {extend, getGrowingArrayByPrice, getFallingArrayByPrice, getTopRated} from "./utils.js";
+import {OFFERS_SORT_ITEMS} from "./const";
 
 const initialCity = Object.keys(mockCityOffers)[0];
 const initialCityOffers = mockCityOffers[initialCity];
@@ -11,13 +12,13 @@ const initialState = {
   city: initialCity,
   offers: initialCityOffers,
   offersDetail: initialCityOffersDetail,
-  reviews: mockReviews
+  reviews: mockReviews,
+  activeFilterItem: OFFERS_SORT_ITEMS[0]
 };
 
 const ActionType = {
   CHENGE_CITY: `CHENGE_CITY`,
-  SET_FILTERED_OFFERS: `SET_FILTERED_OFFERS`,
-  ON_OFFER_HOVER: `ON_OFFER_HOVER`
+  SET_FILTERED_OFFERS: `SET_FILTERED_OFFERS`
 };
 
 const getCityData = (cityIn) => {
@@ -32,18 +33,14 @@ const getCityData = (cityIn) => {
 const getFilteredOffers = (type, city) => {
   switch (type) {
     case `Price: low to high`:
-      return {offers: getGrowingArrayByPrice(mockCityOffers[city])};
+      return {offers: getGrowingArrayByPrice(mockCityOffers[city]), activeFilterItem: type};
     case `Price: high to low`:
-      return {offers: getFallingArrayByPrice(mockCityOffers[city])};
+      return {offers: getFallingArrayByPrice(mockCityOffers[city]), activeFilterItem: type};
     case `Top rated first`:
-      return {offers: getTopRated(mockCityOffers[city])};
+      return {offers: getTopRated(mockCityOffers[city]), activeFilterItem: type};
   }
-  return {offers: mockCityOffers[city]};
+  return {offers: mockCityOffers[city], activeFilterItem: type};
 };
-
-const onHoverOffer = (id) => {
-  console.log(id);
-}
 
 const ActionCreator = {
   changeCity: (city) => ({
@@ -53,10 +50,6 @@ const ActionCreator = {
   setFilteredOffers: (type) => ({
     type: ActionType.SET_FILTERED_OFFERS,
     payload: type
-  }),
-  onOfferHover: (id) => ({
-    type: ActionType.ON_OFFER_HOVER,
-    payload: id
   })
 };
 
@@ -66,8 +59,6 @@ const reducer = (state = initialState, action)=>{
       return extend(state, getCityData(action.payload));
     case ActionType.SET_FILTERED_OFFERS:
       return extend(state, getFilteredOffers(action.payload, state.city));
-    case ActionType.ON_OFFER_HOVER:
-      return extend(state, onHoverOffer(action.payload))
   }
   return state;
 };

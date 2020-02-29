@@ -2,6 +2,7 @@ import {reducer, ActionCreator} from "./reducer.js";
 import mockCityOffers from "./mock/city-offers";
 import mockCityOffersDetail from "./mock/city-offers-detail";
 import mockReviews from "./mock/reviews";
+import {OFFERS_SORT_ITEMS} from "./const";
 
 const initialCity = Object.keys(mockCityOffers)[0];
 const initialCityOffers = mockCityOffers[initialCity];
@@ -11,7 +12,8 @@ const initialState = {
   city: initialCity,
   offers: initialCityOffers,
   offersDetail: initialCityOffersDetail,
-  reviews: mockReviews
+  reviews: mockReviews,
+  activeFilterItem: OFFERS_SORT_ITEMS[0]
 };
 
 const targetCity = Object.keys(mockCityOffers)[1];
@@ -23,7 +25,8 @@ describe(`Reducer tests`, () => {
       city: initialCity,
       offers: initialCityOffers,
       offersDetail: initialCityOffersDetail,
-      reviews: mockReviews
+      reviews: mockReviews,
+      activeFilterItem: OFFERS_SORT_ITEMS[0]
     });
   });
 
@@ -32,7 +35,8 @@ describe(`Reducer tests`, () => {
       city: targetCity,
       offers: mockCityOffers[targetCity],
       offersDetail: mockCityOffersDetail[targetCity],
-      reviews: mockReviews
+      reviews: mockReviews,
+      activeFilterItem: OFFERS_SORT_ITEMS[0]
     });
   });
 });

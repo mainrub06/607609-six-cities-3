@@ -293,7 +293,9 @@ OfferDetail.propTypes = {
           })
         })
     ).isRequired
-  })
+  }),
+  handleOfferHover: PropTypes.func,
+  activePointId: PropTypes.string
 };
 
 export default OfferDetail;

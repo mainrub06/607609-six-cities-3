@@ -7,33 +7,34 @@ class OffersSort extends PureComponent {
     super(props);
 
     this.state = {
-      activeSortItem: OFFERS_SORT_ITEMS[0]
+      isOpenedOptions: false
     };
   }
 
-  setActiveSortItem(sortItem) {
-    this.setState({
-      activeSortItem: sortItem
-    });
-  }
-
   render() {
-    const {onChangeFilterType} = this.props;
+    const {onChangeFilterType, activeFilter} = this.props;
     return (
-      <form className="places__sorting" action="#" method="get">
+      <form className="places__sorting" action="#" method="get" onMouseLeave = {()=> {
+        this.setState({
+          isOpenedOptions: false
+        });
+      }} onMouseOver = {() => {
+        this.setState({
+          isOpenedOptions: true
+        });
+      }}>
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex="0">
-          {this.state.activeSortItem}
+          {activeFilter}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
         </span>
 
-        <ul className="places__options places__options--custom places__options--opened">
+        <ul className={`places__options places__options--custom ${this.state.isOpenedOptions ? `places__options--opened` : ``}`}>
           {
             OFFERS_SORT_ITEMS.map((sortItem, index) => (
-              <li key={sortItem + index} className={`${this.state.activeSortItem === sortItem ? `places__option--active` : ``} places__option`} tabIndex="0" onClick={() => {
-                this.setActiveSortItem(sortItem);
+              <li key={sortItem + index} className={`${activeFilter === sortItem ? `places__option--active` : ``} places__option`} tabIndex="0" onClick={() => {
                 onChangeFilterType(sortItem);
               }}>
                 {sortItem}
@@ -49,7 +50,7 @@ class OffersSort extends PureComponent {
           //         <option className="places__option" value="to-high">Price: low to high</option>
           //         <option className="places__option" value="to-low">Price: high to low</option>
           //         <option className="places__option" value="top-rated">Top rated first</option>
-          //       </select>
+          // </select>
         }
       </form>
     );
@@ -57,7 +58,8 @@ class OffersSort extends PureComponent {
 }
 
 OffersSort.propTypes = {
-  onChangeFilterType: PropTypes.func.isRequired
+  onChangeFilterType: PropTypes.func.isRequired,
+  activeFilter: PropTypes.string.isRequired
 };
 
 export default OffersSort;

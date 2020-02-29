@@ -31,7 +31,7 @@ class App extends PureComponent {
   }
 
   renderMain() {
-    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType} = this.props;
+    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter} = this.props;
     const {activeId} = this.state;
 
     if (activeId === null) {
@@ -42,7 +42,8 @@ class App extends PureComponent {
           city = {city}
           onChangeFilterType = {onChangeFilterType}
           handleOfferHover = {this.handleOfferHover}
-          activePointId = {this.state.activePointId}/>
+          activePointId = {this.state.activePointId}
+          activeFilter = {activeFilter}/>
       );
     } else {
       const dataReview = reviews.find((it) => it.id === activeId.toString());
@@ -139,7 +140,8 @@ App.propTypes = {
   ).isRequired,
   onChangeCity: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
-  onChangeFilterType: PropTypes.func.isRequired
+  onChangeFilterType: PropTypes.func.isRequired,
+  activeFilter: PropTypes.string.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -155,7 +157,8 @@ const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
   offersDetail: state.offersDetail,
-  reviews: state.reviews
+  reviews: state.reviews,
+  activeFilter: state.activeFilterItem
 });
 
 export {App};

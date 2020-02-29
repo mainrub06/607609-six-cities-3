@@ -16,7 +16,8 @@ class MainInner extends PureComponent {
       city,
       onChangeFilterType,
       handleOfferHover,
-      activePointId
+      activePointId,
+      activeFilter
     } = this.props;
 
     return (
@@ -27,7 +28,7 @@ class MainInner extends PureComponent {
             <b className="places__found">
               {dataCards.length} places to stay in {city}
             </b>
-            <OffersSort onChangeFilterType = {onChangeFilterType}/>
+            <OffersSort activeFilter = {activeFilter} onChangeFilterType = {onChangeFilterType}/>
 
             {<OfferList handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
           </section>
@@ -59,7 +60,9 @@ MainInner.propTypes = {
   onOfferClick: PropTypes.func,
   city: PropTypes.string.isRequired,
   onChangeFilterType: PropTypes.func.isRequired,
-  handleOfferHover: PropTypes.func.isRequired
+  handleOfferHover: PropTypes.func,
+  activeFilter: PropTypes.string.isRequired,
+  activePointId: PropTypes.string
 };
 
 export default MainInner;

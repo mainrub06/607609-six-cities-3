@@ -25,7 +25,7 @@ class MapMain extends PureComponent {
         iconUrl: `img/pin-active.svg`,
         iconSize: [30, 45]
       })
-    }
+    };
 
     this.mainMapRef = createRef();
     this.map = null;
@@ -76,20 +76,21 @@ class MapMain extends PureComponent {
 MapMain.propTypes = {
   nearMap: PropTypes.bool,
   points: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      img: PropTypes.shape({
-        alt: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired
-      }),
-      class: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      rate: PropTypes.number.isRequired,
-      cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
-    })
-).isRequired,
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        img: PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }),
+        class: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+      })
+  ).isRequired,
+  activePointId: PropTypes.string
 };
 
 export default MapMain;

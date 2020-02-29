@@ -179,6 +179,8 @@ exports[`Render Main 1`] = `
             action="#"
             className="places__sorting"
             method="get"
+            onMouseLeave={[Function]}
+            onMouseOver={[Function]}
           >
             <span
               className="places__sorting-caption"
@@ -201,7 +203,7 @@ exports[`Render Main 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom "
             >
               <li
                 className="places__option--active places__option"
@@ -238,6 +240,7 @@ exports[`Render Main 1`] = `
           >
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -342,6 +345,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -446,6 +450,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -550,6 +555,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -654,6 +660,7 @@ exports[`Render Main 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
