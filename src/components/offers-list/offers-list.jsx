@@ -2,22 +2,15 @@ import React, {PureComponent} from "react";
 import Offer from "../offer/offer.jsx";
 import PropTypes from "prop-types";
 
-class OfferList extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const {dataCards, onOfferClick, handleOfferHover} = this.props;
-    return (
-      <div className={`${this.props.isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
+const OfferList = ({dataCards, onOfferClick, handleOfferHover, isOfferDetailItem}) => {
+  return (
+    <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
         {dataCards.map((it) => (
-          <Offer key={it.id} element={it} handleOfferHover={handleOfferHover} onOfferClick={onOfferClick} isOfferDetailItem = {this.props.isOfferDetailItem}/>
+          <Offer key={it.id} element={it} handleOfferHover={handleOfferHover} onOfferClick={onOfferClick} isOfferDetailItem = {isOfferDetailItem}/>
         ))}
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 OfferList.propTypes = {
   dataCards: PropTypes.arrayOf(

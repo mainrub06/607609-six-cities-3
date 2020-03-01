@@ -32,6 +32,8 @@ const getCityData = (cityIn) => {
 
 const getFilteredOffers = (type, city) => {
   switch (type) {
+    case `Popular`:
+      return {offers: mockCityOffers[city], activeFilterItem: type};
     case `Price: low to high`:
       return {offers: getGrowingArrayByPrice(mockCityOffers[city]), activeFilterItem: type};
     case `Price: high to low`:
@@ -39,7 +41,6 @@ const getFilteredOffers = (type, city) => {
     case `Top rated first`:
       return {offers: getTopRated(mockCityOffers[city]), activeFilterItem: type};
   }
-  return {offers: mockCityOffers[city], activeFilterItem: type};
 };
 
 const ActionCreator = {
