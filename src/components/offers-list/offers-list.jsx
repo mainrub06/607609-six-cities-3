@@ -1,13 +1,13 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import Offer from "../offer/offer.jsx";
 import PropTypes from "prop-types";
 
 const OfferList = ({dataCards, onOfferClick, handleOfferHover, isOfferDetailItem}) => {
   return (
     <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
-        {dataCards.map((it) => (
-          <Offer key={it.id} element={it} handleOfferHover={handleOfferHover} onOfferClick={onOfferClick} isOfferDetailItem = {isOfferDetailItem}/>
-        ))}
+      {dataCards.map((it) => (
+        <Offer key={it.id} element={it} handleOfferHover={handleOfferHover} onOfferClick={onOfferClick} isOfferDetailItem = {isOfferDetailItem}/>
+      ))}
     </div>
   );
 };

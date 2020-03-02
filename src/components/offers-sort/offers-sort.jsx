@@ -16,9 +16,9 @@ class OffersSort extends PureComponent {
     return (
       <form className="places__sorting" action="#" method="get" onMouseLeave = {()=> {
         this.setState({
-          isOpenedOptions: false
+          // isOpenedOptions: false
         });
-      }} onMouseOver = {() => {
+      }} onMouseEnter = {() => {
         this.setState({
           isOpenedOptions: true
         });

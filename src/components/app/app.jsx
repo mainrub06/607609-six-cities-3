@@ -6,6 +6,7 @@ import {ActionCreator} from "../../reducer.js";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
+import {getFilteredOffers} from "../../utils";
 
 class App extends PureComponent {
   constructor(props) {
@@ -146,18 +147,18 @@ App.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+  onChangeCity(cityIn) {
+    dispatch(ActionCreator.changeCity({city: cityIn}));
   },
   onChangeFilterType(type) {
-    dispatch(ActionCreator.setFilteredOffers(type));
+    dispatch(ActionCreator.getActiveFilter({activeFilterItem: type}));
   }
 });
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers,
-  offersDetail: state.offersDetail,
+  offers: getFilteredOffers(state.activeFilterItem, state.cities[state.city]),
+  offersDetail: state.citiesDetail[state.city],
   reviews: state.reviews,
   activeFilter: state.activeFilterItem
 });

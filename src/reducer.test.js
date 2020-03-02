@@ -13,11 +13,13 @@ const initialState = {
   offers: initialCityOffers,
   offersDetail: initialCityOffersDetail,
   reviews: mockReviews,
+  cities: mockCityOffers,
+  citiesDetail: mockCityOffersDetail,
   activeFilterItem: OFFERS_SORT_ITEMS[0]
 };
 
 const targetCity = Object.keys(mockCityOffers)[1];
-const actionChangeCity = ActionCreator.changeCity(targetCity);
+const actionChangeCity = ActionCreator.changeCity({city: targetCity});
 
 describe(`Reducer tests`, () => {
   it(`Reducer return initial state`, () => {
@@ -26,6 +28,8 @@ describe(`Reducer tests`, () => {
       offers: initialCityOffers,
       offersDetail: initialCityOffersDetail,
       reviews: mockReviews,
+      cities: mockCityOffers,
+      citiesDetail: mockCityOffersDetail,
       activeFilterItem: OFFERS_SORT_ITEMS[0]
     });
   });
@@ -33,9 +37,11 @@ describe(`Reducer tests`, () => {
   it(`Reducer return target city state`, () => {
     expect(reducer(initialState, actionChangeCity)).toEqual({
       city: targetCity,
-      offers: mockCityOffers[targetCity],
-      offersDetail: mockCityOffersDetail[targetCity],
+      offers: initialCityOffers,
+      offersDetail: initialCityOffersDetail,
       reviews: mockReviews,
+      cities: mockCityOffers,
+      citiesDetail: mockCityOffersDetail,
       activeFilterItem: OFFERS_SORT_ITEMS[0]
     });
   });

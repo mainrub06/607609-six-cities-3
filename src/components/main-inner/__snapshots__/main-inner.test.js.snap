@@ -26,8 +26,8 @@ exports[`Render Main 1`] = `
         action="#"
         className="places__sorting"
         method="get"
+        onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        onMouseOver={[Function]}
       >
         <span
           className="places__sorting-caption"
