@@ -3,14 +3,10 @@ import renderer from "react-test-renderer";
 import Map from "./map.jsx";
 import PLACE_MOCK from "../../mock/offers.js";
 
-
-const points = PLACE_MOCK.map((it) => it.cords);
-
-
 it(`Render Map`, () => {
   const tree = renderer
     .create(
-        <Map points={points} />
+        <Map activePointId = {PLACE_MOCK[0].id} points={PLACE_MOCK} />
     )
     .toJSON();
 

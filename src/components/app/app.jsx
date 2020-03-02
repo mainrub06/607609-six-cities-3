@@ -6,24 +6,34 @@ import {ActionCreator} from "../../reducer.js";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
+import {getFilteredOffers} from "../../utils";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
+    this.handleOfferHover = this.handleOfferHover.bind(this);
     this.state = {
-      activeId: null
+      activeId: null,
+      activePointId: null
     };
   }
 
   handleOfferClick(id) {
     this.setState({
-      activeId: id
+      activeId: id,
+      activePointId: null
+    });
+  }
+
+  handleOfferHover(id) {
+    this.setState({
+      activePointId: id
     });
   }
 
   renderMain() {
-    const {offersDetail, reviews, onChangeCity, offers, city} = this.props;
+    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter} = this.props;
     const {activeId} = this.state;
 
     if (activeId === null) {
@@ -31,7 +41,11 @@ class App extends PureComponent {
         <Main onChangeCity = {onChangeCity}
           dataCards = {offers}
           onOfferClick = {this.handleOfferClick}
-          city = {city}/>
+          city = {city}
+          onChangeFilterType = {onChangeFilterType}
+          handleOfferHover = {this.handleOfferHover}
+          activePointId = {this.state.activePointId}
+          activeFilter = {activeFilter}/>
       );
     } else {
       const dataReview = reviews.find((it) => it.id === activeId.toString());
@@ -40,7 +54,9 @@ class App extends PureComponent {
           review={dataReview}
           dataCardsDetail = {offersDetail}
           activeId = {activeId}
-          dataCards = {offers}/>
+          dataCards = {offers}
+          handleOfferHover = {this.handleOfferHover}
+          activePointId = {this.state.activePointId}/>
       );
     }
   }
@@ -125,20 +141,26 @@ App.propTypes = {
       })
   ).isRequired,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  onChangeFilterType: PropTypes.func.isRequired,
+  activeFilter: PropTypes.string.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+  onChangeCity(cityIn) {
+    dispatch(ActionCreator.changeCity({city: cityIn}));
+  },
+  onChangeFilterType(type) {
+    dispatch(ActionCreator.getActiveFilter({activeFilterItem: type}));
   }
 });
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers,
-  offersDetail: state.offersDetail,
-  reviews: state.reviews
+  offers: getFilteredOffers(state.activeFilterItem, state.cities[state.city]),
+  offersDetail: state.citiesDetail[state.city],
+  reviews: state.reviews,
+  activeFilter: state.activeFilterItem
 });
 
 export {App};

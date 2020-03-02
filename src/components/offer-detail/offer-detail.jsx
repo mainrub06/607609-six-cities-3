@@ -10,14 +10,6 @@ class OfferDetail extends PureComponent {
     super(props);
   }
 
-  getNearPoints(cords) {
-    if (cords) {
-      return cords.map((nearCordsItem) => nearCordsItem.cords);
-    } else {
-      return [];
-    }
-  }
-
   getSameOffers(cords, dataCards) {
     if (cords && dataCards) {
       return cords.map((nearCordsItem) => dataCards.find((dataCardsItem) => dataCardsItem.id === nearCordsItem.id));
@@ -32,10 +24,11 @@ class OfferDetail extends PureComponent {
       review,
       activeId,
       dataCards,
-      onOfferClick
+      onOfferClick,
+      handleOfferHover,
+      activePointId
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
-    const nearPoints = this.getNearPoints(element.nearCords);
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
 
     return (
@@ -185,7 +178,7 @@ class OfferDetail extends PureComponent {
                 </div>
               </div>
 
-              {<MapDetail points={nearPoints} nearMap={true} />}
+              {<MapDetail activePointId = {activePointId} points={sameOffers} nearMap={true} />}
             </section>
             <div className="container">
               <section className="near-places places">
@@ -198,6 +191,7 @@ class OfferDetail extends PureComponent {
                     onOfferClick={onOfferClick}
                     isOfferDetailItem={true}
                     dataCards={sameOffers}
+                    handleOfferHover = {handleOfferHover}
                   />
                 }
               </section>
@@ -299,7 +293,9 @@ OfferDetail.propTypes = {
           })
         })
     ).isRequired
-  })
+  }),
+  handleOfferHover: PropTypes.func,
+  activePointId: PropTypes.string
 };
 
 export default OfferDetail;

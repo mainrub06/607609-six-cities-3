@@ -6,6 +6,7 @@ exports[`Render OfferList component 1`] = `
 >
   <article
     className="cities__place-card place-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
@@ -110,6 +111,7 @@ exports[`Render OfferList component 1`] = `
   </article>
   <article
     className="cities__place-card place-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
@@ -214,6 +216,7 @@ exports[`Render OfferList component 1`] = `
   </article>
   <article
     className="cities__place-card place-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
@@ -318,6 +321,7 @@ exports[`Render OfferList component 1`] = `
   </article>
   <article
     className="cities__place-card place-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
@@ -422,6 +426,7 @@ exports[`Render OfferList component 1`] = `
   </article>
   <article
     className="cities__place-card place-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div

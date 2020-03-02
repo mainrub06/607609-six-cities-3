@@ -683,6 +683,7 @@ exports[`Render OfferDetail component 1`] = `
         >
           <article
             className="near-places__card place-card"
+            onMouseLeave={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -780,6 +781,7 @@ exports[`Render OfferDetail component 1`] = `
           </article>
           <article
             className="near-places__card place-card"
+            onMouseLeave={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -877,6 +879,7 @@ exports[`Render OfferDetail component 1`] = `
           </article>
           <article
             className="near-places__card place-card"
+            onMouseLeave={[Function]}
             onMouseOver={[Function]}
           >
             <div

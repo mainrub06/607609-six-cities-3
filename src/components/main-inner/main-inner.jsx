@@ -1,4 +1,5 @@
 import React, {PureComponent} from "react";
+import OffersSort from "../offers-sort/offers-sort.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import MapMain from "../map/map.jsx";
 import PropTypes from "prop-types";
@@ -12,9 +13,12 @@ class MainInner extends PureComponent {
     const {
       dataCards,
       onOfferClick,
-      city
+      city,
+      onChangeFilterType,
+      handleOfferHover,
+      activePointId,
+      activeFilter
     } = this.props;
-    const points = dataCards.map((it) => it.cords);
 
     return (
       <div className="cities">
@@ -24,44 +28,12 @@ class MainInner extends PureComponent {
             <b className="places__found">
               {dataCards.length} places to stay in {city}
             </b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex="0">
-                Popular
-                <svg className="places__sorting-arrow" width="7" height="4">
-                  <use xlinkHref="#icon-arrow-select"></use>
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li
-                  className="places__option places__option--active"
-                  tabIndex="0"
-                >
-                  Popular
-                </li>
-                <li className="places__option" tabIndex="0">
-                  Price: low to high
-                </li>
-                <li className="places__option" tabIndex="0">
-                  Price: high to low
-                </li>
-                <li className="places__option" tabIndex="0">
-                  Top rated first
-                </li>
-              </ul>
+            <OffersSort activeFilter = {activeFilter} onChangeFilterType = {onChangeFilterType}/>
 
-              {/* <select className="places__sorting-type" id="places-sorting">
-                  <option className="places__option" value="popular" selected="">Popular</option>
-                  <option className="places__option" value="to-high">Price: low to high</option>
-                  <option className="places__option" value="to-low">Price: high to low</option>
-                  <option className="places__option" value="top-rated">Top rated first</option>
-                </select> */}
-            </form>
-
-            {<OfferList onOfferClick={onOfferClick} dataCards={dataCards} />}
+            {<OfferList handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
           </section>
           <div className="cities__right-section">
-            {<MapMain points={points} />}
+            {<MapMain activePointId = {activePointId} points={dataCards} />}
           </div>
         </div>
       </div>
@@ -86,7 +58,11 @@ MainInner.propTypes = {
       })
   ).isRequired,
   onOfferClick: PropTypes.func,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  onChangeFilterType: PropTypes.func.isRequired,
+  handleOfferHover: PropTypes.func,
+  activeFilter: PropTypes.string.isRequired,
+  activePointId: PropTypes.string
 };
 
 export default MainInner;

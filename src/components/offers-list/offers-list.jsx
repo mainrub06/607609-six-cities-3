@@ -1,34 +1,16 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import Offer from "../offer/offer.jsx";
 import PropTypes from "prop-types";
 
-class OfferList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeOfferId: null
-    };
-    this.handleOfferHover = this.handleOfferHover.bind(this);
-  }
-
-  handleOfferHover(id = null) {
-    this.setState({
-      activeOfferId: id
-    });
-  }
-
-  render() {
-    const {dataCards, onOfferClick} = this.props;
-    return (
-      <div className={`${this.props.isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
-        {dataCards.map((it) => (
-          <Offer key={it.id} element={it} handleOfferHover={this.handleOfferHover} onOfferClick={onOfferClick} isOfferDetailItem = {this.props.isOfferDetailItem}/>
-        ))}
-      </div>
-    );
-  }
-}
+const OfferList = ({dataCards, onOfferClick, handleOfferHover, isOfferDetailItem}) => {
+  return (
+    <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
+      {dataCards.map((it) => (
+        <Offer key={it.id} element={it} handleOfferHover={handleOfferHover} onOfferClick={onOfferClick} isOfferDetailItem = {isOfferDetailItem}/>
+      ))}
+    </div>
+  );
+};
 
 OfferList.propTypes = {
   dataCards: PropTypes.arrayOf(
@@ -46,7 +28,8 @@ OfferList.propTypes = {
       })
   ).isRequired,
   onOfferClick: PropTypes.func.isRequired,
-  isOfferDetailItem: PropTypes.bool
+  isOfferDetailItem: PropTypes.bool,
+  handleOfferHover: PropTypes.func.isRequired
 };
 
 export default OfferList;

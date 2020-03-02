@@ -15,6 +15,8 @@ it(`Render OfferDetail component`, () => {
           dataCards={PLACE_MOCK}
           dataCardsDetail={PLACE_MOCK_DETAIL}
           element={PLACE_MOCK_DETAIL[0]}
+          handleOfferHover={() => {}}
+          activePointId={PLACE_MOCK[0].id}
         />
     )
     .toJSON();

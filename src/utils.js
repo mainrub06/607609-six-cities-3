@@ -23,3 +23,29 @@ export const getStarsFromNum = (num) => {
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
+
+export const getGrowingArrayByPrice = (array) => {
+  return array.slice().sort((a, b) => Number(a.price) - Number(b.price));
+};
+
+export const getFallingArrayByPrice = (array) => {
+  return array.slice().sort((a, b) => Number(b.price) - Number(a.price));
+};
+
+export const getTopRated = (array) => {
+  return array.slice().sort((a, b) => b.rate - a.rate);
+};
+
+export const getFilteredOffers = (type, offers) => {
+  switch (type) {
+    case `Popular`:
+      return offers;
+    case `Price: low to high`:
+      return getGrowingArrayByPrice(offers);
+    case `Price: high to low`:
+      return getFallingArrayByPrice(offers);
+    case `Top rated first`:
+      return getTopRated(offers);
+  }
+  return offers;
+};
