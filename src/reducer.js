@@ -28,7 +28,7 @@ const ActionCreator = {
     type: ActionType.CHENGE_CITY,
     payload: city
   }),
-  getActiveFilter: (type) => ({
+  setActiveFilter: (type) => ({
     type: ActionType.SET_FILTERED_OFFERS,
     payload: type
   })

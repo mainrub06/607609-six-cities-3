@@ -14,20 +14,10 @@ class CityList extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeLink: 0
-    };
-  }
-
-  setActiveLink(count) {
-    this.setState({
-      activeLink: count
-    });
   }
 
   render() {
-    const {onChangeCity} = this.props;
-    let activeLink = this.state.activeLink;
+    const {onChangeCity, activeItemIndex, handleItemClick} = this.props;
 
     return (
       <div className="tabs">
@@ -36,11 +26,11 @@ class CityList extends PureComponent {
             {cities.map((city, index) => (
               <li className="locations__item" key={city}>
                 <a
-                  className={`${index === activeLink ? `tabs__item--active` : ``} locations__item-link tabs__item`}
+                  className={`${index === activeItemIndex ? `tabs__item--active` : ``} locations__item-link tabs__item`}
                   href="#"
                   onClick={()=>{
                     onChangeCity(city);
-                    this.setActiveLink(index);
+                    handleItemClick(index);
                   }}
                 >
                   <span>{city}</span>
@@ -54,7 +44,9 @@ class CityList extends PureComponent {
 }
 
 CityList.propTypes = {
-  onChangeCity: PropTypes.func.isRequired
+  onChangeCity: PropTypes.func.isRequired,
+  activeItemIndex: PropTypes.number.isRequired,
+  handleItemClick: PropTypes.func.isRequired
 };
 
 export default CityList;

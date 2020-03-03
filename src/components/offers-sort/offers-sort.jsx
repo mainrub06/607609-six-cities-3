@@ -22,7 +22,7 @@ class OffersSort extends PureComponent {
 
   handleSortLeave() {
     this.setState({
-      // isOpenedOptions: false
+      isOpenedOptions: false
     });
   }
 

@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import CityList from "../city-list/city-list.jsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
+import withActiveIndex from "../../hocs/withActiveIndex.jsx";
+
+const CityListWrapper = withActiveIndex(CityList);
 
 class Main extends PureComponent {
   constructor(props) {
@@ -39,7 +42,7 @@ class Main extends PureComponent {
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <CityList onChangeCity = {onChangeCity} />
+          <CityListWrapper onChangeCity = {onChangeCity} />
 
           {dataCards.length !== 0 ?
             <MainInner activeFilter = {activeFilter}

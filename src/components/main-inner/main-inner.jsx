@@ -2,7 +2,10 @@ import React, {PureComponent} from "react";
 import OffersSort from "../offers-sort/offers-sort.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import MapMain from "../map/map.jsx";
+import withActiveIndex from "../../hocs/withActiveIndex.jsx";
 import PropTypes from "prop-types";
+
+const OfferListWrapped = withActiveIndex(OfferList);
 
 class MainInner extends PureComponent {
   constructor(props) {
@@ -30,7 +33,7 @@ class MainInner extends PureComponent {
             </b>
             <OffersSort activeFilter = {activeFilter} onChangeFilterType = {onChangeFilterType}/>
 
-            {<OfferList handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
+            {<OfferListWrapped handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
           </section>
           <div className="cities__right-section">
             {<MapMain activePointId = {activePointId} points={dataCards} />}
