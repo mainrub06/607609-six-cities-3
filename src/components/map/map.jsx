@@ -47,10 +47,15 @@ class MapMain extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    prevProps.points.forEach((prevPoint) => {
-      this.map.removeLayer(prevPoint.cords);
-    });
-    this.updateMap();
+    const {points, activePointId} = this.props;
+    const getActivePoint = points.find((point) => point.id === activePointId);
+
+    if (getActivePoint) {
+      prevProps.points.forEach((prevPoint) => {
+        this.map.removeLayer(prevPoint.cords);
+      });
+      this.updateMap();
+    }
   }
 
   updateMap() {
