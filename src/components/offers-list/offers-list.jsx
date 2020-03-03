@@ -1,25 +1,12 @@
-import React, { PureComponent } from "react";
+import React, {PureComponent} from "react";
 import Offer from "../offer/offer.jsx";
 import PropTypes from "prop-types";
-
-// const OfferList = ({dataCards, onOfferClick, handleOfferHover, isOfferDetailItem, handleItemClick}) => {
-//   return (
-//     <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
-//       {dataCards.map((it) => (
-//         <Offer key={it.id}
-//           element={it}
-//           handleOfferHover={handleOfferHover}
-//           onOfferClick={onOfferClick}
-//           isOfferDetailItem = {isOfferDetailItem}
-//           handleItemClick = {handleItemClick}/>
-//       ))}
-//     </div>
-//   );
-// };
 
 class OfferList extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.setIdState = this.setIdState.bind(this);
   }
 
   setIdState(id) {
@@ -31,19 +18,19 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, handleOfferHover, isOfferDetailItem, handleItemClick} = this.props;
+    const {dataCards, onOfferClick, isOfferDetailItem} = this.props;
     return (
       <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
-      {dataCards.map((it) => (
-        <Offer key={it.id}
-          element={it}
-          handleOfferHover={this.setIdState}
-          onOfferClick={onOfferClick}
-          isOfferDetailItem = {isOfferDetailItem}/>
-      ))}
-    </div>
+        {dataCards.map((it) => (
+          <Offer key={it.id}
+            element={it}
+            handleOfferHover={this.setIdState}
+            onOfferClick={onOfferClick}
+            isOfferDetailItem = {isOfferDetailItem}/>
+        ))}
+      </div>
     );
-  };
+  }
 }
 
 OfferList.propTypes = {

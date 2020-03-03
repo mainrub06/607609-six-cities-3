@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import OffersSort from "../offers-sort/offers-sort.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import MapMain from "../map/map.jsx";
-import withActiveIndex from "../../hocs/withActiveIndex.jsx";
+import withActiveIndex from "../../hocs/withActiveIndex/withActiveIndex.jsx";
 import PropTypes from "prop-types";
 
 const OfferListWrapped = withActiveIndex(OfferList);
