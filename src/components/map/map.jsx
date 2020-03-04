@@ -29,6 +29,7 @@ class MapMain extends PureComponent {
 
     this.mainMapRef = createRef();
     this.map = null;
+    this.layerGroup = null;
   }
 
   componentDidMount() {
@@ -42,32 +43,33 @@ class MapMain extends PureComponent {
         })
         .addTo(this.map);
 
-      this.updateMap();
+      this.layerGroup = {map: this.map, layerGroup: leaflet.layerGroup().addTo(this.map)};
 
+      this.updateMap();
     }
   }
 
   componentDidUpdate(prevProps) {
     const {points, activePointId} = this.props;
+    const {layerGroup} = this.layerGroup;
     const getActivePoint = points.find((point) => point.id === activePointId);
 
     if (getActivePoint) {
-      prevProps.points.forEach((prevPoint) => {
-        this.map.removeLayer(prevPoint.cords);
-      });
+      layerGroup.clearLayers();
       this.updateMap();
     }
   }
 
   updateMap() {
     const {points, activePointId} = this.props;
+    const {layerGroup} = this.layerGroup;
 
     points.forEach((point) => {
       const icon = activePointId && activePointId === point.id ? this.icons.iconOrange : this.icons.iconBlue;
 
       leaflet
       .marker(point.cords, {icon})
-      .addTo(this.map);
+      .addTo(layerGroup);
     });
   }
 
