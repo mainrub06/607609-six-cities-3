@@ -20,6 +20,14 @@ const store = createStore(
 
 store.dispatch(LoadOffersData.loadOffers());
 
+// ПРИМЕРЫ
+// store.dispatch(LoadOffersData.loadOffers());
+// store.dispatch(LoadOffersDetailData.loadOffers());
+// store.dispatch(LoadOffersReviewsData.loadOffers());
+
+
+
+
 ReactDOM.render(
     <Provider store = {store}>
       <App />
