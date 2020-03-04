@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/main/main.js";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
@@ -156,11 +156,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: getFilteredOffers(state.activeFilterItem, state.cities[state.city]),
-  offersDetail: state.citiesDetail[state.city],
-  reviews: state.reviews,
-  activeFilter: state.activeFilterItem
+  city: state.main.city,
+  offers: getFilteredOffers(state.main.activeFilterItem, state.main.cities[state.main.city]),
+  offersDetail: state.main.citiesDetail[state.main.city],
+  reviews: state.main.reviews,
+  activeFilter: state.main.activeFilterItem
 });
 
 export {App};

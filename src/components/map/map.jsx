@@ -49,7 +49,7 @@ class MapMain extends PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const {points, activePointId} = this.props;
     const {layerGroup} = this.layerGroup;
     const getActivePoint = points.find((point) => point.id === activePointId);
