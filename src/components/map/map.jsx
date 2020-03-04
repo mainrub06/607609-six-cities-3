@@ -43,6 +43,7 @@ class MapMain extends PureComponent {
         .addTo(this.map);
 
       this.updateMap();
+
     }
   }
 
