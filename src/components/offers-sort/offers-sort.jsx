@@ -6,23 +6,30 @@ class OffersSort extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.handleSortEnter = this.handleSortEnter.bind(this);
+    this.handleSortLeave = this.handleSortLeave.bind(this);
+
     this.state = {
       isOpenedOptions: false
     };
   }
 
+  handleSortEnter() {
+    this.setState({
+      isOpenedOptions: true
+    });
+  }
+
+  handleSortLeave() {
+    this.setState({
+      isOpenedOptions: false
+    });
+  }
+
   render() {
     const {onChangeFilterType, activeFilter} = this.props;
     return (
-      <form className="places__sorting" action="#" method="get" onMouseLeave = {()=> {
-        this.setState({
-          // isOpenedOptions: false
-        });
-      }} onMouseEnter = {() => {
-        this.setState({
-          isOpenedOptions: true
-        });
-      }}>
+      <form className="places__sorting" action="#" method="get" onMouseLeave = {this.handleSortLeave} onMouseEnter = {this.handleSortEnter}>
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex="0">
           {activeFilter}

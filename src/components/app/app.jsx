@@ -151,7 +151,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity({city: cityIn}));
   },
   onChangeFilterType(type) {
-    dispatch(ActionCreator.getActiveFilter({activeFilterItem: type}));
+    dispatch(ActionCreator.setActiveFilter({activeFilterItem: type}));
   }
 });
 
