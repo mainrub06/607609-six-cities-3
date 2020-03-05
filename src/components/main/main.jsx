@@ -13,7 +13,15 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, onChangeCity, city, onChangeFilterType, handleOfferHover, activePointId, activeFilter} = this.props;
+    const {dataCards,
+      onOfferClick,
+      onChangeCity,
+      city,
+      onChangeFilterType,
+      handleOfferHover,
+      activePointId,
+      activeFilter,
+      citiesNames} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -42,7 +50,7 @@ class Main extends PureComponent {
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <CityListWrapper onChangeCity = {onChangeCity} />
+          <CityListWrapper citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
 
           {dataCards.length !== 0 ?
             <MainInner activeFilter = {activeFilter}
@@ -81,7 +89,14 @@ Main.propTypes = {
   ).isRequired,
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    })
+  }),
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,
   activePointId: PropTypes.string,

@@ -6,7 +6,7 @@ import {ActionCreator} from "../../reducer/main/main.js";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
-import {getFilteredOffers} from "../../utils";
+import {getFilteredOffers, getCityObj, getFirstCity, getOffers} from "../../utils";
 
 class App extends PureComponent {
   constructor(props) {
@@ -33,31 +33,35 @@ class App extends PureComponent {
   }
 
   renderMain() {
-    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter} = this.props;
+    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter, citiesNames} = this.props;
     const {activeId} = this.state;
 
-    if (activeId === null) {
-      return (
-        <Main onChangeCity = {onChangeCity}
-          dataCards = {offers}
-          onOfferClick = {this.handleOfferClick}
-          city = {city}
-          onChangeFilterType = {onChangeFilterType}
-          handleOfferHover = {this.handleOfferHover}
-          activePointId = {this.state.activePointId}
-          activeFilter = {activeFilter}/>
-      );
-    } else {
-      const dataReview = reviews.find((it) => it.id === activeId.toString());
-      return (
-        <OfferDetail onOfferClick = {this.handleOfferClick}
-          review={dataReview}
-          dataCardsDetail = {offersDetail}
-          activeId = {activeId}
-          dataCards = {offers}
-          handleOfferHover = {this.handleOfferHover}
-          activePointId = {this.state.activePointId}/>
-      );
+    if (citiesNames !== null) {
+      if (activeId === null) {
+        return (
+          <Main onChangeCity = {onChangeCity}
+            dataCards = {offers}
+            onOfferClick = {this.handleOfferClick}
+            city = {city}
+            onChangeFilterType = {onChangeFilterType}
+            handleOfferHover = {this.handleOfferHover}
+            activePointId = {this.state.activePointId}
+            activeFilter = {activeFilter}
+            citiesNames = {citiesNames}
+            />
+        );
+      } else {
+        const dataReview = reviews.find((it) => it.id === activeId.toString());
+        return (
+          <OfferDetail onOfferClick = {this.handleOfferClick}
+            review={dataReview}
+            dataCardsDetail = {offersDetail}
+            activeId = {activeId}
+            dataCards = {offers}
+            handleOfferHover = {this.handleOfferHover}
+            activePointId = {this.state.activePointId}/>
+        );
+      }
     }
   }
 
@@ -141,14 +145,21 @@ App.propTypes = {
       })
   ).isRequired,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    })
+  }),
   onChangeFilterType: PropTypes.func.isRequired,
   activeFilter: PropTypes.string.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(cityIn) {
-    dispatch(ActionCreator.changeCity({city: cityIn}));
+    dispatch(ActionCreator.changeCity({cityName: cityIn}));
   },
   onChangeFilterType(type) {
     dispatch(ActionCreator.setActiveFilter({activeFilterItem: type}));
@@ -156,9 +167,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  city: state.main.city,
-  offers: getFilteredOffers(state.main.activeFilterItem, state.main.cities[state.main.city]),
-  offersDetail: state.main.citiesDetail[state.main.city],
+  cityName: getFirstCity(state.data.citiesNames),
+  citiesNames: state.data.citiesNames,
+  city: getCityObj(state.data.loadCityOffers, state.main.cityName),
+  offers: getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName)),
+  offersDetail: state.main.citiesDetail[state.main.city.name],
   reviews: state.main.reviews,
   activeFilter: state.main.activeFilterItem
 });

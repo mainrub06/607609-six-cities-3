@@ -33,9 +33,12 @@ class MapMain extends PureComponent {
   }
 
   componentDidMount() {
+    const {city} = this.props;
+    const cityLocation = [city.location.latitude, city.location.longitude];
+
     if (this.mainMapRef.current) {
       this.map = leaflet.map(this.mainMapRef.current, this.mapConfig);
-      this.map.setView(this.city, this.zoomMap);
+      this.map.setView(cityLocation, city.location.zoom);
 
       leaflet
         .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -52,7 +55,11 @@ class MapMain extends PureComponent {
   componentDidUpdate() {
     const {points, activePointId} = this.props;
     const {layerGroup} = this.layerGroup;
+    const {city} = this.props;
     const getActivePoint = points.find((point) => point.id === activePointId);
+    const cityLocation = [city.location.latitude, city.location.longitude];
+
+    this.map.setView(cityLocation, city.location.zoom);
 
     if (getActivePoint) {
       layerGroup.clearLayers();
@@ -101,7 +108,15 @@ MapMain.propTypes = {
         cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
       })
   ).isRequired,
-  activePointId: PropTypes.string
+  activePointId: PropTypes.string,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    })
+  }),
 };
 
 export default MapMain;

@@ -1,15 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
 
-const cities = [
-  `Paris`,
-  `Cologne`,
-  `Brussels`,
-  `Amsterdam`,
-  `Hamburg`,
-  `Dusseldorf`
-];
-
 class CityList extends PureComponent {
   constructor(props) {
     super(props);
@@ -17,13 +8,13 @@ class CityList extends PureComponent {
   }
 
   render() {
-    const {onChangeCity, activeItemIndex, handleItemClick} = this.props;
+    const {onChangeCity, activeItemIndex, handleItemClick, citiesNames} = this.props;
 
     return (
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {cities.map((city, index) => (
+            {citiesNames.map((city, index) => (
               <li className="locations__item" key={city}>
                 <a
                   className={`${index === activeItemIndex ? `tabs__item--active` : ``} locations__item-link tabs__item`}

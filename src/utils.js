@@ -49,3 +49,23 @@ export const getFilteredOffers = (type, offers) => {
   }
   return offers;
 };
+
+export const getCityObj = (offers, city) => {
+  if (offers !== null) {
+    const data = offers[city][0].city;
+    return data;
+  }
+  return {};
+}
+
+export const getFirstCity = (cities) => {
+  if (cities !== null) {
+    return cities[0];
+  }
+};
+
+export const getOffers = (cityOffers, activeFilter) => {
+  if (cityOffers !== null) {
+    return cityOffers[activeFilter];
+  }
+};

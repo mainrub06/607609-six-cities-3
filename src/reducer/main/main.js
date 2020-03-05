@@ -5,11 +5,21 @@ import {extend} from "../../utils.js";
 import {OFFERS_SORT_ITEMS} from "../../const";
 
 const initialCity = Object.keys(mockCityOffers)[0];
+const initialCityObj = {
+  name: initialCity,
+  location: {
+    latitude: 48.85661,
+    longitude: 2.351499,
+    zoom: 13
+  }
+};
+
 const initialCityOffers = mockCityOffers[initialCity];
 const initialCityOffersDetail = mockCityOffersDetail[initialCity];
 
 const initialState = {
-  city: initialCity,
+  city: initialCityObj,
+  cityName: `Paris`,
   offers: initialCityOffers,
   offersDetail: initialCityOffersDetail,
   reviews: mockReviews,

@@ -3,4 +3,4 @@ import {combineReducers} from "redux";
 import {reducer as data} from "./data/data";
 import {reducer as main} from "./main/main";
 
-export default combineReducers({main, data});
+export default combineReducers({data, main});
