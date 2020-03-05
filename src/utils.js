@@ -52,8 +52,7 @@ export const getFilteredOffers = (type, offers) => {
 
 export const getCityObj = (offers, city) => {
   if (offers !== null) {
-    const data = offers[city][0].city;
-    return data;
+    return offers[city][0].city;
   }
   return {};
 }
@@ -68,4 +67,8 @@ export const getOffers = (cityOffers, activeFilter) => {
   if (cityOffers !== null) {
     return cityOffers[activeFilter];
   }
+};
+
+export const getImages = (images) => {
+  return images.map((image, index) => ({src: image, alt: index}));
 };

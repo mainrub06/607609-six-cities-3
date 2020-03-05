@@ -59,7 +59,8 @@ class App extends PureComponent {
             activeId = {activeId}
             dataCards = {offers}
             handleOfferHover = {this.handleOfferHover}
-            activePointId = {this.state.activePointId}/>
+            activePointId = {this.state.activePointId}
+            city = {city}/>
         );
       }
     }
@@ -171,7 +172,7 @@ const mapStateToProps = (state) => ({
   citiesNames: state.data.citiesNames,
   city: getCityObj(state.data.loadCityOffers, state.main.cityName),
   offers: getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName)),
-  offersDetail: state.main.citiesDetail[state.main.city.name],
+  offersDetail: getOffers(state.data.loadCityOffersDetail, state.main.cityName),
   reviews: state.main.reviews,
   activeFilter: state.main.activeFilterItem
 });

@@ -61,10 +61,8 @@ class MapMain extends PureComponent {
 
     this.map.setView(cityLocation, city.location.zoom);
 
-    if (getActivePoint) {
-      layerGroup.clearLayers();
-      this.updateMap();
-    }
+    layerGroup.clearLayers();
+    this.updateMap();
   }
 
   updateMap() {

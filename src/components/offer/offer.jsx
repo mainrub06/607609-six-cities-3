@@ -10,9 +10,9 @@ const Offer = ({element, handleOfferHover, onOfferClick, isOfferDetailItem}) => 
       handleOfferHover(null);
     }} className= {`${isOfferDetailItem ? `near-places__card` : `cities__place-card`} place-card`}>
 
-      {!isOfferDetailItem &&
+      {element.class &&
         <div className="place-card__mark">
-          <span>{element.class}</span>
+          <span>Premium</span>
         </div>
       }
 

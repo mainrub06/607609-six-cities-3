@@ -26,7 +26,8 @@ class OfferDetail extends PureComponent {
       dataCards,
       onOfferClick,
       handleOfferHover,
-      activePointId
+      activePointId,
+      city
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
@@ -72,22 +73,27 @@ class OfferDetail extends PureComponent {
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {element.photos.map((el, id) => (
-                    <div key={el.alt + id} className="property__image-wrapper">
-                      <img
-                        className="property__image"
-                        src={el.src}
-                        alt={el.alt}
-                      />
-                    </div>
-                  ))}
+                  {element.photos.map((el, id) => {
+                    if (id > 5) return;
+
+                    return  (<div key={el.alt + id} className="property__image-wrapper">
+                        <img
+                          className="property__image"
+                          src={el.src}
+                          alt={el.alt}
+                        />
+                      </div>);
+                  })}
                 </div>
               </div>
               <div className="property__container container">
                 <div className="property__wrapper">
-                  <div className="property__mark">
-                    <span>{element.class}</span>
-                  </div>
+                  {element.class &&
+                    <div className="property__mark">
+                      <span>Premium</span>
+                    </div>
+                  }
+
                   <div className="property__name-wrapper">
                     <h1 className="property__name">{element.name}</h1>
                     <button
@@ -178,7 +184,7 @@ class OfferDetail extends PureComponent {
                 </div>
               </div>
 
-              {<MapDetail activePointId = {activePointId} points={sameOffers} nearMap={true} />}
+              {<MapDetail city = {city} activePointId = {activePointId} points={sameOffers} nearMap={true} />}
             </section>
             <div className="container">
               <section className="near-places places">

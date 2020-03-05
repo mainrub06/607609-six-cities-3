@@ -1,30 +1,13 @@
-import mockCityOffers from "../../mock/city-offers";
-import mockCityOffersDetail from "../../mock/city-offers-detail";
 import mockReviews from "../../mock/reviews";
 import {extend} from "../../utils.js";
 import {OFFERS_SORT_ITEMS} from "../../const";
 
-const initialCity = Object.keys(mockCityOffers)[0];
-const initialCityObj = {
-  name: initialCity,
-  location: {
-    latitude: 48.85661,
-    longitude: 2.351499,
-    zoom: 13
-  }
-};
-
-const initialCityOffers = mockCityOffers[initialCity];
-const initialCityOffersDetail = mockCityOffersDetail[initialCity];
 
 const initialState = {
-  city: initialCityObj,
   cityName: `Paris`,
-  offers: initialCityOffers,
-  offersDetail: initialCityOffersDetail,
+  offers: null,
+  offersDetail: null,
   reviews: mockReviews,
-  cities: mockCityOffers,
-  citiesDetail: mockCityOffersDetail,
   activeFilterItem: OFFERS_SORT_ITEMS[0]
 };
 

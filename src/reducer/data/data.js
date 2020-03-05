@@ -1,9 +1,10 @@
-import {extend} from "../../utils.js";
+import {extend, getImages} from "../../utils.js";
 import {OFFERS_SORT_ITEMS} from "../../const";
 
 const initialState = {
   loadCityOffers: null,
-  citiesNames: null
+  citiesNames: null,
+  loadCityOffersDetail: null
 };
 
 const ActionType = {
@@ -37,9 +38,11 @@ const cities = [
 
 const getFilteredData = (data) => {
 
+
+
   const dataOffers = data.map((offer) => {
     return {
-      id: offer.id,
+      id: offer.id.toString(),
       name: offer.title,
       price: offer.price.toString(),
       img: {
@@ -55,6 +58,35 @@ const getFilteredData = (data) => {
     };
   });
 
+  const dataOffersDetail = data.map((offer) => {
+    return {
+      id: offer.id.toString(),
+      name: offer.title,
+      price: offer.price.toString(),
+      photos: getImages(offer.images),
+      class: offer.is_premium,
+      type: offer.type,
+      rate: offer.rating,
+      rooms: offer.bedrooms,
+      guests: offer.max_adults,
+      facilities: offer.goods,
+      favorite: offer.is_favorite,
+      owner: {
+        id: offer.host.id,
+        name: offer.host.name,
+        super: offer.host.is_pro,
+        img: {
+          src: offer.host.avatar_url,
+          alt: offer.host.id.toString()
+        }
+      },
+      description: [offer.description],
+      city: offer.city
+    };
+  });
+
+  //------------
+
   const filteredDataOffers =  cities.map((city) => {
     return {[city]: dataOffers.filter((item) => item.city.name === city)}
   });
@@ -62,7 +94,20 @@ const getFilteredData = (data) => {
   const datas = Object.assign({}, ...filteredDataOffers);
   const citiesList = Object.keys(datas);
 
-  return {loadCityOffers: datas, citiesNames: citiesList}
+
+  //------------
+
+  const filteredDataOffersDetail = cities.map((city) => {
+    return {[city]: dataOffersDetail.filter((item) => item.city.name === city)}
+  });
+
+  const datasDetail = Object.assign({}, ...filteredDataOffersDetail);
+
+  // console.log(datasDetail);
+
+
+
+  return {loadCityOffers: datas, citiesNames: citiesList, loadCityOffersDetail: datasDetail}
 };
 
 const reducer = (state = initialState, action)=>{
