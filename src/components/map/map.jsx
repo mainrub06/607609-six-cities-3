@@ -53,10 +53,8 @@ class MapMain extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {points, activePointId} = this.props;
     const {layerGroup} = this.layerGroup;
     const {city} = this.props;
-    const getActivePoint = points.find((point) => point.id === activePointId);
     const cityLocation = [city.location.latitude, city.location.longitude];
 
     this.map.setView(cityLocation, city.location.zoom);
@@ -93,26 +91,26 @@ MapMain.propTypes = {
   nearMap: PropTypes.bool,
   points: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
         img: PropTypes.shape({
-          alt: PropTypes.string.isRequired,
-          src: PropTypes.string.isRequired
+          alt: PropTypes.string,
+          src: PropTypes.string
         }),
-        class: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired,
-        cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+        class: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number,
+        cords: PropTypes.arrayOf(PropTypes.number)
       })
   ).isRequired,
   activePointId: PropTypes.string,
   city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number,
     })
   }),
 };

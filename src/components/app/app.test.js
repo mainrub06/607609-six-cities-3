@@ -4,15 +4,23 @@ import {App} from "./app.jsx";
 import PLACE_MOCK from "../../mock/offers";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
 import REVIEWS from "../../mock/reviews";
-import {OFFERS_SORT_ITEMS} from "../../const";
+import {OFFERS_SORT_ITEMS, cities as CITIES} from "../../const";
 
-const PARIS = `Paris`;
+const CITY_MOCK = {
+  name: `Paris`,
+  location: {
+    latitude: 1.1,
+    longitude: 1.2,
+    zoom: 13
+  }
+};
 
 it(`Render App`, () => {
   const tree = renderer
     .create(
         <App
-          city={PARIS}
+          citiesNames = {CITIES}
+          city={CITY_MOCK}
           offersDetail={PLACE_MOCK_DETAIL}
           reviews={REVIEWS}
           onChangeCity={() => {}}

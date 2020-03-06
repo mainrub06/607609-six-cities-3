@@ -23,19 +23,19 @@ class ReviewsList extends PureComponent {
 
 ReviewsList.propTypes = {
   review: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     reviewsArr: PropTypes.arrayOf(
         PropTypes.shape({
-          author: PropTypes.string.isRequired,
-          rate: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
+          author: PropTypes.string,
+          rate: PropTypes.number,
+          text: PropTypes.string,
+          date: PropTypes.string,
           photo: PropTypes.shape({
-            src: PropTypes.string.isRequired,
-            alt: PropTypes.string.isRequired
+            src: PropTypes.string,
+            alt: PropTypes.string
           })
-        }).isRequired
-    ).isRequired
+        })
+    )
   })
 };
 

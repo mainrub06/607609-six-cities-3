@@ -3,12 +3,23 @@ import renderer from "react-test-renderer";
 import Map from "./map.jsx";
 import PLACE_MOCK from "../../mock/offers.js";
 
+const CITY_MOCK = {
+  name: `Paris`,
+  location: {
+    latitude: 1.1,
+    longitude: 1.2,
+    zoom: 13
+  }
+};
+
 it(`Render Map`, () => {
   const tree = renderer
     .create(
-        <Map activePointId = {PLACE_MOCK[0].id} points={PLACE_MOCK} />
+        <Map city = {CITY_MOCK} activePointId = {PLACE_MOCK[0].id} points={PLACE_MOCK} />
     )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
+
+

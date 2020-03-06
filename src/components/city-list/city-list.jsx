@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 class CityList extends PureComponent {
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -37,7 +36,10 @@ class CityList extends PureComponent {
 CityList.propTypes = {
   onChangeCity: PropTypes.func.isRequired,
   activeItemIndex: PropTypes.number.isRequired,
-  handleItemClick: PropTypes.func.isRequired
+  handleItemClick: PropTypes.func.isRequired,
+  citiesNames: PropTypes.arrayOf(
+      PropTypes.string
+  )
 };
 
 export default CityList;

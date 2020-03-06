@@ -13,20 +13,12 @@ const api = createAPI();
 const store = createStore(
     reducer,
     compose(
-      applyMiddleware(thunk.withExtraArgument(api)),
-      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+        applyMiddleware(thunk.withExtraArgument(api)),
+        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
     )
 );
 
 store.dispatch(LoadOffersData.loadOffers());
-
-// ПРИМЕРЫ
-// store.dispatch(LoadOffersData.loadOffers());
-// store.dispatch(LoadOffersDetailData.loadOffers());
-// store.dispatch(LoadOffersReviewsData.loadOffers());
-
-
-
 
 ReactDOM.render(
     <Provider store = {store}>

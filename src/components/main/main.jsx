@@ -72,35 +72,38 @@ class Main extends PureComponent {
 Main.propTypes = {
   dataCards: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
         img: PropTypes.shape({
-          alt: PropTypes.string.isRequired,
-          src: PropTypes.string.isRequired
+          alt: PropTypes.string,
+          src: PropTypes.string
         }),
-        class: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired,
+        class: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number,
         cords: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired
+            PropTypes.number
+        )
       })
   ).isRequired,
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
   city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number,
     })
   }),
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,
   activePointId: PropTypes.string,
-  activeFilter: PropTypes.string.isRequired
+  activeFilter: PropTypes.string,
+  citiesNames: PropTypes.arrayOf(
+      PropTypes.string
+  )
 };
 
 export default Main;

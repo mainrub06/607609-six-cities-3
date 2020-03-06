@@ -48,7 +48,7 @@ class App extends PureComponent {
             activePointId = {this.state.activePointId}
             activeFilter = {activeFilter}
             citiesNames = {citiesNames}
-            />
+          />
         );
       } else {
         const dataReview = reviews.find((it) => it.id === activeId.toString());
@@ -64,6 +64,7 @@ class App extends PureComponent {
         );
       }
     }
+    return null;
   }
 
   render() {
@@ -85,77 +86,80 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  citiesNames: PropTypes.arrayOf(
+      PropTypes.string
+  ),
   offers: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
         img: PropTypes.shape({
-          alt: PropTypes.string.isRequired,
-          src: PropTypes.string.isRequired
+          alt: PropTypes.string,
+          src: PropTypes.string
         }),
-        class: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired
+        class: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number
       })
-  ).isRequired,
+  ),
   offersDetail: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
         photos: PropTypes.arrayOf(
             PropTypes.shape({
-              alt: PropTypes.string.isRequired,
-              src: PropTypes.string.isRequired
-            }).isRequired
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
         ),
-        class: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired,
-        rooms: PropTypes.number.isRequired,
-        guests: PropTypes.number.isRequired,
+        class: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number,
+        rooms: PropTypes.number,
+        guests: PropTypes.number,
         facilities: PropTypes.arrayOf(
-            PropTypes.string.isRequired
+            PropTypes.string
         ),
         owner: PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          super: PropTypes.bool.isRequired,
+          name: PropTypes.string,
+          super: PropTypes.bool,
           img: PropTypes.shape({
-            src: PropTypes.string.isRequired,
-            alt: PropTypes.string.isRequired
+            src: PropTypes.string,
+            alt: PropTypes.string
           })
         })
       })
-  ).isRequired,
+  ),
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.string,
         reviewsArr: PropTypes.arrayOf(
             PropTypes.shape({
-              author: PropTypes.string.isRequired,
-              rate: PropTypes.number.isRequired,
-              text: PropTypes.string.isRequired,
-              date: PropTypes.string.isRequired,
+              author: PropTypes.string,
+              rate: PropTypes.number,
+              text: PropTypes.string,
+              date: PropTypes.string,
               photo: PropTypes.shape({
-                src: PropTypes.string.isRequired,
-                alt: PropTypes.string.isRequired
+                src: PropTypes.string,
+                alt: PropTypes.string
               })
             })
-        ).isRequired
+        )
       })
-  ).isRequired,
+  ),
   onChangeCity: PropTypes.func.isRequired,
   city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number,
     })
   }),
   onChangeFilterType: PropTypes.func.isRequired,
-  activeFilter: PropTypes.string.isRequired
+  activeFilter: PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch) => ({

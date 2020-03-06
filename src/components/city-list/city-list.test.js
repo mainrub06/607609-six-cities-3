@@ -1,11 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import CityList from "./city-list.jsx";
+import {cities as CITIES} from "../../const";
 
 it(`Render City-List filter`, () => {
   const tree = renderer
     .create(
-        <CityList activeItemIndex = {0} handleItemClick = {() => {}} onChangeCity={() => {}} />
+        <CityList citiesNames = {CITIES} activeItemIndex = {0} handleItemClick = {() => {}} onChangeCity={() => {}} />
     )
     .toJSON();
 
