@@ -130,3 +130,13 @@ export const getFilteredOffersByCity = (offers) => {
   });
   return Object.assign({}, ...getFilteredData);
 };
+
+export const getFilteredData = (data) => {
+  const dataOffers = getOffersDataFromLoadData(data);
+  const dataOffersDetail = getOffersDataDetailFromLoadData(data);
+  const filteredDataOffers = getFilteredOffersByCity(dataOffers);
+  const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
+  const citiesList = Object.keys(filteredDataOffers);
+
+  return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
+};

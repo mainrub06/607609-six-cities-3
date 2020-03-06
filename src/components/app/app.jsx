@@ -6,7 +6,7 @@ import {ActionCreator} from "../../reducer/main/main.js";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
-import {getFilteredOffers, getCityObj, getFirstCity, getOffers} from "../../utils";
+import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getReviews, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 
 class App extends PureComponent {
   constructor(props) {
@@ -172,13 +172,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  cityName: getFirstCity(state.data.citiesNames),
-  citiesNames: state.data.citiesNames,
-  city: getCityObj(state.data.loadCityOffers, state.main.cityName),
-  offers: getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName)),
-  offersDetail: getOffers(state.data.loadCityOffersDetail, state.main.cityName),
-  reviews: state.main.reviews,
-  activeFilter: state.main.activeFilterItem
+  cityOffers: getloadCityOffers(state),
+  cityName: getCityName(state),
+  citiesNames: getCitiesNames(state),
+  city: getCity(state),
+  offers: getOffersMain(state),
+  offersDetail: getOffersDetail(state),
+  reviews: getReviews(state),
+  activeFilter: getActiveFilter(state)
 });
 
 export {App};

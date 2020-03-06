@@ -1,4 +1,4 @@
-import {extend, getOffersDataFromLoadData, getOffersDataDetailFromLoadData, getFilteredOffersByCity} from "../../utils.js";
+import {extend, getFilteredData} from "../../utils.js";
 
 const initialState = {
   loadCityOffers: null,
@@ -24,16 +24,6 @@ const Operation = {
         dispatch(ActionCreator.loadOffers(response.data));
       });
   }
-};
-
-const getFilteredData = (data) => {
-  const dataOffers = getOffersDataFromLoadData(data);
-  const dataOffersDetail = getOffersDataDetailFromLoadData(data);
-  const filteredDataOffers = getFilteredOffersByCity(dataOffers);
-  const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
-  const citiesList = Object.keys(filteredDataOffers);
-
-  return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
 };
 
 const reducer = (state = initialState, action)=>{
