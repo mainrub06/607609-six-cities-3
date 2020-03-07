@@ -43,7 +43,7 @@ OfferList.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }),
-        class: PropTypes.string.isRequired,
+        class: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired
       })

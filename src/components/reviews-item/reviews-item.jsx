@@ -54,7 +54,7 @@ ReviewsItem.propTypes = {
       src: PropTypes.string.isRequired,
       alt: PropTypes.string.isRequired
     })
-  }).isRequired
+  })
 };
 
 export default ReviewsItem;

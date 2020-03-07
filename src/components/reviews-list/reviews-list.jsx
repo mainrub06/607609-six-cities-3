@@ -33,8 +33,8 @@ ReviewsList.propTypes = {
           photo: PropTypes.shape({
             src: PropTypes.string.isRequired,
             alt: PropTypes.string.isRequired
-          })
-        }).isRequired
+          }).isRequired
+        })
     ).isRequired
   })
 };

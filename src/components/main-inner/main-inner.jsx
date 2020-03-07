@@ -29,14 +29,14 @@ class MainInner extends PureComponent {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {dataCards.length} places to stay in {city}
+              {dataCards.length} places to stay in {city.name}
             </b>
             <OffersSort activeFilter = {activeFilter} onChangeFilterType = {onChangeFilterType}/>
 
             {<OfferListWrapped handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
           </section>
           <div className="cities__right-section">
-            {<MapMain activePointId = {activePointId} points={dataCards} />}
+            {<MapMain city = {city} activePointId = {activePointId} points={dataCards} />}
           </div>
         </div>
       </div>
@@ -54,14 +54,21 @@ MainInner.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }),
-        class: PropTypes.string.isRequired,
+        class: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
       })
   ).isRequired,
-  onOfferClick: PropTypes.func,
-  city: PropTypes.string.isRequired,
+  onOfferClick: PropTypes.func.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired
+  }),
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,
   activeFilter: PropTypes.string.isRequired,
