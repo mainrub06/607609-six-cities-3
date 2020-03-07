@@ -1,7 +1,4 @@
 import {
-  createSelector
-} from "reselect";
-import {
   getFilteredOffers,
   getCityObj,
   getFirstCity,
@@ -17,11 +14,4 @@ export const getCity = (state) => {
 export const getOffersDetail = (state) => getOffers(state.data.loadCityOffersDetail, state.main.cityName);
 export const getReviews = (state) => state.main.reviews;
 export const getActiveFilter = (state) => state.main.activeFilterItem;
-
-
 export const getOffersMain = (state) => getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName));
-
-
-// export const getOffersMain = createSelector([getActiveFilter, getloadCityOffers, getCityName], (activeFilter, cityOffers, cityName) => {
-//   return getFilteredOffers(activeFilter, getOffers(cityOffers, cityName));
-// });
