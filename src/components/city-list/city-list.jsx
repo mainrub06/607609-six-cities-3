@@ -38,8 +38,8 @@ CityList.propTypes = {
   activeItemIndex: PropTypes.number.isRequired,
   handleItemClick: PropTypes.func.isRequired,
   citiesNames: PropTypes.arrayOf(
-      PropTypes.string
-  )
+      PropTypes.string.isRequired
+  ).isRequired
 };
 
 export default CityList;

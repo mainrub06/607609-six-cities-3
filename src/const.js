@@ -20,3 +20,5 @@ export const cities = [
   `Hamburg`,
   `Dusseldorf`
 ];
+
+export const MAX_PHOTOS_OFFER_DETAIL = 6;

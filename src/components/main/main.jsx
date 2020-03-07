@@ -72,38 +72,38 @@ class Main extends PureComponent {
 Main.propTypes = {
   dataCards: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
         img: PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
-        }),
-        class: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number,
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }).isRequired,
+        class: PropTypes.bool.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(
-            PropTypes.number
-        )
-      })
+            PropTypes.number.isRequired
+        ).isRequired
+      }).isRequired
   ).isRequired,
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
   city: PropTypes.shape({
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     location: PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-      zoom: PropTypes.number,
-    })
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired
   }),
   onChangeFilterType: PropTypes.func.isRequired,
-  handleOfferHover: PropTypes.func,
+  handleOfferHover: PropTypes.func.isRequired,
   activePointId: PropTypes.string,
-  activeFilter: PropTypes.string,
+  activeFilter: PropTypes.string.isRequired,
   citiesNames: PropTypes.arrayOf(
-      PropTypes.string
-  )
+      PropTypes.string.isRequired
+  ).isRequired
 };
 
 export default Main;

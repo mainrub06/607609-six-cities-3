@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
+import {MAX_PHOTOS_OFFER_DETAIL} from "../../const";
 import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
@@ -8,8 +9,6 @@ import OfferList from "../offers-list/offers-list.jsx";
 class OfferDetail extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.maxPhotos = 6;
   }
 
   getSameOffers(cords, dataCards) {
@@ -75,7 +74,7 @@ class OfferDetail extends PureComponent {
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {element.photos.slice(0, this.maxPhotos).map((el, id) => (<div key={el.alt + id} className="property__image-wrapper">
+                  {element.photos.slice(0, MAX_PHOTOS_OFFER_DETAIL).map((el, id) => (<div key={el.alt + id} className="property__image-wrapper">
                     <img className="property__image" src={el.src} alt={el.alt}/>
                   </div>)
                   )}

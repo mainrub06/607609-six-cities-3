@@ -47,27 +47,27 @@ class MainInner extends PureComponent {
 MainInner.propTypes = {
   dataCards: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
         img: PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
         }),
-        class: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number,
-        cords: PropTypes.arrayOf(PropTypes.number)
+        class: PropTypes.bool.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
       })
   ).isRequired,
-  onOfferClick: PropTypes.func,
+  onOfferClick: PropTypes.func.isRequired,
   city: PropTypes.shape({
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     location: PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-      zoom: PropTypes.number,
-    })
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired
   }),
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,

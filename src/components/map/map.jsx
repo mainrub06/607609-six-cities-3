@@ -29,7 +29,7 @@ class MapMain extends PureComponent {
 
     this.mainMapRef = createRef();
     this.map = null;
-    this.layerGroup = null;
+    this.layerGroupStorage = null;
   }
 
   componentDidMount() {
@@ -46,14 +46,14 @@ class MapMain extends PureComponent {
         })
         .addTo(this.map);
 
-      this.layerGroup = {map: this.map, layerGroup: leaflet.layerGroup().addTo(this.map)};
+      this.layerGroupStorage = {map: this.map, layerGroup: leaflet.layerGroup().addTo(this.map)};
 
       this.updateMap();
     }
   }
 
   componentDidUpdate() {
-    const {layerGroup} = this.layerGroup;
+    const {layerGroup} = this.layerGroupStorage;
     const {city} = this.props;
     const cityLocation = [city.location.latitude, city.location.longitude];
 
@@ -65,7 +65,7 @@ class MapMain extends PureComponent {
 
   updateMap() {
     const {points, activePointId} = this.props;
-    const {layerGroup} = this.layerGroup;
+    const {layerGroup} = this.layerGroupStorage;
 
     points.forEach((point) => {
       const icon = activePointId && activePointId === point.id ? this.icons.iconOrange : this.icons.iconBlue;
@@ -91,26 +91,26 @@ MapMain.propTypes = {
   nearMap: PropTypes.bool,
   points: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
         img: PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
-        }),
-        class: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number,
-        cords: PropTypes.arrayOf(PropTypes.number)
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }).isRequired,
+        class: PropTypes.bool.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
       })
   ).isRequired,
   activePointId: PropTypes.string,
   city: PropTypes.shape({
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     location: PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-      zoom: PropTypes.number,
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
     })
   }),
 };

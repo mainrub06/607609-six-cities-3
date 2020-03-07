@@ -141,16 +141,16 @@ Reviews.propTypes = {
     id: PropTypes.string,
     reviewsArr: PropTypes.arrayOf(
         PropTypes.shape({
-          author: PropTypes.string,
-          rate: PropTypes.number,
-          text: PropTypes.string,
-          date: PropTypes.string,
+          author: PropTypes.string.isRequired,
+          rate: PropTypes.number.isRequired,
+          text: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
           photo: PropTypes.shape({
-            src: PropTypes.string,
-            alt: PropTypes.string
-          })
+            src: PropTypes.string.isRequired,
+            alt: PropTypes.string.isRequired
+          }).isRequired
         })
-    )
+    ).isRequired
   })
 };
 

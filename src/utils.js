@@ -54,21 +54,21 @@ export const getCityObj = (offers, city) => {
   if (offers !== null) {
     return offers[city][0].city;
   }
-  return {};
+  return null;
 };
 
 export const getFirstCity = (citiesIn) => {
   if (citiesIn !== null) {
     return cities[0];
   }
-  return [];
+  return null;
 };
 
 export const getOffers = (cityOffers, activeFilter) => {
   if (cityOffers !== null) {
     return cityOffers[activeFilter];
   }
-  return [];
+  return null;
 };
 
 export const getImages = (images) => {
@@ -125,10 +125,10 @@ export const getOffersDataDetailFromLoadData = (loadData) => {
 };
 
 export const getFilteredOffersByCity = (offers) => {
-  const getFilteredData = cities.map((city) => {
+  const getСollectedDataByCity = cities.map((city) => {
     return {[city]: offers.filter((item) => item.city.name === city)};
   });
-  return Object.assign({}, ...getFilteredData);
+  return Object.assign({}, ...getСollectedDataByCity);
 };
 
 export const getFilteredData = (data) => {
