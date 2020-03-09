@@ -46,9 +46,7 @@ exports[`Render App 1`] = `
                 />
                 <span
                   className="header__user-name user__name"
-                >
-                  mainrub06@gmail.com
-                </span>
+                />
               </a>
             </li>
           </ul>

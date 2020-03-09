@@ -6,7 +6,7 @@ const initialPayload = {data: `Hallo World!`};
 
 const api = createAPI();
 
-describe(`test api from reducer`, () => {
+describe(`test api from reducer(user)`, () => {
   it(`Should return initial payload`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();

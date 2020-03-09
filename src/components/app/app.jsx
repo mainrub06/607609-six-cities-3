@@ -38,22 +38,16 @@ class App extends PureComponent {
   }
 
   handleAuthToggle() {
-    if (this.state.auth === false) {
-      this.setState({
-        auth: true
-      });
-    } else {
-      this.setState({
-        auth: false
-      });
-    }
+    this.setState({
+      auth: !this.state.auth
+    });
   }
 
   renderMain() {
     const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter, citiesNames, authStatus, login, userInfo} = this.props;
     const {activeId} = this.state;
 
-    if (this.state.auth === true) {
+    if (this.state.auth) {
       return (
         <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>
       );
@@ -191,11 +185,11 @@ App.propTypes = {
   activeFilter: PropTypes.string,
   authStatus: PropTypes.string,
   userInfo: PropTypes.shape({
-    "id": PropTypes.number,
-    "email": PropTypes.string,
-    "name": PropTypes.string,
-    "avatar_url": PropTypes.string,
-    "is_pro": PropTypes.bool
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
   }),
   login: PropTypes.func
 };
