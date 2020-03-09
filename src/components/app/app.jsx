@@ -16,6 +16,7 @@ class App extends PureComponent {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
     this.handleOfferHover = this.handleOfferHover.bind(this);
+    this.handleAuthToggle = this.handleAuthToggle.bind(this);
     this.state = {
       activeId: null,
       activePointId: null,
