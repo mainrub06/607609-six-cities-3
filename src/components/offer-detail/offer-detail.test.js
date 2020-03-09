@@ -14,6 +14,16 @@ const CITY_MOCK = {
   }
 };
 
+const USER_INFO_MOCK = {
+  "id": 1,
+  "name": `mainrub`,
+  "email": `mainrub06@gmail.com`,
+  "avatar_url": `/static/avatar/8.jpg`,
+  "is_pro": false
+};
+
+const authStatus = `AUTH`;
+
 it(`Render OfferDetail component`, () => {
   const tree = renderer
     .create(
@@ -27,6 +37,8 @@ it(`Render OfferDetail component`, () => {
           element={PLACE_MOCK_DETAIL[0]}
           handleOfferHover={() => {}}
           activePointId={PLACE_MOCK[0].id}
+          userInfo = {USER_INFO_MOCK}
+          authStatus = {authStatus}
         />
     )
     .toJSON();

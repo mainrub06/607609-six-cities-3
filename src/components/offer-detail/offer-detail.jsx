@@ -28,7 +28,10 @@ class OfferDetail extends PureComponent {
       onOfferClick,
       handleOfferHover,
       activePointId,
-      city
+      city,
+      authStatus,
+      userInfo,
+      handleAuthToggle
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
@@ -57,9 +60,11 @@ class OfferDetail extends PureComponent {
                       href="#"
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
-                      </span>
+                      {authStatus === `NO_AUTH` ?
+                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        :
+                        <span className="header__user-name user__name">{userInfo.email}</span>
+                      }
                     </a>
                   </li>
                 </ul>
@@ -304,6 +309,15 @@ OfferDetail.propTypes = {
       zoom: PropTypes.number,
     })
   }),
+  userInfo: PropTypes.shape({
+    "id": PropTypes.number,
+    "email": PropTypes.string,
+    "name": PropTypes.string,
+    "avatar_url": PropTypes.string,
+    "is_pro": PropTypes.bool
+  }),
+  authStatus: PropTypes.string,
+  handleAuthToggle: PropTypes.func
 };
 
 export default OfferDetail;

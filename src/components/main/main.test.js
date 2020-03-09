@@ -13,6 +13,16 @@ const CITY_MOCK = {
   }
 };
 
+const USER_INFO_MOCK = {
+  "id": 1,
+  "name": `mainrub`,
+  "email": `mainrub06@gmail.com`,
+  "avatar_url": `/static/avatar/8.jpg`,
+  "is_pro": false
+};
+
+const authStatus = `AUTH`;
+
 it(`Render Main`, () => {
   const tree = renderer
     .create(
@@ -26,6 +36,9 @@ it(`Render Main`, () => {
           city={CITY_MOCK}
           onChangeFilterType={() => {}}
           handleOfferHover={() => {}}
+          userInfo = {USER_INFO_MOCK}
+          authStatus = {authStatus}
+          handleAuthToggle = {() => {}}
         />
     )
     .toJSON();

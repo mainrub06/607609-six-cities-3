@@ -48,7 +48,7 @@ exports[`Render OfferDetail component 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  mainrub06@gmail.com
                 </span>
               </a>
             </li>

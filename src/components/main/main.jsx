@@ -21,7 +21,10 @@ class Main extends PureComponent {
       handleOfferHover,
       activePointId,
       activeFilter,
-      citiesNames} = this.props;
+      citiesNames,
+      authStatus,
+      userInfo,
+      handleAuthToggle} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -39,7 +42,11 @@ class Main extends PureComponent {
                     <a className="header__nav-link header__nav-link--profile" href="#">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      {authStatus === `NO_AUTH` ?
+                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        :
+                        <span className="header__user-name user__name">{userInfo.email}</span>
+                      }
                     </a>
                   </li>
                 </ul>
@@ -103,7 +110,16 @@ Main.propTypes = {
   activeFilter: PropTypes.string.isRequired,
   citiesNames: PropTypes.arrayOf(
       PropTypes.string.isRequired
-  ).isRequired
+  ).isRequired,
+  authStatus: PropTypes.string.isRequired,
+  userInfo: PropTypes.shape({
+    "id": PropTypes.number.isRequired,
+    "email": PropTypes.string.isRequired,
+    "name": PropTypes.string.isRequired,
+    "avatar_url": PropTypes.string.isRequired,
+    "is_pro": PropTypes.bool.isRequired
+  }),
+  handleAuthToggle: PropTypes.func.isRequired
 };
 
 export default Main;
