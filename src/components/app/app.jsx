@@ -4,6 +4,7 @@ import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
 import {ActionCreator} from "../../reducer/main/main";
 import {Operation as UserOperation} from "../../reducer/user/user";
+import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
@@ -25,10 +26,12 @@ class App extends PureComponent {
   }
 
   handleOfferClick(id) {
+    const {getComments} = this.props;
     this.setState({
       activeId: id,
       activePointId: null
     });
+    getComments(id);
   }
 
   handleOfferHover(id) {
@@ -191,7 +194,8 @@ App.propTypes = {
     userAvatar: PropTypes.string,
     isPro: PropTypes.bool
   }),
-  login: PropTypes.func
+  login: PropTypes.func,
+  getComments: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -203,6 +207,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   login(authData) {
     dispatch(UserOperation.setAuthorizationStatus(authData));
+  },
+  getComments(id) {
+    dispatch(ReviewsOperation.getReviewsFromHotelId(id));
   }
 });
 

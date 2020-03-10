@@ -15,7 +15,7 @@ class ReviewsForm extends PureComponent {
   }
 
   handleClickStar(evt) {
-    evt.preventDefault();
+    // evt.preventDefault();
     this.setState({
       rate: evt.target.value
     });
