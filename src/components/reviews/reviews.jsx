@@ -138,7 +138,7 @@ class Reviews extends PureComponent {
 
 Reviews.propTypes = {
   review: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     reviewsArr: PropTypes.arrayOf(
         PropTypes.shape({
           author: PropTypes.string.isRequired,
@@ -149,7 +149,7 @@ Reviews.propTypes = {
             src: PropTypes.string.isRequired,
             alt: PropTypes.string.isRequired
           }).isRequired
-        }).isRequired
+        })
     ).isRequired
   })
 };

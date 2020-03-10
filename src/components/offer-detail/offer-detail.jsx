@@ -1,9 +1,11 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
+import {MAX_PHOTOS_OFFER_DETAIL} from "../../const";
 import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
+import {AUTHORIZATION_STATUS} from "../../const";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
@@ -26,7 +28,11 @@ class OfferDetail extends PureComponent {
       dataCards,
       onOfferClick,
       handleOfferHover,
-      activePointId
+      activePointId,
+      city,
+      authStatus,
+      userInfo,
+      handleAuthToggle
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
@@ -55,9 +61,11 @@ class OfferDetail extends PureComponent {
                       href="#"
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
-                      </span>
+                      {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        :
+                        <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                      }
                     </a>
                   </li>
                 </ul>
@@ -72,22 +80,20 @@ class OfferDetail extends PureComponent {
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {element.photos.map((el, id) => (
-                    <div key={el.alt + id} className="property__image-wrapper">
-                      <img
-                        className="property__image"
-                        src={el.src}
-                        alt={el.alt}
-                      />
-                    </div>
-                  ))}
+                  {element.photos.slice(0, MAX_PHOTOS_OFFER_DETAIL).map((el, id) => (<div key={el.alt + id} className="property__image-wrapper">
+                    <img className="property__image" src={el.src} alt={el.alt}/>
+                  </div>)
+                  )}
                 </div>
               </div>
               <div className="property__container container">
                 <div className="property__wrapper">
-                  <div className="property__mark">
-                    <span>{element.class}</span>
-                  </div>
+                  {element.class &&
+                    <div className="property__mark">
+                      <span>Premium</span>
+                    </div>
+                  }
+
                   <div className="property__name-wrapper">
                     <h1 className="property__name">{element.name}</h1>
                     <button
@@ -178,7 +184,7 @@ class OfferDetail extends PureComponent {
                 </div>
               </div>
 
-              {<MapDetail activePointId = {activePointId} points={sameOffers} nearMap={true} />}
+              {<MapDetail city = {city} activePointId = {activePointId} points={sameOffers} nearMap={true} />}
             </section>
             <div className="container">
               <section className="near-places places">
@@ -205,97 +211,114 @@ class OfferDetail extends PureComponent {
 
 OfferDetail.propTypes = {
   element: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.string,
     photos: PropTypes.arrayOf(
         PropTypes.shape({
-          alt: PropTypes.string.isRequired,
-          src: PropTypes.string.isRequired
-        }).isRequired
+          alt: PropTypes.string,
+          src: PropTypes.string
+        })
     ),
-    class: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    rate: PropTypes.number.isRequired,
-    rooms: PropTypes.number.isRequired,
-    guests: PropTypes.number.isRequired,
+    class: PropTypes.bool,
+    type: PropTypes.string,
+    rate: PropTypes.number,
+    rooms: PropTypes.number,
+    guests: PropTypes.number,
     description: PropTypes.arrayOf(
-        PropTypes.string.isRequired
-    ).isRequired,
+        PropTypes.string
+    ),
     facilities: PropTypes.arrayOf(
-        PropTypes.string.isRequired
+        PropTypes.string
     ),
     owner: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      super: PropTypes.bool.isRequired,
+      name: PropTypes.string,
+      super: PropTypes.bool,
       img: PropTypes.shape({
-        src: PropTypes.string.isRequired,
-        alt: PropTypes.string.isRequired
+        src: PropTypes.string,
+        alt: PropTypes.string
       })
     })
   }),
   dataCardsDetail: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
         photos: PropTypes.arrayOf(
             PropTypes.shape({
-              alt: PropTypes.string.isRequired,
-              src: PropTypes.string.isRequired
-            }).isRequired
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
         ),
-        class: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired,
-        rooms: PropTypes.number.isRequired,
-        guests: PropTypes.number.isRequired,
+        class: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number,
+        rooms: PropTypes.number,
+        guests: PropTypes.number,
         facilities: PropTypes.arrayOf(
-            PropTypes.string.isRequired
+            PropTypes.string
         ),
         owner: PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          super: PropTypes.bool.isRequired,
+          name: PropTypes.string,
+          super: PropTypes.bool,
           img: PropTypes.shape({
-            src: PropTypes.string.isRequired,
-            alt: PropTypes.string.isRequired
+            src: PropTypes.string,
+            alt: PropTypes.string
           })
         })
       })
-  ).isRequired,
+  ),
   activeId: PropTypes.string,
   onOfferClick: PropTypes.func,
   dataCards: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
         img: PropTypes.shape({
-          alt: PropTypes.string.isRequired,
-          src: PropTypes.string.isRequired
+          alt: PropTypes.string,
+          src: PropTypes.string
         }),
-        class: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired
+        class: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number
       })
-  ).isRequired,
+  ),
   review: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     reviewsArr: PropTypes.arrayOf(
         PropTypes.shape({
-          author: PropTypes.string.isRequired,
-          rate: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
+          author: PropTypes.string,
+          rate: PropTypes.number,
+          text: PropTypes.string,
+          date: PropTypes.string,
           photo: PropTypes.shape({
-            src: PropTypes.string.isRequired,
-            alt: PropTypes.string.isRequired
+            src: PropTypes.string,
+            alt: PropTypes.string
           })
         })
-    ).isRequired
+    )
   }),
   handleOfferHover: PropTypes.func,
-  activePointId: PropTypes.string
+  activePointId: PropTypes.string,
+  city: PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number,
+    })
+  }),
+  userInfo: PropTypes.shape({
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
+  authStatus: PropTypes.string,
+  handleAuthToggle: PropTypes.func
 };
 
 export default OfferDetail;

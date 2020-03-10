@@ -11,3 +11,19 @@ export const LINKS = {
 };
 
 export const OFFERS_SORT_ITEMS = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
+
+export const cities = [
+  `Paris`,
+  `Cologne`,
+  `Brussels`,
+  `Amsterdam`,
+  `Hamburg`,
+  `Dusseldorf`
+];
+
+export const MAX_PHOTOS_OFFER_DETAIL = 6;
+
+export const AUTHORIZATION_STATUS = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`
+};

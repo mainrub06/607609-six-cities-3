@@ -10,9 +10,9 @@ const Offer = ({element, handleOfferHover, onOfferClick, isOfferDetailItem}) => 
       handleOfferHover(null);
     }} className= {`${isOfferDetailItem ? `near-places__card` : `cities__place-card`} place-card`}>
 
-      {!isOfferDetailItem &&
+      {element.class &&
         <div className="place-card__mark">
-          <span>{element.class}</span>
+          <span>Premium</span>
         </div>
       }
 
@@ -59,11 +59,11 @@ Offer.propTypes = {
     img: PropTypes.shape({
       alt: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired
-    }),
-    class: PropTypes.string.isRequired,
+    }).isRequired,
+    class: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired
-  }),
+  }).isRequired,
   handleOfferHover: PropTypes.func.isRequired,
   onOfferClick: PropTypes.func.isRequired,
   isOfferDetailItem: PropTypes.bool

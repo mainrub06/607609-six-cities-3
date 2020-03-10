@@ -29,12 +29,16 @@ class MapMain extends PureComponent {
 
     this.mainMapRef = createRef();
     this.map = null;
+    this.layerGroupStorage = null;
   }
 
   componentDidMount() {
+    const {city} = this.props;
+    const cityLocation = [city.location.latitude, city.location.longitude];
+
     if (this.mainMapRef.current) {
       this.map = leaflet.map(this.mainMapRef.current, this.mapConfig);
-      this.map.setView(this.city, this.zoomMap);
+      this.map.setView(cityLocation, city.location.zoom);
 
       leaflet
         .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -42,26 +46,35 @@ class MapMain extends PureComponent {
         })
         .addTo(this.map);
 
+      this.layerGroupStorage = {map: this.map, layerGroup: leaflet.layerGroup().addTo(this.map)};
+
       this.updateMap();
     }
   }
 
-  componentDidUpdate(prevProps) {
-    prevProps.points.forEach((prevPoint) => {
-      this.map.removeLayer(prevPoint.cords);
-    });
-    this.updateMap();
+  componentDidUpdate(prevState) {
+    if (prevState.points !== this.props.points || prevState.activePointId === null) {
+      const {layerGroup} = this.layerGroupStorage;
+      const {city} = this.props;
+      const cityLocation = [city.location.latitude, city.location.longitude];
+
+      this.map.setView(cityLocation, city.location.zoom);
+
+      layerGroup.clearLayers();
+      this.updateMap();
+    }
   }
 
   updateMap() {
     const {points, activePointId} = this.props;
+    const {layerGroup} = this.layerGroupStorage;
 
     points.forEach((point) => {
       const icon = activePointId && activePointId === point.id ? this.icons.iconOrange : this.icons.iconBlue;
 
       leaflet
       .marker(point.cords, {icon})
-      .addTo(this.map);
+      .addTo(layerGroup);
     });
   }
 
@@ -86,14 +99,22 @@ MapMain.propTypes = {
         img: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
-        }),
-        class: PropTypes.string.isRequired,
+        }).isRequired,
+        class: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
       })
   ).isRequired,
-  activePointId: PropTypes.string
+  activePointId: PropTypes.string,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    })
+  }),
 };
 
 export default MapMain;

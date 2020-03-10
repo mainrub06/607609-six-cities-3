@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import CityList from "../city-list/city-list.jsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
+import withActiveIndex from "../../hocs/withActiveIndex/withActiveIndex.jsx";
+import {AUTHORIZATION_STATUS} from "../../const";
+
+const CityListWrapper = withActiveIndex(CityList);
 
 class Main extends PureComponent {
   constructor(props) {
@@ -10,7 +14,18 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, onChangeCity, city, onChangeFilterType, handleOfferHover, activePointId, activeFilter} = this.props;
+    const {dataCards,
+      onOfferClick,
+      onChangeCity,
+      city,
+      onChangeFilterType,
+      handleOfferHover,
+      activePointId,
+      activeFilter,
+      citiesNames,
+      authStatus,
+      userInfo,
+      handleAuthToggle} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -28,7 +43,11 @@ class Main extends PureComponent {
                     <a className="header__nav-link header__nav-link--profile" href="#">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        :
+                        <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                      }
                     </a>
                   </li>
                 </ul>
@@ -39,7 +58,7 @@ class Main extends PureComponent {
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <CityList onChangeCity = {onChangeCity} />
+          <CityListWrapper citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
 
           {dataCards.length !== 0 ?
             <MainInner activeFilter = {activeFilter}
@@ -67,22 +86,41 @@ Main.propTypes = {
         img: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
-        }),
-        class: PropTypes.string.isRequired,
+        }).isRequired,
+        class: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(
             PropTypes.number.isRequired
         ).isRequired
-      })
+      }).isRequired
   ).isRequired,
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired
+  }),
   onChangeFilterType: PropTypes.func.isRequired,
-  handleOfferHover: PropTypes.func,
+  handleOfferHover: PropTypes.func.isRequired,
   activePointId: PropTypes.string,
-  activeFilter: PropTypes.string.isRequired
+  activeFilter: PropTypes.string.isRequired,
+  citiesNames: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
+  authStatus: PropTypes.string.isRequired,
+  userInfo: PropTypes.shape({
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
+  handleAuthToggle: PropTypes.func.isRequired
 };
 
 export default Main;

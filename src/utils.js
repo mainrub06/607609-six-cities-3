@@ -1,4 +1,4 @@
-import {STAR_PARAMS} from "./const";
+import {STAR_PARAMS, cities} from "./const";
 
 export const getRandomNum = (min, max) => {
   let rand = min + Math.random() * (max + 1 - min);
@@ -48,4 +48,108 @@ export const getFilteredOffers = (type, offers) => {
       return getTopRated(offers);
   }
   return offers;
+};
+
+export const getCityObj = (offers, city) => {
+  if (offers !== null) {
+    return offers[city][0].city;
+  }
+  return null;
+};
+
+export const getFirstCity = (citiesIn) => {
+  if (citiesIn !== null) {
+    return cities[0];
+  }
+  return null;
+};
+
+export const getOffers = (cityOffers, activeFilter) => {
+  if (cityOffers !== null) {
+    return cityOffers[activeFilter];
+  }
+  return null;
+};
+
+export const getImages = (images) => {
+  return images.map((image, index) => ({src: image, alt: index.toString()}));
+};
+
+export const getOffersDataFromLoadData = (loadData) => {
+  return loadData.map((offer) => {
+    return {
+      id: offer.id.toString(),
+      name: offer.title,
+      price: offer.price.toString(),
+      img: {
+        alt: offer.id.toString(),
+        src: offer.preview_image,
+      },
+      class: offer.is_premium,
+      type: offer.type,
+      rate: offer.rating,
+      cords: [offer.location.latitude, offer.location.longitude],
+      favorite: offer.is_favorite,
+      city: offer.city
+    };
+  });
+};
+
+export const getOffersDataDetailFromLoadData = (loadData) => {
+  return loadData.map((offer) => {
+    return {
+      id: offer.id.toString(),
+      name: offer.title,
+      price: offer.price.toString(),
+      photos: getImages(offer.images),
+      class: offer.is_premium,
+      type: offer.type,
+      rate: offer.rating,
+      rooms: offer.bedrooms,
+      guests: offer.max_adults,
+      facilities: offer.goods,
+      favorite: offer.is_favorite,
+      owner: {
+        id: offer.host.id,
+        name: offer.host.name,
+        super: offer.host.is_pro,
+        img: {
+          src: offer.host.avatar_url,
+          alt: offer.host.id.toString()
+        }
+      },
+      description: [offer.description],
+      city: offer.city
+    };
+  });
+};
+
+export const getFilteredOffersByCity = (offers) => {
+  const getСollectedDataByCity = cities.map((city) => {
+    return {[city]: offers.filter((item) => item.city.name === city)};
+  });
+  return Object.assign({}, ...getСollectedDataByCity);
+};
+
+export const getFilteredData = (data) => {
+  const dataOffers = getOffersDataFromLoadData(data);
+  const dataOffersDetail = getOffersDataDetailFromLoadData(data);
+  const filteredDataOffers = getFilteredOffersByCity(dataOffers);
+  const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
+  const citiesList = Object.keys(filteredDataOffers);
+
+  return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
+};
+
+export const getUserData = (data) => {
+  if (data) {
+    return {
+      id: data.id,
+      userName: data.name,
+      userEmail: data.email,
+      userAvatar: data.avatar_url,
+      isPro: data.is_pro
+    };
+  }
+  return null;
 };
