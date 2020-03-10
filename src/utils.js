@@ -140,3 +140,16 @@ export const getFilteredData = (data) => {
 
   return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
 };
+
+export const getUserData = (data) => {
+  if (data) {
+    return {
+      id: data.id,
+      userName: data.name,
+      userEmail: data.email,
+      userAvatar: data.avatar_url,
+      isPro: data.is_pro
+    };
+  }
+  return null;
+};

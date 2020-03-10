@@ -4,6 +4,7 @@ import CityList from "../city-list/city-list.jsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
 import withActiveIndex from "../../hocs/withActiveIndex/withActiveIndex.jsx";
+import {AUTHORIZATION_STATUS} from "../../const";
 
 const CityListWrapper = withActiveIndex(CityList);
 
@@ -21,7 +22,10 @@ class Main extends PureComponent {
       handleOfferHover,
       activePointId,
       activeFilter,
-      citiesNames} = this.props;
+      citiesNames,
+      authStatus,
+      userInfo,
+      handleAuthToggle} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -39,7 +43,11 @@ class Main extends PureComponent {
                     <a className="header__nav-link header__nav-link--profile" href="#">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        :
+                        <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                      }
                     </a>
                   </li>
                 </ul>
@@ -103,7 +111,16 @@ Main.propTypes = {
   activeFilter: PropTypes.string.isRequired,
   citiesNames: PropTypes.arrayOf(
       PropTypes.string.isRequired
-  ).isRequired
+  ).isRequired,
+  authStatus: PropTypes.string.isRequired,
+  userInfo: PropTypes.shape({
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
+  handleAuthToggle: PropTypes.func.isRequired
 };
 
 export default Main;

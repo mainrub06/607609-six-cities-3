@@ -52,15 +52,17 @@ class MapMain extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
-    const {layerGroup} = this.layerGroupStorage;
-    const {city} = this.props;
-    const cityLocation = [city.location.latitude, city.location.longitude];
+  componentDidUpdate(prevState) {
+    if (prevState.points !== this.props.points || prevState.activePointId === null) {
+      const {layerGroup} = this.layerGroupStorage;
+      const {city} = this.props;
+      const cityLocation = [city.location.latitude, city.location.longitude];
 
-    this.map.setView(cityLocation, city.location.zoom);
+      this.map.setView(cityLocation, city.location.zoom);
 
-    layerGroup.clearLayers();
-    this.updateMap();
+      layerGroup.clearLayers();
+      this.updateMap();
+    }
   }
 
   updateMap() {

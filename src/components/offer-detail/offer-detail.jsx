@@ -5,6 +5,7 @@ import {MAX_PHOTOS_OFFER_DETAIL} from "../../const";
 import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
+import {AUTHORIZATION_STATUS} from "../../const";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
@@ -28,7 +29,10 @@ class OfferDetail extends PureComponent {
       onOfferClick,
       handleOfferHover,
       activePointId,
-      city
+      city,
+      authStatus,
+      userInfo,
+      handleAuthToggle
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
@@ -57,9 +61,11 @@ class OfferDetail extends PureComponent {
                       href="#"
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
-                      </span>
+                      {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        :
+                        <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                      }
                     </a>
                   </li>
                 </ul>
@@ -304,6 +310,15 @@ OfferDetail.propTypes = {
       zoom: PropTypes.number,
     })
   }),
+  userInfo: PropTypes.shape({
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
+  authStatus: PropTypes.string,
+  handleAuthToggle: PropTypes.func
 };
 
 export default OfferDetail;

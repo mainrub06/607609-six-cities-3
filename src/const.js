@@ -22,3 +22,8 @@ export const cities = [
 ];
 
 export const MAX_PHOTOS_OFFER_DETAIL = 6;
+
+export const AUTHORIZATION_STATUS = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`
+};

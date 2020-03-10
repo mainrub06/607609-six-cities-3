@@ -2,20 +2,25 @@ import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../reducer/main/main.js";
+import {ActionCreator} from "../../reducer/main/main";
+import {Operation as UserOperation} from "../../reducer/user/user";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
 import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getReviews, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
+import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
+import SignIn from "../sign-in/sign-in.jsx";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
     this.handleOfferHover = this.handleOfferHover.bind(this);
+    this.handleAuthToggle = this.handleAuthToggle.bind(this);
     this.state = {
       activeId: null,
-      activePointId: null
+      activePointId: null,
+      auth: false
     };
   }
 
@@ -32,9 +37,21 @@ class App extends PureComponent {
     });
   }
 
+  handleAuthToggle() {
+    this.setState({
+      auth: !this.state.auth
+    });
+  }
+
   renderMain() {
-    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter, citiesNames} = this.props;
+    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter, citiesNames, authStatus, login, userInfo} = this.props;
     const {activeId} = this.state;
+
+    if (this.state.auth) {
+      return (
+        <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>
+      );
+    }
 
     if (citiesNames !== null) {
       if (activeId === null) {
@@ -48,6 +65,9 @@ class App extends PureComponent {
             activePointId = {this.state.activePointId}
             activeFilter = {activeFilter}
             citiesNames = {citiesNames}
+            authStatus = {authStatus}
+            userInfo = {userInfo}
+            handleAuthToggle = {this.handleAuthToggle}
           />
         );
       } else {
@@ -60,7 +80,10 @@ class App extends PureComponent {
             dataCards = {offers}
             handleOfferHover = {this.handleOfferHover}
             activePointId = {this.state.activePointId}
-            city = {city}/>
+            city = {city}
+            authStatus = {authStatus}
+            userInfo = {userInfo}
+            handleAuthToggle = {this.handleAuthToggle}/>
         );
       }
     }
@@ -159,7 +182,16 @@ App.propTypes = {
     })
   }),
   onChangeFilterType: PropTypes.func.isRequired,
-  activeFilter: PropTypes.string
+  activeFilter: PropTypes.string,
+  authStatus: PropTypes.string,
+  userInfo: PropTypes.shape({
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
+  login: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -168,6 +200,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeFilterType(type) {
     dispatch(ActionCreator.setActiveFilter({activeFilterItem: type}));
+  },
+  login(authData) {
+    dispatch(UserOperation.setAuthorizationStatus(authData));
   }
 });
 
@@ -179,7 +214,9 @@ const mapStateToProps = (state) => ({
   offers: getOffersMain(state),
   offersDetail: getOffersDetail(state),
   reviews: getReviews(state),
-  activeFilter: getActiveFilter(state)
+  activeFilter: getActiveFilter(state),
+  authStatus: getAuthStatus(state),
+  userInfo: getUserInfo(state)
 });
 
 export {App};
