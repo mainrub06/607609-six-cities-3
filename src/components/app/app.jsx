@@ -8,8 +8,9 @@ import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {LINKS} from "../../const";
 import {connect} from "react-redux";
-import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getReviews, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
+import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
+import {getReviews} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
 
 class App extends PureComponent {
@@ -18,6 +19,7 @@ class App extends PureComponent {
     this.handleOfferClick = this.handleOfferClick.bind(this);
     this.handleOfferHover = this.handleOfferHover.bind(this);
     this.handleAuthToggle = this.handleAuthToggle.bind(this);
+    this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
     this.state = {
       activeId: null,
       activePointId: null,
@@ -44,6 +46,11 @@ class App extends PureComponent {
     this.setState({
       auth: !this.state.auth
     });
+  }
+
+  handleSubmitFeedback(feedbackData, activeHotelId) {
+    const {postComment} = this.props;
+    postComment(feedbackData, activeHotelId);
   }
 
   renderMain() {
@@ -74,10 +81,9 @@ class App extends PureComponent {
           />
         );
       } else {
-        const dataReview = reviews.find((it) => it.id === activeId.toString());
         return (
           <OfferDetail onOfferClick = {this.handleOfferClick}
-            review={dataReview}
+            reviews={reviews}
             dataCardsDetail = {offersDetail}
             activeId = {activeId}
             dataCards = {offers}
@@ -86,7 +92,8 @@ class App extends PureComponent {
             city = {city}
             authStatus = {authStatus}
             userInfo = {userInfo}
-            handleAuthToggle = {this.handleAuthToggle}/>
+            handleAuthToggle = {this.handleAuthToggle}
+            handleSubmitFeedback = {this.handleSubmitFeedback}/>
         );
       }
     }
@@ -160,19 +167,16 @@ App.propTypes = {
   ),
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string,
-        reviewsArr: PropTypes.arrayOf(
-            PropTypes.shape({
-              author: PropTypes.string,
-              rate: PropTypes.number,
-              text: PropTypes.string,
-              date: PropTypes.string,
-              photo: PropTypes.shape({
-                src: PropTypes.string,
-                alt: PropTypes.string
-              })
-            })
-        )
+        id: PropTypes.number,
+        rate: PropTypes.number,
+        comment: PropTypes.string,
+        date: PropTypes.string,
+        user: PropTypes.shape({
+          id: PropTypes.number,
+          isPro: PropTypes.bool,
+          name: PropTypes.string,
+          avatar: PropTypes.string
+        })
       })
   ),
   onChangeCity: PropTypes.func.isRequired,
@@ -195,7 +199,8 @@ App.propTypes = {
     isPro: PropTypes.bool
   }),
   login: PropTypes.func,
-  getComments: PropTypes.func
+  getComments: PropTypes.func,
+  postComment: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -210,6 +215,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getComments(id) {
     dispatch(ReviewsOperation.getReviewsFromHotelId(id));
+  },
+  postComment(review, id) {
+    dispatch(ReviewsOperation.postReviewFromHotelId(review, id));
   }
 });
 

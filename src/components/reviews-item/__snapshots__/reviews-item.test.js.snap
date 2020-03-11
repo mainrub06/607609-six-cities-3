@@ -11,17 +11,17 @@ exports[`Render ReviewsItem component 1`] = `
       className="reviews__avatar-wrapper user__avatar-wrapper"
     >
       <img
-        alt="Avatar"
+        alt="review.user.name"
         className="reviews__avatar user__avatar"
         height="54"
-        src="img/avatar-max.jpg"
+        src="review.user.avatar_url"
         width="54"
       />
     </div>
     <span
       className="reviews__user-name"
     >
-      Luis
+      review.user.name
     </span>
   </div>
   <div
@@ -36,7 +36,7 @@ exports[`Render ReviewsItem component 1`] = `
         <span
           style={
             Object {
-              "width": 80,
+              "width": 40,
             }
           }
         />
@@ -50,13 +50,13 @@ exports[`Render ReviewsItem component 1`] = `
     <p
       className="reviews__text"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lectus mauris, commodo eget malesuada id, gravida id mi.
+      review.comment
     </p>
     <time
       className="reviews__time"
       dateTime="2019-04-24"
     >
-      December 24, 2018
+      Invalid Date
     </time>
   </div>
 </li>

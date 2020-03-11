@@ -1,4 +1,5 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 
 class ReviewsForm extends PureComponent {
   constructor(props) {
@@ -15,7 +16,6 @@ class ReviewsForm extends PureComponent {
   }
 
   handleClickStar(evt) {
-    // evt.preventDefault();
     this.setState({
       rate: evt.target.value
     });
@@ -30,9 +30,10 @@ class ReviewsForm extends PureComponent {
   }
 
   handleSubmit(evt) {
+    const {handleSubmitFeedback, activeHotelId} = this.props;
+    const {rate, text} = this.state;
     evt.preventDefault();
-
-    console.log(this.state);
+    handleSubmitFeedback({rate, text}, activeHotelId);
   }
 
   render() {
@@ -41,7 +42,7 @@ class ReviewsForm extends PureComponent {
       <form onSubmit={this.handleSubmit} className="reviews__form form" action="#" method="post">
         <label className="reviews__label form__label" htmlFor="review">
           Your review
-            </label>
+        </label>
         <div className="reviews__rating-form form__rating">
 
           <input
@@ -155,6 +156,11 @@ class ReviewsForm extends PureComponent {
     );
   }
 }
+
+ReviewsForm.propTypes = {
+  activeHotelId: PropTypes.string.isRequired,
+  handleSubmitFeedback: PropTypes.func
+};
 
 
 export default ReviewsForm;
