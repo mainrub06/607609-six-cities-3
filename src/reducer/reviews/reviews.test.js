@@ -15,15 +15,14 @@ describe(`test api from reducer(reviews)`, () => {
 
     apiMock
       .onGet(`/comments/${mockId}`)
-      .reply(200, initialPayload);
+      .reply(200, [initialPayload]);
 
     return loader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        // expect(dispatch).toHaveBeenNthCalledWith(1, {
-        //   type: ActionType.GET_REVIEWS_FROM_HOTEL_ID,
-        //   payload: [initialPayload],
-        // });
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.GET_REVIEWS_FROM_HOTEL_ID,
+          payload: [initialPayload],
+        });
       });
   });
 });

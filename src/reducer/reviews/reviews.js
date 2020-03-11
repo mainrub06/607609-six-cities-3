@@ -21,7 +21,7 @@ const Operation = {
       .get(`/comments/${id}`)
       .then((response) => {
         dispatch(
-            ActionCreator.getReviewsFromHotelId(getReviewsList(response.data))
+            ActionCreator.getReviewsFromHotelId(response.data)
         );
       })
       .catch((err) => err);
@@ -34,7 +34,7 @@ const Operation = {
       })
       .then((response) => {
         dispatch(
-            ActionCreator.getReviewsFromHotelId(getReviewsList(response.data))
+            ActionCreator.getReviewsFromHotelId(response.data)
         );
       });
   }
@@ -43,7 +43,7 @@ const Operation = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_REVIEWS_FROM_HOTEL_ID:
-      return extend(state, {reviewsList: action.payload});
+      return extend(state, {reviewsList: getReviewsList(action.payload)});
   }
   return state;
 };
