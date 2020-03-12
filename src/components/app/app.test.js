@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
 import PLACE_MOCK from "../../mock/offers";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
-import REVIEWS from "../../mock/reviews";
 import {OFFERS_SORT_ITEMS, cities as CITIES} from "../../const";
 
 const CITY_MOCK = {
@@ -24,6 +23,33 @@ const USER_INFO_MOCK = {
 };
 
 const authStatus = `AUTH`;
+
+const REVIEWS = [
+  {
+    id: 1,
+    rate: 2,
+    comment: `review.comment`,
+    date: `review.date`,
+    user: {
+      id: 1,
+      isPro: false,
+      name: `review.user.name`,
+      avatar: `review.user.avatar_url`
+    }
+  },
+  {
+    id: 2,
+    rate: 3,
+    comment: `review.comment`,
+    date: `review.date`,
+    user: {
+      id: 1,
+      isPro: false,
+      name: `review.user.name`,
+      avatar: `review.user.avatar_url`
+    }
+  }
+];
 
 it(`Render App`, () => {
   const tree = renderer

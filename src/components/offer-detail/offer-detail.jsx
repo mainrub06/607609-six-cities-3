@@ -23,7 +23,7 @@ class OfferDetail extends PureComponent {
   render() {
     const {
       dataCardsDetail,
-      review,
+      reviews,
       activeId,
       dataCards,
       onOfferClick,
@@ -32,7 +32,8 @@ class OfferDetail extends PureComponent {
       city,
       authStatus,
       userInfo,
-      handleAuthToggle
+      handleAuthToggle,
+      handleSubmitFeedback
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
@@ -180,7 +181,7 @@ class OfferDetail extends PureComponent {
                       ))}
                     </div>
                   </div>
-                  {<Reviews review={review} />}
+                  {<Reviews activeHotelId = {element.id} authStatus = {authStatus} reviews={reviews} handleSubmitFeedback={handleSubmitFeedback}/>}
                 </div>
               </div>
 
@@ -285,21 +286,20 @@ OfferDetail.propTypes = {
         rate: PropTypes.number
       })
   ),
-  review: PropTypes.shape({
-    id: PropTypes.string,
-    reviewsArr: PropTypes.arrayOf(
-        PropTypes.shape({
-          author: PropTypes.string,
-          rate: PropTypes.number,
-          text: PropTypes.string,
-          date: PropTypes.string,
-          photo: PropTypes.shape({
-            src: PropTypes.string,
-            alt: PropTypes.string
-          })
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        rate: PropTypes.number,
+        comment: PropTypes.string,
+        date: PropTypes.string,
+        user: PropTypes.shape({
+          id: PropTypes.number,
+          isPro: PropTypes.bool,
+          name: PropTypes.string,
+          avatar: PropTypes.string
         })
-    )
-  }),
+      })
+  ),
   handleOfferHover: PropTypes.func,
   activePointId: PropTypes.string,
   city: PropTypes.shape({
@@ -318,7 +318,8 @@ OfferDetail.propTypes = {
     isPro: PropTypes.bool
   }),
   authStatus: PropTypes.string,
-  handleAuthToggle: PropTypes.func
+  handleAuthToggle: PropTypes.func,
+  handleSubmitFeedback: PropTypes.func
 };
 
 export default OfferDetail;

@@ -8,12 +8,12 @@ class ReviewsList extends PureComponent {
   }
 
   render() {
-    const {review} = this.props;
+    const {reviews} = this.props;
 
-    if (review) {
+    if (reviews) {
       return (
         <ul className="reviews__list">
-          {review.reviewsArr.map((reviewItem, id) => <ReviewsItem key = {id + reviewItem.author} element = {reviewItem}/>)}
+          {reviews.map((review) => <ReviewsItem key = {review.id} element = {review}/>)}
         </ul>
       );
     }
@@ -22,21 +22,20 @@ class ReviewsList extends PureComponent {
 }
 
 ReviewsList.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    reviewsArr: PropTypes.arrayOf(
-        PropTypes.shape({
-          author: PropTypes.string.isRequired,
-          rate: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-          photo: PropTypes.shape({
-            src: PropTypes.string.isRequired,
-            alt: PropTypes.string.isRequired
-          }).isRequired
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        rate: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          isPro: PropTypes.bool.isRequired,
+          name: PropTypes.string.isRequired,
+          avatar: PropTypes.string.isRequired
         })
-    ).isRequired
-  })
+      })
+  ).isRequired
 };
 
 export default ReviewsList;

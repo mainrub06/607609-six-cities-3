@@ -12,6 +12,5 @@ export const getCity = (state) => {
   return getCityObj(state.data.loadCityOffers, state.main.cityName);
 };
 export const getOffersDetail = (state) => getOffers(state.data.loadCityOffersDetail, state.main.cityName);
-export const getReviews = (state) => state.main.reviews;
 export const getActiveFilter = (state) => state.main.activeFilterItem;
 export const getOffersMain = (state) => getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName));
