@@ -5,13 +5,15 @@ import PropTypes from "prop-types";
 import {ActionCreator} from "../../reducer/main/main";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {LINKS} from "../../const";
+import {Router, Route, Switch} from "react-router-dom";
+import {LINKS, AUTHORIZATION_STATUS} from "../../const";
 import {connect} from "react-redux";
 import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
 import {getReviews} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
+import history from "../../history";
+import Favorites from "../favorites/favorites.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -34,6 +36,7 @@ class App extends PureComponent {
       activePointId: null
     });
     getComments(id);
+    history.push(LINKS.OFFER_DETAIL);
   }
 
   handleOfferHover(id) {
@@ -46,6 +49,7 @@ class App extends PureComponent {
     this.setState({
       auth: !this.state.auth
     });
+    history.push(LINKS.INDEX);
   }
 
   handleSubmitFeedback(feedbackData, activeHotelId) {
@@ -53,67 +57,62 @@ class App extends PureComponent {
     postComment(feedbackData, activeHotelId);
   }
 
-  renderMain() {
-    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter, citiesNames, authStatus, login, userInfo} = this.props;
-    const {activeId} = this.state;
-
-    if (this.state.auth) {
-      return (
-        <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>
-      );
-    }
-
+  renderIndexPage() {
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, citiesNames, authStatus, city, userInfo} = this.props;
     if (citiesNames !== null) {
-      if (activeId === null) {
-        return (
-          <Main onChangeCity = {onChangeCity}
-            dataCards = {offers}
-            onOfferClick = {this.handleOfferClick}
-            city = {city}
-            onChangeFilterType = {onChangeFilterType}
-            handleOfferHover = {this.handleOfferHover}
-            activePointId = {this.state.activePointId}
-            activeFilter = {activeFilter}
-            citiesNames = {citiesNames}
-            authStatus = {authStatus}
-            userInfo = {userInfo}
-            handleAuthToggle = {this.handleAuthToggle}
-          />
-        );
+      if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+        history.push(LINKS.LOGIN);
       } else {
-        return (
-          <OfferDetail onOfferClick = {this.handleOfferClick}
-            reviews={reviews}
-            dataCardsDetail = {offersDetail}
-            activeId = {activeId}
-            dataCards = {offers}
-            handleOfferHover = {this.handleOfferHover}
-            activePointId = {this.state.activePointId}
-            city = {city}
-            authStatus = {authStatus}
-            userInfo = {userInfo}
-            handleAuthToggle = {this.handleAuthToggle}
-            handleSubmitFeedback = {this.handleSubmitFeedback}/>
-        );
+        return <Main onChangeCity = {onChangeCity}
+          dataCards = {offers}
+          onOfferClick = {this.handleOfferClick}
+          city = {city}
+          onChangeFilterType = {onChangeFilterType}
+          handleOfferHover = {this.handleOfferHover}
+          activePointId = {this.state.activePointId}
+          activeFilter = {activeFilter}
+          citiesNames = {citiesNames}
+          authStatus = {authStatus}
+          userInfo = {userInfo}
+          handleAuthToggle = {this.handleAuthToggle}
+        />
       }
     }
-    return null;
   }
 
   render() {
-    const {offersDetail, offers} = this.props;
+    const {offersDetail, reviews, offers, city, authStatus, login, userInfo} = this.props;
+    const {activeId} = this.state;
 
     return (
-      <BrowserRouter>
+      <Router history = {history}>
         <Switch>
+          <Route exaxt path = {LINKS.LOGIN}>
+            <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>
+          </Route>
           <Route exact path = {LINKS.INDEX}>
-            {this.renderMain()}
+            {this.renderIndexPage()}
           </Route>
           <Route exact path = {LINKS.OFFER_DETAIL}>
-            <OfferDetail dataCards = {offers} dataCardsDetail = {offersDetail}/>
+            <OfferDetail onOfferClick = {this.handleOfferClick}
+              reviews={reviews}
+              dataCardsDetail = {offersDetail}
+              activeId = {activeId}
+              dataCards = {offers}
+              handleOfferHover = {this.handleOfferHover}
+              activePointId = {this.state.activePointId}
+              city = {city}
+              authStatus = {authStatus}
+              userInfo = {userInfo}
+              handleAuthToggle = {this.handleAuthToggle}
+              handleSubmitFeedback = {this.handleSubmitFeedback}
+            />
+          </Route>
+          <Route exaxt path={LINKS.FAVORITES}>
+            <Favorites/>
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

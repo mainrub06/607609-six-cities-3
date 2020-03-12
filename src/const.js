@@ -7,7 +7,9 @@ export const STAR_PARAMS = {
 
 export const LINKS = {
   INDEX: `/`,
-  OFFER_DETAIL: `/offer-detail`
+  OFFER_DETAIL: `/offer-detail`,
+  LOGIN: `/login`,
+  FAVORITES: `/my-list`
 };
 
 export const OFFERS_SORT_ITEMS = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];

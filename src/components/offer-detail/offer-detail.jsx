@@ -5,7 +5,8 @@ import {MAX_PHOTOS_OFFER_DETAIL} from "../../const";
 import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
-import {AUTHORIZATION_STATUS} from "../../const";
+import {Link} from "react-router-dom";
+import {AUTHORIZATION_STATUS, LINKS} from "../../const";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
@@ -57,17 +58,17 @@ class OfferDetail extends PureComponent {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <a
-                      className="header__nav-link header__nav-link--profile"
-                      href="#"
-                    >
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
-                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        <Link to={LINKS.LOGIN} className="header__nav-link header__nav-link--profile">
+                          <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        </Link>
                         :
-                        <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                        <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
+                          <div className="header__avatar-wrapper user__avatar-wrapper">
+                          </div>
+                          <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                        </Link>
                       }
-                    </a>
                   </li>
                 </ul>
               </nav>
