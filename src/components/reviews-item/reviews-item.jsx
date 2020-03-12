@@ -17,13 +17,13 @@ class ReviewsItem extends PureComponent {
             <div className="reviews__avatar-wrapper user__avatar-wrapper">
               <img
                 className="reviews__avatar user__avatar"
-                src={element.photo.src}
+                src={element.user.avatar}
                 width="54"
                 height="54"
-                alt={element.photo.alt}
+                alt={element.user.name}
               />
             </div>
-            <span className="reviews__user-name">{element.author}</span>
+            <span className="reviews__user-name">{element.user.name}</span>
           </div>
           <div className="reviews__info">
             <div className="reviews__rating rating">
@@ -32,9 +32,9 @@ class ReviewsItem extends PureComponent {
                 <span className="visually-hidden">Rating</span>
               </div>
             </div>
-            <p className="reviews__text">{element.text}</p>
+            <p className="reviews__text">{element.comment}</p>
             <time className="reviews__time" dateTime="2019-04-24">
-              {element.date}
+              {new Date(element.date).toLocaleDateString()}
             </time>
           </div>
         </li>
@@ -46,13 +46,15 @@ class ReviewsItem extends PureComponent {
 
 ReviewsItem.propTypes = {
   element: PropTypes.shape({
-    author: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     rate: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    photo: PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      alt: PropTypes.string.isRequired
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired
     })
   })
 };

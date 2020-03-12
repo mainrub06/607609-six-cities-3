@@ -153,3 +153,18 @@ export const getUserData = (data) => {
   }
   return null;
 };
+
+export const getReviewsList = (reviews) => {
+  return reviews.map((review) => ({
+    id: review.id,
+    rate: review.rating,
+    comment: review.comment,
+    date: review.date,
+    user: {
+      id: review.user.id,
+      isPro: review.user.is_pro,
+      name: review.user.name,
+      avatar: review.user.avatar_url
+    }
+  }));
+};
