@@ -5,11 +5,13 @@ import PropTypes from "prop-types";
 import {ActionCreator} from "../../reducer/main/main";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
+import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
 import {Router, Route, Switch} from "react-router-dom";
 import {LINKS, AUTHORIZATION_STATUS} from "../../const";
 import {connect} from "react-redux";
 import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
+import {getResponseStatusFavorite} from "../../reducer/favorites/selectors";
 import {getReviews} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history";
@@ -22,6 +24,7 @@ class App extends PureComponent {
     this.handleOfferHover = this.handleOfferHover.bind(this);
     this.handleAuthToggle = this.handleAuthToggle.bind(this);
     this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
+    this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
     this.state = {
       activeId: null,
       activePointId: null,
@@ -57,8 +60,17 @@ class App extends PureComponent {
     postComment(feedbackData, activeHotelId);
   }
 
+  handleClickFavoriteButton(id, bool) {
+    if (this.state.auth === AUTHORIZATION_STATUS.NO_AUTH) {
+      return history.push(LINKS.LOGIN);
+    }
+    const {getUpdatedFavoriteHotel} = this.props;
+
+    getUpdatedFavoriteHotel(id, bool);
+  }
+
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, citiesNames, authStatus, city, userInfo} = this.props;
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, citiesNames, authStatus, city, userInfo, statusFavorite} = this.props;
     if (citiesNames !== null) {
       if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
         history.push(LINKS.LOGIN);
@@ -75,6 +87,8 @@ class App extends PureComponent {
           authStatus = {authStatus}
           userInfo = {userInfo}
           handleAuthToggle = {this.handleAuthToggle}
+          handleClickFavoriteButton = {this.handleClickFavoriteButton}
+          statusFavorite = {statusFavorite}
         />);
       }
     }
@@ -88,7 +102,7 @@ class App extends PureComponent {
     return (
       <Router history = {history}>
         <Switch>
-          <Route exaxt path = {LINKS.LOGIN}>
+          <Route exact path = {LINKS.LOGIN}>
             <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>
           </Route>
           <Route exact path = {LINKS.INDEX}>
@@ -109,7 +123,7 @@ class App extends PureComponent {
               handleSubmitFeedback = {this.handleSubmitFeedback}
             />
           </Route>
-          <Route exaxt path={LINKS.FAVORITES}>
+          <Route exact path={LINKS.FAVORITES}>
             <Favorites/>
           </Route>
         </Switch>
@@ -200,7 +214,8 @@ App.propTypes = {
   }),
   login: PropTypes.func,
   getComments: PropTypes.func,
-  postComment: PropTypes.func
+  postComment: PropTypes.func,
+  statusFavorite: PropTypes.number
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -218,6 +233,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   postComment(review, id) {
     dispatch(ReviewsOperation.postReviewFromHotelId(review, id));
+  },
+  getUpdatedFavoriteHotel(id, value) {
+    dispatch(FavoritesOperation.getUpdatedHotel(id, value));
   }
 });
 
@@ -231,7 +249,8 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state),
   activeFilter: getActiveFilter(state),
   authStatus: getAuthStatus(state),
-  userInfo: getUserInfo(state)
+  userInfo: getUserInfo(state),
+  statusFavorite: getResponseStatusFavorite(state)
 });
 
 export {App};

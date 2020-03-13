@@ -20,7 +20,9 @@ class MainInner extends PureComponent {
       onChangeFilterType,
       handleOfferHover,
       activePointId,
-      activeFilter
+      activeFilter,
+      handleClickFavoriteButton,
+      statusFavorite
     } = this.props;
 
     return (
@@ -33,7 +35,7 @@ class MainInner extends PureComponent {
             </b>
             <OffersSort activeFilter = {activeFilter} onChangeFilterType = {onChangeFilterType}/>
 
-            {<OfferListWrapped handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
+            {<OfferListWrapped statusFavorite = {statusFavorite} handleClickFavoriteButton = {handleClickFavoriteButton}  handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
           </section>
           <div className="cities__right-section">
             {<MapMain city = {city} activePointId = {activePointId} points={dataCards} />}
@@ -72,7 +74,9 @@ MainInner.propTypes = {
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,
   activeFilter: PropTypes.string.isRequired,
-  activePointId: PropTypes.string
+  activePointId: PropTypes.string,
+  handleClickFavoriteButton: PropTypes.func.isRequired,
+  statusFavorite: PropTypes.number
 };
 
 export default MainInner;

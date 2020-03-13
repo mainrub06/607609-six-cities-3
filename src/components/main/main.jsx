@@ -26,7 +26,9 @@ class Main extends PureComponent {
       citiesNames,
       authStatus,
       userInfo,
-      handleAuthToggle} = this.props;
+      handleAuthToggle,
+      handleClickFavoriteButton,
+      statusFavorite} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -70,7 +72,9 @@ class Main extends PureComponent {
               onChangeFilterType = {onChangeFilterType}
               dataCards = {dataCards}
               onOfferClick = {onOfferClick}
-              city = {city}/>
+              city = {city}
+              handleClickFavoriteButton = {handleClickFavoriteButton}
+              statusFavorite = {statusFavorite}/>
             :
             <MainEmpty/>
           }
@@ -123,7 +127,9 @@ Main.propTypes = {
     userAvatar: PropTypes.string,
     isPro: PropTypes.bool
   }),
-  handleAuthToggle: PropTypes.func.isRequired
+  handleAuthToggle: PropTypes.func.isRequired,
+  handleClickFavoriteButton: PropTypes.func.isRequired,
+  statusFavorite: PropTypes.number
 };
 
 export default Main;

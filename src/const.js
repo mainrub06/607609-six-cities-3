@@ -29,3 +29,12 @@ export const AUTHORIZATION_STATUS = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`
 };
+
+export const FAVORITE_REQUESTS = {
+  ADD: `1`,
+  DELETE: `0`
+};
+
+export const REQUEST_STATUS = {
+  NO_AUTH: 401
+};
