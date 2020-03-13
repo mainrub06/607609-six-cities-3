@@ -66,6 +66,7 @@ it(`Render App`, () => {
           onChangeFilterType={() => {}}
           userInfo = {USER_INFO_MOCK}
           authStatus = {authStatus}
+          login = {() => {}}
         />
     )
     .toJSON();

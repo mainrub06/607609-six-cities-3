@@ -63,7 +63,7 @@ class App extends PureComponent {
       if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
         history.push(LINKS.LOGIN);
       } else {
-        return <Main onChangeCity = {onChangeCity}
+        return (<Main onChangeCity = {onChangeCity}
           dataCards = {offers}
           onOfferClick = {this.handleOfferClick}
           city = {city}
@@ -75,9 +75,10 @@ class App extends PureComponent {
           authStatus = {authStatus}
           userInfo = {userInfo}
           handleAuthToggle = {this.handleAuthToggle}
-        />
+        />);
       }
     }
+    return null;
   }
 
   render() {

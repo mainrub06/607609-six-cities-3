@@ -58,17 +58,17 @@ class OfferDetail extends PureComponent {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                      {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
-                        <Link to={LINKS.LOGIN} className="header__nav-link header__nav-link--profile">
-                          <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
-                        </Link>
-                        :
-                        <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
-                          <div className="header__avatar-wrapper user__avatar-wrapper">
-                          </div>
-                          <span className="header__user-name user__name">{userInfo.userEmail}</span>
-                        </Link>
-                      }
+                    {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                      <Link to={LINKS.LOGIN} className="header__nav-link header__nav-link--profile">
+                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                      </Link>
+                      :
+                      <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                        </div>
+                        <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                      </Link>
+                    }
                   </li>
                 </ul>
               </nav>

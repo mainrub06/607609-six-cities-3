@@ -4,6 +4,7 @@ import OfferDetail from "./offer-detail.jsx";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
 import PLACE_MOCK from "../../mock/offers";
 import REVIEWS from "../../mock/reviews";
+import {MemoryRouter} from "react-router-dom";
 
 const CITY_MOCK = {
   name: `Paris`,
@@ -27,19 +28,21 @@ const authStatus = `AUTH`;
 it(`Render OfferDetail component`, () => {
   const tree = renderer
     .create(
-        <OfferDetail
-          city = {CITY_MOCK}
-          review={REVIEWS[0]}
-          onOfferClick={() => {}}
-          activeId={PLACE_MOCK_DETAIL[0].id}
-          dataCards={PLACE_MOCK}
-          dataCardsDetail={PLACE_MOCK_DETAIL}
-          element={PLACE_MOCK_DETAIL[0]}
-          handleOfferHover={() => {}}
-          activePointId={PLACE_MOCK[0].id}
-          userInfo = {USER_INFO_MOCK}
-          authStatus = {authStatus}
-        />
+        <MemoryRouter>
+          <OfferDetail
+            city = {CITY_MOCK}
+            review={REVIEWS[0]}
+            onOfferClick={() => {}}
+            activeId={PLACE_MOCK_DETAIL[0].id}
+            dataCards={PLACE_MOCK}
+            dataCardsDetail={PLACE_MOCK_DETAIL}
+            element={PLACE_MOCK_DETAIL[0]}
+            handleOfferHover={() => {}}
+            activePointId={PLACE_MOCK[0].id}
+            userInfo = {USER_INFO_MOCK}
+            authStatus = {authStatus}
+          />
+        </MemoryRouter>
     )
     .toJSON();
 
