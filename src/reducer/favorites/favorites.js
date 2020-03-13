@@ -2,38 +2,44 @@ import {extend} from "../../utils.js";
 import {FAVORITE_REQUESTS} from "../../const";
 
 const initialState = {
-  updatedHotel: null
+  isError: false
 };
 
 const ActionType = {
-  GET_UPDATED_HOTEL: `GET_UPDATED_HOTEL`
+  GET_FAVORITE_RESPONSE: `GET_FAVORITE_RESPONSE`
 };
 
 const ActionCreator = {
-  getUpdatedHotel: (value) => ({
-    type: ActionType.GET_UPDATED_HOTEL,
+  getFavoriteResponse: (value) => ({
+    type: ActionType.GET_FAVORITE_RESPONSE,
     payload: value
   })
 };
 
 const Operation = {
-  getUpdatedHotel: (id, value) => (dispatch, getState, api) => {
+  getFavoriteResponse: (id, value) => (dispatch, getState, api) => {
     const valueForFavoritesServer = value ? FAVORITE_REQUESTS.ADD : FAVORITE_REQUESTS.DELETE;
     return api
       .post(`/favorite/${id}/${valueForFavoritesServer}`)
-      .then((response) => {
+      .then(() => {
         dispatch(
-            ActionCreator.getUpdatedHotel(response)
+            ActionCreator.getFavoriteResponse(false)
         );
       })
-      .catch((err) => err);
+      .catch((err) => {
+        dispatch(
+            ActionCreator.getFavoriteResponse(true)
+        );
+        console.log(err);
+        throw err;
+      });
   }
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.GET_UPDATED_HOTEL:
-      return extend(state, {updatedHotel: action.payload});
+    case ActionType.GET_FAVORITE_RESPONSE:
+      return extend(state, {isError: action.payload});
   }
   return state;
 };

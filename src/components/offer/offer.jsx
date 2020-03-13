@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
-import {REQUEST_STATUS} from "../../const";
 
 class Offer extends PureComponent {
   constructor(props) {
@@ -13,20 +12,16 @@ class Offer extends PureComponent {
   }
 
   setFavoriteStatus() {
-    this.setState({
-      isFavorite: !this.state.isFavorite
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState)
-    if (this.props.statusFavorite === REQUEST_STATUS.NO_AUTH) {
-
+    const {favoriteResponse} = this.props;
+    if (!favoriteResponse) {
+      this.setState({
+        isFavorite: !this.state.isFavorite
+      });
     }
   }
 
   render() {
-    const {element, handleOfferHover, onOfferClick, isOfferDetailItem, handleClickFavoriteButton, statusFavorite} = this.props;
+    const {element, handleOfferHover, onOfferClick, isOfferDetailItem, handleClickFavoriteButton, favoriteResponse} = this.props;
 
     return (
       <article onMouseOver={() => {
@@ -98,8 +93,7 @@ Offer.propTypes = {
   handleOfferHover: PropTypes.func.isRequired,
   onOfferClick: PropTypes.func.isRequired,
   isOfferDetailItem: PropTypes.bool,
-  handleClickFavoriteButton: PropTypes.func.isRequired,
-  statusFavorite: PropTypes.number
+  handleClickFavoriteButton: PropTypes.func.isRequired
 };
 
 export default Offer;

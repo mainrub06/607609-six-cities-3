@@ -70,7 +70,7 @@ class App extends PureComponent {
   }
 
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, citiesNames, authStatus, city, userInfo, statusFavorite} = this.props;
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, citiesNames, authStatus, city, userInfo, favoriteResponse} = this.props;
     if (citiesNames !== null) {
       if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
         history.push(LINKS.LOGIN);
@@ -88,7 +88,7 @@ class App extends PureComponent {
           userInfo = {userInfo}
           handleAuthToggle = {this.handleAuthToggle}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
-          statusFavorite = {statusFavorite}
+          favoriteResponse = {favoriteResponse}
         />);
       }
     }
@@ -214,8 +214,7 @@ App.propTypes = {
   }),
   login: PropTypes.func,
   getComments: PropTypes.func,
-  postComment: PropTypes.func,
-  statusFavorite: PropTypes.number
+  postComment: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -235,7 +234,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ReviewsOperation.postReviewFromHotelId(review, id));
   },
   getUpdatedFavoriteHotel(id, value) {
-    dispatch(FavoritesOperation.getUpdatedHotel(id, value));
+    dispatch(FavoritesOperation.getFavoriteResponse(id, value));
   }
 });
 
@@ -250,7 +249,7 @@ const mapStateToProps = (state) => ({
   activeFilter: getActiveFilter(state),
   authStatus: getAuthStatus(state),
   userInfo: getUserInfo(state),
-  statusFavorite: getResponseStatusFavorite(state)
+  favoriteResponse: getResponseStatusFavorite(state)
 });
 
 export {App};
