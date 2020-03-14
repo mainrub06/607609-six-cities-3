@@ -6,7 +6,7 @@ import {ActionCreator} from "../../reducer/main/main";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
-import {Router, Route, Switch} from "react-router-dom";
+import {Router, Route, Switch, Redirect} from "react-router-dom";
 import {LINKS, AUTHORIZATION_STATUS} from "../../const";
 import {connect} from "react-redux";
 import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
@@ -25,6 +25,11 @@ class App extends PureComponent {
     this.handleAuthToggle = this.handleAuthToggle.bind(this);
     this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
     this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
+
+    this.isUserAuth = this.isUserAuth.bind(this);
+    this.renderLoginPage = this.renderLoginPage.bind(this);
+    this.checkUserAuth = this.checkUserAuth.bind(this);
+
     this.state = {
       activeId: null,
       activePointId: null,
@@ -62,51 +67,65 @@ class App extends PureComponent {
 
   handleClickFavoriteButton(id, bool) {
     if (this.state.auth === AUTHORIZATION_STATUS.NO_AUTH) {
-      return history.push(LINKS.LOGIN);
+      history.push(LINKS.LOGIN);
     }
     const {getUpdatedFavoriteHotel} = this.props;
 
     getUpdatedFavoriteHotel(id, bool);
   }
 
+  isUserAuth(status) {
+    return status === AUTHORIZATION_STATUS.AUTH;
+  }
+
+  componentDidMount() {
+    this.props.getAuthorizationStatus();
+  }
+
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, citiesNames, authStatus, city, userInfo, favoriteResponse} = this.props;
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse} = this.props;
     if (citiesNames !== null) {
-      if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
-        history.push(LINKS.LOGIN);
-      } else {
-        return (<Main onChangeCity = {onChangeCity}
-          dataCards = {offers}
-          onOfferClick = {this.handleOfferClick}
-          city = {city}
-          onChangeFilterType = {onChangeFilterType}
-          handleOfferHover = {this.handleOfferHover}
-          activePointId = {this.state.activePointId}
-          activeFilter = {activeFilter}
-          citiesNames = {citiesNames}
-          authStatus = {authStatus}
-          userInfo = {userInfo}
-          handleAuthToggle = {this.handleAuthToggle}
-          handleClickFavoriteButton = {this.handleClickFavoriteButton}
-          favoriteResponse = {favoriteResponse}
-        />);
-      }
+      return (<Main onChangeCity = {onChangeCity}
+        dataCards = {offers}
+        onOfferClick = {this.handleOfferClick}
+        city = {city}
+        onChangeFilterType = {onChangeFilterType}
+        handleOfferHover = {this.handleOfferHover}
+        activePointId = {this.state.activePointId}
+        activeFilter = {activeFilter}
+        citiesNames = {citiesNames}
+        authStatus = {authStatus}
+        userInfo = {userInfo}
+        handleAuthToggle = {this.handleAuthToggle}
+        handleClickFavoriteButton = {this.handleClickFavoriteButton}
+        favoriteResponse = {favoriteResponse}
+      />);
     }
     return null;
   }
 
+  renderLoginPage() {
+    const {login, authStatus} = this.props;
+    return this.isUserAuth(authStatus) ? <Redirect to = {{pathname: LINKS.INDEX}}/> : <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>;
+  }
+
+  checkUserAuth() {
+    const {authStatus} = this.props;
+    return this.isUserAuth(authStatus) ? this.renderIndexPage() : <Redirect to = {{pathname: LINKS.LOGIN}}/>;
+  }
+
   render() {
-    const {offersDetail, reviews, offers, city, authStatus, login, userInfo} = this.props;
+    const {offersDetail, reviews, offers, city, authStatus, userInfo} = this.props;
     const {activeId} = this.state;
 
     return (
       <Router history = {history}>
         <Switch>
           <Route exact path = {LINKS.LOGIN}>
-            <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>
+            {this.renderLoginPage()}
           </Route>
           <Route exact path = {LINKS.INDEX}>
-            {this.renderIndexPage()}
+            {this.checkUserAuth()}
           </Route>
           <Route exact path = {LINKS.OFFER_DETAIL}>
             <OfferDetail onOfferClick = {this.handleOfferClick}
@@ -214,7 +233,10 @@ App.propTypes = {
   }),
   login: PropTypes.func,
   getComments: PropTypes.func,
-  postComment: PropTypes.func
+  postComment: PropTypes.func,
+  getUpdatedFavoriteHotel: PropTypes.func,
+  getAuthorizationStatus: PropTypes.func,
+  favoriteResponse: PropTypes.bool
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -223,6 +245,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeFilterType(type) {
     dispatch(ActionCreator.setActiveFilter({activeFilterItem: type}));
+  },
+  getAuthorizationStatus() {
+    dispatch(UserOperation.getAuthorizationStatus());
   },
   login(authData) {
     dispatch(UserOperation.setAuthorizationStatus(authData));

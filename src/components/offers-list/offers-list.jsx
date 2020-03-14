@@ -35,6 +35,7 @@ class OfferList extends PureComponent {
   }
 }
 
+
 OfferList.propTypes = {
   dataCards: PropTypes.arrayOf(
       PropTypes.shape({
@@ -55,7 +56,8 @@ OfferList.propTypes = {
   handleOfferHover: PropTypes.func.isRequired,
   activeItemIndex: PropTypes.number,
   handleItemClick: PropTypes.func,
-  handleClickFavoriteButton: PropTypes.func.isRequired
+  handleClickFavoriteButton: PropTypes.func,
+  favoriteResponse: PropTypes.bool
 };
 
 export default OfferList;

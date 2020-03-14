@@ -21,7 +21,7 @@ class Offer extends PureComponent {
   }
 
   render() {
-    const {element, handleOfferHover, onOfferClick, isOfferDetailItem, handleClickFavoriteButton, favoriteResponse} = this.props;
+    const {element, handleOfferHover, onOfferClick, isOfferDetailItem, handleClickFavoriteButton} = this.props;
 
     return (
       <article onMouseOver={() => {
@@ -50,8 +50,7 @@ class Offer extends PureComponent {
             <button onClick = {() => {
               this.setFavoriteStatus();
               handleClickFavoriteButton(element.id, !this.state.isFavorite);
-            }
-              } className={`${this.state.isFavorite ? `place-card__bookmark-button--active` : ``} place-card__bookmark-button button`} type="button">
+            }} className={`${this.state.isFavorite ? `place-card__bookmark-button--active` : ``} place-card__bookmark-button button`} type="button">
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -88,12 +87,14 @@ Offer.propTypes = {
     }).isRequired,
     class: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
-    rate: PropTypes.number.isRequired
+    rate: PropTypes.number.isRequired,
+    favorite: PropTypes.bool.isRequired
   }).isRequired,
   handleOfferHover: PropTypes.func.isRequired,
   onOfferClick: PropTypes.func.isRequired,
   isOfferDetailItem: PropTypes.bool,
-  handleClickFavoriteButton: PropTypes.func.isRequired
+  handleClickFavoriteButton: PropTypes.func.isRequired,
+  favoriteResponse: PropTypes.bool
 };
 
 export default Offer;

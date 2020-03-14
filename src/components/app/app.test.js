@@ -67,6 +67,7 @@ it(`Render App`, () => {
           userInfo = {USER_INFO_MOCK}
           authStatus = {authStatus}
           login = {() => {}}
+          getAuthorizationStatus = {() => {}}
         />
     )
     .toJSON();

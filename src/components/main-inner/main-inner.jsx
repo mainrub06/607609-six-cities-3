@@ -35,7 +35,7 @@ class MainInner extends PureComponent {
             </b>
             <OffersSort activeFilter = {activeFilter} onChangeFilterType = {onChangeFilterType}/>
 
-            {<OfferListWrapped favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton}  handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
+            {<OfferListWrapped favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
           </section>
           <div className="cities__right-section">
             {<MapMain city = {city} activePointId = {activePointId} points={dataCards} />}
@@ -75,7 +75,8 @@ MainInner.propTypes = {
   handleOfferHover: PropTypes.func,
   activeFilter: PropTypes.string.isRequired,
   activePointId: PropTypes.string,
-  handleClickFavoriteButton: PropTypes.func.isRequired
+  handleClickFavoriteButton: PropTypes.func.isRequired,
+  favoriteResponse: PropTypes.bool
 };
 
 export default MainInner;

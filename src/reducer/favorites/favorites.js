@@ -30,7 +30,6 @@ const Operation = {
         dispatch(
             ActionCreator.getFavoriteResponse(true)
         );
-        console.log(err);
         throw err;
       });
   }

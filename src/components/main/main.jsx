@@ -128,7 +128,8 @@ Main.propTypes = {
     isPro: PropTypes.bool
   }),
   handleAuthToggle: PropTypes.func.isRequired,
-  handleClickFavoriteButton: PropTypes.func.isRequired
+  handleClickFavoriteButton: PropTypes.func.isRequired,
+  favoriteResponse: PropTypes.bool
 };
 
 export default Main;
