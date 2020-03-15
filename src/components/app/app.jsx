@@ -6,10 +6,12 @@ import {ActionCreator} from "../../reducer/main/main";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
+import {ActionCreator as DataAC} from "../../reducer/data/data";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
 import {LINKS, AUTHORIZATION_STATUS} from "../../const";
 import {connect} from "react-redux";
-import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
+import {getCityName} from "../../reducer/main/selectors";
+import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
 import {getResponseStatusFavorite} from "../../reducer/favorites/selectors";
 import {getReviews} from "../../reducer/reviews/selectors";
@@ -69,8 +71,9 @@ class App extends PureComponent {
     if (this.state.auth === AUTHORIZATION_STATUS.NO_AUTH) {
       history.push(LINKS.LOGIN);
     }
-    const {getUpdatedFavoriteHotel} = this.props;
+    const {getUpdatedFavoriteHotel, changeFavoriteFlag, cityName} = this.props;
 
+    changeFavoriteFlag({id, favorite: bool, cityName});
     getUpdatedFavoriteHotel(id, bool);
   }
 
@@ -261,6 +264,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getUpdatedFavoriteHotel(id, value) {
     dispatch(FavoritesOperation.getFavoriteResponse(id, value));
+  },
+  changeFavoriteFlag(value) {
+    dispatch(DataAC.changeFavoriteById(value));
   }
 });
 

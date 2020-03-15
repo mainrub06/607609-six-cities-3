@@ -13,15 +13,16 @@ class Offer extends PureComponent {
 
   setFavoriteStatus() {
     const {favoriteResponse} = this.props;
-    if (!favoriteResponse) {
-      this.setState({
-        isFavorite: !this.state.isFavorite
-      });
-    }
+    // if (!favoriteResponse) {
+    //   this.setState({
+    //     isFavorite: !this.state.isFavorite
+    //   });
+    // }
   }
 
   render() {
     const {element, handleOfferHover, onOfferClick, isOfferDetailItem, handleClickFavoriteButton} = this.props;
+
 
     return (
       <article onMouseOver={() => {

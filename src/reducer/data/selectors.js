@@ -6,7 +6,6 @@ import {
 } from "../../utils";
 
 export const getloadCityOffers = (state) => state.data.loadCityOffers;
-export const getCityName = (state) => getFirstCity(state.data.citiesNames);
 export const getCitiesNames = (state) => state.data.citiesNames;
 export const getCity = (state) => {
   return getCityObj(state.data.loadCityOffers, state.main.cityName);
