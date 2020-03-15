@@ -140,6 +140,7 @@ class App extends PureComponent {
               userInfo = {userInfo}
               handleAuthToggle = {this.handleAuthToggle}
               handleSubmitFeedback = {this.handleSubmitFeedback}
+              handleClickFavoriteButton = {this.handleClickFavoriteButton}
             />
           </Route>
           <Route exact path={LINKS.FAVORITES}>

@@ -41,6 +41,7 @@ it(`Render OfferDetail component`, () => {
             activePointId={PLACE_MOCK[0].id}
             userInfo = {USER_INFO_MOCK}
             authStatus = {authStatus}
+            handleClickFavoriteButton = {() => {}}
           />
         </MemoryRouter>
     )

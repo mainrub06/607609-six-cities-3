@@ -34,7 +34,8 @@ class OfferDetail extends PureComponent {
       authStatus,
       userInfo,
       handleAuthToggle,
-      handleSubmitFeedback
+      handleSubmitFeedback,
+      handleClickFavoriteButton
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
@@ -200,6 +201,7 @@ class OfferDetail extends PureComponent {
                     isOfferDetailItem={true}
                     dataCards={sameOffers}
                     handleOfferHover = {handleOfferHover}
+                    handleClickFavoriteButton = {handleClickFavoriteButton}
                   />
                 }
               </section>
@@ -320,7 +322,8 @@ OfferDetail.propTypes = {
   }),
   authStatus: PropTypes.string,
   handleAuthToggle: PropTypes.func,
-  handleSubmitFeedback: PropTypes.func
+  handleSubmitFeedback: PropTypes.func,
+  handleClickFavoriteButton: PropTypes.func
 };
 
 export default OfferDetail;

@@ -41,6 +41,7 @@ it(`Render Main`, () => {
             userInfo = {USER_INFO_MOCK}
             authStatus = {authStatus}
             handleAuthToggle = {() => {}}
+            handleClickFavoriteButton = {() => {}}
           />
         </MemoryRouter>
     )
