@@ -120,7 +120,6 @@ class App extends PureComponent {
   render() {
     const {offersDetail, reviews, offers, city, authStatus, userInfo} = this.props;
     const {activeId} = this.state;
-
     return (
       <Router history = {history}>
         <Switch>

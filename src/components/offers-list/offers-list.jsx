@@ -19,6 +19,7 @@ class OfferList extends PureComponent {
 
   render() {
     const {dataCards, onOfferClick, isOfferDetailItem, handleClickFavoriteButton, favoriteResponse} = this.props;
+
     return (
       <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
         {dataCards.map((it) => (

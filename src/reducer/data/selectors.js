@@ -1,7 +1,6 @@
 import {
   getFilteredOffers,
   getCityObj,
-  getFirstCity,
   getOffers
 } from "../../utils";
 

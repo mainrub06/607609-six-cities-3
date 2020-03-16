@@ -32,18 +32,21 @@ const Operation = {
 };
 
 const getFavoriteTargetByCityAndId = (state, obj) => {
-  const newExtendArr = state.loadCityOffers[obj.cityName].find((hotel) => hotel.id === obj.id);
-  newExtendArr.favorive = obj.favorite;
-  console.log({loadCityOffers: {[obj.cityName]: [newExtendArr]}})
-  return {loadCityOffers: {[obj.cityName]: [newExtendArr]}}
+  const newExtendArr = state.loadCityOffers[obj.cityName].map((hotel) => {
+    if (hotel.id === obj.id) hotel.favorite = obj.favorite;
+    return hotel;
+  });
+
+  const newState = extend(state.loadCityOffers, {[obj.cityName]: newExtendArr});
+  return newState;
 };
 
-const reducer = (state = initialState, action)=>{
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS:
       return extend(state, getFilteredData(action.payload));
     case ActionType.CHANGE_FAVORITE_BY_ID:
-      return extend(state, getFavoriteTargetByCityAndId(state, action.payload));
+      return extend(state, {loadCityOffers: getFavoriteTargetByCityAndId(state, action.payload)});
   }
   return state;
 };
