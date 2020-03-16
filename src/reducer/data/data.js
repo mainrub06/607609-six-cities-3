@@ -1,4 +1,4 @@
-import {extend, getFilteredData} from "../../utils.js";
+import {extend, getFilteredData, getFavoriteTargetByCityAndId} from "../../utils.js";
 
 const initialState = {
   loadCityOffers: null,
@@ -29,16 +29,6 @@ const Operation = {
         dispatch(ActionCreator.loadOffers(response.data));
       });
   }
-};
-
-const getFavoriteTargetByCityAndId = (state, obj) => {
-  const newExtendArr = state.loadCityOffers[obj.cityName].map((hotel) => {
-    if (hotel.id === obj.id) hotel.favorite = obj.favorite;
-    return hotel;
-  });
-
-  const newState = extend(state.loadCityOffers, {[obj.cityName]: newExtendArr});
-  return newState;
 };
 
 const reducer = (state = initialState, action) => {

@@ -168,3 +168,26 @@ export const getReviewsList = (reviews) => {
     }
   }));
 };
+
+export const getFavoriteTargetByCityAndId = (state, obj) => {
+  const newExtendArr = state.loadCityOffers[obj.cityName].map((hotel) => {
+    if (hotel.id === obj.id) {
+      hotel.favorite = obj.favorite;
+    }
+    return {
+      id: hotel.id,
+      name: hotel.name,
+      price: hotel.price,
+      img: hotel.img,
+      class: hotel.class,
+      type: hotel.type,
+      rate: hotel.rate,
+      cords: hotel.cords,
+      favorite: hotel.favorite,
+      city: hotel.city
+    };
+  });
+
+  const newState = extend(state.loadCityOffers, {[obj.cityName]: newExtendArr});
+  return newState;
+};

@@ -239,7 +239,9 @@ App.propTypes = {
   postComment: PropTypes.func,
   getUpdatedFavoriteHotel: PropTypes.func,
   getAuthorizationStatus: PropTypes.func,
-  favoriteResponse: PropTypes.bool
+  favoriteResponse: PropTypes.bool,
+  changeFavoriteFlag: PropTypes.func,
+  cityName: PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch) => ({
