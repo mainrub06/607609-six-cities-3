@@ -24,6 +24,7 @@ it(`Render Main`, () => {
           onOfferClick={() => {}}
           dataCards={PLACE_MOCK}
           onChangeFilterType={() => {}}
+          handleClickFavoriteButton = {() => {}}
         />
     )
     .toJSON();

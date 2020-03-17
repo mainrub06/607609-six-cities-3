@@ -7,7 +7,6 @@ import reducer from "./reducer/reducers";
 import thunk from "redux-thunk";
 import {createAPI} from "./api";
 import {Operation as LoadOffersData} from "./reducer/data/data";
-import {Operation as GetAuthStatus} from "./reducer/user/user";
 
 const api = createAPI();
 
@@ -20,7 +19,6 @@ const store = createStore(
 );
 
 store.dispatch(LoadOffersData.loadOffers());
-store.dispatch(GetAuthStatus.getAuthorizationStatus());
 
 ReactDOM.render(
     <Provider store = {store}>

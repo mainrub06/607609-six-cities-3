@@ -40,7 +40,8 @@ exports[`Render OfferDetail component 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/my-list"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -371,7 +372,8 @@ exports[`Render OfferDetail component 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className=" place-card__bookmark-button button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -476,7 +478,8 @@ exports[`Render OfferDetail component 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className=" place-card__bookmark-button button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -581,7 +584,8 @@ exports[`Render OfferDetail component 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className=" place-card__bookmark-button button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg

@@ -60,7 +60,8 @@ const PLACE_DETAIL_MOCK = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    favorite: false
   },
   {
     id: `5464564`,
@@ -123,7 +124,8 @@ const PLACE_DETAIL_MOCK = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    favorite: false
   },
   {
     id: `4589512`,
@@ -186,7 +188,8 @@ const PLACE_DETAIL_MOCK = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    favorite: false
   },
   {
     id: `7513497`,
@@ -258,7 +261,8 @@ const PLACE_DETAIL_MOCK = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    favorite: false
   },
   {
     id: `9431675`,
@@ -321,7 +325,8 @@ const PLACE_DETAIL_MOCK = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    favorite: false
   }
 ];
 

@@ -6,7 +6,7 @@ import PLACE_MOCK from "../../mock/offers";
 it(`Render OfferList component`, () => {
   const tree = renderer
     .create(
-        <OfferList handleOfferHover = {() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} />
+        <OfferList handleClickFavoriteButton = {() => {}} handleOfferHover = {() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} />
     )
     .toJSON();
 

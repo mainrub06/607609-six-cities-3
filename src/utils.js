@@ -168,3 +168,10 @@ export const getReviewsList = (reviews) => {
     }
   }));
 };
+
+export const getFavoriteTargetByCityAndId = (state, obj) => {
+  const newExtendArr = state.loadCityOffers[obj.cityName].map((hotel) => {
+    return hotel.id === obj.id ? extend(hotel, {favorite: obj.favorite}) : hotel;
+  });
+  return extend(state.loadCityOffers, {[obj.cityName]: newExtendArr});
+};

@@ -10,7 +10,8 @@ const PLACE_MOCK = [
     class: true,
     type: `room`,
     rate: 3.2,
-    cords: [52.3909553943508, 4.85309666406198]
+    cords: [52.3909553943508, 4.85309666406198],
+    favorite: false
   },
   {
     id: `5464564`,
@@ -23,7 +24,8 @@ const PLACE_MOCK = [
     class: true,
     type: `apartment`,
     rate: 4,
-    cords: [52.369553943508, 4.85309666406198]
+    cords: [52.369553943508, 4.85309666406198],
+    favorite: false
   },
   {
     id: `4589512`,
@@ -36,7 +38,8 @@ const PLACE_MOCK = [
     class: true,
     type: `hotel`,
     rate: 3.6,
-    cords: [52.3909553943508, 4.929309666406198]
+    cords: [52.3909553943508, 4.929309666406198],
+    favorite: false
   },
   {
     id: `7513497`,
@@ -49,7 +52,8 @@ const PLACE_MOCK = [
     class: true,
     type: `hotel`,
     rate: 4.5,
-    cords: [52.3809553943508, 4.939309666406198]
+    cords: [52.3809553943508, 4.939309666406198],
+    favorite: false
   },
   {
     id: `9431675`,
@@ -62,7 +66,8 @@ const PLACE_MOCK = [
     class: true,
     type: `house`,
     rate: 0.5,
-    cords: [52.3909553943508, 4.940309666406198]
+    cords: [52.3909553943508, 4.940309666406198],
+    favorite: false
   }
 ];
 

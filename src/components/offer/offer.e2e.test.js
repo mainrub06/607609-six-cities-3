@@ -20,6 +20,7 @@ it(`test Article hover`, () => {
         handleOfferHover={() => {
           onHoverArticle(MOCK_EL.id);
         }}
+        handleClickFavoriteButton = {() => {}}
       />
   );
 
@@ -36,6 +37,7 @@ it(`test Article-title click`, () => {
           onClickArticleName(MOCK_EL.id);
         }}
         handleOfferHover={() => {}}
+        handleClickFavoriteButton = {() => {}}
       />
   );
 

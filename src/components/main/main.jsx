@@ -4,7 +4,8 @@ import CityList from "../city-list/city-list.jsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
 import withActiveIndex from "../../hocs/withActiveIndex/withActiveIndex.jsx";
-import {AUTHORIZATION_STATUS} from "../../const";
+import {Link} from "react-router-dom";
+import {AUTHORIZATION_STATUS, LINKS} from "../../const";
 
 const CityListWrapper = withActiveIndex(CityList);
 
@@ -25,7 +26,9 @@ class Main extends PureComponent {
       citiesNames,
       authStatus,
       userInfo,
-      handleAuthToggle} = this.props;
+      handleAuthToggle,
+      handleClickFavoriteButton,
+      favoriteResponse} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -40,15 +43,17 @@ class Main extends PureComponent {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                    {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                      <Link to={LINKS.LOGIN} className="header__nav-link header__nav-link--profile">
                         <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
-                        :
+                      </Link>
+                      :
+                      <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                        </div>
                         <span className="header__user-name user__name">{userInfo.userEmail}</span>
-                      }
-                    </a>
+                      </Link>
+                    }
                   </li>
                 </ul>
               </nav>
@@ -67,7 +72,9 @@ class Main extends PureComponent {
               onChangeFilterType = {onChangeFilterType}
               dataCards = {dataCards}
               onOfferClick = {onOfferClick}
-              city = {city}/>
+              city = {city}
+              handleClickFavoriteButton = {handleClickFavoriteButton}
+              favoriteResponse = {favoriteResponse}/>
             :
             <MainEmpty/>
           }
@@ -120,7 +127,9 @@ Main.propTypes = {
     userAvatar: PropTypes.string,
     isPro: PropTypes.bool
   }),
-  handleAuthToggle: PropTypes.func.isRequired
+  handleAuthToggle: PropTypes.func.isRequired,
+  handleClickFavoriteButton: PropTypes.func.isRequired,
+  favoriteResponse: PropTypes.bool
 };
 
 export default Main;
