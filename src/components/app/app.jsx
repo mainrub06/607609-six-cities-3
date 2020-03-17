@@ -46,7 +46,6 @@ class App extends PureComponent {
       activePointId: null
     });
     getComments(id);
-    history.push(LINKS.OFFER_DETAIL);
   }
 
   handleOfferHover(id) {
@@ -120,6 +119,7 @@ class App extends PureComponent {
   render() {
     const {offersDetail, reviews, offers, city, authStatus, userInfo} = this.props;
     const {activeId} = this.state;
+
     return (
       <Router history = {history}>
         <Switch>
@@ -129,7 +129,7 @@ class App extends PureComponent {
           <Route exact path = {LINKS.INDEX}>
             {this.checkUserAuth()}
           </Route>
-          <Route exact path = {LINKS.OFFER_DETAIL}>
+          <Route exact path = {`${LINKS.OFFER_DETAIL}:id`}>
             <OfferDetail onOfferClick = {this.handleOfferClick}
               reviews={reviews}
               dataCardsDetail = {offersDetail}

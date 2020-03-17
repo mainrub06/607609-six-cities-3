@@ -7,7 +7,7 @@ export const STAR_PARAMS = {
 
 export const LINKS = {
   INDEX: `/`,
-  OFFER_DETAIL: `/offer-detail`,
+  OFFER_DETAIL: `/offer/`,
   LOGIN: `/login`,
   FAVORITES: `/my-list`
 };

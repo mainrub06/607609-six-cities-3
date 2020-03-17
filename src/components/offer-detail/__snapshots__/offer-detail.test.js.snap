@@ -417,7 +417,8 @@ exports[`Render OfferDetail component 1`] = `
                 onClick={[Function]}
               >
                 <a
-                  href="#"
+                  href="/offer/5464564"
+                  onClick={[Function]}
                 >
                   Wood and stone place
                 </a>
@@ -523,7 +524,8 @@ exports[`Render OfferDetail component 1`] = `
                 onClick={[Function]}
               >
                 <a
-                  href="#"
+                  href="/offer/4589512"
+                  onClick={[Function]}
                 >
                   Radisson SAS
                 </a>
@@ -629,7 +631,8 @@ exports[`Render OfferDetail component 1`] = `
                 onClick={[Function]}
               >
                 <a
-                  href="#"
+                  href="/offer/7513497"
+                  onClick={[Function]}
                 >
                   Hilton palace
                 </a>

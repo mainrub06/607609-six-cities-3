@@ -95,7 +95,8 @@ exports[`Render Offer component 1`] = `
       onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/5464564"
+        onClick={[Function]}
       >
         Wood and stone place
       </a>

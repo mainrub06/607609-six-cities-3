@@ -1,6 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
+import {Link} from "react-router-dom";
+import {LINKS} from "../../const";
 
 class Offer extends PureComponent {
   constructor(props) {
@@ -17,7 +19,6 @@ class Offer extends PureComponent {
 
   render() {
     const {element, handleOfferHover, onOfferClick, isOfferDetailItem} = this.props;
-
 
     return (
       <article onMouseOver={() => {
@@ -61,7 +62,7 @@ class Offer extends PureComponent {
           <h2 onClick={() => {
             onOfferClick(element.id);
           }} className="place-card__name">
-            <a href="#">{element.name}</a>
+            <Link to={LINKS.OFFER_DETAIL + `${element.id}`}>{element.name}</Link>
           </h2>
           <p className="place-card__type">{element.type}</p>
         </div>
