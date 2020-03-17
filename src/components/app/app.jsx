@@ -5,13 +5,19 @@ import PropTypes from "prop-types";
 import {ActionCreator} from "../../reducer/main/main";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {LINKS} from "../../const";
+import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
+import {ActionCreator as DataAC} from "../../reducer/data/data";
+import {Router, Route, Switch, Redirect} from "react-router-dom";
+import {LINKS, AUTHORIZATION_STATUS} from "../../const";
 import {connect} from "react-redux";
-import {getCityName, getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
+import {getCityName} from "../../reducer/main/selectors";
+import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
+import {getResponseStatusFavorite} from "../../reducer/favorites/selectors";
 import {getReviews} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
+import history from "../../history";
+import Favorites from "../favorites/favorites.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -20,6 +26,12 @@ class App extends PureComponent {
     this.handleOfferHover = this.handleOfferHover.bind(this);
     this.handleAuthToggle = this.handleAuthToggle.bind(this);
     this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
+    this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
+
+    this.isUserAuth = this.isUserAuth.bind(this);
+    this.renderLoginPage = this.renderLoginPage.bind(this);
+    this.checkUserAuth = this.checkUserAuth.bind(this);
+
     this.state = {
       activeId: null,
       activePointId: null,
@@ -34,6 +46,7 @@ class App extends PureComponent {
       activePointId: null
     });
     getComments(id);
+    history.push(LINKS.OFFER_DETAIL);
   }
 
   handleOfferHover(id) {
@@ -46,6 +59,7 @@ class App extends PureComponent {
     this.setState({
       auth: !this.state.auth
     });
+    history.push(LINKS.INDEX);
   }
 
   handleSubmitFeedback(feedbackData, activeHotelId) {
@@ -53,67 +67,89 @@ class App extends PureComponent {
     postComment(feedbackData, activeHotelId);
   }
 
-  renderMain() {
-    const {offersDetail, reviews, onChangeCity, offers, city, onChangeFilterType, activeFilter, citiesNames, authStatus, login, userInfo} = this.props;
-    const {activeId} = this.state;
-
-    if (this.state.auth) {
-      return (
-        <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>
-      );
+  handleClickFavoriteButton(id, bool) {
+    if (this.state.auth === AUTHORIZATION_STATUS.NO_AUTH) {
+      history.push(LINKS.LOGIN);
     }
+    const {getUpdatedFavoriteHotel, changeFavoriteFlag, cityName} = this.props;
 
+    changeFavoriteFlag({id, favorite: bool, cityName});
+    getUpdatedFavoriteHotel(id, bool);
+  }
+
+  isUserAuth(status) {
+    return status === AUTHORIZATION_STATUS.AUTH;
+  }
+
+  componentDidMount() {
+    this.props.getAuthorizationStatus();
+  }
+
+  renderIndexPage() {
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse} = this.props;
     if (citiesNames !== null) {
-      if (activeId === null) {
-        return (
-          <Main onChangeCity = {onChangeCity}
-            dataCards = {offers}
-            onOfferClick = {this.handleOfferClick}
-            city = {city}
-            onChangeFilterType = {onChangeFilterType}
-            handleOfferHover = {this.handleOfferHover}
-            activePointId = {this.state.activePointId}
-            activeFilter = {activeFilter}
-            citiesNames = {citiesNames}
-            authStatus = {authStatus}
-            userInfo = {userInfo}
-            handleAuthToggle = {this.handleAuthToggle}
-          />
-        );
-      } else {
-        return (
-          <OfferDetail onOfferClick = {this.handleOfferClick}
-            reviews={reviews}
-            dataCardsDetail = {offersDetail}
-            activeId = {activeId}
-            dataCards = {offers}
-            handleOfferHover = {this.handleOfferHover}
-            activePointId = {this.state.activePointId}
-            city = {city}
-            authStatus = {authStatus}
-            userInfo = {userInfo}
-            handleAuthToggle = {this.handleAuthToggle}
-            handleSubmitFeedback = {this.handleSubmitFeedback}/>
-        );
-      }
+      return (<Main onChangeCity = {onChangeCity}
+        dataCards = {offers}
+        onOfferClick = {this.handleOfferClick}
+        city = {city}
+        onChangeFilterType = {onChangeFilterType}
+        handleOfferHover = {this.handleOfferHover}
+        activePointId = {this.state.activePointId}
+        activeFilter = {activeFilter}
+        citiesNames = {citiesNames}
+        authStatus = {authStatus}
+        userInfo = {userInfo}
+        handleAuthToggle = {this.handleAuthToggle}
+        handleClickFavoriteButton = {this.handleClickFavoriteButton}
+        favoriteResponse = {favoriteResponse}
+      />);
     }
     return null;
   }
 
-  render() {
-    const {offersDetail, offers} = this.props;
+  renderLoginPage() {
+    const {login, authStatus} = this.props;
+    return this.isUserAuth(authStatus) ? <Redirect to = {{pathname: LINKS.INDEX}}/> : <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>;
+  }
 
+  checkUserAuth() {
+    const {authStatus} = this.props;
+    return this.isUserAuth(authStatus) ? this.renderIndexPage() : <Redirect to = {{pathname: LINKS.LOGIN}}/>;
+  }
+
+  render() {
+    const {offersDetail, reviews, offers, city, authStatus, userInfo} = this.props;
+    const {activeId} = this.state;
     return (
-      <BrowserRouter>
+      <Router history = {history}>
         <Switch>
+          <Route exact path = {LINKS.LOGIN}>
+            {this.renderLoginPage()}
+          </Route>
           <Route exact path = {LINKS.INDEX}>
-            {this.renderMain()}
+            {this.checkUserAuth()}
           </Route>
           <Route exact path = {LINKS.OFFER_DETAIL}>
-            <OfferDetail dataCards = {offers} dataCardsDetail = {offersDetail}/>
+            <OfferDetail onOfferClick = {this.handleOfferClick}
+              reviews={reviews}
+              dataCardsDetail = {offersDetail}
+              activeId = {activeId}
+              dataCards = {offers}
+              handleOfferHover = {this.handleOfferHover}
+              activePointId = {this.state.activePointId}
+              city = {city}
+              authStatus = {authStatus}
+              userInfo = {userInfo}
+              handleAuthToggle = {this.handleAuthToggle}
+              handleSubmitFeedback = {this.handleSubmitFeedback}
+              handleClickFavoriteButton = {this.handleClickFavoriteButton}
+            />
+          </Route>
+          <Route exact path={LINKS.FAVORITES}>
+            <Favorites/>
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -200,7 +236,12 @@ App.propTypes = {
   }),
   login: PropTypes.func,
   getComments: PropTypes.func,
-  postComment: PropTypes.func
+  postComment: PropTypes.func,
+  getUpdatedFavoriteHotel: PropTypes.func,
+  getAuthorizationStatus: PropTypes.func,
+  favoriteResponse: PropTypes.bool,
+  changeFavoriteFlag: PropTypes.func,
+  cityName: PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -210,6 +251,9 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeFilterType(type) {
     dispatch(ActionCreator.setActiveFilter({activeFilterItem: type}));
   },
+  getAuthorizationStatus() {
+    dispatch(UserOperation.getAuthorizationStatus());
+  },
   login(authData) {
     dispatch(UserOperation.setAuthorizationStatus(authData));
   },
@@ -218,6 +262,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   postComment(review, id) {
     dispatch(ReviewsOperation.postReviewFromHotelId(review, id));
+  },
+  getUpdatedFavoriteHotel(id, value) {
+    dispatch(FavoritesOperation.getFavoriteResponse(id, value));
+  },
+  changeFavoriteFlag(value) {
+    dispatch(DataAC.changeFavoriteById(value));
   }
 });
 
@@ -231,7 +281,8 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state),
   activeFilter: getActiveFilter(state),
   authStatus: getAuthStatus(state),
-  userInfo: getUserInfo(state)
+  userInfo: getUserInfo(state),
+  favoriteResponse: getResponseStatusFavorite(state)
 });
 
 export {App};

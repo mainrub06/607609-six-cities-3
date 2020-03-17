@@ -114,7 +114,7 @@ MapMain.propTypes = {
       longitude: PropTypes.number.isRequired,
       zoom: PropTypes.number.isRequired,
     })
-  }),
+  })
 };
 
 export default MapMain;

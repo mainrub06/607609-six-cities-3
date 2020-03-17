@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 import PLACE_MOCK from "../../mock/offers.js";
 import {OFFERS_SORT_ITEMS, cities as CITIES} from "../../const";
+import {MemoryRouter} from "react-router-dom";
 
 const CITY_MOCK = {
   name: `Paris`,
@@ -26,20 +27,23 @@ const authStatus = `AUTH`;
 it(`Render Main`, () => {
   const tree = renderer
     .create(
-        <Main
-          activePointId={PLACE_MOCK[0].id}
-          activeFilter={OFFERS_SORT_ITEMS[0]}
-          citiesNames = {CITIES}
-          onChangeCity={() => {}}
-          onOfferClick={() => {}}
-          dataCards={PLACE_MOCK}
-          city={CITY_MOCK}
-          onChangeFilterType={() => {}}
-          handleOfferHover={() => {}}
-          userInfo = {USER_INFO_MOCK}
-          authStatus = {authStatus}
-          handleAuthToggle = {() => {}}
-        />
+        <MemoryRouter>
+          <Main
+            activePointId={PLACE_MOCK[0].id}
+            activeFilter={OFFERS_SORT_ITEMS[0]}
+            citiesNames = {CITIES}
+            onChangeCity={() => {}}
+            onOfferClick={() => {}}
+            dataCards={PLACE_MOCK}
+            city={CITY_MOCK}
+            onChangeFilterType={() => {}}
+            handleOfferHover={() => {}}
+            userInfo = {USER_INFO_MOCK}
+            authStatus = {authStatus}
+            handleAuthToggle = {() => {}}
+            handleClickFavoriteButton = {() => {}}
+          />
+        </MemoryRouter>
     )
     .toJSON();
 
