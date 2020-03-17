@@ -13,7 +13,7 @@ import {connect} from "react-redux";
 import {getCityName} from "../../reducer/main/selectors";
 import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
-import {getResponseStatusFavorite} from "../../reducer/favorites/selectors";
+import {getResponseStatusFavorite, getFavoritesData} from "../../reducer/favorites/selectors";
 import {getReviews} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history";
@@ -31,6 +31,7 @@ class App extends PureComponent {
     this.isUserAuth = this.isUserAuth.bind(this);
     this.renderLoginPage = this.renderLoginPage.bind(this);
     this.checkUserAuth = this.checkUserAuth.bind(this);
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
 
     this.state = {
       activeId: null,
@@ -59,6 +60,11 @@ class App extends PureComponent {
       auth: !this.state.auth
     });
     history.push(LINKS.INDEX);
+  }
+
+  handleFavoriteClick() {
+    const {getFavoritesData} = this.props;
+    getFavoritesData();
   }
 
   handleSubmitFeedback(feedbackData, activeHotelId) {
@@ -101,6 +107,7 @@ class App extends PureComponent {
         handleAuthToggle = {this.handleAuthToggle}
         handleClickFavoriteButton = {this.handleClickFavoriteButton}
         favoriteResponse = {favoriteResponse}
+        handleFavoriteClick = {this.handleFavoriteClick}
       />);
     }
     return null;
@@ -117,7 +124,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offersDetail, reviews, offers, city, authStatus, userInfo} = this.props;
+    const {offersDetail, reviews, offers, city, authStatus, userInfo, favorites, favoriteResponse} = this.props;
     const {activeId} = this.state;
 
     return (
@@ -146,7 +153,11 @@ class App extends PureComponent {
             />
           </Route>
           <Route exact path={LINKS.FAVORITES}>
-            <Favorites/>
+            <Favorites favorites = {favorites}
+              userInfo = {userInfo}
+              handleClickFavoriteButton = {this.handleClickFavoriteButton}
+              favoriteResponse = {favoriteResponse}
+              onOfferClick = {this.handleOfferClick}/>
           </Route>
         </Switch>
       </Router>
@@ -268,6 +279,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeFavoriteFlag(value) {
     dispatch(DataAC.changeFavoriteById(value));
+  },
+  getFavoritesData() {
+    dispatch(FavoritesOperation.getFavoritesData());
   }
 });
 
@@ -282,7 +296,8 @@ const mapStateToProps = (state) => ({
   activeFilter: getActiveFilter(state),
   authStatus: getAuthStatus(state),
   userInfo: getUserInfo(state),
-  favoriteResponse: getResponseStatusFavorite(state)
+  favoriteResponse: getResponseStatusFavorite(state),
+  favorites: getFavoritesData(state)
 });
 
 export {App};

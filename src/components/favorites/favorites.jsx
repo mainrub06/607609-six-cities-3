@@ -1,6 +1,7 @@
 import React from "react";
+import OfferList from "../offers-list/offers-list.jsx";
 
-const Favorites = () => (
+const Favorites = ({favorites, userInfo, favoriteResponse, handleClickFavoriteButton, onOfferClick}) => (
   <div className="page">
     <header className="header">
       <div className="container">
@@ -16,7 +17,7 @@ const Favorites = () => (
                 <a className="header__nav-link header__nav-link--profile" href="#">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">{userInfo.userEmail}</span>
                 </a>
               </li>
             </ul>
@@ -26,9 +27,28 @@ const Favorites = () => (
     </header>
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
+        {console.log(favorites)}
+        {favorites !== null ?
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
+
+            {
+              favorites.citiesNames.map((city) => {
+                if (favorites.loadCityOffers[city].length === 0) return;
+                return (<li className="favorites__locations-items">
+                <div className="favorites__locations locations locations--current">
+                  <div className="locations__item">
+                    <a className="locations__item-link" href="#">
+                      <span>{city}</span>
+                    </a>
+                  </div>
+                </div>
+                <OfferList favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} handleOfferHover = {() => {}} onOfferClick={onOfferClick} dataCards={favorites.loadCityOffers[city]}/>
+              </li>);
+              })
+            }
+
             <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
@@ -146,8 +166,18 @@ const Favorites = () => (
                 </article>
               </div>
             </li>
+
           </ul>
         </section>
+        :
+        <section className="favorites favorites--empty">
+          <h1 className="visually-hidden">Favorites (empty)</h1>
+          <div className="favorites__status-wrapper">
+            <b className="favorites__status">Nothing yet saved.</b>
+            <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
+          </div>
+        </section>
+        }
       </div>
     </main>
     <footer className="footer container">
@@ -157,5 +187,6 @@ const Favorites = () => (
     </footer>
   </div>
 );
+
 
 export default Favorites;

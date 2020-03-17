@@ -175,3 +175,7 @@ export const getFavoriteTargetByCityAndId = (state, obj) => {
   });
   return extend(state.loadCityOffers, {[obj.cityName]: newExtendArr});
 };
+
+export const getFavoriteHotelsData = (hotels) => {
+  return hotels.length !== 0 ? getFilteredData(hotels) : null;
+};

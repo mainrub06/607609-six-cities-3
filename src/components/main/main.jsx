@@ -28,7 +28,8 @@ class Main extends PureComponent {
       userInfo,
       handleAuthToggle,
       handleClickFavoriteButton,
-      favoriteResponse} = this.props;
+      favoriteResponse,
+      handleFavoriteClick} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -51,7 +52,7 @@ class Main extends PureComponent {
                       <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header__user-name user__name">{userInfo.userEmail}</span>
+                        <span onClick = {handleFavoriteClick} className="header__user-name user__name">{userInfo.userEmail}</span>
                       </Link>
                     }
                   </li>
