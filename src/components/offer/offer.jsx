@@ -18,14 +18,14 @@ class Offer extends PureComponent {
   }
 
   render() {
-    const {element, handleOfferHover, onOfferClick, isOfferDetailItem} = this.props;
+    const {element, handleOfferHover, onOfferClick, offersCssClasses} = this.props;
 
     return (
       <article onMouseOver={() => {
         handleOfferHover(element.id);
       }} onMouseLeave={()=> {
         handleOfferHover(null);
-      }} className= {`${isOfferDetailItem ? `near-places__card` : `cities__place-card`} place-card`}>
+      }} className= {`${offersCssClasses.ITEM} place-card`}>
 
         {element.class &&
           <div className="place-card__mark">
@@ -33,12 +33,12 @@ class Offer extends PureComponent {
           </div>
         }
 
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div className={`${offersCssClasses.IMAGE_WRAPPER} place-card__image-wrapper`}>
           <a href="#">
-            <img className="place-card__image" src={element.img.src} width="260" height="200" alt="Place image" />
+            <img className="place-card__image" src={element.img.src} width={`${offersCssClasses.IMAGE_SIZE.WIDTH}`} height={`${offersCssClasses.IMAGE_SIZE.HEIGHT}`} alt="Place image" />
           </a>
         </div>
-        <div className="place-card__info">
+        <div className={`${offersCssClasses.ITEM_INFO} place-card__info`}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{element.price}</b>

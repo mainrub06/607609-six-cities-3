@@ -38,3 +38,36 @@ export const FAVORITE_REQUESTS = {
 export const REQUEST_STATUS = {
   NO_AUTH: 401
 };
+
+export const OFFERS_CSS_CLASSES = {
+  MAIN: {
+    LIST: `cities__places-list`,
+    ITEM: `cities__place-card`,
+    IMAGE_WRAPPER: `cities__image-wrapper`,
+    ITEM_INFO: ``,
+    IMAGE_SIZE: {
+      WIDTH: 260,
+      HEIGHT: 200
+    }
+  },
+  OFFER_DETAIL: {
+    LIST: `near-places__list`,
+    ITEM: `near-places__card`,
+    IMAGE_WRAPPER: `near-places__image-wrapper`,
+    ITEM_INFO: ``,
+    IMAGE_SIZE: {
+      WIDTH: 260,
+      HEIGHT: 200
+    }
+  },
+  FAVORITE: {
+    LIST: `favorites__places`,
+    ITEM: `favorites__card`,
+    IMAGE_WRAPPER: `favorites__image-wrapper`,
+    ITEM_INFO: `favorites__card-info`,
+    IMAGE_SIZE: {
+      WIDTH: 150,
+      HEIGHT: 110
+    }
+  }
+};

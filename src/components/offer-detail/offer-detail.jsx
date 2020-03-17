@@ -6,7 +6,7 @@ import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import {Link} from "react-router-dom";
-import {AUTHORIZATION_STATUS, LINKS} from "../../const";
+import {AUTHORIZATION_STATUS, LINKS, OFFERS_CSS_CLASSES} from "../../const";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
@@ -198,7 +198,7 @@ class OfferDetail extends PureComponent {
                 {
                   <OfferList
                     onOfferClick={onOfferClick}
-                    isOfferDetailItem={true}
+                    offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
                     dataCards={sameOffers}
                     handleOfferHover = {handleOfferHover}
                     handleClickFavoriteButton = {handleClickFavoriteButton}

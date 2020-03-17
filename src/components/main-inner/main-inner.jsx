@@ -4,6 +4,7 @@ import OfferList from "../offers-list/offers-list.jsx";
 import MapMain from "../map/map.jsx";
 import withActiveIndex from "../../hocs/withActiveIndex/withActiveIndex.jsx";
 import PropTypes from "prop-types";
+import {OFFERS_CSS_CLASSES} from "../../const";
 
 const OfferListWrapped = withActiveIndex(OfferList);
 
@@ -35,7 +36,7 @@ class MainInner extends PureComponent {
             </b>
             <OffersSort activeFilter = {activeFilter} onChangeFilterType = {onChangeFilterType}/>
 
-            {<OfferListWrapped favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
+            {<OfferListWrapped offersCssClasses = {OFFERS_CSS_CLASSES.MAIN} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} handleOfferHover = {handleOfferHover} onOfferClick={onOfferClick} dataCards={dataCards} />}
           </section>
           <div className="cities__right-section">
             {<MapMain city = {city} activePointId = {activePointId} points={dataCards} />}

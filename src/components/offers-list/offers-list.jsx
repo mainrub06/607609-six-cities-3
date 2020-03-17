@@ -18,16 +18,16 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, isOfferDetailItem, handleClickFavoriteButton, favoriteResponse} = this.props;
+    const {dataCards, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse} = this.props;
 
     return (
-      <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
+      <div className={`${offersCssClasses.LIST} places__list`}>
         {dataCards.map((it) => (
           <Offer key={it.id}
             element={it}
             handleOfferHover={this.setIdState}
             onOfferClick={onOfferClick}
-            isOfferDetailItem = {isOfferDetailItem}
+            offersCssClasses = {offersCssClasses}
             handleClickFavoriteButton = {handleClickFavoriteButton}
             favoriteResponse = {favoriteResponse}/>
         ))}
@@ -35,7 +35,6 @@ class OfferList extends PureComponent {
     );
   }
 }
-
 
 OfferList.propTypes = {
   dataCards: PropTypes.arrayOf(
@@ -53,7 +52,7 @@ OfferList.propTypes = {
       })
   ).isRequired,
   onOfferClick: PropTypes.func.isRequired,
-  isOfferDetailItem: PropTypes.bool,
+  offersCssClasses: PropTypes.shape(),
   handleOfferHover: PropTypes.func.isRequired,
   activeItemIndex: PropTypes.number,
   handleItemClick: PropTypes.func,
