@@ -8,7 +8,7 @@ import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
 import {ActionCreator as DataAC} from "../../reducer/data/data";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
-import {LINKS, AUTHORIZATION_STATUS} from "../../const";
+import {LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES} from "../../const";
 import {connect} from "react-redux";
 import {getCityName} from "../../reducer/main/selectors";
 import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
@@ -63,8 +63,8 @@ class App extends PureComponent {
   }
 
   handleFavoriteClick() {
-    const {getFavoritesData} = this.props;
-    getFavoritesData();
+    const {getFavoritesServerData} = this.props;
+    getFavoritesServerData();
   }
 
   handleSubmitFeedback(feedbackData, activeHotelId) {
@@ -157,7 +157,8 @@ class App extends PureComponent {
               userInfo = {userInfo}
               handleClickFavoriteButton = {this.handleClickFavoriteButton}
               favoriteResponse = {favoriteResponse}
-              onOfferClick = {this.handleOfferClick}/>
+              onOfferClick = {this.handleOfferClick}
+              offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}/>
           </Route>
         </Switch>
       </Router>
@@ -252,7 +253,41 @@ App.propTypes = {
   getAuthorizationStatus: PropTypes.func,
   favoriteResponse: PropTypes.bool,
   changeFavoriteFlag: PropTypes.func,
-  cityName: PropTypes.string
+  cityName: PropTypes.string,
+  favorites: PropTypes.shape(),
+  getFavoritesServerData: PropTypes.func,
+  offersCssClasses: PropTypes.shape({
+    MAIN: PropTypes.shape({
+      LIST: PropTypes.string.isRequired,
+      ITEM: PropTypes.string.isRequired,
+      IMAGE_WRAPPER: PropTypes.string.isRequired,
+      ITEM_INFO: PropTypes.string.isRequired,
+      IMAGE_SIZE: PropTypes.shape({
+        WIDTH: PropTypes.number.isRequired,
+        HEIGHT: PropTypes.number.isRequired
+      })
+    }),
+    OFFER_DETAIL: PropTypes.shape({
+      LIST: PropTypes.string.isRequired,
+      ITEM: PropTypes.string.isRequired,
+      IMAGE_WRAPPER: PropTypes.string.isRequired,
+      ITEM_INFO: PropTypes.string.isRequired,
+      IMAGE_SIZE: PropTypes.shape({
+        WIDTH: PropTypes.number.isRequired,
+        HEIGHT: PropTypes.number.isRequired
+      })
+    }),
+    FAVORITE: PropTypes.shape({
+      LIST: PropTypes.string.isRequired,
+      ITEM: PropTypes.string.isRequired,
+      IMAGE_WRAPPER: PropTypes.string.isRequired,
+      ITEM_INFO: PropTypes.string.isRequired,
+      IMAGE_SIZE: PropTypes.shape({
+        WIDTH: PropTypes.number.isRequired,
+        HEIGHT: PropTypes.number.isRequired
+      })
+    }),
+  })
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -280,7 +315,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeFavoriteFlag(value) {
     dispatch(DataAC.changeFavoriteById(value));
   },
-  getFavoritesData() {
+  getFavoritesServerData() {
     dispatch(FavoritesOperation.getFavoritesData());
   }
 });

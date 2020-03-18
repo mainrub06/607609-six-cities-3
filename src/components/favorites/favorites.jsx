@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import OfferList from "../offers-list/offers-list.jsx";
-import {OFFERS_CSS_CLASSES} from "../../const";
 
-const Favorites = ({favorites, userInfo, favoriteResponse, handleClickFavoriteButton, onOfferClick}) => (
+const Favorites = ({favorites, userInfo, favoriteResponse, handleClickFavoriteButton, onOfferClick, offersCssClasses}) => (
   <div className="page">
     <header className="header">
       <div className="container">
@@ -29,35 +29,36 @@ const Favorites = ({favorites, userInfo, favoriteResponse, handleClickFavoriteBu
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
         {favorites !== null ?
-        <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
-          <ul className="favorites__list">
-
-            {
-              favorites.citiesNames.map((city) => {
-                if (favorites.loadCityOffers[city].length === 0) return;
-                return (<li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>{city}</span>
-                    </a>
-                  </div>
-                </div>
-                <OfferList offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} handleOfferHover = {() => {}} onOfferClick={onOfferClick} dataCards={favorites.loadCityOffers[city]}/>
-              </li>);
-              })
-            }
-          </ul>
-        </section>
-        :
-        <section className="favorites favorites--empty">
-          <h1 className="visually-hidden">Favorites (empty)</h1>
-          <div className="favorites__status-wrapper">
-            <b className="favorites__status">Nothing yet saved.</b>
-            <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
-          </div>
-        </section>
+          <section className="favorites">
+            <h1 className="favorites__title">Saved listing</h1>
+            <ul className="favorites__list">
+              {
+                favorites.citiesNames.map((city, index) => {
+                  if (favorites.loadCityOffers[city].length === 0) {
+                    return;
+                  }
+                  return (<li key= {index + city} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="#">
+                          <span>{city}</span>
+                        </a>
+                      </div>
+                    </div>
+                    <OfferList offersCssClasses = {offersCssClasses} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} handleOfferHover = {() => {}} onOfferClick={onOfferClick} dataCards={favorites.loadCityOffers[city]}/>
+                  </li>);
+                })
+              }
+            </ul>
+          </section>
+          :
+          <section className="favorites favorites--empty">
+            <h1 className="visually-hidden">Favorites (empty)</h1>
+            <div className="favorites__status-wrapper">
+              <b className="favorites__status">Nothing yet saved.</b>
+              <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
+            </div>
+          </section>
         }
       </div>
     </main>
@@ -69,5 +70,50 @@ const Favorites = ({favorites, userInfo, favoriteResponse, handleClickFavoriteBu
   </div>
 );
 
+Favorites.propTypes = {
+  favorites: PropTypes.shape(),
+  userInfo: PropTypes.shape({
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
+  favoriteResponse: PropTypes.bool,
+  handleClickFavoriteButton: PropTypes.func,
+  onOfferClick: PropTypes.func,
+  offersCssClasses: PropTypes.shape({
+    MAIN: PropTypes.shape({
+      LIST: PropTypes.string.isRequired,
+      ITEM: PropTypes.string.isRequired,
+      IMAGE_WRAPPER: PropTypes.string.isRequired,
+      ITEM_INFO: PropTypes.string.isRequired,
+      IMAGE_SIZE: PropTypes.shape({
+        WIDTH: PropTypes.number.isRequired,
+        HEIGHT: PropTypes.number.isRequired
+      })
+    }),
+    OFFER_DETAIL: PropTypes.shape({
+      LIST: PropTypes.string.isRequired,
+      ITEM: PropTypes.string.isRequired,
+      IMAGE_WRAPPER: PropTypes.string.isRequired,
+      ITEM_INFO: PropTypes.string.isRequired,
+      IMAGE_SIZE: PropTypes.shape({
+        WIDTH: PropTypes.number.isRequired,
+        HEIGHT: PropTypes.number.isRequired
+      })
+    }),
+    FAVORITE: PropTypes.shape({
+      LIST: PropTypes.string.isRequired,
+      ITEM: PropTypes.string.isRequired,
+      IMAGE_WRAPPER: PropTypes.string.isRequired,
+      ITEM_INFO: PropTypes.string.isRequired,
+      IMAGE_SIZE: PropTypes.shape({
+        WIDTH: PropTypes.number.isRequired,
+        HEIGHT: PropTypes.number.isRequired
+      })
+    }),
+  })
+};
 
 export default Favorites;
