@@ -35,9 +35,9 @@ const Favorites = ({favorites, userInfo, favoriteResponse, handleClickFavoriteBu
               {
                 favorites.citiesNames.map((city, index) => {
                   if (favorites.loadCityOffers[city].length === 0) {
-                    return;
+                    return null;
                   }
-                  return (<li key= {index + city} className="favorites__locations-items">
+                  return <li key= {index + city} className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <a className="locations__item-link" href="#">
@@ -46,7 +46,7 @@ const Favorites = ({favorites, userInfo, favoriteResponse, handleClickFavoriteBu
                       </div>
                     </div>
                     <OfferList offersCssClasses = {offersCssClasses} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} handleOfferHover = {() => {}} onOfferClick={onOfferClick} dataCards={favorites.loadCityOffers[city]}/>
-                  </li>);
+                  </li>;
                 })
               }
             </ul>
@@ -83,36 +83,14 @@ Favorites.propTypes = {
   handleClickFavoriteButton: PropTypes.func,
   onOfferClick: PropTypes.func,
   offersCssClasses: PropTypes.shape({
-    MAIN: PropTypes.shape({
-      LIST: PropTypes.string.isRequired,
-      ITEM: PropTypes.string.isRequired,
-      IMAGE_WRAPPER: PropTypes.string.isRequired,
-      ITEM_INFO: PropTypes.string.isRequired,
-      IMAGE_SIZE: PropTypes.shape({
-        WIDTH: PropTypes.number.isRequired,
-        HEIGHT: PropTypes.number.isRequired
-      })
-    }),
-    OFFER_DETAIL: PropTypes.shape({
-      LIST: PropTypes.string.isRequired,
-      ITEM: PropTypes.string.isRequired,
-      IMAGE_WRAPPER: PropTypes.string.isRequired,
-      ITEM_INFO: PropTypes.string.isRequired,
-      IMAGE_SIZE: PropTypes.shape({
-        WIDTH: PropTypes.number.isRequired,
-        HEIGHT: PropTypes.number.isRequired
-      })
-    }),
-    FAVORITE: PropTypes.shape({
-      LIST: PropTypes.string.isRequired,
-      ITEM: PropTypes.string.isRequired,
-      IMAGE_WRAPPER: PropTypes.string.isRequired,
-      ITEM_INFO: PropTypes.string.isRequired,
-      IMAGE_SIZE: PropTypes.shape({
-        WIDTH: PropTypes.number.isRequired,
-        HEIGHT: PropTypes.number.isRequired
-      })
-    }),
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
   })
 };
 

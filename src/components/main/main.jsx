@@ -29,7 +29,8 @@ class Main extends PureComponent {
       handleAuthToggle,
       handleClickFavoriteButton,
       favoriteResponse,
-      handleFavoriteClick} = this.props;
+      handleFavoriteClick,
+      offersCssClasses} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -75,7 +76,8 @@ class Main extends PureComponent {
               onOfferClick = {onOfferClick}
               city = {city}
               handleClickFavoriteButton = {handleClickFavoriteButton}
-              favoriteResponse = {favoriteResponse}/>
+              favoriteResponse = {favoriteResponse}
+              offersCssClasses = {offersCssClasses}/>
             :
             <MainEmpty/>
           }
@@ -131,7 +133,17 @@ Main.propTypes = {
   handleAuthToggle: PropTypes.func.isRequired,
   handleClickFavoriteButton: PropTypes.func.isRequired,
   favoriteResponse: PropTypes.bool,
-  handleFavoriteClick: PropTypes.func
+  handleFavoriteClick: PropTypes.func,
+  offersCssClasses: PropTypes.shape({
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
+  })
 };
 
 export default Main;

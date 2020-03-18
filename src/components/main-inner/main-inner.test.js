@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MainInner from "./main-inner.jsx";
 import PLACE_MOCK from "../../mock/offers.js";
-import {OFFERS_SORT_ITEMS} from "../../const";
+import {OFFERS_SORT_ITEMS, OFFERS_CSS_CLASSES} from "../../const";
 import {MemoryRouter} from "react-router-dom";
 
 const CITY_MOCK = {
@@ -27,6 +27,7 @@ it(`Render Main`, () => {
             dataCards={PLACE_MOCK}
             onChangeFilterType={() => {}}
             handleClickFavoriteButton = {() => {}}
+            offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
           />
         </MemoryRouter>
     )

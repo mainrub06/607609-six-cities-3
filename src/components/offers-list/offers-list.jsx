@@ -29,7 +29,8 @@ class OfferList extends PureComponent {
             onOfferClick={onOfferClick}
             offersCssClasses = {offersCssClasses}
             handleClickFavoriteButton = {handleClickFavoriteButton}
-            favoriteResponse = {favoriteResponse}/>
+            favoriteResponse = {favoriteResponse}
+          />
         ))}
       </div>
     );
@@ -52,12 +53,21 @@ OfferList.propTypes = {
       })
   ).isRequired,
   onOfferClick: PropTypes.func.isRequired,
-  offersCssClasses: PropTypes.shape(),
   handleOfferHover: PropTypes.func.isRequired,
   activeItemIndex: PropTypes.number,
   handleItemClick: PropTypes.func,
   handleClickFavoriteButton: PropTypes.func,
-  favoriteResponse: PropTypes.bool
+  favoriteResponse: PropTypes.bool,
+  offersCssClasses: PropTypes.shape({
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
+  })
 };
 
 export default OfferList;

@@ -18,6 +18,7 @@ import {getReviews} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history";
 import Favorites from "../favorites/favorites.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -108,6 +109,7 @@ class App extends PureComponent {
         handleClickFavoriteButton = {this.handleClickFavoriteButton}
         favoriteResponse = {favoriteResponse}
         handleFavoriteClick = {this.handleFavoriteClick}
+        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
       />);
     }
     return null;
@@ -150,16 +152,23 @@ class App extends PureComponent {
               handleAuthToggle = {this.handleAuthToggle}
               handleSubmitFeedback = {this.handleSubmitFeedback}
               handleClickFavoriteButton = {this.handleClickFavoriteButton}
+              offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
             />
           </Route>
-          <Route exact path={LINKS.FAVORITES}>
-            <Favorites favorites = {favorites}
-              userInfo = {userInfo}
-              handleClickFavoriteButton = {this.handleClickFavoriteButton}
-              favoriteResponse = {favoriteResponse}
-              onOfferClick = {this.handleOfferClick}
-              offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}/>
-          </Route>
+          <PrivateRoute
+            exact
+            path= {LINKS.FAVORITES}
+            render = {() => {
+              return (
+                <Favorites favorites = {favorites}
+                  userInfo = {userInfo}
+                  handleClickFavoriteButton = {this.handleClickFavoriteButton}
+                  favoriteResponse = {favoriteResponse}
+                  onOfferClick = {this.handleOfferClick}
+                  offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}/>
+              );
+            }}
+          />
         </Switch>
       </Router>
     );
@@ -257,36 +266,14 @@ App.propTypes = {
   favorites: PropTypes.shape(),
   getFavoritesServerData: PropTypes.func,
   offersCssClasses: PropTypes.shape({
-    MAIN: PropTypes.shape({
-      LIST: PropTypes.string.isRequired,
-      ITEM: PropTypes.string.isRequired,
-      IMAGE_WRAPPER: PropTypes.string.isRequired,
-      ITEM_INFO: PropTypes.string.isRequired,
-      IMAGE_SIZE: PropTypes.shape({
-        WIDTH: PropTypes.number.isRequired,
-        HEIGHT: PropTypes.number.isRequired
-      })
-    }),
-    OFFER_DETAIL: PropTypes.shape({
-      LIST: PropTypes.string.isRequired,
-      ITEM: PropTypes.string.isRequired,
-      IMAGE_WRAPPER: PropTypes.string.isRequired,
-      ITEM_INFO: PropTypes.string.isRequired,
-      IMAGE_SIZE: PropTypes.shape({
-        WIDTH: PropTypes.number.isRequired,
-        HEIGHT: PropTypes.number.isRequired
-      })
-    }),
-    FAVORITE: PropTypes.shape({
-      LIST: PropTypes.string.isRequired,
-      ITEM: PropTypes.string.isRequired,
-      IMAGE_WRAPPER: PropTypes.string.isRequired,
-      ITEM_INFO: PropTypes.string.isRequired,
-      IMAGE_SIZE: PropTypes.shape({
-        WIDTH: PropTypes.number.isRequired,
-        HEIGHT: PropTypes.number.isRequired
-      })
-    }),
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
   })
 };
 

@@ -2,7 +2,9 @@ import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Offer from "./offer.jsx";
+import {OFFERS_CSS_CLASSES} from "../../const";
 import PLACE_MOCK from "../../mock/offers";
+
 
 const MOCK_EL = PLACE_MOCK[0];
 const onHoverArticle = jest.fn((data) => data);
@@ -21,6 +23,7 @@ it(`test Article hover`, () => {
           onHoverArticle(MOCK_EL.id);
         }}
         handleClickFavoriteButton = {() => {}}
+        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
       />
   );
 
@@ -38,6 +41,7 @@ it(`test Article-title click`, () => {
         }}
         handleOfferHover={() => {}}
         handleClickFavoriteButton = {() => {}}
+        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
       />
   );
 

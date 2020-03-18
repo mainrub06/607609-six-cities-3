@@ -321,10 +321,10 @@ exports[`Render OfferDetail component 1`] = `
           Other places in the neighbourhood
         </h2>
         <div
-          className="near-places__list places__list"
+          className="cities__places-list places__list"
         >
           <article
-            className="near-places__card place-card"
+            className="cities__place-card place-card"
             onMouseLeave={[Function]}
             onMouseOver={[Function]}
           >
@@ -351,7 +351,7 @@ exports[`Render OfferDetail component 1`] = `
               </a>
             </div>
             <div
-              className="place-card__info"
+              className=" place-card__info"
             >
               <div
                 className="place-card__price-wrapper"
@@ -431,7 +431,7 @@ exports[`Render OfferDetail component 1`] = `
             </div>
           </article>
           <article
-            className="near-places__card place-card"
+            className="cities__place-card place-card"
             onMouseLeave={[Function]}
             onMouseOver={[Function]}
           >
@@ -458,7 +458,7 @@ exports[`Render OfferDetail component 1`] = `
               </a>
             </div>
             <div
-              className="place-card__info"
+              className=" place-card__info"
             >
               <div
                 className="place-card__price-wrapper"
@@ -538,7 +538,7 @@ exports[`Render OfferDetail component 1`] = `
             </div>
           </article>
           <article
-            className="near-places__card place-card"
+            className="cities__place-card place-card"
             onMouseLeave={[Function]}
             onMouseOver={[Function]}
           >
@@ -565,7 +565,7 @@ exports[`Render OfferDetail component 1`] = `
               </a>
             </div>
             <div
-              className="place-card__info"
+              className=" place-card__info"
             >
               <div
                 className="place-card__price-wrapper"

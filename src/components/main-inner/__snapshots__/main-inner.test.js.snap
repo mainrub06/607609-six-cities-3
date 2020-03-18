@@ -83,7 +83,7 @@ exports[`Render Main 1`] = `
         </ul>
       </form>
       <div
-        className="cities__places-list tabs__content places__list"
+        className="cities__places-list places__list"
       >
         <article
           className="cities__place-card place-card"
@@ -113,7 +113,7 @@ exports[`Render Main 1`] = `
             </a>
           </div>
           <div
-            className="place-card__info"
+            className=" place-card__info"
           >
             <div
               className="place-card__price-wrapper"
@@ -220,7 +220,7 @@ exports[`Render Main 1`] = `
             </a>
           </div>
           <div
-            className="place-card__info"
+            className=" place-card__info"
           >
             <div
               className="place-card__price-wrapper"
@@ -327,7 +327,7 @@ exports[`Render Main 1`] = `
             </a>
           </div>
           <div
-            className="place-card__info"
+            className=" place-card__info"
           >
             <div
               className="place-card__price-wrapper"
@@ -434,7 +434,7 @@ exports[`Render Main 1`] = `
             </a>
           </div>
           <div
-            className="place-card__info"
+            className=" place-card__info"
           >
             <div
               className="place-card__price-wrapper"
@@ -541,7 +541,7 @@ exports[`Render Main 1`] = `
             </a>
           </div>
           <div
-            className="place-card__info"
+            className=" place-card__info"
           >
             <div
               className="place-card__price-wrapper"

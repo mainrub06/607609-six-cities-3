@@ -2,13 +2,14 @@ import React from "react";
 import renderer from "react-test-renderer";
 import OfferList from "./offers-list.jsx";
 import PLACE_MOCK from "../../mock/offers";
+import {OFFERS_CSS_CLASSES} from "../../const";
 import {MemoryRouter} from "react-router-dom";
 
 it(`Render OfferList component`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>
-          <OfferList handleClickFavoriteButton = {() => {}} handleOfferHover = {() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} />
+          <OfferList offersCssClasses = {OFFERS_CSS_CLASSES.MAIN} handleClickFavoriteButton = {() => {}} handleOfferHover = {() => {}} onOfferClick={() => {}} dataCards={PLACE_MOCK} />
         </MemoryRouter>
     )
     .toJSON();

@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 import PLACE_MOCK from "../../mock/offers.js";
-import {OFFERS_SORT_ITEMS, cities as CITIES} from "../../const";
+import {OFFERS_SORT_ITEMS, cities as CITIES, OFFERS_CSS_CLASSES} from "../../const";
 import {MemoryRouter} from "react-router-dom";
 
 const CITY_MOCK = {
@@ -42,6 +42,7 @@ it(`Render Main`, () => {
             authStatus = {authStatus}
             handleAuthToggle = {() => {}}
             handleClickFavoriteButton = {() => {}}
+            offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
           />
         </MemoryRouter>
     )

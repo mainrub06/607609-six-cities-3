@@ -6,7 +6,7 @@ import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import {Link} from "react-router-dom";
-import {AUTHORIZATION_STATUS, LINKS, OFFERS_CSS_CLASSES} from "../../const";
+import {AUTHORIZATION_STATUS, LINKS} from "../../const";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
@@ -35,7 +35,8 @@ class OfferDetail extends PureComponent {
       userInfo,
       handleAuthToggle,
       handleSubmitFeedback,
-      handleClickFavoriteButton
+      handleClickFavoriteButton,
+      offersCssClasses
     } = this.props;
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
     const sameOffers = this.getSameOffers(element.nearCords, dataCards);
@@ -198,10 +199,10 @@ class OfferDetail extends PureComponent {
                 {
                   <OfferList
                     onOfferClick={onOfferClick}
-                    offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
                     dataCards={sameOffers}
                     handleOfferHover = {handleOfferHover}
                     handleClickFavoriteButton = {handleClickFavoriteButton}
+                    offersCssClasses = {offersCssClasses}
                   />
                 }
               </section>
@@ -323,7 +324,17 @@ OfferDetail.propTypes = {
   authStatus: PropTypes.string,
   handleAuthToggle: PropTypes.func,
   handleSubmitFeedback: PropTypes.func,
-  handleClickFavoriteButton: PropTypes.func
+  handleClickFavoriteButton: PropTypes.func,
+  offersCssClasses: PropTypes.shape({
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
+  })
 };
 
 export default OfferDetail;

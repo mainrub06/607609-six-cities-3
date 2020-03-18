@@ -44,9 +44,9 @@ const Operation = {
       .get(`/favorite`)
       .then((response) => {
         dispatch(
-          ActionCreator.getFavoritesData(response.data)
+            ActionCreator.getFavoritesData(response.data)
         );
-      })
+      });
   }
 };
 
