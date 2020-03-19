@@ -65,10 +65,11 @@ export const getFirstCity = (citiesIn) => {
 };
 
 export const getOffers = (cityOffers, activeFilter) => {
-  if (cityOffers !== null) {
-    return cityOffers[activeFilter];
-  }
-  return null;
+  return cityOffers !== null ? cityOffers[activeFilter] : null;
+};
+
+export const getAllOffers = (cityOffers) => {
+  return cityOffers !== null ? Object.values(cityOffers).flat(1) : null;
 };
 
 export const getImages = (images) => {
@@ -169,11 +170,11 @@ export const getReviewsList = (reviews) => {
   }));
 };
 
-export const getFavoriteTargetByCityAndId = (state, obj) => {
-  const newExtendArr = state.loadCityOffers[obj.cityName].map((hotel) => {
+export const getFavoriteTargetByCityAndId = (offers, obj) => {
+  const newExtendArr = offers[obj.cityName].map((hotel) => {
     return hotel.id === obj.id ? extend(hotel, {favorite: obj.favorite}) : hotel;
   });
-  return extend(state.loadCityOffers, {[obj.cityName]: newExtendArr});
+  return extend(offers, {[obj.cityName]: newExtendArr});
 };
 
 export const getFavoriteHotelsData = (hotels) => {

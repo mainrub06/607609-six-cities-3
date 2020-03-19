@@ -11,7 +11,7 @@ const userInfo = {
   id: 1,
   isPro: false,
   userName: `Oliver.conner`
-}
+};
 
 const favoriteResponse = true;
 
@@ -19,7 +19,7 @@ it(`Render Favorite component`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>
-          <Favorites favorites = {{loadCityOffers : CITY_OFFERS, citiesNames: cities}} userInfo = {userInfo} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {() => {}} onOfferClick = {() => {}} offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}/>
+          <Favorites getFavoritesServerData = {() => {}} favorites = {{loadCityOffers: CITY_OFFERS, citiesNames: cities}} userInfo = {userInfo} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {() => {}} onOfferClick = {() => {}} offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}/>
         </MemoryRouter>
     )
     .toJSON();

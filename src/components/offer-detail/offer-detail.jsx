@@ -7,17 +7,19 @@ import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import {Link} from "react-router-dom";
 import {AUTHORIZATION_STATUS, LINKS} from "../../const";
+import {withRouter} from "react-router-dom";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
     super(props);
+    this.setFavoriteStatus = this.setFavoriteStatus.bind(this);
   }
 
-  getSameOffers(cords, dataCards) {
-    if (cords && dataCards) {
-      return cords.map((nearCordsItem) => dataCards.find((dataCardsItem) => dataCardsItem.id === nearCordsItem.id));
-    } else {
-      return [];
+  setFavoriteStatus(element) {
+    const {favoriteResponse, handleClickFavoriteButton} = this.props;
+
+    if (!favoriteResponse) {
+      handleClickFavoriteButton(element.id, !element.favorite);
     }
   }
 
@@ -25,21 +27,29 @@ class OfferDetail extends PureComponent {
     const {
       dataCardsDetail,
       reviews,
-      activeId,
-      dataCards,
       onOfferClick,
       handleOfferHover,
-      activePointId,
       city,
       authStatus,
       userInfo,
       handleAuthToggle,
       handleSubmitFeedback,
       handleClickFavoriteButton,
-      offersCssClasses
+      offersCssClasses,
+      match,
+      getNearHotels,
+      offersNear,
+      getComments
     } = this.props;
-    const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === activeId.toString());
-    const sameOffers = this.getSameOffers(element.nearCords, dataCards);
+
+    const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === match.params.id);
+
+    if (offersNear === null) {
+      getNearHotels(element.id);
+    }
+    if (reviews === null) {
+      getComments(element.id);
+    }
 
     return (
       <div className="page">
@@ -47,15 +57,15 @@ class OfferDetail extends PureComponent {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link" href="#">
+                <Link to={LINKS.INDEX} className="header__logo-link" href="#">
                   <img
                     className="header__logo"
-                    src="img/logo.svg"
+                    src="/img/logo.svg"
                     alt="6 cities logo"
                     width="81"
                     height="41"
                   />
-                </a>
+                </Link>
               </div>
               <nav className="header__nav">
                 <ul className="header__nav-list">
@@ -101,8 +111,11 @@ class OfferDetail extends PureComponent {
                   <div className="property__name-wrapper">
                     <h1 className="property__name">{element.name}</h1>
                     <button
-                      className="property__bookmark-button button"
+                      className={`${element.favorite ? `property__bookmark-button--active` : ``} property__bookmark-button button`}
                       type="button"
+                      onClick = {() => {
+                        this.setFavoriteStatus(element);
+                      }}
                     >
                       <svg
                         className="property__bookmark-icon"
@@ -166,7 +179,7 @@ class OfferDetail extends PureComponent {
                       >
                         <img
                           className="property__avatar user__avatar"
-                          src={element.owner.img.src}
+                          src={`/${element.owner.img.src}`}
                           width="74"
                           height="74"
                           alt={element.owner.img.alt}
@@ -188,7 +201,9 @@ class OfferDetail extends PureComponent {
                 </div>
               </div>
 
-              {<MapDetail city = {city} activePointId = {activePointId} points={sameOffers} nearMap={true} />}
+              {offersNear !== null &&
+                <MapDetail city = {city} activePointId = {element.id} points={offersNear} nearMap={true} />
+              }
             </section>
             <div className="container">
               <section className="near-places places">
@@ -196,10 +211,10 @@ class OfferDetail extends PureComponent {
                   Other places in the neighbourhood
                 </h2>
 
-                {
+                {offersNear !== null &&
                   <OfferList
                     onOfferClick={onOfferClick}
-                    dataCards={sameOffers}
+                    dataCards={offersNear}
                     handleOfferHover = {handleOfferHover}
                     handleClickFavoriteButton = {handleClickFavoriteButton}
                     offersCssClasses = {offersCssClasses}
@@ -274,7 +289,6 @@ OfferDetail.propTypes = {
         })
       })
   ),
-  activeId: PropTypes.string,
   onOfferClick: PropTypes.func,
   dataCards: PropTypes.arrayOf(
       PropTypes.shape({
@@ -334,7 +348,44 @@ OfferDetail.propTypes = {
       WIDTH: PropTypes.number.isRequired,
       HEIGHT: PropTypes.number.isRequired
     })
-  })
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    })
+  }),
+  getNearHotels: PropTypes.func,
+  offersNear: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        class: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number,
+        rooms: PropTypes.number,
+        guests: PropTypes.number,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        })
+      })
+  ),
+  getComments: PropTypes.func,
+  favoriteResponse: PropTypes.bool
 };
 
-export default OfferDetail;
+export default withRouter(OfferDetail);
