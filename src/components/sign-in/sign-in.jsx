@@ -1,4 +1,6 @@
 import React, {PureComponent, createRef} from "react";
+import {Link} from "react-router-dom";
+import {LINKS} from "../../const";
 import PropTypes from "prop-types";
 
 class SignIn extends PureComponent {
@@ -20,7 +22,6 @@ class SignIn extends PureComponent {
       email: this.emailRef.current.value,
       password: this.passwordRef.current.value,
     });
-    handleAuthToggle();
   }
 
   render() {
@@ -31,9 +32,9 @@ class SignIn extends PureComponent {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link" href="main.html">
+                <Link to={LINKS.INDEX} className="header__logo-link" href="main.html">
                   <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-                </a>
+                </Link>
               </div>
               <nav className="header__nav">
                 <ul className="header__nav-list">
@@ -68,9 +69,9 @@ class SignIn extends PureComponent {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
+                <Link to={LINKS.INDEX} className="locations__item-link" href="#">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </div>
             </section>
           </div>
@@ -81,8 +82,7 @@ class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-  onSubmitAuth: PropTypes.func.isRequired,
-  handleAuthToggle: PropTypes.func.isRequired
+  onSubmitAuth: PropTypes.func.isRequired
 };
 
 export default SignIn;

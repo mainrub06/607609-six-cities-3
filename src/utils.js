@@ -180,3 +180,13 @@ export const getFavoriteTargetByCityAndId = (offers, obj) => {
 export const getFavoriteHotelsData = (hotels) => {
   return hotels.length !== 0 ? getFilteredData(hotels) : null;
 };
+
+export const getNearHotelsWithActiveHotel = (state, activeId, response) => {
+  if (state.loadCityOffers !== null) {
+    const nearOffers = getOffersDataFromLoadData(response);
+    const activeHotel = getAllOffers(state.data.loadCityOffers).find((hotel) => hotel.id === activeId);
+    nearOffers.push(activeHotel);
+    return nearOffers;
+  }
+  return getOffersDataFromLoadData(response);
+};

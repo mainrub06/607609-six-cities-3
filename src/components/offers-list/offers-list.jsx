@@ -18,11 +18,11 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse} = this.props;
+    const {dataCards, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse, cardsLength} = this.props;
 
     return (
       <div className={`${offersCssClasses.LIST} places__list`}>
-        {dataCards.map((it) => (
+        {dataCards.slice(0, cardsLength).map((it) => (
           <Offer key={it.id}
             element={it}
             handleOfferHover={this.setIdState}
@@ -67,7 +67,8 @@ OfferList.propTypes = {
       WIDTH: PropTypes.number.isRequired,
       HEIGHT: PropTypes.number.isRequired
     })
-  })
+  }),
+  cardsLength: PropTypes.number
 };
 
 export default OfferList;

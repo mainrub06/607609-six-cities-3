@@ -26,24 +26,24 @@ class App extends PureComponent {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
     this.handleOfferHover = this.handleOfferHover.bind(this);
-    this.handleAuthToggle = this.handleAuthToggle.bind(this);
     this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
     this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
 
     this.isUserAuth = this.isUserAuth.bind(this);
     this.renderLoginPage = this.renderLoginPage.bind(this);
-    this.checkUserAuth = this.checkUserAuth.bind(this);
 
     this.state = {
       activePointId: null,
-      auth: false
     };
   }
 
-  handleOfferClick() {
+  handleOfferClick(id) {
+    const {getNearHotels, getComments} = this.props;
     this.setState({
       activePointId: null
     });
+    getNearHotels(id);
+    getComments(id);
   }
 
   handleOfferHover(id) {
@@ -52,27 +52,22 @@ class App extends PureComponent {
     });
   }
 
-  handleAuthToggle() {
-    this.setState({
-      auth: !this.state.auth
-    });
-    history.push(LINKS.INDEX);
-  }
-
   handleSubmitFeedback(feedbackData, activeHotelId) {
     const {postComment} = this.props;
     postComment(feedbackData, activeHotelId);
   }
 
   handleClickFavoriteButton(id, bool) {
-    if (this.state.auth === AUTHORIZATION_STATUS.NO_AUTH) {
-      history.push(LINKS.LOGIN);
+    const {getUpdatedFavoriteHotel, changeFavoriteFlag, cityName, getFavoritesServerData, authStatus} = this.props;
+
+    if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+      return history.push(LINKS.LOGIN);
     }
-    const {getUpdatedFavoriteHotel, changeFavoriteFlag, cityName, getFavoritesServerData} = this.props;
 
     changeFavoriteFlag({id, favorite: bool, cityName});
     getUpdatedFavoriteHotel(id, bool);
     getFavoritesServerData();
+    console.log(`hi`)
   }
 
   isUserAuth(status) {
@@ -87,43 +82,43 @@ class App extends PureComponent {
     const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse} = this.props;
 
     if (citiesNames !== null) {
-      return (<Main onChangeCity = {onChangeCity}
-        dataCards = {offers}
-        onOfferClick = {this.handleOfferClick}
-        city = {city}
-        onChangeFilterType = {onChangeFilterType}
-        handleOfferHover = {this.handleOfferHover}
-        activePointId = {this.state.activePointId}
-        activeFilter = {activeFilter}
-        citiesNames = {citiesNames}
-        authStatus = {authStatus}
-        userInfo = {userInfo}
-        handleAuthToggle = {this.handleAuthToggle}
-        handleClickFavoriteButton = {this.handleClickFavoriteButton}
-        favoriteResponse = {favoriteResponse}
-        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
-      />);
+      return (
+        <Main
+          onOfferClick = {this.handleOfferClick}
+          handleOfferHover = {this.handleOfferHover}
+          activePointId = {this.state.activePointId}
+          handleClickFavoriteButton = {this.handleClickFavoriteButton}
+          onChangeCity = {onChangeCity}
+          dataCards = {offers}
+          city = {city}
+          onChangeFilterType = {onChangeFilterType}
+          activeFilter = {activeFilter}
+          citiesNames = {citiesNames}
+          authStatus = {authStatus}
+          userInfo = {userInfo}
+          favoriteResponse = {favoriteResponse}
+          offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
+        />
+      );
     }
     return null;
   }
 
   renderDetailPage() {
-    const {offersDetail, reviews, offers, city, authStatus, userInfo, citiesNames, getNearHotels, offersNear, getComments, favoriteResponse} = this.props;
+    const {offersDetail, reviews, offers, authStatus, userInfo, citiesNames, getNearHotels, offersNear, getComments, favoriteResponse} = this.props;
 
     if (citiesNames !== null) {
       return (
-        <OfferDetail onOfferClick = {this.handleOfferClick}
+        <OfferDetail
+          onOfferClick = {this.handleOfferClick}
+          handleOfferHover = {this.handleOfferHover}
+          handleSubmitFeedback = {this.handleSubmitFeedback}
+          handleClickFavoriteButton = {this.handleClickFavoriteButton}
           reviews={reviews}
           dataCardsDetail = {offersDetail}
           dataCards = {offers}
-          handleOfferHover = {this.handleOfferHover}
-          activePointId = {this.state.activePointId}
-          city = {city}
           authStatus = {authStatus}
           userInfo = {userInfo}
-          handleAuthToggle = {this.handleAuthToggle}
-          handleSubmitFeedback = {this.handleSubmitFeedback}
-          handleClickFavoriteButton = {this.handleClickFavoriteButton}
           offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
           getNearHotels = {getNearHotels}
           offersNear = {offersNear}
@@ -137,13 +132,14 @@ class App extends PureComponent {
 
   renderFavoritesPage() {
     const {userInfo, favorites, favoriteResponse, getFavoritesServerData} = this.props;
+
     return (
       <Favorites
+        handleClickFavoriteButton = {this.handleClickFavoriteButton}
+        onOfferClick = {this.handleOfferClick}
         favorites = {favorites}
         userInfo = {userInfo}
-        handleClickFavoriteButton = {this.handleClickFavoriteButton}
         favoriteResponse = {favoriteResponse}
-        onOfferClick = {this.handleOfferClick}
         offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}
         getFavoritesServerData = {getFavoritesServerData}
       />
@@ -152,12 +148,8 @@ class App extends PureComponent {
 
   renderLoginPage() {
     const {login, authStatus} = this.props;
-    return this.isUserAuth(authStatus) ? <Redirect to = {{pathname: LINKS.INDEX}}/> : <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>;
-  }
 
-  checkUserAuth() {
-    const {authStatus} = this.props;
-    return this.isUserAuth(authStatus) ? this.renderIndexPage() : <Redirect to = {{pathname: LINKS.LOGIN}}/>;
+    return this.isUserAuth(authStatus) ? <Redirect to = {{pathname: LINKS.INDEX}}/> : <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>;
   }
 
   render() {
@@ -168,7 +160,7 @@ class App extends PureComponent {
             {this.renderLoginPage()}
           </Route>
           <Route exact path = {LINKS.INDEX}>
-            {this.checkUserAuth()}
+            {this.renderIndexPage()}
           </Route>
           <Route exact path = {`${LINKS.OFFER_DETAIL}:id`}>
             {this.renderDetailPage()}

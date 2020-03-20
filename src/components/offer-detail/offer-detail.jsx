@@ -6,7 +6,7 @@ import Reviews from "../reviews/reviews.jsx";
 import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import {Link} from "react-router-dom";
-import {AUTHORIZATION_STATUS, LINKS} from "../../const";
+import {AUTHORIZATION_STATUS, LINKS, DETAIL_PAGE_PARAMS} from "../../const";
 import {withRouter} from "react-router-dom";
 
 class OfferDetail extends PureComponent {
@@ -29,10 +29,8 @@ class OfferDetail extends PureComponent {
       reviews,
       onOfferClick,
       handleOfferHover,
-      city,
       authStatus,
       userInfo,
-      handleAuthToggle,
       handleSubmitFeedback,
       handleClickFavoriteButton,
       offersCssClasses,
@@ -44,10 +42,8 @@ class OfferDetail extends PureComponent {
 
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === match.params.id);
 
-    if (offersNear === null) {
+    if (offersNear === null && reviews === null) {
       getNearHotels(element.id);
-    }
-    if (reviews === null) {
       getComments(element.id);
     }
 
@@ -72,7 +68,7 @@ class OfferDetail extends PureComponent {
                   <li className="header__nav-item user">
                     {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
                       <Link to={LINKS.LOGIN} className="header__nav-link header__nav-link--profile">
-                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        <span className="header__login">Sign in</span>
                       </Link>
                       :
                       <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
@@ -202,7 +198,7 @@ class OfferDetail extends PureComponent {
               </div>
 
               {offersNear !== null &&
-                <MapDetail city = {city} activePointId = {element.id} points={offersNear} nearMap={true} />
+                <MapDetail city = {element.city} activePointId = {element.id} points={offersNear} nearMap={true} />
               }
             </section>
             <div className="container">
@@ -218,6 +214,7 @@ class OfferDetail extends PureComponent {
                     handleOfferHover = {handleOfferHover}
                     handleClickFavoriteButton = {handleClickFavoriteButton}
                     offersCssClasses = {offersCssClasses}
+                    cardsLength = {DETAIL_PAGE_PARAMS.NEAR_OFFERS_MAX}
                   />
                 }
               </section>

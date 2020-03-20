@@ -71,3 +71,7 @@ export const OFFERS_CSS_CLASSES = {
     }
   }
 };
+
+export const DETAIL_PAGE_PARAMS = {
+  NEAR_OFFERS_MAX: 3
+}

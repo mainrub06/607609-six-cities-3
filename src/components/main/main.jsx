@@ -26,7 +26,6 @@ class Main extends PureComponent {
       citiesNames,
       authStatus,
       userInfo,
-      handleAuthToggle,
       handleClickFavoriteButton,
       favoriteResponse,
       handleFavoriteClick,
@@ -47,7 +46,7 @@ class Main extends PureComponent {
                   <li className="header__nav-item user">
                     {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
                       <Link to={LINKS.LOGIN} className="header__nav-link header__nav-link--profile">
-                        <span onClick = {handleAuthToggle} className="header__login">Sign in</span>
+                        <span className="header__login">Sign in</span>
                       </Link>
                       :
                       <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
@@ -130,7 +129,6 @@ Main.propTypes = {
     userAvatar: PropTypes.string,
     isPro: PropTypes.bool
   }),
-  handleAuthToggle: PropTypes.func.isRequired,
   handleClickFavoriteButton: PropTypes.func.isRequired,
   favoriteResponse: PropTypes.bool,
   handleFavoriteClick: PropTypes.func,
