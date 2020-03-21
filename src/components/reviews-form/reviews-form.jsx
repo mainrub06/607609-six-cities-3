@@ -1,143 +1,106 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {FORM_PARAMS, REQUEST_STATUS} from "../../const";
 
 class ReviewsForm extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeContent = this.handleChangeContent.bind(this);
-    this.handleClickStar = this.handleClickStar.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleTextareaChange = this.handleTextareaChange.bind(this);
+    this.handleRadioChange = this.handleRadioChange.bind(this);
 
     this.state = {
       rate: 0,
-      text: ``
+      text: ``,
+      activeBtn: true,
     };
   }
 
-  handleClickStar(evt) {
+  getBtnStatus() {
+    const {rate, text} = this.state;
+
+    if (rate >= FORM_PARAMS.MIN_STARS_CHECKED && text.length > FORM_PARAMS.MIN_TEXTAREA_VALUE && text.length < FORM_PARAMS.MAX_TEXTAREA_VALUE) {
+      this.setState({
+        activeBtn: false
+      });
+    } else {
+      this.setState({
+        activeBtn: true
+      });
+    }
+  }
+
+  handleRadioChange(evt) {
     this.setState({
       rate: evt.target.value
     });
   }
 
-  handleChangeContent(evt) {
+  handleTextareaChange(evt) {
     evt.preventDefault();
-
     this.setState({
       text: evt.target.value
     });
+
   }
 
-  handleSubmit(evt) {
+  handleFormSubmit(evt) {
     const {handleSubmitFeedback, activeHotelId} = this.props;
     const {rate, text} = this.state;
     evt.preventDefault();
     handleSubmitFeedback({rate, text}, activeHotelId);
+    this.setState({
+      rate: 0,
+      text: ``,
+      activeBtn: true
+    });
+  }
+
+  componentDidUpdate() {
+    this.getBtnStatus();
   }
 
   render() {
+    const {reviewsResponse} = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit} className="reviews__form form" action="#" method="post">
+      <form onSubmit={this.handleFormSubmit} className="reviews__form form" action="#" method="post">
         <label className="reviews__label form__label" htmlFor="review">
-          Your review
+          {reviewsResponse === REQUEST_STATUS.OK ? `Your review` : `Error`}
         </label>
         <div className="reviews__rating-form form__rating">
-
-          <input
-            className="form__rating-input visually-hidden"
-            name="rating"
-            value="5"
-            id="5-stars"
-            type="radio"
-            onClick={this.handleClickStar}
-          />
-          <label
-            htmlFor="5-stars"
-            className="reviews__rating-label form__rating-label"
-            title="perfect"
-          >
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input
-            className="form__rating-input visually-hidden"
-            name="rating"
-            value="4"
-            id="4-stars"
-            type="radio"
-            onClick={this.handleClickStar}
-          />
-          <label
-            htmlFor="4-stars"
-            className="reviews__rating-label form__rating-label"
-            title="good"
-          >
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input
-            className="form__rating-input visually-hidden"
-            name="rating"
-            value="3"
-            id="3-stars"
-            type="radio"
-            onClick={this.handleClickStar}
-          />
-          <label
-            htmlFor="3-stars"
-            className="reviews__rating-label form__rating-label"
-            title="not bad"
-          >
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input
-            className="form__rating-input visually-hidden"
-            name="rating"
-            value="2"
-            id="2-stars"
-            type="radio"
-            onClick={this.handleClickStar}
-          />
-          <label
-            htmlFor="2-stars"
-            className="reviews__rating-label form__rating-label"
-            title="badly"
-          >
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input
-            className="form__rating-input visually-hidden"
-            name="rating"
-            value="1"
-            id="1-star"
-            type="radio"
-            onClick={this.handleClickStar}
-          />
-          <label
-            htmlFor="1-star"
-            className="reviews__rating-label form__rating-label"
-            title="terribly"
-          >
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
+          {
+            FORM_PARAMS.STARS.map((value, index) => {
+              const stars = FORM_PARAMS.STARS.length - index;
+              return (
+                <React.Fragment key = {value}>
+                  <input
+                    className="form__rating-input visually-hidden"
+                    name="rating"
+                    value={stars}
+                    id={`${stars}-stars`}
+                    type="radio"
+                    onChange={this.handleRadioChange}
+                    checked={stars.toString() === this.state.rate}
+                  />
+                  <label
+                    htmlFor={`${stars}-stars`}
+                    className="reviews__rating-label form__rating-label"
+                    title={value}
+                  >
+                    <svg className="form__star-image" width="37" height="33">
+                      <use xlinkHref="#icon-star"></use>
+                    </svg>
+                  </label>
+                </React.Fragment>
+              );
+            })
+          }
         </div>
         <textarea
           value={this.state.text}
-          onChange={this.handleChangeContent}
+          onChange={this.handleTextareaChange}
           className="reviews__textarea form__textarea"
           id="review"
           name="review"
@@ -150,7 +113,7 @@ class ReviewsForm extends PureComponent {
                 stay with at least{` `}
             <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={this.state.activeBtn}>Submit</button>
         </div>
       </form>
     );
@@ -159,7 +122,8 @@ class ReviewsForm extends PureComponent {
 
 ReviewsForm.propTypes = {
   activeHotelId: PropTypes.string.isRequired,
-  handleSubmitFeedback: PropTypes.func
+  handleSubmitFeedback: PropTypes.func,
+  reviewsResponse: PropTypes.number
 };
 
 

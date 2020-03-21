@@ -194,7 +194,7 @@ exports[`Render Favorite component 1`] = `
                       href="/offer/0221552"
                       onClick={[Function]}
                     >
-                      Beautiful lie & luxurious apartment at great location
+                      Beautiful & luxurious apartment at great location
                     </a>
                   </h2>
                   <p
@@ -301,7 +301,7 @@ exports[`Render Favorite component 1`] = `
                       href="/offer/5464564"
                       onClick={[Function]}
                     >
-                      Wood stock and stone place
+                      Wood and stone place
                     </a>
                   </h2>
                   <p
@@ -408,7 +408,7 @@ exports[`Render Favorite component 1`] = `
                       href="/offer/4589512"
                       onClick={[Function]}
                     >
-                      Radisson SASS
+                      Radisson SAS
                     </a>
                   </h2>
                   <p
@@ -622,7 +622,7 @@ exports[`Render Favorite component 1`] = `
                       href="/offer/9431675"
                       onClick={[Function]}
                     >
-                      Bungalooo
+                      Bungalo
                     </a>
                   </h2>
                   <p

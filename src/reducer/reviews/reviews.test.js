@@ -2,9 +2,9 @@ import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api";
 import {Operation, ActionType} from "./reviews";
 
-const initialPayload = {data: `Hallo World!`};
+const initialPayload = `Hallo Worlds`;
+const statusMock = 200;
 const mockId = `1`;
-
 const api = createAPI();
 
 describe(`test api from reducer(reviews)`, () => {
@@ -15,13 +15,13 @@ describe(`test api from reducer(reviews)`, () => {
 
     apiMock
       .onGet(`/comments/${mockId}`)
-      .reply(200, [initialPayload]);
+      .reply(200, initialPayload);
 
     return loader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.GET_REVIEWS_FROM_HOTEL_ID,
-          payload: [initialPayload],
+          payload: {dataReviews: initialPayload, status: statusMock},
         });
       });
   });

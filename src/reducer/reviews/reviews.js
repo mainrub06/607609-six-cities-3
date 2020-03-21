@@ -1,7 +1,8 @@
 import {extend, getReviewsList} from "../../utils.js";
 
 const initialState = {
-  reviewsList: null
+  reviewsList: null,
+  reviewsResponse: null
 };
 
 const ActionType = {
@@ -15,16 +16,19 @@ const ActionCreator = {
   })
 };
 
+const getReviewsDataFromServer = (response) => ({
+  dataReviews: response.data, status: response.status
+});
+
 const Operation = {
   getReviewsFromHotelId: (id) => (dispatch, getState, api) => {
     return api
       .get(`/comments/${id}`)
       .then((response) => {
         dispatch(
-            ActionCreator.getReviewsFromHotelId(response.data)
+            ActionCreator.getReviewsFromHotelId(getReviewsDataFromServer(response))
         );
-      })
-      .catch((err) => err);
+      });
   },
   postReviewFromHotelId: (postComment, id) => (dispatch, getState, api) => {
     return api
@@ -34,7 +38,7 @@ const Operation = {
       })
       .then((response) => {
         dispatch(
-            ActionCreator.getReviewsFromHotelId(response.data)
+            ActionCreator.getReviewsFromHotelId(getReviewsDataFromServer(response))
         );
       });
   }
@@ -43,7 +47,7 @@ const Operation = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_REVIEWS_FROM_HOTEL_ID:
-      return extend(state, {reviewsList: getReviewsList(action.payload)});
+      return extend(state, {reviewsResponse: action.payload.status, reviewsList: getReviewsList(action.payload.dataReviews)});
   }
   return state;
 };

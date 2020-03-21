@@ -1,4 +1,4 @@
-import {extend, getFilteredData, getFavoriteTargetByCityAndId, getNearHotelsWithActiveHotel} from "../../utils.js";
+import {extend, getFilteredData, getFavoriteTargetByCityAndId, getNearHotelsIdWithActiveHotel} from "../../utils.js";
 
 const initialState = {
   loadCityOffers: null,
@@ -38,7 +38,7 @@ const Operation = {
   getNearHotels: (id) => (dispatch, getState, api) => {
     return api.get(`/hotels/${id}/nearby`)
       .then((response) => {
-        dispatch(ActionCreator.getNearHotels(getNearHotelsWithActiveHotel(getState(), id, response.data)));
+        dispatch(ActionCreator.getNearHotels(getNearHotelsIdWithActiveHotel(getState(), id, response.data)));
       });
   }
 };

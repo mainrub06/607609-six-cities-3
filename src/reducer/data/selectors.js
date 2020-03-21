@@ -13,4 +13,4 @@ export const getCity = (state) => {
 export const getOffersDetail = (state) => getAllOffers(state.data.loadCityOffersDetail);
 export const getActiveFilter = (state) => state.main.activeFilterItem;
 export const getOffersMain = (state) => getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName));
-export const getNearOffers = (state) => state.data.nearHotels;
+export const getNearOffers = (state) => state.data.nearHotels !== null ? state.data.nearHotels.map((id) => getAllOffers(state.data.loadCityOffers).find((hotel) => hotel.id === id)) : null;

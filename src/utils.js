@@ -181,12 +181,11 @@ export const getFavoriteHotelsData = (hotels) => {
   return hotels.length !== 0 ? getFilteredData(hotels) : null;
 };
 
-export const getNearHotelsWithActiveHotel = (state, activeId, response) => {
+export const getNearHotelsIdWithActiveHotel = (state, activeId, response) => {
   if (state.loadCityOffers !== null) {
-    const nearOffers = getOffersDataFromLoadData(response);
-    const activeHotel = getAllOffers(state.data.loadCityOffers).find((hotel) => hotel.id === activeId);
-    nearOffers.push(activeHotel);
-    return nearOffers;
+    const nearOffersId = getOffersDataFromLoadData(response).map((hotel) => hotel.id);
+    nearOffersId.push(activeId);
+    return nearOffersId;
   }
-  return getOffersDataFromLoadData(response);
+  return null;
 };

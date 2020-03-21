@@ -4,7 +4,6 @@ export const STAR_PARAMS = {
   STAR_STEP: 20
 };
 
-
 export const LINKS = {
   INDEX: `/`,
   OFFER_DETAIL: `/offer/`,
@@ -36,7 +35,8 @@ export const FAVORITE_REQUESTS = {
 };
 
 export const REQUEST_STATUS = {
-  NO_AUTH: 401
+  NO_AUTH: 401,
+  OK: 200
 };
 
 export const OFFERS_CSS_CLASSES = {
@@ -74,4 +74,11 @@ export const OFFERS_CSS_CLASSES = {
 
 export const DETAIL_PAGE_PARAMS = {
   NEAR_OFFERS_MAX: 3
-}
+};
+
+export const FORM_PARAMS = {
+  STARS: [`perfect`, `good`, `not bad`, `badly`, `terribly`],
+  MIN_TEXTAREA_VALUE: 50,
+  MAX_TEXTAREA_VALUE: 300,
+  MIN_STARS_CHECKED: 1
+};

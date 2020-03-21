@@ -89,7 +89,13 @@ class Favorites extends PureComponent {
 
 
 Favorites.propTypes = {
-  favorites: PropTypes.shape(),
+  favorites: PropTypes.shape({
+    citiesNames: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    loadCityOffers: PropTypes.shape(),
+    loadCityOffersDetail: PropTypes.shape()
+  }),
   userInfo: PropTypes.shape({
     id: PropTypes.number,
     userEmail: PropTypes.string,

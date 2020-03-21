@@ -16,7 +16,7 @@ class SignIn extends PureComponent {
   handleSubmit(evt) {
     evt.preventDefault();
 
-    const {onSubmitAuth, handleAuthToggle} = this.props;
+    const {onSubmitAuth} = this.props;
 
     onSubmitAuth({
       email: this.emailRef.current.value,

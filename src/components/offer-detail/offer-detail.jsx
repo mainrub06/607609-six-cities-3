@@ -37,7 +37,9 @@ class OfferDetail extends PureComponent {
       match,
       getNearHotels,
       offersNear,
-      getComments
+      getComments,
+      favoriteResponse,
+      reviewsResponse
     } = this.props;
 
     const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === match.params.id);
@@ -193,7 +195,7 @@ class OfferDetail extends PureComponent {
                       ))}
                     </div>
                   </div>
-                  {<Reviews activeHotelId = {element.id} authStatus = {authStatus} reviews={reviews} handleSubmitFeedback={handleSubmitFeedback}/>}
+                  {<Reviews reviewsResponse = {reviewsResponse} activeHotelId = {element.id} authStatus = {authStatus} reviews={reviews} handleSubmitFeedback={handleSubmitFeedback}/>}
                 </div>
               </div>
 
@@ -209,12 +211,13 @@ class OfferDetail extends PureComponent {
 
                 {offersNear !== null &&
                   <OfferList
-                    onOfferClick={onOfferClick}
-                    dataCards={offersNear}
-                    handleOfferHover = {handleOfferHover}
-                    handleClickFavoriteButton = {handleClickFavoriteButton}
                     offersCssClasses = {offersCssClasses}
                     cardsLength = {DETAIL_PAGE_PARAMS.NEAR_OFFERS_MAX}
+                    onOfferClick={onOfferClick}
+                    dataCards={offersNear}
+                    favoriteResponse = {favoriteResponse}
+                    handleOfferHover = {handleOfferHover}
+                    handleClickFavoriteButton = {handleClickFavoriteButton}
                   />
                 }
               </section>
@@ -382,7 +385,9 @@ OfferDetail.propTypes = {
       })
   ),
   getComments: PropTypes.func,
-  favoriteResponse: PropTypes.bool
+  favoriteResponse: PropTypes.bool,
+  reviewsResponse: PropTypes.number
 };
+
 
 export default withRouter(OfferDetail);
