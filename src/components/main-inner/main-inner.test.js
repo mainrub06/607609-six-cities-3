@@ -14,7 +14,7 @@ const CITY_MOCK = {
   }
 };
 
-it(`Render Main`, () => {
+it(`Render snapshot <Main/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>

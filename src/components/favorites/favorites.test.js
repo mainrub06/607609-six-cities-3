@@ -16,7 +16,7 @@ const userInfo = {
 
 const favoriteResponse = true;
 
-it(`Render Favorite component`, () => {
+it(`Render snapshot <Favorite/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>

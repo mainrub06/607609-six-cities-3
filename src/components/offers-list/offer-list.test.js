@@ -5,7 +5,7 @@ import PLACE_MOCK from "../../mock/offers";
 import {OFFERS_CSS_CLASSES} from "../../const";
 import {MemoryRouter} from "react-router-dom";
 
-it(`Render OfferList component`, () => {
+it(`Render snapshot <OfferList/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>

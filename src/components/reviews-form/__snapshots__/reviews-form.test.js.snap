@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render ReviewsForm component 1`] = `
+exports[`Render snapshot <ReviewsForm/> 1`] = `
 <form
   action="#"
   className="reviews__form form"

@@ -51,7 +51,7 @@ const REVIEWS = [
   }
 ];
 
-it(`Render App`, () => {
+it(`Render snapshot <App/>`, () => {
   const tree = renderer
     .create(
         <App

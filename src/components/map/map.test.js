@@ -12,7 +12,7 @@ const CITY_MOCK = {
   }
 };
 
-it(`Render Map`, () => {
+it(`Render snapshot <Map/>`, () => {
   const tree = renderer
     .create(
         <Map city = {CITY_MOCK} activePointId = {PLACE_MOCK[0].id} points={PLACE_MOCK} />

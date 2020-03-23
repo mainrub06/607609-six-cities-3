@@ -14,7 +14,7 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
-it(`test Article hover`, () => {
+it(`end-to-end test <Offer/> event: mouseover <article>`, () => {
   const OfferEl = shallow(
       <Offer
         element={MOCK_EL}
@@ -32,7 +32,7 @@ it(`test Article hover`, () => {
   expect(onHoverArticle.mock.calls[0][0]).toBe(MOCK_EL.id);
 });
 
-it(`test Article-title click`, () => {
+it(`end-to-end test <Offer/> event: click on element with css-class place-card__name`, () => {
   const OfferEl = shallow(
       <Offer
         element={MOCK_EL}

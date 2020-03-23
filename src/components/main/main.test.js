@@ -24,7 +24,7 @@ const USER_INFO_MOCK = {
 
 const authStatus = `AUTH`;
 
-it(`Render Main`, () => {
+it(`Render snapshot <Main/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>

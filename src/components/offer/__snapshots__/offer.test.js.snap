@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render Offer component 1`] = `
+exports[`Render snapshot <Offer/> 1`] = `
 <article
   className="cities__place-card place-card"
   onMouseLeave={[Function]}

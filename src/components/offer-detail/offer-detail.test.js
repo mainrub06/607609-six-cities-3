@@ -26,7 +26,7 @@ const USER_INFO_MOCK = {
 
 const authStatus = `AUTH`;
 
-it(`Render OfferDetail component`, () => {
+it(`Render snapshot <OfferDetail/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>

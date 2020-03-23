@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import SignIn from "./sign-in.jsx";
 import {MemoryRouter} from "react-router-dom";
 
-it(`Render SignIn`, () => {
+it(`Render snapshot <SignIn/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>

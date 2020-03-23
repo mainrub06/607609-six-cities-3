@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MainEmpty from "./main-empty.jsx";
 
-it(`Render MainEmpty`, () => {
+it(`Render snapshot <MainEmpty/>`, () => {
   const tree = renderer
     .create(
         <MainEmpty/>

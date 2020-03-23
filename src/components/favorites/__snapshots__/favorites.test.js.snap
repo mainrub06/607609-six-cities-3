@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render Favorite component 1`] = `
+exports[`Render snapshot <Favorite/> 1`] = `
 <div
   className="page"
 >
