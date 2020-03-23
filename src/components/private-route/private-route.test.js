@@ -5,7 +5,7 @@ import {PrivateRoute} from "./private-route.jsx";
 
 const MockComponent = () => (<p>Hallo world!</p>);
 const mockPath = `/`;
-const mockRedirectLink = `/redirect`
+const mockRedirectLink = `/redirect`;
 const mockAuthStatus = `AUTH`;
 
 it(`Render snapshot <PrivateRoute/>`, () => {

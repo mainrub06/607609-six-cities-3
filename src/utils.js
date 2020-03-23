@@ -133,13 +133,16 @@ export const getFilteredOffersByCity = (offers) => {
 };
 
 export const getFilteredData = (data) => {
-  const dataOffers = getOffersDataFromLoadData(data);
-  const dataOffersDetail = getOffersDataDetailFromLoadData(data);
-  const filteredDataOffers = getFilteredOffersByCity(dataOffers);
-  const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
-  const citiesList = Object.keys(filteredDataOffers);
+  if (data) {
+    const dataOffers = getOffersDataFromLoadData(data);
+    const dataOffersDetail = getOffersDataDetailFromLoadData(data);
+    const filteredDataOffers = getFilteredOffersByCity(dataOffers);
+    const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
+    const citiesList = Object.keys(filteredDataOffers);
 
-  return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
+    return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
+  }
+  return null;
 };
 
 export const getUserData = (data) => {
@@ -156,25 +159,31 @@ export const getUserData = (data) => {
 };
 
 export const getReviewsList = (reviews) => {
-  return reviews.map((review) => ({
-    id: review.id,
-    rate: review.rating,
-    comment: review.comment,
-    date: review.date,
-    user: {
-      id: review.user.id,
-      isPro: review.user.is_pro,
-      name: review.user.name,
-      avatar: review.user.avatar_url
-    }
-  }));
+  if (reviews) {
+    return reviews.map((review) => ({
+      id: review.id,
+      rate: review.rating,
+      comment: review.comment,
+      date: review.date,
+      user: {
+        id: review.user.id,
+        isPro: review.user.is_pro,
+        name: review.user.name,
+        avatar: review.user.avatar_url
+      }
+    }));
+  }
+  return null;
 };
 
 export const getFavoriteTargetByCityAndId = (offers, obj) => {
-  const newExtendArr = offers[obj.cityName].map((hotel) => {
-    return hotel.id === obj.id ? extend(hotel, {favorite: obj.favorite}) : hotel;
-  });
-  return extend(offers, {[obj.cityName]: newExtendArr});
+  if (offers && obj) {
+    const newExtendArr = offers[obj.cityName].map((hotel) => {
+      return hotel.id === obj.id ? extend(hotel, {favorite: obj.favorite}) : hotel;
+    });
+    return extend(offers, {[obj.cityName]: newExtendArr});
+  }
+  return null;
 };
 
 export const getFavoriteHotelsData = (hotels) => {
