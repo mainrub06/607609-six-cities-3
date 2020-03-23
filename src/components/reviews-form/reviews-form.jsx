@@ -20,15 +20,9 @@ class ReviewsForm extends PureComponent {
   getBtnStatus() {
     const {rate, text} = this.state;
 
-    if (rate >= FORM_PARAMS.MIN_STARS_CHECKED && text.length > FORM_PARAMS.MIN_TEXTAREA_VALUE && text.length < FORM_PARAMS.MAX_TEXTAREA_VALUE) {
-      this.setState({
-        activeBtn: false
-      });
-    } else {
-      this.setState({
-        activeBtn: true
-      });
-    }
+    this.setState({
+      activeBtn: !(rate >= FORM_PARAMS.MIN_STARS_CHECKED && text.length > FORM_PARAMS.MIN_TEXTAREA_VALUE && text.length < FORM_PARAMS.MAX_TEXTAREA_VALUE)
+    });
   }
 
   handleRadioChange(evt) {

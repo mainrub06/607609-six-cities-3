@@ -65,11 +65,11 @@ export const getFirstCity = (citiesIn) => {
 };
 
 export const getOffers = (cityOffers, activeFilter) => {
-  return cityOffers !== null ? cityOffers[activeFilter] : null;
+  return cityOffers && cityOffers[activeFilter];
 };
 
 export const getAllOffers = (cityOffers) => {
-  return cityOffers !== null ? Object.values(cityOffers).flat(1) : null;
+  return cityOffers && Object.values(cityOffers).flat(1);
 };
 
 export const getImages = (images) => {
@@ -86,7 +86,7 @@ export const getOffersDataFromLoadData = (loadData) => {
         alt: offer.id.toString(),
         src: offer.preview_image,
       },
-      class: offer.is_premium,
+      isPremium: offer.is_premium,
       type: offer.type,
       rate: offer.rating,
       cords: [offer.location.latitude, offer.location.longitude],
@@ -103,7 +103,7 @@ export const getOffersDataDetailFromLoadData = (loadData) => {
       name: offer.title,
       price: offer.price.toString(),
       photos: getImages(offer.images),
-      class: offer.is_premium,
+      isPremium: offer.is_premium,
       type: offer.type,
       rate: offer.rating,
       rooms: offer.bedrooms,

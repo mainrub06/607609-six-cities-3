@@ -174,6 +174,7 @@ class App extends PureComponent {
           <PrivateRoute
             exact
             path= {LINKS.FAVORITES}
+            redirectLink = {LINKS.LOGIN}
             render = {() => {
               return this.renderFavoritesPage();
             }}
@@ -197,7 +198,7 @@ App.propTypes = {
           alt: PropTypes.string,
           src: PropTypes.string
         }),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number
       })
@@ -213,7 +214,7 @@ App.propTypes = {
               src: PropTypes.string
             })
         ),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number,
         rooms: PropTypes.number,
@@ -302,7 +303,7 @@ App.propTypes = {
               src: PropTypes.string
             })
         ),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number,
         rooms: PropTypes.number,

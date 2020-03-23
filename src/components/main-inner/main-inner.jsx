@@ -31,25 +31,21 @@ const MainInner = ({
           onChangeFilterType={onChangeFilterType}
         />
 
-        {
-          <OfferListWrapped
-            offersCssClasses={offersCssClasses}
-            onOfferClick={onOfferClick}
-            dataCards={dataCards}
-            handleOfferHover={handleOfferHover}
-            favoriteResponse={favoriteResponse}
-            handleClickFavoriteButton={handleClickFavoriteButton}
-          />
-        }
+        <OfferListWrapped
+          offersCssClasses={offersCssClasses}
+          onOfferClick={onOfferClick}
+          dataCards={dataCards}
+          handleOfferHover={handleOfferHover}
+          favoriteResponse={favoriteResponse}
+          handleClickFavoriteButton={handleClickFavoriteButton}
+        />
       </section>
       <div className="cities__right-section">
-        {
-          <MapMain
-            city={city}
-            activePointId={activePointId}
-            points={dataCards}
-          />
-        }
+        <MapMain
+          city={city}
+          activePointId={activePointId}
+          points={dataCards}
+        />
       </div>
     </div>
   </div>
@@ -65,7 +61,7 @@ MainInner.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }),
-        class: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired

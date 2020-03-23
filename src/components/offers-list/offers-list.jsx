@@ -47,13 +47,13 @@ OfferList.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }),
-        class: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired
       })
   ).isRequired,
   onOfferClick: PropTypes.func.isRequired,
-  handleOfferHover: PropTypes.func.isRequired,
+  handleOfferHover: PropTypes.func,
   activeItemIndex: PropTypes.number,
   handleItemClick: PropTypes.func,
   handleClickFavoriteButton: PropTypes.func,

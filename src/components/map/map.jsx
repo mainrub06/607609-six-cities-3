@@ -100,7 +100,7 @@ MapMain.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }).isRequired,
-        class: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired

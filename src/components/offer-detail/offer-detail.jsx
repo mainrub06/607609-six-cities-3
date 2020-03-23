@@ -100,7 +100,7 @@ class OfferDetail extends PureComponent {
               </div>
               <div className="property__container container">
                 <div className="property__wrapper">
-                  {element.class &&
+                  {element.isPremium &&
                     <div className="property__mark">
                       <span>Premium</span>
                     </div>
@@ -195,11 +195,17 @@ class OfferDetail extends PureComponent {
                       ))}
                     </div>
                   </div>
-                  {<Reviews reviewsResponse = {reviewsResponse} activeHotelId = {element.id} authStatus = {authStatus} reviews={reviews} handleSubmitFeedback={handleSubmitFeedback}/>}
+                  <Reviews
+                    reviewsResponse = {reviewsResponse}
+                    activeHotelId = {element.id}
+                    authStatus = {authStatus}
+                    reviews={reviews}
+                    handleSubmitFeedback={handleSubmitFeedback}
+                  />
                 </div>
               </div>
 
-              {offersNear !== null &&
+              {offersNear &&
                 <MapDetail city = {element.city} activePointId = {element.id} points={offersNear} nearMap={true} />
               }
             </section>
@@ -209,7 +215,7 @@ class OfferDetail extends PureComponent {
                   Other places in the neighbourhood
                 </h2>
 
-                {offersNear !== null &&
+                {offersNear &&
                   <OfferList
                     offersCssClasses = {offersCssClasses}
                     cardsLength = {DETAIL_PAGE_PARAMS.NEAR_OFFERS_MAX}
@@ -240,7 +246,7 @@ OfferDetail.propTypes = {
           src: PropTypes.string
         })
     ),
-    class: PropTypes.bool,
+    isPremium: PropTypes.bool,
     type: PropTypes.string,
     rate: PropTypes.number,
     rooms: PropTypes.number,
@@ -271,7 +277,7 @@ OfferDetail.propTypes = {
               src: PropTypes.string
             })
         ),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number,
         rooms: PropTypes.number,
@@ -299,7 +305,7 @@ OfferDetail.propTypes = {
           alt: PropTypes.string,
           src: PropTypes.string
         }),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number
       })
@@ -366,7 +372,7 @@ OfferDetail.propTypes = {
               src: PropTypes.string
             })
         ),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number,
         rooms: PropTypes.number,

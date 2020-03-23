@@ -36,16 +36,17 @@ const Main = ({dataCards,
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                {authStatus === AUTHORIZATION_STATUS.NO_AUTH ?
+                {authStatus === AUTHORIZATION_STATUS.NO_AUTH ? (
                   <Link to={LINKS.LOGIN} className="header__nav-link header__nav-link--profile">
                     <span className="header__login">Sign in</span>
                   </Link>
-                  :
+                ) : (
                   <Link to={LINKS.FAVORITES} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span onClick = {handleFavoriteClick} className="header__user-name user__name">{userInfo.userEmail}</span>
                   </Link>
+                )
                 }
               </li>
             </ul>
@@ -84,7 +85,7 @@ Main.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }).isRequired,
-        class: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(

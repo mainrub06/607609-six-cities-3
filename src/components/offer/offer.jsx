@@ -27,7 +27,7 @@ class Offer extends PureComponent {
         handleOfferHover(null);
       }} className= {`${offersCssClasses.ITEM} place-card`}>
 
-        {element.class &&
+        {element.isPremium &&
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
@@ -80,7 +80,7 @@ Offer.propTypes = {
       alt: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired
     }).isRequired,
-    class: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired,
     favorite: PropTypes.bool.isRequired
