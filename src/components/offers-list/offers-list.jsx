@@ -22,9 +22,9 @@ class OfferList extends PureComponent {
 
     return (
       <div className={`${offersCssClasses.LIST} places__list`}>
-        {dataCards.slice(0, cardsLength).map((it) => (
-          <Offer key={it.id}
-            element={it}
+        {dataCards.slice(0, cardsLength).map((hotel) => (
+          <Offer key={hotel.id}
+            element={hotel}
             handleOfferHover={this.setIdState}
             onOfferClick={onOfferClick}
             offersCssClasses = {offersCssClasses}

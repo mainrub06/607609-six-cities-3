@@ -21,10 +21,6 @@ const PrivateRoute = ({render, path, exact, authorizationStatus, redirectLink}) 
   );
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state)
-});
-
 PrivateRoute.propTypes = {
   render: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
@@ -32,6 +28,10 @@ PrivateRoute.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   redirectLink: PropTypes.string.isRequired
 };
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthStatus(state)
+});
 
 export {PrivateRoute};
 export default connect(mapStateToProps)(PrivateRoute);

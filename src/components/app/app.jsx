@@ -33,6 +33,11 @@ class App extends PureComponent {
     this.renderLoginPage = this.renderLoginPage.bind(this);
   }
 
+  componentDidMount() {
+    const {getAuthorizationStatus} = this.props;
+    getAuthorizationStatus();
+  }
+
   handleOfferClick(id) {
     const {getNearHotels, getComments, onHoverHotel} = this.props;
 
@@ -71,11 +76,6 @@ class App extends PureComponent {
 
   redirectToLoginPage() {
     return history.push(LINKS.LOGIN);
-  }
-
-  componentDidMount() {
-    const {getAuthorizationStatus} = this.props;
-    getAuthorizationStatus();
   }
 
   renderIndexPage() {
@@ -321,6 +321,24 @@ App.propTypes = {
   activeHotelId: PropTypes.string
 };
 
+const mapStateToProps = (state) => ({
+  activeHotelId: getActiveHotelId(state),
+  cityOffers: getloadCityOffers(state),
+  cityName: getCityName(state),
+  citiesNames: getCitiesNames(state),
+  city: getCity(state),
+  offers: getOffersMain(state),
+  offersDetail: getOffersDetail(state),
+  reviews: getReviews(state),
+  reviewsResponse: getReviewsResponse(state),
+  activeFilter: getActiveFilter(state),
+  authStatus: getAuthStatus(state),
+  userInfo: getUserInfo(state),
+  favoriteResponse: getResponseStatusFavorite(state),
+  favorites: getFavoritesData(state),
+  offersNear: getNearOffers(state)
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(cityIn) {
     dispatch(ActionCreator.changeCity({cityName: cityIn}));
@@ -355,24 +373,6 @@ const mapDispatchToProps = (dispatch) => ({
   onHoverHotel(id) {
     dispatch(ActionCreator.setActiveHotelId({activeHotelId: id}));
   }
-});
-
-const mapStateToProps = (state) => ({
-  activeHotelId: getActiveHotelId(state),
-  cityOffers: getloadCityOffers(state),
-  cityName: getCityName(state),
-  citiesNames: getCitiesNames(state),
-  city: getCity(state),
-  offers: getOffersMain(state),
-  offersDetail: getOffersDetail(state),
-  reviews: getReviews(state),
-  reviewsResponse: getReviewsResponse(state),
-  activeFilter: getActiveFilter(state),
-  authStatus: getAuthStatus(state),
-  userInfo: getUserInfo(state),
-  favoriteResponse: getResponseStatusFavorite(state),
-  favorites: getFavoritesData(state),
-  offersNear: getNearOffers(state)
 });
 
 export {App};

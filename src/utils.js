@@ -12,28 +12,28 @@ export const getRandomElement = (array) => {
   return array[getRandomNum(min, max)];
 };
 
-export const getStarsFromNum = (num) => {
-  if (num <= STAR_PARAMS.MAX_VALUE && num > STAR_PARAMS.MIN_VALUE) {
-    return Math.round(num) * STAR_PARAMS.STAR_STEP;
+export const getStarsFromNum = (number) => {
+  if (number <= STAR_PARAMS.MAX_VALUE && number > STAR_PARAMS.MIN_VALUE) {
+    return Math.round(number) * STAR_PARAMS.STAR_STEP;
   } else {
     return STAR_PARAMS.MIN_VALUE;
   }
 };
 
-export const extend = (a, b) => {
-  return Object.assign({}, a, b);
+export const extend = (firstInnerElement, secondInnerElement) => {
+  return Object.assign({}, firstInnerElement, secondInnerElement);
 };
 
 export const getGrowingArrayByPrice = (array) => {
-  return array.slice().sort((a, b) => Number(a.price) - Number(b.price));
+  return array.slice().sort((firstInnerElement, secondInnerElement) => Number(firstInnerElement.price) - Number(secondInnerElement.price));
 };
 
 export const getFallingArrayByPrice = (array) => {
-  return array.slice().sort((a, b) => Number(b.price) - Number(a.price));
+  return array.slice().sort((firstInnerElement, secondInnerElement) => Number(secondInnerElement.price) - Number(firstInnerElement.price));
 };
 
 export const getTopRated = (array) => {
-  return array.slice().sort((a, b) => b.rate - a.rate);
+  return array.slice().sort((firstInnerElement, secondInnerElement) => secondInnerElement.rate - firstInnerElement.rate);
 };
 
 export const getFilteredOffers = (type, offers) => {

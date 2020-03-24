@@ -6,7 +6,7 @@ class Map extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.city = [52.38333, 4.9]; // Amsterdam
+    this.city = [52.38333, 4.9];
     this.zoomMap = 12;
 
     this.mapConfig = {
@@ -66,6 +66,10 @@ class Map extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    this.map = null;
+  }
+
   updateMap() {
     const {points, activePointId} = this.props;
     const {layerGroup} = this.layerGroupStorage;
@@ -77,10 +81,6 @@ class Map extends PureComponent {
       .marker(point.cords, {icon})
       .addTo(layerGroup);
     });
-  }
-
-  componentWillUnmount() {
-    this.map = null;
   }
 
   render() {

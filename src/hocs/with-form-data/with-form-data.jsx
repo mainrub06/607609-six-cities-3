@@ -17,6 +17,10 @@ const withFormData = (Component) => {
       };
     }
 
+    componentDidUpdate() {
+      this.getBtnStatus();
+    }
+
     getBtnStatus() {
       const {rate, text} = this.state;
 
@@ -40,10 +44,6 @@ const withFormData = (Component) => {
       this.setState({
         text: evt.target.value
       });
-    }
-
-    componentDidUpdate() {
-      this.getBtnStatus();
     }
 
     resetForm() {
