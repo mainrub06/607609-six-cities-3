@@ -2,7 +2,7 @@ import React, {PureComponent, createRef} from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
 
-class MapMain extends PureComponent {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -89,7 +89,7 @@ class MapMain extends PureComponent {
   }
 }
 
-MapMain.propTypes = {
+Map.propTypes = {
   nearMap: PropTypes.bool,
   points: PropTypes.arrayOf(
       PropTypes.shape({
@@ -117,4 +117,4 @@ MapMain.propTypes = {
   })
 };
 
-export default MapMain;
+export default Map;
