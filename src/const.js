@@ -82,3 +82,7 @@ export const FORM_PARAMS = {
   MAX_TEXTAREA_VALUE: 300,
   MIN_STARS_CHECKED: 1
 };
+
+export const REVIEWS_PARAMS = {
+  MAX_REVIEWS: 10
+};

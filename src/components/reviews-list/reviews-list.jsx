@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import ReviewsItem from "../reviews-item/reviews-item.jsx";
+import {REVIEWS_PARAMS} from "../../const";
 import PropTypes from "prop-types";
 
 class ReviewsList extends PureComponent {
@@ -13,7 +14,7 @@ class ReviewsList extends PureComponent {
     if (reviews) {
       return (
         <ul className="reviews__list">
-          {reviews.map((review) => <ReviewsItem key = {review.id} element = {review}/>)}
+          {reviews.slice(0, REVIEWS_PARAMS.MAX_REVIEWS).map((review) => <ReviewsItem key = {review.id} element = {review}/>)}
         </ul>
       );
     }
