@@ -198,3 +198,15 @@ export const getNearHotelsIdWithActiveHotel = (state, activeId, response) => {
   }
   return null;
 };
+
+export const getFallingSortByDate = (array) => {
+  if (array) {
+    return array.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      return dateB - dateA;
+    });
+  }
+  return null;
+};
