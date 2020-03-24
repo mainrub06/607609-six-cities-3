@@ -69,6 +69,7 @@ it(`Render snapshot <App/>`, () => {
           login = {() => {}}
           getAuthorizationStatus = {() => {}}
           offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
+          handleItemClick = {() => {}}
         />
     )
     .toJSON();

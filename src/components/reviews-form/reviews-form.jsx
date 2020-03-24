@@ -13,7 +13,7 @@ class ReviewsForm extends PureComponent {
     const {handleSubmitFeedback, activeHotelId, rateData, textData, resetForm} = this.props;
 
     evt.preventDefault();
-    handleSubmitFeedback({rateData, textData}, activeHotelId);
+    handleSubmitFeedback({rate: rateData, text: textData}, activeHotelId);
     resetForm();
   }
 
