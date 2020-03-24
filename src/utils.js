@@ -102,6 +102,10 @@ export const getOffersDataDetailFromLoadData = (loadData) => {
       id: offer.id.toString(),
       name: offer.title,
       price: offer.price.toString(),
+      img: {
+        alt: offer.id.toString(),
+        src: offer.preview_image,
+      },
       photos: getImages(offer.images),
       isPremium: offer.is_premium,
       type: offer.type,
@@ -110,6 +114,7 @@ export const getOffersDataDetailFromLoadData = (loadData) => {
       guests: offer.max_adults,
       facilities: offer.goods,
       favorite: offer.is_favorite,
+      cords: [offer.location.latitude, offer.location.longitude],
       owner: {
         id: offer.host.id,
         name: offer.host.name,

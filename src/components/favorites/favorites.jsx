@@ -60,7 +60,7 @@ class Favorites extends PureComponent {
                             </a>
                           </div>
                         </div>
-                        <OfferList offersCssClasses = {offersCssClasses} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} onOfferClick={onOfferClick} dataCards={favorites.loadCityOffers[city]}/>
+                        <OfferList offersCssClasses = {offersCssClasses} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} onOfferClick={onOfferClick} offers={favorites.loadCityOffers[city]}/>
                       </li>;
                     })
                   }
@@ -87,7 +87,6 @@ class Favorites extends PureComponent {
     );
   }
 }
-
 
 Favorites.propTypes = {
   favorites: PropTypes.shape({

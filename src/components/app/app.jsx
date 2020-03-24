@@ -89,7 +89,7 @@ class App extends PureComponent {
           activePointId = {activeHotelId}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           onChangeCity = {onChangeCity}
-          dataCards = {offers}
+          offers = {offers}
           city = {city}
           onChangeFilterType = {onChangeFilterType}
           activeFilter = {activeFilter}
@@ -115,8 +115,8 @@ class App extends PureComponent {
           handleSubmitFeedback = {this.handleSubmitFeedback}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           reviews={reviews}
-          dataCardsDetail = {offersDetail}
-          dataCards = {offers}
+          // dataCardsDetail = {offersDetail}
+          offers = {offers}
           authStatus = {authStatus}
           userInfo = {userInfo}
           offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
@@ -184,21 +184,21 @@ App.propTypes = {
   citiesNames: PropTypes.arrayOf(
       PropTypes.string
   ),
+  // offers: PropTypes.arrayOf(
+  //     PropTypes.shape({
+  //       id: PropTypes.string,
+  //       name: PropTypes.string,
+  //       price: PropTypes.string,
+  //       img: PropTypes.shape({
+  //         alt: PropTypes.string,
+  //         src: PropTypes.string
+  //       }),
+  //       isPremium: PropTypes.bool,
+  //       type: PropTypes.string,
+  //       rate: PropTypes.number
+  //     })
+  // ),
   offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
-        img: PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
-        }),
-        isPremium: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number
-      })
-  ),
-  offersDetail: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
         name: PropTypes.string,
@@ -327,8 +327,11 @@ const mapStateToProps = (state) => ({
   cityName: getCityName(state),
   citiesNames: getCitiesNames(state),
   city: getCity(state),
-  offers: getOffersMain(state),
-  offersDetail: getOffersDetail(state),
+
+  offers: getOffersDetail(state),
+
+  // offersDetail: getOffersDetail(state),
+
   reviews: getReviews(state),
   reviewsResponse: getReviewsResponse(state),
   activeFilter: getActiveFilter(state),

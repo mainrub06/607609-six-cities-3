@@ -9,7 +9,7 @@ import {AUTHORIZATION_STATUS, LINKS} from "../../const";
 
 const CityListWrapper = withActiveIndex(CityList);
 
-const Main = ({dataCards,
+const Main = ({offers,
   onOfferClick,
   onChangeCity,
   city,
@@ -57,12 +57,12 @@ const Main = ({dataCards,
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <CityListWrapper citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
-      {dataCards.length !== 0 ?
+      {offers.length !== 0 ?
         <MainInner activeFilter = {activeFilter}
           activePointId = {activePointId}
           handleOfferHover = {handleOfferHover}
           onChangeFilterType = {onChangeFilterType}
-          dataCards = {dataCards}
+          offers = {offers}
           onOfferClick = {onOfferClick}
           city = {city}
           handleClickFavoriteButton = {handleClickFavoriteButton}
@@ -76,7 +76,7 @@ const Main = ({dataCards,
 );
 
 Main.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -84,13 +84,13 @@ Main.propTypes = {
         img: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
-        }).isRequired,
+        }),
         isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(
             PropTypes.number.isRequired
-        ).isRequired
+        )
       }).isRequired
   ).isRequired,
   onOfferClick: PropTypes.func,

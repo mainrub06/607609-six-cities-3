@@ -18,11 +18,11 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse, cardsLength} = this.props;
+    const {offers, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse, cardsLength} = this.props;
 
     return (
       <div className={`${offersCssClasses.LIST} places__list`}>
-        {dataCards.slice(0, cardsLength).map((hotel) => (
+        {offers.slice(0, cardsLength).map((hotel) => (
           <Offer key={hotel.id}
             element={hotel}
             handleOfferHover={this.setIdState}
@@ -38,7 +38,7 @@ class OfferList extends PureComponent {
 }
 
 OfferList.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,

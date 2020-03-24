@@ -25,7 +25,7 @@ class OfferDetail extends PureComponent {
 
   render() {
     const {
-      dataCardsDetail,
+      offers,
       reviews,
       onOfferClick,
       handleOfferHover,
@@ -42,7 +42,7 @@ class OfferDetail extends PureComponent {
       reviewsResponse
     } = this.props;
 
-    const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === match.params.id);
+    const element = offers.find((offersDetailItem) => offersDetailItem.id === match.params.id);
 
     if (offersNear === null && reviews === null) {
       getNearHotels(element.id);
@@ -220,7 +220,7 @@ class OfferDetail extends PureComponent {
                     offersCssClasses = {offersCssClasses}
                     cardsLength = {DETAIL_PAGE_PARAMS.NEAR_OFFERS_MAX}
                     onOfferClick={onOfferClick}
-                    dataCards={offersNear}
+                    offers={offersNear}
                     favoriteResponse = {favoriteResponse}
                     handleOfferHover = {handleOfferHover}
                     handleClickFavoriteButton = {handleClickFavoriteButton}
@@ -266,7 +266,7 @@ OfferDetail.propTypes = {
       })
     })
   }),
-  dataCardsDetail: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
         name: PropTypes.string,
@@ -296,20 +296,6 @@ OfferDetail.propTypes = {
       })
   ),
   onOfferClick: PropTypes.func,
-  dataCards: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
-        img: PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
-        }),
-        isPremium: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number
-      })
-  ),
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,

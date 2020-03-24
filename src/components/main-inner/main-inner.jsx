@@ -10,7 +10,7 @@ const OfferListWrapped = withActiveIndex(OfferList);
 const OffersSortWrapped = withActiveFlag(OffersSort);
 
 const MainInner = ({
-  dataCards,
+  offers,
   onOfferClick,
   city,
   onChangeFilterType,
@@ -26,7 +26,7 @@ const MainInner = ({
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">
-          {dataCards.length} places to stay in {city.name}
+          {offers.length} places to stay in {city.name}
         </b>
         <OffersSortWrapped
           activeFilter={activeFilter}
@@ -36,7 +36,7 @@ const MainInner = ({
         <OfferListWrapped
           offersCssClasses={offersCssClasses}
           onOfferClick={onOfferClick}
-          dataCards={dataCards}
+          offers={offers}
           handleOfferHover={handleOfferHover}
           favoriteResponse={favoriteResponse}
           handleClickFavoriteButton={handleClickFavoriteButton}
@@ -46,7 +46,7 @@ const MainInner = ({
         <MapMain
           city={city}
           activePointId={activePointId}
-          points={dataCards}
+          points={offers}
         />
       </div>
     </div>
@@ -54,7 +54,7 @@ const MainInner = ({
 );
 
 MainInner.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
