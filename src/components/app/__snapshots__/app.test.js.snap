@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render App 1`] = `
+exports[`Render snapshot <App/> 1`] = `
 <div
   className="page page--gray page--main"
 >
@@ -235,7 +235,7 @@ exports[`Render App 1`] = `
             </ul>
           </form>
           <div
-            className="cities__places-list tabs__content places__list"
+            className="cities__places-list places__list"
           >
             <article
               className="cities__place-card place-card"
@@ -265,7 +265,7 @@ exports[`Render App 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className=" place-card__info"
               >
                 <div
                   className="place-card__price-wrapper"
@@ -331,7 +331,8 @@ exports[`Render App 1`] = `
                   onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/0221552"
+                    onClick={[Function]}
                   >
                     Beautiful & luxurious apartment at great location
                   </a>
@@ -371,7 +372,7 @@ exports[`Render App 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className=" place-card__info"
               >
                 <div
                   className="place-card__price-wrapper"
@@ -437,7 +438,8 @@ exports[`Render App 1`] = `
                   onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/5464564"
+                    onClick={[Function]}
                   >
                     Wood and stone place
                   </a>
@@ -477,7 +479,7 @@ exports[`Render App 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className=" place-card__info"
               >
                 <div
                   className="place-card__price-wrapper"
@@ -543,7 +545,8 @@ exports[`Render App 1`] = `
                   onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/4589512"
+                    onClick={[Function]}
                   >
                     Radisson SAS
                   </a>
@@ -583,7 +586,7 @@ exports[`Render App 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className=" place-card__info"
               >
                 <div
                   className="place-card__price-wrapper"
@@ -649,7 +652,8 @@ exports[`Render App 1`] = `
                   onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/7513497"
+                    onClick={[Function]}
                   >
                     Hilton palace
                   </a>
@@ -689,7 +693,7 @@ exports[`Render App 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className=" place-card__info"
               >
                 <div
                   className="place-card__price-wrapper"
@@ -755,7 +759,8 @@ exports[`Render App 1`] = `
                   onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/9431675"
+                    onClick={[Function]}
                   >
                     Bungalo
                   </a>

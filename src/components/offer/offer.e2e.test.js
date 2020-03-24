@@ -2,7 +2,9 @@ import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Offer from "./offer.jsx";
+import {OFFERS_CSS_CLASSES} from "../../const";
 import PLACE_MOCK from "../../mock/offers";
+
 
 const MOCK_EL = PLACE_MOCK[0];
 const onHoverArticle = jest.fn((data) => data);
@@ -12,7 +14,7 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
-it(`test Article hover`, () => {
+it(`end-to-end test <Offer/> event: mouseover <article>`, () => {
   const OfferEl = shallow(
       <Offer
         element={MOCK_EL}
@@ -21,6 +23,7 @@ it(`test Article hover`, () => {
           onHoverArticle(MOCK_EL.id);
         }}
         handleClickFavoriteButton = {() => {}}
+        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
       />
   );
 
@@ -29,7 +32,7 @@ it(`test Article hover`, () => {
   expect(onHoverArticle.mock.calls[0][0]).toBe(MOCK_EL.id);
 });
 
-it(`test Article-title click`, () => {
+it(`end-to-end test <Offer/> event: click on element with css-class place-card__name`, () => {
   const OfferEl = shallow(
       <Offer
         element={MOCK_EL}
@@ -38,6 +41,7 @@ it(`test Article-title click`, () => {
         }}
         handleOfferHover={() => {}}
         handleClickFavoriteButton = {() => {}}
+        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
       />
   );
 

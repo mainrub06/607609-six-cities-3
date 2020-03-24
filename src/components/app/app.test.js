@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
 import PLACE_MOCK from "../../mock/offers";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
-import {OFFERS_SORT_ITEMS, cities as CITIES} from "../../const";
+import {OFFERS_SORT_ITEMS, cities as CITIES, OFFERS_CSS_CLASSES} from "../../const";
 
 const CITY_MOCK = {
   name: `Paris`,
@@ -51,7 +51,7 @@ const REVIEWS = [
   }
 ];
 
-it(`Render App`, () => {
+it(`Render snapshot <App/>`, () => {
   const tree = renderer
     .create(
         <App
@@ -68,6 +68,7 @@ it(`Render App`, () => {
           authStatus = {authStatus}
           login = {() => {}}
           getAuthorizationStatus = {() => {}}
+          offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
         />
     )
     .toJSON();

@@ -18,11 +18,11 @@ class MapMain extends PureComponent {
 
     this.icons = {
       iconBlue: leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: `/img/pin.svg`,
         iconSize: [30, 45]
       }),
       iconOrange: leaflet.icon({
-        iconUrl: `img/pin-active.svg`,
+        iconUrl: `/img/pin-active.svg`,
         iconSize: [30, 45]
       })
     };
@@ -100,7 +100,7 @@ MapMain.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }).isRequired,
-        class: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
         cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired

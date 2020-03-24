@@ -29,7 +29,7 @@ const REVIEWS = [
   }
 ];
 
-it(`Render ReviewsItem component`, () => {
+it(`Render snapshot <ReviewsItem/>`, () => {
   const tree = renderer
     .create(
         <ReviewsItem element = {REVIEWS[0]}/>

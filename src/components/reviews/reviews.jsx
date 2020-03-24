@@ -10,7 +10,7 @@ class Reviews extends PureComponent {
   }
 
   render() {
-    const {reviews, authStatus, handleSubmitFeedback, activeHotelId} = this.props;
+    const {reviews, authStatus, handleSubmitFeedback, activeHotelId, reviewsResponse} = this.props;
     if (reviews) {
       return (
         <section className="property__reviews reviews">
@@ -22,7 +22,7 @@ class Reviews extends PureComponent {
           </h2>
           <ReviewsList reviews={reviews} />
           {authStatus === AUTHORIZATION_STATUS.AUTH &&
-            <ReviewsForm activeHotelId = {activeHotelId} handleSubmitFeedback = {handleSubmitFeedback}/>
+            <ReviewsForm reviewsResponse = {reviewsResponse} activeHotelId = {activeHotelId} handleSubmitFeedback = {handleSubmitFeedback}/>
           }
         </section>
       );
@@ -48,7 +48,8 @@ Reviews.propTypes = {
       })
   ),
   activeHotelId: PropTypes.string.isRequired,
-  handleSubmitFeedback: PropTypes.func
+  handleSubmitFeedback: PropTypes.func,
+  reviewsResponse: PropTypes.number
 };
 
 export default Reviews;

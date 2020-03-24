@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render ReviewsList component 1`] = `
+exports[`Render snapshot <ReviewsList/> 1`] = `
 <ul
   className="reviews__list"
 >

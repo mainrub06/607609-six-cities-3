@@ -18,24 +18,24 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, isOfferDetailItem, handleClickFavoriteButton, favoriteResponse} = this.props;
+    const {dataCards, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse, cardsLength} = this.props;
 
     return (
-      <div className={`${isOfferDetailItem ? `near-places__list` : `cities__places-list tabs__content`} places__list`}>
-        {dataCards.map((it) => (
+      <div className={`${offersCssClasses.LIST} places__list`}>
+        {dataCards.slice(0, cardsLength).map((it) => (
           <Offer key={it.id}
             element={it}
             handleOfferHover={this.setIdState}
             onOfferClick={onOfferClick}
-            isOfferDetailItem = {isOfferDetailItem}
+            offersCssClasses = {offersCssClasses}
             handleClickFavoriteButton = {handleClickFavoriteButton}
-            favoriteResponse = {favoriteResponse}/>
+            favoriteResponse = {favoriteResponse}
+          />
         ))}
       </div>
     );
   }
 }
-
 
 OfferList.propTypes = {
   dataCards: PropTypes.arrayOf(
@@ -47,18 +47,28 @@ OfferList.propTypes = {
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }),
-        class: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired
       })
   ).isRequired,
   onOfferClick: PropTypes.func.isRequired,
-  isOfferDetailItem: PropTypes.bool,
-  handleOfferHover: PropTypes.func.isRequired,
+  handleOfferHover: PropTypes.func,
   activeItemIndex: PropTypes.number,
   handleItemClick: PropTypes.func,
   handleClickFavoriteButton: PropTypes.func,
-  favoriteResponse: PropTypes.bool
+  favoriteResponse: PropTypes.bool,
+  offersCssClasses: PropTypes.shape({
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
+  }),
+  cardsLength: PropTypes.number
 };
 
 export default OfferList;

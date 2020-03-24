@@ -65,10 +65,11 @@ export const getFirstCity = (citiesIn) => {
 };
 
 export const getOffers = (cityOffers, activeFilter) => {
-  if (cityOffers !== null) {
-    return cityOffers[activeFilter];
-  }
-  return null;
+  return cityOffers && cityOffers[activeFilter];
+};
+
+export const getAllOffers = (cityOffers) => {
+  return cityOffers && Object.values(cityOffers).flat(1);
 };
 
 export const getImages = (images) => {
@@ -85,7 +86,7 @@ export const getOffersDataFromLoadData = (loadData) => {
         alt: offer.id.toString(),
         src: offer.preview_image,
       },
-      class: offer.is_premium,
+      isPremium: offer.is_premium,
       type: offer.type,
       rate: offer.rating,
       cords: [offer.location.latitude, offer.location.longitude],
@@ -102,7 +103,7 @@ export const getOffersDataDetailFromLoadData = (loadData) => {
       name: offer.title,
       price: offer.price.toString(),
       photos: getImages(offer.images),
-      class: offer.is_premium,
+      isPremium: offer.is_premium,
       type: offer.type,
       rate: offer.rating,
       rooms: offer.bedrooms,
@@ -132,13 +133,16 @@ export const getFilteredOffersByCity = (offers) => {
 };
 
 export const getFilteredData = (data) => {
-  const dataOffers = getOffersDataFromLoadData(data);
-  const dataOffersDetail = getOffersDataDetailFromLoadData(data);
-  const filteredDataOffers = getFilteredOffersByCity(dataOffers);
-  const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
-  const citiesList = Object.keys(filteredDataOffers);
+  if (data) {
+    const dataOffers = getOffersDataFromLoadData(data);
+    const dataOffersDetail = getOffersDataDetailFromLoadData(data);
+    const filteredDataOffers = getFilteredOffersByCity(dataOffers);
+    const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
+    const citiesList = Object.keys(filteredDataOffers);
 
-  return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
+    return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
+  }
+  return null;
 };
 
 export const getUserData = (data) => {
@@ -155,23 +159,42 @@ export const getUserData = (data) => {
 };
 
 export const getReviewsList = (reviews) => {
-  return reviews.map((review) => ({
-    id: review.id,
-    rate: review.rating,
-    comment: review.comment,
-    date: review.date,
-    user: {
-      id: review.user.id,
-      isPro: review.user.is_pro,
-      name: review.user.name,
-      avatar: review.user.avatar_url
-    }
-  }));
+  if (reviews) {
+    return reviews.map((review) => ({
+      id: review.id,
+      rate: review.rating,
+      comment: review.comment,
+      date: review.date,
+      user: {
+        id: review.user.id,
+        isPro: review.user.is_pro,
+        name: review.user.name,
+        avatar: review.user.avatar_url
+      }
+    }));
+  }
+  return null;
 };
 
-export const getFavoriteTargetByCityAndId = (state, obj) => {
-  const newExtendArr = state.loadCityOffers[obj.cityName].map((hotel) => {
-    return hotel.id === obj.id ? extend(hotel, {favorite: obj.favorite}) : hotel;
-  });
-  return extend(state.loadCityOffers, {[obj.cityName]: newExtendArr});
+export const getFavoriteTargetByCityAndId = (offers, obj) => {
+  if (offers && obj) {
+    const newExtendArr = offers[obj.cityName].map((hotel) => {
+      return hotel.id === obj.id ? extend(hotel, {favorite: obj.favorite}) : hotel;
+    });
+    return extend(offers, {[obj.cityName]: newExtendArr});
+  }
+  return null;
+};
+
+export const getFavoriteHotelsData = (hotels) => {
+  return hotels.length !== 0 ? getFilteredData(hotels) : null;
+};
+
+export const getNearHotelsIdWithActiveHotel = (state, activeId, response) => {
+  if (state.loadCityOffers !== null) {
+    const nearOffersId = getOffersDataFromLoadData(response).map((hotel) => hotel.id);
+    nearOffersId.push(activeId);
+    return nearOffersId;
+  }
+  return null;
 };

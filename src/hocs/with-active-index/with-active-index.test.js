@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PropTypes from "prop-types";
-import withActiveIndex from "./withActiveIndex.jsx";
+import withActiveIndex from "./with-active-index.jsx";
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -22,7 +22,7 @@ MockComponent.propTypes = {
 
 const MockComponentWrapped = withActiveIndex(MockComponent);
 
-it(`Render HOC withAudioIndex with mock Component`, () => {
+it(`Render snapshot HOC <withActiveIndex/> with mock Component`, () => {
   const tree = renderer
       .create((
         <MockComponentWrapped activeItemIndex = {0}/>

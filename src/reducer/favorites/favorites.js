@@ -1,17 +1,23 @@
-import {extend} from "../../utils.js";
+import {extend, getFavoriteHotelsData} from "../../utils.js";
 import {FAVORITE_REQUESTS} from "../../const";
 
 const initialState = {
-  isError: false
+  isError: false,
+  favoritesData: null
 };
 
 const ActionType = {
-  GET_FAVORITE_RESPONSE: `GET_FAVORITE_RESPONSE`
+  GET_FAVORITE_RESPONSE: `GET_FAVORITE_RESPONSE`,
+  GET_FAVORITES_DATA: `GET_FAVORITES_DATA`
 };
 
 const ActionCreator = {
   getFavoriteResponse: (value) => ({
     type: ActionType.GET_FAVORITE_RESPONSE,
+    payload: value
+  }),
+  getFavoritesData: (value) => ({
+    type: ActionType.GET_FAVORITES_DATA,
     payload: value
   })
 };
@@ -32,6 +38,15 @@ const Operation = {
         );
         throw err;
       });
+  },
+  getFavoritesData: () => (dispatch, getState, api) => {
+    return api
+      .get(`/favorite`)
+      .then((response) => {
+        dispatch(
+            ActionCreator.getFavoritesData(response.data)
+        );
+      });
   }
 };
 
@@ -39,6 +54,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_FAVORITE_RESPONSE:
       return extend(state, {isError: action.payload});
+    case ActionType.GET_FAVORITES_DATA:
+      return extend(state, {favoritesData: getFavoriteHotelsData(action.payload)});
   }
   return state;
 };
