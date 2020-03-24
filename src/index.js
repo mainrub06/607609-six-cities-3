@@ -10,7 +10,7 @@ import {createAPI} from "./api";
 import {Operation as LoadOffersData} from "./reducer/data/data";
 import {Operation as UserOperation} from "./reducer/user/user";
 
-const AppWrapper = withActiveIndex(App);
+const AppWrapped = withActiveIndex(App);
 const api = createAPI();
 
 const store = createStore(
@@ -26,7 +26,7 @@ store.dispatch(UserOperation.getAuthorizationStatus());
 
 ReactDOM.render(
     <Provider store = {store}>
-      <AppWrapper />
+      <AppWrapped />
     </Provider>,
     document.getElementById(`root`)
 );

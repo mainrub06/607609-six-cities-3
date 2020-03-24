@@ -318,7 +318,7 @@ App.propTypes = {
       })
   ),
   reviewsResponse: PropTypes.number,
-  activeItemIndex: PropTypes.number,
+  activeItemIndex: PropTypes.string,
   handleItemClick: PropTypes.func.isRequired
 };
 

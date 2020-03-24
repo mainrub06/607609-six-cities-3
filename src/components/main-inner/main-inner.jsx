@@ -3,9 +3,11 @@ import OffersSort from "../offers-sort/offers-sort.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import MapMain from "../map/map.jsx";
 import withActiveIndex from "../../hocs/with-active-index/with-active-index.jsx";
+import withActiveFlag from "../../hocs/with-active-flag/with-active-flag.jsx";
 import PropTypes from "prop-types";
 
 const OfferListWrapped = withActiveIndex(OfferList);
+const OffersSortWrapped = withActiveFlag(OffersSort);
 
 const MainInner = ({
   dataCards,
@@ -26,7 +28,7 @@ const MainInner = ({
         <b className="places__found">
           {dataCards.length} places to stay in {city.name}
         </b>
-        <OffersSort
+        <OffersSortWrapped
           activeFilter={activeFilter}
           onChangeFilterType={onChangeFilterType}
         />
