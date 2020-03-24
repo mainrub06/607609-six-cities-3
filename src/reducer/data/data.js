@@ -43,6 +43,9 @@ const Operation = {
   }
 };
 
+
+const start = `start`;
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS:
