@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return extend(state, getFilteredData(action.payload));
     case ActionType.CHANGE_FAVORITE_BY_ID:
-      return extend(state, {loadCityOffers: getFavoriteTargetByCityAndId(state.loadCityOffers, action.payload), loadCityOffersDetail: getFavoriteTargetByCityAndId(state.loadCityOffersDetail, action.payload)});
+      return extend(state, {loadCityOffers: getFavoriteTargetByCityAndId(state.loadCityOffers, action.payload), loadCityOffersDetail: getFavoriteTargetByCityAndId(state.loadCityOffersDetail, action.payload)}); // start here
     case ActionType.GET_NEAR_HOTELS:
       return extend(state, {nearHotels: action.payload});
   }
