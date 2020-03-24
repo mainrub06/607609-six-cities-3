@@ -8,12 +8,14 @@ const initialState = {
   offers: null,
   offersDetail: null,
   reviews: mockReviews,
-  activeFilterItem: OFFERS_SORT_ITEMS[0]
+  activeFilterItem: OFFERS_SORT_ITEMS[0],
+  activeHotelId: null
 };
 
 const ActionType = {
   CHENGE_CITY: `CHENGE_CITY`,
-  SET_FILTERED_OFFERS: `SET_FILTERED_OFFERS`
+  SET_FILTERED_OFFERS: `SET_FILTERED_OFFERS`,
+  SET_ACTIVE_HOTEL_ID: `SET_ACTIVE_HOTEL_ID`
 };
 
 const ActionCreator = {
@@ -24,6 +26,10 @@ const ActionCreator = {
   setActiveFilter: (type) => ({
     type: ActionType.SET_FILTERED_OFFERS,
     payload: type
+  }),
+  setActiveHotelId: (id) => ({
+    type: ActionType.SET_ACTIVE_HOTEL_ID,
+    payload: id
   })
 };
 
@@ -32,6 +38,8 @@ const reducer = (state = initialState, action)=>{
     case ActionType.CHENGE_CITY:
       return extend(state, action.payload);
     case ActionType.SET_FILTERED_OFFERS:
+      return extend(state, action.payload);
+    case ActionType.SET_ACTIVE_HOTEL_ID:
       return extend(state, action.payload);
   }
   return state;

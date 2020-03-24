@@ -11,7 +11,7 @@ import {ActionCreator as DataAC} from "../../reducer/data/data";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
 import {LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES} from "../../const";
 import {connect} from "react-redux";
-import {getCityName} from "../../reducer/main/selectors";
+import {getCityName, getActiveHotelId} from "../../reducer/main/selectors";
 import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers, getNearOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
 import {getResponseStatusFavorite, getFavoritesData} from "../../reducer/favorites/selectors";
@@ -34,15 +34,15 @@ class App extends PureComponent {
   }
 
   handleOfferClick(id) {
-    const {getNearHotels, getComments, handleItemClick} = this.props;
+    const {getNearHotels, getComments, onHoverHotel} = this.props;
 
-    handleItemClick(null);
+    onHoverHotel(null);
     getNearHotels(id);
     getComments(id);
   }
 
   handleOfferHover(id) {
-    this.props.handleItemClick(id);
+    this.props.onHoverHotel(id);
   }
 
   handleSubmitFeedback(feedbackData, activeHotelId) {
@@ -74,20 +74,19 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    const {getAuthorizationStatus, handleItemClick} = this.props;
-    handleItemClick(null);
+    const {getAuthorizationStatus} = this.props;
     getAuthorizationStatus();
   }
 
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse, activeItemIndex} = this.props;
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse, activeHotelId} = this.props;
 
     if (citiesNames !== null) {
       return (
         <Main
           onOfferClick = {this.handleOfferClick}
           handleOfferHover = {this.handleOfferHover}
-          activePointId = {activeItemIndex}
+          activePointId = {activeHotelId}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           onChangeCity = {onChangeCity}
           dataCards = {offers}
@@ -318,8 +317,8 @@ App.propTypes = {
       })
   ),
   reviewsResponse: PropTypes.number,
-  activeItemIndex: PropTypes.string,
-  handleItemClick: PropTypes.func.isRequired
+  onHoverHotel: PropTypes.func.isRequired,
+  activeHotelId: PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -352,10 +351,14 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getNearHotels(id) {
     dispatch(DataOperation.getNearHotels(id));
+  },
+  onHoverHotel(id) {
+    dispatch(ActionCreator.setActiveHotelId({activeHotelId: id}));
   }
 });
 
 const mapStateToProps = (state) => ({
+  activeHotelId: getActiveHotelId(state),
   cityOffers: getloadCityOffers(state),
   cityName: getCityName(state),
   citiesNames: getCitiesNames(state),

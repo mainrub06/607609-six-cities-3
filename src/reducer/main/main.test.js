@@ -7,7 +7,8 @@ const initialState = {
   offers: null,
   offersDetail: null,
   reviews: mockReviews,
-  activeFilterItem: OFFERS_SORT_ITEMS[0]
+  activeFilterItem: OFFERS_SORT_ITEMS[0],
+  activeHotelId: null
 };
 
 const mockActionChangeCity = ActionCreator.changeCity({cityName: `Rostov-on-Don`});
@@ -16,7 +17,8 @@ const newStateChangeCity = {
   offers: null,
   offersDetail: null,
   reviews: mockReviews,
-  activeFilterItem: OFFERS_SORT_ITEMS[0]
+  activeFilterItem: OFFERS_SORT_ITEMS[0],
+  activeHotelId: null
 };
 
 const mockActionChangeActiveFilter = ActionCreator.changeCity({activeFilterItem: OFFERS_SORT_ITEMS[1]});
@@ -25,7 +27,18 @@ const newStateChangeActiveFilter = {
   offers: null,
   offersDetail: null,
   reviews: mockReviews,
-  activeFilterItem: OFFERS_SORT_ITEMS[1]
+  activeFilterItem: OFFERS_SORT_ITEMS[1],
+  activeHotelId: null
+};
+
+const mockActionSetActiveHotelId = ActionCreator.setActiveHotelId({activeHotelId: 6});
+const newStateSetActiveHotelId = {
+  cityName: `Paris`,
+  offers: null,
+  offersDetail: null,
+  reviews: mockReviews,
+  activeFilterItem: OFFERS_SORT_ITEMS[0],
+  activeHotelId: 6
 };
 
 describe(`inner app tests`, () => {
@@ -39,5 +52,9 @@ describe(`inner app tests`, () => {
 
   it(`Reducer return new state(active-filter)`, () => {
     expect(reducer(initialState, mockActionChangeActiveFilter)).toEqual(newStateChangeActiveFilter);
+  });
+
+  it(`Reducer return new state(active-hotel-id)`, () => {
+    expect(reducer(initialState, mockActionSetActiveHotelId)).toEqual(newStateSetActiveHotelId);
   });
 });

@@ -53,7 +53,8 @@ class Map extends PureComponent {
   }
 
   componentDidUpdate(prevState) {
-    if (prevState.points !== this.props.points || prevState.activePointId === null) {
+    if (prevState.points !== this.props.points || prevState.activePointId !== this.props.activePointId) {
+
       const {layerGroup} = this.layerGroupStorage;
       const {city} = this.props;
       const cityLocation = [city.location.latitude, city.location.longitude];

@@ -89,8 +89,8 @@ ReviewsForm.propTypes = {
   resetForm: PropTypes.func.isRequired,
   handleTextareaChange: PropTypes.func.isRequired,
   handleRadioChange: PropTypes.func.isRequired,
-  rateData: PropTypes.string.isRequired,
-  textData: PropTypes.string.isRequired
+  rateData: PropTypes.string,
+  textData: PropTypes.string
 };
 
 
