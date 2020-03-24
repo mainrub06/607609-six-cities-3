@@ -2,7 +2,8 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MainInner from "./main-inner.jsx";
 import PLACE_MOCK from "../../mock/offers.js";
-import {OFFERS_SORT_ITEMS} from "../../const";
+import {OFFERS_SORT_ITEMS, OFFERS_CSS_CLASSES} from "../../const";
+import {MemoryRouter} from "react-router-dom";
 
 const CITY_MOCK = {
   name: `Paris`,
@@ -13,19 +14,22 @@ const CITY_MOCK = {
   }
 };
 
-it(`Render Main`, () => {
+it(`Render snapshot <Main/>`, () => {
   const tree = renderer
     .create(
-        <MainInner
-          activeFilter={OFFERS_SORT_ITEMS[0]}
-          activePointId={PLACE_MOCK[0].id}
-          handleOfferHover={() => {}}
-          city={CITY_MOCK}
-          onOfferClick={() => {}}
-          dataCards={PLACE_MOCK}
-          onChangeFilterType={() => {}}
-          handleClickFavoriteButton = {() => {}}
-        />
+        <MemoryRouter>
+          <MainInner
+            activeFilter={OFFERS_SORT_ITEMS[0]}
+            activePointId={PLACE_MOCK[0].id}
+            handleOfferHover={() => {}}
+            city={CITY_MOCK}
+            onOfferClick={() => {}}
+            dataCards={PLACE_MOCK}
+            onChangeFilterType={() => {}}
+            handleClickFavoriteButton = {() => {}}
+            offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
+          />
+        </MemoryRouter>
     )
     .toJSON();
 

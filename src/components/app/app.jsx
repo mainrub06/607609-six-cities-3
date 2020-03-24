@@ -3,50 +3,47 @@ import Main from "../main/main.jsx";
 import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
 import {ActionCreator} from "../../reducer/main/main";
+import {Operation as DataOperation} from "../../reducer/data/data";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
 import {ActionCreator as DataAC} from "../../reducer/data/data";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
-import {LINKS, AUTHORIZATION_STATUS} from "../../const";
+import {LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES} from "../../const";
 import {connect} from "react-redux";
 import {getCityName} from "../../reducer/main/selectors";
-import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
+import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers, getNearOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
-import {getResponseStatusFavorite} from "../../reducer/favorites/selectors";
-import {getReviews} from "../../reducer/reviews/selectors";
+import {getResponseStatusFavorite, getFavoritesData} from "../../reducer/favorites/selectors";
+import {getReviews, getReviewsResponse} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history";
 import Favorites from "../favorites/favorites.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
     this.handleOfferHover = this.handleOfferHover.bind(this);
-    this.handleAuthToggle = this.handleAuthToggle.bind(this);
     this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
     this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
 
     this.isUserAuth = this.isUserAuth.bind(this);
     this.renderLoginPage = this.renderLoginPage.bind(this);
-    this.checkUserAuth = this.checkUserAuth.bind(this);
 
     this.state = {
-      activeId: null,
       activePointId: null,
-      auth: false
     };
   }
 
   handleOfferClick(id) {
-    const {getComments} = this.props;
+    const {getNearHotels, getComments} = this.props;
     this.setState({
-      activeId: id,
       activePointId: null
     });
+    getNearHotels(id);
     getComments(id);
-    history.push(LINKS.OFFER_DETAIL);
   }
 
   handleOfferHover(id) {
@@ -55,30 +52,31 @@ class App extends PureComponent {
     });
   }
 
-  handleAuthToggle() {
-    this.setState({
-      auth: !this.state.auth
-    });
-    history.push(LINKS.INDEX);
-  }
-
   handleSubmitFeedback(feedbackData, activeHotelId) {
     const {postComment} = this.props;
     postComment(feedbackData, activeHotelId);
   }
 
   handleClickFavoriteButton(id, bool) {
-    if (this.state.auth === AUTHORIZATION_STATUS.NO_AUTH) {
-      history.push(LINKS.LOGIN);
-    }
-    const {getUpdatedFavoriteHotel, changeFavoriteFlag, cityName} = this.props;
+    const {getUpdatedFavoriteHotel, changeFavoriteFlag, cityName, getFavoritesServerData, authStatus} = this.props;
 
-    changeFavoriteFlag({id, favorite: bool, cityName});
-    getUpdatedFavoriteHotel(id, bool);
+    if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+      this.redirectToLoginPage();
+    }
+
+    if (authStatus === AUTHORIZATION_STATUS.AUTH) {
+      changeFavoriteFlag({id, favorite: bool, cityName});
+      getUpdatedFavoriteHotel(id, bool);
+      getFavoritesServerData();
+    }
   }
 
   isUserAuth(status) {
     return status === AUTHORIZATION_STATUS.AUTH;
+  }
+
+  redirectToLoginPage() {
+    return history.push(LINKS.LOGIN);
   }
 
   componentDidMount() {
@@ -87,39 +85,80 @@ class App extends PureComponent {
 
   renderIndexPage() {
     const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse} = this.props;
+
     if (citiesNames !== null) {
-      return (<Main onChangeCity = {onChangeCity}
-        dataCards = {offers}
-        onOfferClick = {this.handleOfferClick}
-        city = {city}
-        onChangeFilterType = {onChangeFilterType}
-        handleOfferHover = {this.handleOfferHover}
-        activePointId = {this.state.activePointId}
-        activeFilter = {activeFilter}
-        citiesNames = {citiesNames}
-        authStatus = {authStatus}
-        userInfo = {userInfo}
-        handleAuthToggle = {this.handleAuthToggle}
-        handleClickFavoriteButton = {this.handleClickFavoriteButton}
-        favoriteResponse = {favoriteResponse}
-      />);
+      return (
+        <Main
+          onOfferClick = {this.handleOfferClick}
+          handleOfferHover = {this.handleOfferHover}
+          activePointId = {this.state.activePointId}
+          handleClickFavoriteButton = {this.handleClickFavoriteButton}
+          onChangeCity = {onChangeCity}
+          dataCards = {offers}
+          city = {city}
+          onChangeFilterType = {onChangeFilterType}
+          activeFilter = {activeFilter}
+          citiesNames = {citiesNames}
+          authStatus = {authStatus}
+          userInfo = {userInfo}
+          favoriteResponse = {favoriteResponse}
+          offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
+        />
+      );
     }
     return null;
   }
 
+  renderDetailPage() {
+    const {offersDetail, reviews, offers, authStatus, userInfo, citiesNames, getNearHotels, offersNear, getComments, favoriteResponse, reviewsResponse} = this.props;
+
+    if (citiesNames !== null) {
+      return (
+        <OfferDetail
+          onOfferClick = {this.handleOfferClick}
+          handleOfferHover = {this.handleOfferHover}
+          handleSubmitFeedback = {this.handleSubmitFeedback}
+          handleClickFavoriteButton = {this.handleClickFavoriteButton}
+          reviews={reviews}
+          dataCardsDetail = {offersDetail}
+          dataCards = {offers}
+          authStatus = {authStatus}
+          userInfo = {userInfo}
+          offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
+          getNearHotels = {getNearHotels}
+          offersNear = {offersNear}
+          getComments = {getComments}
+          favoriteResponse = {favoriteResponse}
+          reviewsResponse = {reviewsResponse}
+        />
+      );
+    }
+    return null;
+  }
+
+  renderFavoritesPage() {
+    const {userInfo, favorites, favoriteResponse, getFavoritesServerData} = this.props;
+
+    return (
+      <Favorites
+        handleClickFavoriteButton = {this.handleClickFavoriteButton}
+        onOfferClick = {this.handleOfferClick}
+        favorites = {favorites}
+        userInfo = {userInfo}
+        favoriteResponse = {favoriteResponse}
+        offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}
+        getFavoritesServerData = {getFavoritesServerData}
+      />
+    );
+  }
+
   renderLoginPage() {
     const {login, authStatus} = this.props;
+
     return this.isUserAuth(authStatus) ? <Redirect to = {{pathname: LINKS.INDEX}}/> : <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>;
   }
 
-  checkUserAuth() {
-    const {authStatus} = this.props;
-    return this.isUserAuth(authStatus) ? this.renderIndexPage() : <Redirect to = {{pathname: LINKS.LOGIN}}/>;
-  }
-
   render() {
-    const {offersDetail, reviews, offers, city, authStatus, userInfo} = this.props;
-    const {activeId} = this.state;
     return (
       <Router history = {history}>
         <Switch>
@@ -127,27 +166,19 @@ class App extends PureComponent {
             {this.renderLoginPage()}
           </Route>
           <Route exact path = {LINKS.INDEX}>
-            {this.checkUserAuth()}
+            {this.renderIndexPage()}
           </Route>
-          <Route exact path = {LINKS.OFFER_DETAIL}>
-            <OfferDetail onOfferClick = {this.handleOfferClick}
-              reviews={reviews}
-              dataCardsDetail = {offersDetail}
-              activeId = {activeId}
-              dataCards = {offers}
-              handleOfferHover = {this.handleOfferHover}
-              activePointId = {this.state.activePointId}
-              city = {city}
-              authStatus = {authStatus}
-              userInfo = {userInfo}
-              handleAuthToggle = {this.handleAuthToggle}
-              handleSubmitFeedback = {this.handleSubmitFeedback}
-              handleClickFavoriteButton = {this.handleClickFavoriteButton}
-            />
+          <Route exact path = {`${LINKS.OFFER_DETAIL}:id`}>
+            {this.renderDetailPage()}
           </Route>
-          <Route exact path={LINKS.FAVORITES}>
-            <Favorites/>
-          </Route>
+          <PrivateRoute
+            exact
+            path= {LINKS.FAVORITES}
+            redirectLink = {LINKS.LOGIN}
+            render = {() => {
+              return this.renderFavoritesPage();
+            }}
+          />
         </Switch>
       </Router>
     );
@@ -167,7 +198,7 @@ App.propTypes = {
           alt: PropTypes.string,
           src: PropTypes.string
         }),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number
       })
@@ -183,7 +214,7 @@ App.propTypes = {
               src: PropTypes.string
             })
         ),
-        class: PropTypes.bool,
+        isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number,
         rooms: PropTypes.number,
@@ -241,7 +272,56 @@ App.propTypes = {
   getAuthorizationStatus: PropTypes.func,
   favoriteResponse: PropTypes.bool,
   changeFavoriteFlag: PropTypes.func,
-  cityName: PropTypes.string
+  cityName: PropTypes.string,
+  favorites: PropTypes.shape({
+    citiesNames: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    loadCityOffers: PropTypes.shape(),
+    loadCityOffersDetail: PropTypes.shape()
+  }),
+  getFavoritesServerData: PropTypes.func,
+  offersCssClasses: PropTypes.shape({
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
+  }),
+  getNearHotels: PropTypes.func,
+  offersNear: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.string,
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        isPremium: PropTypes.bool,
+        type: PropTypes.string,
+        rate: PropTypes.number,
+        rooms: PropTypes.number,
+        guests: PropTypes.number,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        })
+      })
+  ),
+  reviewsResponse: PropTypes.number
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -268,6 +348,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeFavoriteFlag(value) {
     dispatch(DataAC.changeFavoriteById(value));
+  },
+  getFavoritesServerData() {
+    dispatch(FavoritesOperation.getFavoritesData());
+  },
+  getNearHotels(id) {
+    dispatch(DataOperation.getNearHotels(id));
   }
 });
 
@@ -279,10 +365,13 @@ const mapStateToProps = (state) => ({
   offers: getOffersMain(state),
   offersDetail: getOffersDetail(state),
   reviews: getReviews(state),
+  reviewsResponse: getReviewsResponse(state),
   activeFilter: getActiveFilter(state),
   authStatus: getAuthStatus(state),
   userInfo: getUserInfo(state),
-  favoriteResponse: getResponseStatusFavorite(state)
+  favoriteResponse: getResponseStatusFavorite(state),
+  favorites: getFavoritesData(state),
+  offersNear: getNearOffers(state)
 });
 
 export {App};

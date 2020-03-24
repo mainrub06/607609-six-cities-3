@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render OfferSort component 1`] = `
+exports[`Render snapshot <OfferSort/> 1`] = `
 <form
   action="#"
   className="places__sorting"

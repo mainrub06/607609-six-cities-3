@@ -4,7 +4,7 @@ import ReviewsForm from "./reviews-form.jsx";
 
 const activeHotelId = `1`;
 
-it(`Render ReviewsForm component`, () => {
+it(`Render snapshot <ReviewsForm/>`, () => {
   const tree = renderer
     .create(
         <ReviewsForm activeHotelId = {activeHotelId} handleSubmitFeedback = {() => {}}/>

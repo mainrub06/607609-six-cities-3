@@ -31,7 +31,7 @@ const REVIEWS = [
   }
 ];
 
-it(`Render ReviewsList component`, () => {
+it(`Render snapshot <Reviews/>`, () => {
   const tree = renderer
     .create(
         <Reviews activeHotelId = {activeHotelId} review = {REVIEWS[0]}/>

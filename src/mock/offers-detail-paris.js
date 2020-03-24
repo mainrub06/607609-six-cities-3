@@ -29,7 +29,7 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
-    class: `Premium`,
+    isPremium: true,
     type: `room`,
     rate: 3.2,
     rooms: 2,
@@ -92,7 +92,7 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
-    class: `Premium`,
+    isPremium: true,
     type: `apartment`,
     rate: 4,
     rooms: 5,
@@ -155,7 +155,7 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
-    class: `Premium`,
+    isPremium: true,
     type: `hotel`,
     rate: 3.6,
     rooms: 9,
@@ -218,7 +218,7 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
-    class: `Premium`,
+    isPremium: true,
     type: `hotel`,
     rate: 4.5,
     rooms: 26,
@@ -290,7 +290,7 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-02.jpg`
       }
     ],
-    class: `Premium`,
+    isPremium: true,
     type: `house`,
     rate: 0.5,
     rooms: 1,

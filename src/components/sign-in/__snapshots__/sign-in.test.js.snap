@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render SignIn 1`] = `
+exports[`Render snapshot <SignIn/> 1`] = `
 <div
   className="page page--gray page--login"
 >
@@ -18,7 +18,8 @@ exports[`Render SignIn 1`] = `
         >
           <a
             className="header__logo-link"
-            href="main.html"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -125,7 +126,8 @@ exports[`Render SignIn 1`] = `
         >
           <a
             className="locations__item-link"
-            href="#"
+            href="/"
+            onClick={[Function]}
           >
             <span>
               Amsterdam

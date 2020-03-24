@@ -1,6 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
+import {Link} from "react-router-dom";
+import {LINKS} from "../../const";
 
 class Offer extends PureComponent {
   constructor(props) {
@@ -16,28 +18,27 @@ class Offer extends PureComponent {
   }
 
   render() {
-    const {element, handleOfferHover, onOfferClick, isOfferDetailItem} = this.props;
-
+    const {element, handleOfferHover, onOfferClick, offersCssClasses} = this.props;
 
     return (
       <article onMouseOver={() => {
         handleOfferHover(element.id);
       }} onMouseLeave={()=> {
         handleOfferHover(null);
-      }} className= {`${isOfferDetailItem ? `near-places__card` : `cities__place-card`} place-card`}>
+      }} className= {`${offersCssClasses.ITEM} place-card`}>
 
-        {element.class &&
+        {element.isPremium &&
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
         }
 
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div className={`${offersCssClasses.IMAGE_WRAPPER} place-card__image-wrapper`}>
           <a href="#">
-            <img className="place-card__image" src={element.img.src} width="260" height="200" alt="Place image" />
+            <img className="place-card__image" src={element.img.src} width={`${offersCssClasses.IMAGE_SIZE.WIDTH}`} height={`${offersCssClasses.IMAGE_SIZE.HEIGHT}`} alt="Place image" />
           </a>
         </div>
-        <div className="place-card__info">
+        <div className={`${offersCssClasses.ITEM_INFO} place-card__info`}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{element.price}</b>
@@ -61,7 +62,7 @@ class Offer extends PureComponent {
           <h2 onClick={() => {
             onOfferClick(element.id);
           }} className="place-card__name">
-            <a href="#">{element.name}</a>
+            <Link to={LINKS.OFFER_DETAIL + `${element.id}`}>{element.name}</Link>
           </h2>
           <p className="place-card__type">{element.type}</p>
         </div>
@@ -79,7 +80,7 @@ Offer.propTypes = {
       alt: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired
     }).isRequired,
-    class: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired,
     favorite: PropTypes.bool.isRequired
@@ -88,7 +89,17 @@ Offer.propTypes = {
   onOfferClick: PropTypes.func.isRequired,
   isOfferDetailItem: PropTypes.bool,
   handleClickFavoriteButton: PropTypes.func.isRequired,
-  favoriteResponse: PropTypes.bool
+  favoriteResponse: PropTypes.bool,
+  offersCssClasses: PropTypes.shape({
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
+    })
+  })
 };
 
 export default Offer;

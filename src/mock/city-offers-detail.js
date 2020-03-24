@@ -1,8 +1,7 @@
 import OFFER_DETAIL from "./offers-detail";
-import OFFER_DETAIL_PARIS from "./offers-detail-paris";
 
 const CITY_OFFERS_DETAIL = {
-  "Paris": OFFER_DETAIL_PARIS,
+  "Paris": OFFER_DETAIL,
   "Cologne": OFFER_DETAIL,
   "Brussels": OFFER_DETAIL,
   "Amsterdam": OFFER_DETAIL,

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render Offer component 1`] = `
+exports[`Render snapshot <Offer/> 1`] = `
 <article
   className="cities__place-card place-card"
   onMouseLeave={[Function]}
@@ -29,7 +29,7 @@ exports[`Render Offer component 1`] = `
     </a>
   </div>
   <div
-    className="place-card__info"
+    className=" place-card__info"
   >
     <div
       className="place-card__price-wrapper"
@@ -95,7 +95,8 @@ exports[`Render Offer component 1`] = `
       onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/5464564"
+        onClick={[Function]}
       >
         Wood and stone place
       </a>
