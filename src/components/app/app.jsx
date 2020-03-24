@@ -31,29 +31,23 @@ class App extends PureComponent {
 
     this.isUserAuth = this.isUserAuth.bind(this);
     this.renderLoginPage = this.renderLoginPage.bind(this);
-
-    this.state = {
-      activePointId: null,
-    };
   }
 
   handleOfferClick(id) {
-    const {getNearHotels, getComments} = this.props;
-    this.setState({
-      activePointId: null
-    });
+    const {getNearHotels, getComments, handleItemClick} = this.props;
+
+    handleItemClick(null);
     getNearHotels(id);
     getComments(id);
   }
 
   handleOfferHover(id) {
-    this.setState({
-      activePointId: id
-    });
+    this.props.handleItemClick(id);
   }
 
   handleSubmitFeedback(feedbackData, activeHotelId) {
     const {postComment} = this.props;
+
     postComment(feedbackData, activeHotelId);
   }
 
@@ -80,18 +74,20 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.getAuthorizationStatus();
+    const {getAuthorizationStatus, handleItemClick} = this.props;
+    handleItemClick(null);
+    getAuthorizationStatus();
   }
 
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse} = this.props;
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse, activeItemIndex} = this.props;
 
     if (citiesNames !== null) {
       return (
         <Main
           onOfferClick = {this.handleOfferClick}
           handleOfferHover = {this.handleOfferHover}
-          activePointId = {this.state.activePointId}
+          activePointId = {activeItemIndex}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           onChangeCity = {onChangeCity}
           dataCards = {offers}
@@ -321,7 +317,9 @@ App.propTypes = {
         })
       })
   ),
-  reviewsResponse: PropTypes.number
+  reviewsResponse: PropTypes.number,
+  activeItemIndex: PropTypes.number,
+  handleItemClick: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({

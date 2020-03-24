@@ -7,56 +7,23 @@ class ReviewsForm extends PureComponent {
     super(props);
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleTextareaChange = this.handleTextareaChange.bind(this);
-    this.handleRadioChange = this.handleRadioChange.bind(this);
-
-    this.state = {
-      rate: 0,
-      text: ``,
-      activeBtn: true,
-    };
-  }
-
-  getBtnStatus() {
-    const {rate, text} = this.state;
-
-    this.setState({
-      activeBtn: !(rate >= FORM_PARAMS.MIN_STARS_CHECKED && text.length > FORM_PARAMS.MIN_TEXTAREA_VALUE && text.length < FORM_PARAMS.MAX_TEXTAREA_VALUE)
-    });
-  }
-
-  handleRadioChange(evt) {
-    this.setState({
-      rate: evt.target.value
-    });
-  }
-
-  handleTextareaChange(evt) {
-    evt.preventDefault();
-    this.setState({
-      text: evt.target.value
-    });
-
   }
 
   handleFormSubmit(evt) {
-    const {handleSubmitFeedback, activeHotelId} = this.props;
-    const {rate, text} = this.state;
-    evt.preventDefault();
-    handleSubmitFeedback({rate, text}, activeHotelId);
-    this.setState({
-      rate: 0,
-      text: ``,
-      activeBtn: true
-    });
-  }
+    const {handleSubmitFeedback, activeHotelId, rateData, textData, resetForm} = this.props;
 
-  componentDidUpdate() {
-    this.getBtnStatus();
+    evt.preventDefault();
+    handleSubmitFeedback({rateData, textData}, activeHotelId);
+    resetForm();
   }
 
   render() {
-    const {reviewsResponse} = this.props;
+    const {reviewsResponse,
+      isButtonActive,
+      rateData,
+      textData,
+      handleTextareaChange,
+      handleRadioChange} = this.props;
 
     return (
       <form onSubmit={this.handleFormSubmit} className="reviews__form form" action="#" method="post">
@@ -75,8 +42,8 @@ class ReviewsForm extends PureComponent {
                     value={stars}
                     id={`${stars}-stars`}
                     type="radio"
-                    onChange={this.handleRadioChange}
-                    checked={stars.toString() === this.state.rate}
+                    onChange={handleRadioChange}
+                    checked={stars.toString() === rateData}
                   />
                   <label
                     htmlFor={`${stars}-stars`}
@@ -93,8 +60,8 @@ class ReviewsForm extends PureComponent {
           }
         </div>
         <textarea
-          value={this.state.text}
-          onChange={this.handleTextareaChange}
+          value={textData}
+          onChange={handleTextareaChange}
           className="reviews__textarea form__textarea"
           id="review"
           name="review"
@@ -107,7 +74,7 @@ class ReviewsForm extends PureComponent {
                 stay with at least{` `}
             <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={this.state.activeBtn}>Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={isButtonActive}>Submit</button>
         </div>
       </form>
     );
@@ -117,7 +84,13 @@ class ReviewsForm extends PureComponent {
 ReviewsForm.propTypes = {
   activeHotelId: PropTypes.string.isRequired,
   handleSubmitFeedback: PropTypes.func,
-  reviewsResponse: PropTypes.number
+  reviewsResponse: PropTypes.number,
+  isButtonActive: PropTypes.bool.isRequired,
+  resetForm: PropTypes.func.isRequired,
+  handleTextareaChange: PropTypes.func.isRequired,
+  handleRadioChange: PropTypes.func.isRequired,
+  rateData: PropTypes.string.isRequired,
+  textData: PropTypes.string.isRequired
 };
 
 

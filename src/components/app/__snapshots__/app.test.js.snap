@@ -39,7 +39,7 @@ exports[`Render snapshot <App/> 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="/my-list"
+                href="/favorites"
                 onClick={[Function]}
               >
                 <div

@@ -1,8 +1,11 @@
 import React, {PureComponent} from "react";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import ReviewsForm from "../reviews-form/reviews-form.jsx";
+import withFormData from "../../hocs/with-form-data/with-form-data.jsx";
 import {AUTHORIZATION_STATUS} from "../../const";
 import PropTypes from "prop-types";
+
+const ReviewsFormWrapper = withFormData(ReviewsForm);
 
 class Reviews extends PureComponent {
   constructor(props) {
@@ -22,7 +25,7 @@ class Reviews extends PureComponent {
           </h2>
           <ReviewsList reviews={reviews} />
           {authStatus === AUTHORIZATION_STATUS.AUTH &&
-            <ReviewsForm reviewsResponse = {reviewsResponse} activeHotelId = {activeHotelId} handleSubmitFeedback = {handleSubmitFeedback}/>
+            <ReviewsFormWrapper reviewsResponse = {reviewsResponse} activeHotelId = {activeHotelId} handleSubmitFeedback = {handleSubmitFeedback}/>
           }
         </section>
       );

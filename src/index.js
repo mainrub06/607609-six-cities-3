@@ -5,10 +5,12 @@ import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 import reducer from "./reducer/reducers";
 import thunk from "redux-thunk";
+import withActiveIndex from "./hocs/with-active-index/with-active-index.jsx";
 import {createAPI} from "./api";
 import {Operation as LoadOffersData} from "./reducer/data/data";
 import {Operation as UserOperation} from "./reducer/user/user";
 
+const AppWrapper = withActiveIndex(App);
 const api = createAPI();
 
 const store = createStore(
@@ -24,7 +26,7 @@ store.dispatch(UserOperation.getAuthorizationStatus());
 
 ReactDOM.render(
     <Provider store = {store}>
-      <App />
+      <AppWrapper />
     </Provider>,
     document.getElementById(`root`)
 );
