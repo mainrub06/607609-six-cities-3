@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import OfferDetail from "./offer-detail.jsx";
+import {OfferDetail} from "./offer-detail.jsx";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
 import PLACE_MOCK from "../../mock/offers";
 import REVIEWS from "../../mock/reviews";

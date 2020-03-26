@@ -3,19 +3,16 @@ import Main from "../main/main.jsx";
 import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
 import {ActionCreator} from "../../reducer/main/main";
-import {Operation as DataOperation} from "../../reducer/data/data";
 import {Operation as UserOperation} from "../../reducer/user/user";
-import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
 import {ActionCreator as DataAC} from "../../reducer/data/data";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
 import {LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES} from "../../const";
 import {connect} from "react-redux";
 import {getCityName, getActiveHotelId} from "../../reducer/main/selectors";
-import {getCitiesNames, getCity, getOffersMain, getOffersDetail, getActiveFilter, getloadCityOffers, getNearOffers} from "../../reducer/data/selectors";
+import {getCitiesNames, getCity, getOffersMain, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
 import {getResponseStatusFavorite, getFavoritesData} from "../../reducer/favorites/selectors";
-import {getReviews, getReviewsResponse} from "../../reducer/reviews/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history";
 import Favorites from "../favorites/favorites.jsx";
@@ -26,7 +23,6 @@ class App extends PureComponent {
     super(props);
     this.handleOfferClick = this.handleOfferClick.bind(this);
     this.handleOfferHover = this.handleOfferHover.bind(this);
-    this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
     this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
 
     this.isUserAuth = this.isUserAuth.bind(this);
@@ -38,22 +34,14 @@ class App extends PureComponent {
     getAuthorizationStatus();
   }
 
-  handleOfferClick(id) {
-    const {getNearHotels, getComments, onHoverHotel} = this.props;
+  handleOfferClick() {
+    const {onHoverHotel} = this.props;
 
     onHoverHotel(null);
-    getNearHotels(id);
-    getComments(id);
   }
 
   handleOfferHover(id) {
     this.props.onHoverHotel(id);
-  }
-
-  handleSubmitFeedback(feedbackData, activeHotelId) {
-    const {postComment} = this.props;
-
-    postComment(feedbackData, activeHotelId);
   }
 
   handleClickFavoriteButton(id, bool) {
@@ -105,26 +93,18 @@ class App extends PureComponent {
   }
 
   renderDetailPage() {
-    const {offersDetail, reviews, offers, authStatus, userInfo, citiesNames, getNearHotels, offersNear, getComments, favoriteResponse, reviewsResponse} = this.props;
+    const {authStatus, userInfo, citiesNames, favoriteResponse} = this.props;
 
     if (citiesNames !== null) {
       return (
         <OfferDetail
           onOfferClick = {this.handleOfferClick}
           handleOfferHover = {this.handleOfferHover}
-          handleSubmitFeedback = {this.handleSubmitFeedback}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
-          reviews={reviews}
-          dataCardsDetail = {offersDetail}
-          dataCards = {offers}
           authStatus = {authStatus}
           userInfo = {userInfo}
           offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
-          getNearHotels = {getNearHotels}
-          offersNear = {offersNear}
-          getComments = {getComments}
           favoriteResponse = {favoriteResponse}
-          reviewsResponse = {reviewsResponse}
         />
       );
     }
@@ -328,15 +308,11 @@ const mapStateToProps = (state) => ({
   citiesNames: getCitiesNames(state),
   city: getCity(state),
   offers: getOffersMain(state),
-  offersDetail: getOffersDetail(state),
-  reviews: getReviews(state),
-  reviewsResponse: getReviewsResponse(state),
   activeFilter: getActiveFilter(state),
   authStatus: getAuthStatus(state),
   userInfo: getUserInfo(state),
   favoriteResponse: getResponseStatusFavorite(state),
   favorites: getFavoritesData(state),
-  offersNear: getNearOffers(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -352,12 +328,6 @@ const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.setAuthorizationStatus(authData));
   },
-  getComments(id) {
-    dispatch(ReviewsOperation.getReviewsFromHotelId(id));
-  },
-  postComment(review, id) {
-    dispatch(ReviewsOperation.postReviewFromHotelId(review, id));
-  },
   getUpdatedFavoriteHotel(id, value) {
     dispatch(FavoritesOperation.getFavoriteResponse(id, value));
   },
@@ -366,9 +336,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getFavoritesServerData() {
     dispatch(FavoritesOperation.getFavoritesData());
-  },
-  getNearHotels(id) {
-    dispatch(DataOperation.getNearHotels(id));
   },
   onHoverHotel(id) {
     dispatch(ActionCreator.setActiveHotelId({activeHotelId: id}));

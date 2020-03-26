@@ -7,12 +7,25 @@ import MapDetail from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import {Link} from "react-router-dom";
 import {AUTHORIZATION_STATUS, LINKS, DETAIL_PAGE_PARAMS} from "../../const";
+
+import {Operation as DataOperation} from "../../reducer/data/data";
+import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
+import {getReviews, getReviewsResponse} from "../../reducer/reviews/selectors";
+import {getOffer, getNearOffers} from "../../reducer/data/selectors";
+import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 
 class OfferDetail extends PureComponent {
   constructor(props) {
     super(props);
     this.setFavoriteStatus = this.setFavoriteStatus.bind(this);
+    this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
+  }
+
+  componentDidMount() {
+    const {offer, getComments, getNearOffers} = this.props;
+    getNearOffers(offer.id);
+    getComments(offer.id);
   }
 
   setFavoriteStatus(element) {
@@ -23,31 +36,27 @@ class OfferDetail extends PureComponent {
     }
   }
 
+  handleSubmitFeedback(feedbackData, activeHotelId) {
+    const {postComment} = this.props;
+
+    postComment(feedbackData, activeHotelId);
+  }
+
   render() {
     const {
-      dataCardsDetail,
-      reviews,
       onOfferClick,
       handleOfferHover,
       authStatus,
       userInfo,
-      handleSubmitFeedback,
       handleClickFavoriteButton,
       offersCssClasses,
-      match,
-      getNearHotels,
-      offersNear,
-      getComments,
       favoriteResponse,
-      reviewsResponse
+
+      reviewsResponse,
+      reviews,
+      offer,
+      nearOffers
     } = this.props;
-
-    const element = dataCardsDetail.find((dataCardsDetailItem) => dataCardsDetailItem.id === match.params.id);
-
-    if (offersNear === null && reviews === null) {
-      getNearHotels(element.id);
-      getComments(element.id);
-    }
 
     return (
       <div className="page">
@@ -86,13 +95,13 @@ class OfferDetail extends PureComponent {
           </div>
         </header>
 
-        {element && (
+        {offer && (
 
           <main className="page__main page__main--property">
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {element.photos.slice(0, MAX_PHOTOS_OFFER_DETAIL).map((el, id) => (<div key={el.alt + id} className="property__image-wrapper">
+                  {offer.photos.slice(0, MAX_PHOTOS_OFFER_DETAIL).map((el, id) => (<div key={el.alt + id} className="property__image-wrapper">
                     <img className="property__image" src={el.src} alt={el.alt}/>
                   </div>)
                   )}
@@ -100,19 +109,19 @@ class OfferDetail extends PureComponent {
               </div>
               <div className="property__container container">
                 <div className="property__wrapper">
-                  {element.isPremium &&
+                  {offer.isPremium &&
                     <div className="property__mark">
                       <span>Premium</span>
                     </div>
                   }
 
                   <div className="property__name-wrapper">
-                    <h1 className="property__name">{element.name}</h1>
+                    <h1 className="property__name">{offer.name}</h1>
                     <button
-                      className={`${element.favorite ? `property__bookmark-button--active` : ``} property__bookmark-button button`}
+                      className={`${offer.favorite ? `property__bookmark-button--active` : ``} property__bookmark-button button`}
                       type="button"
                       onClick = {() => {
-                        this.setFavoriteStatus(element);
+                        this.setFavoriteStatus(offer);
                       }}
                     >
                       <svg
@@ -128,28 +137,28 @@ class OfferDetail extends PureComponent {
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">
                       <span
-                        style={{width: getStarsFromNum(element.rate) + `%`}}
+                        style={{width: getStarsFromNum(offer.rate) + `%`}}
                       ></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                     <span className="property__rating-value rating__value">
-                      {element.rate}
+                      {offer.rate}
                     </span>
                   </div>
                   <ul className="property__features">
                     <li className="property__feature property__feature--entire">
-                      {element.type}
+                      {offer.type}
                     </li>
                     <li className="property__feature property__feature--bedrooms">
-                      {element.rooms} Bedrooms
+                      {offer.rooms} Bedrooms
                     </li>
                     <li className="property__feature property__feature--adults">
-                      Max {element.guests} adults
+                      Max {offer.guests} adults
                     </li>
                   </ul>
                   <div className="property__price">
                     <b className="property__price-value">
-                      &euro;{element.price}
+                      &euro;{offer.price}
                     </b>
                     <span className="property__price-text">&nbsp;night</span>
                   </div>
@@ -158,7 +167,7 @@ class OfferDetail extends PureComponent {
                       What&apos;s inside
                     </h2>
                     <ul className="property__inside-list">
-                      {element.facilities.map((it, id) => (
+                      {offer.facilities.map((it, id) => (
                         <li key={it + id} className="property__inside-item">
                           {it}
                         </li>
@@ -170,25 +179,25 @@ class OfferDetail extends PureComponent {
                     <div className="property__host-user user">
                       <div
                         className={
-                          element.owner.super
+                          offer.owner.super
                             ? `property__avatar-wrapper--pro property__avatar-wrapper user__avatar-wrapper`
                             : `property__avatar-wrapper user__avatar-wrapper`
                         }
                       >
                         <img
                           className="property__avatar user__avatar"
-                          src={`/${element.owner.img.src}`}
+                          src={`/${offer.owner.img.src}`}
                           width="74"
                           height="74"
-                          alt={element.owner.img.alt}
+                          alt={offer.owner.img.alt}
                         />
                       </div>
                       <span className="property__user-name">
-                        {element.owner.name}
+                        {offer.owner.name}
                       </span>
                     </div>
                     <div className="property__description">
-                      {element.description.map((it, id) => (
+                      {offer.description.map((it, id) => (
                         <p key={it + id} className="property__text">
                           {it}
                         </p>
@@ -197,16 +206,16 @@ class OfferDetail extends PureComponent {
                   </div>
                   <Reviews
                     reviewsResponse = {reviewsResponse}
-                    activeHotelId = {element.id}
+                    activeHotelId = {offer.id}
                     authStatus = {authStatus}
                     reviews={reviews}
-                    handleSubmitFeedback={handleSubmitFeedback}
+                    handleSubmitFeedback={this.handleSubmitFeedback}
                   />
                 </div>
               </div>
 
-              {offersNear &&
-                <MapDetail city = {element.city} activePointId = {element.id} points={offersNear} nearMap={true} />
+              {nearOffers &&
+                <MapDetail city = {offer.city} activePointId = {offer.id} points={nearOffers} nearMap={true} />
               }
             </section>
             <div className="container">
@@ -215,12 +224,12 @@ class OfferDetail extends PureComponent {
                   Other places in the neighbourhood
                 </h2>
 
-                {offersNear &&
+                {nearOffers &&
                   <OfferList
                     offersCssClasses = {offersCssClasses}
                     cardsLength = {DETAIL_PAGE_PARAMS.NEAR_OFFERS_MAX}
                     onOfferClick={onOfferClick}
-                    dataCards={offersNear}
+                    dataCards={nearOffers}
                     favoriteResponse = {favoriteResponse}
                     handleOfferHover = {handleOfferHover}
                     handleClickFavoriteButton = {handleClickFavoriteButton}
@@ -395,5 +404,26 @@ OfferDetail.propTypes = {
   reviewsResponse: PropTypes.number
 };
 
+// не перерендеривается nearOffer при переходе на деталке(т.е. здесь)
 
-export default withRouter(OfferDetail);
+const mapStateToProps = (state, ownProps) => ({
+  offer: getOffer(state, ownProps),
+  nearOffers: getNearOffers(state),
+  reviews: getReviews(state),
+  reviewsResponse: getReviewsResponse(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getNearOffers(id) {
+    dispatch(DataOperation.getNearOffers(id));
+  },
+  getComments(id) {
+    dispatch(ReviewsOperation.getReviewsFromHotelId(id));
+  },
+  postComment(review, id) {
+    dispatch(ReviewsOperation.postReviewFromHotelId(review, id));
+  }
+});
+
+export {OfferDetail};
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OfferDetail));

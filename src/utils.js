@@ -76,33 +76,37 @@ export const getImages = (images) => {
   return images.map((image, index) => ({src: image, alt: index.toString()}));
 };
 
-export const getOffersDataFromLoadData = (loadData) => {
-  return loadData.map((offer) => {
-    return {
-      id: offer.id.toString(),
-      name: offer.title,
-      price: offer.price.toString(),
-      img: {
-        alt: offer.id.toString(),
-        src: offer.preview_image,
-      },
-      isPremium: offer.is_premium,
-      type: offer.type,
-      rate: offer.rating,
-      cords: [offer.location.latitude, offer.location.longitude],
-      favorite: offer.is_favorite,
-      city: offer.city
-    };
-  });
-};
+// export const getOffersDataFromLoadData = (loadData) => {
+//   return loadData.map((offer) => {
+//     return {
+//       id: offer.id.toString(),
+//       name: offer.title,
+//       price: offer.price.toString(),
+//       img: {
+//         alt: offer.id.toString(),
+//         src: offer.preview_image,
+//       },
+//       isPremium: offer.is_premium,
+//       type: offer.type,
+//       rate: offer.rating,
+//       cords: [offer.location.latitude, offer.location.longitude],
+//       favorite: offer.is_favorite,
+//       city: offer.city
+//     };
+//   });
+// };
 
-export const getOffersDataDetailFromLoadData = (loadData) => {
+export const getOffersFromLoadData = (loadData) => {
   return loadData.map((offer) => {
     return {
       id: offer.id.toString(),
       name: offer.title,
       price: offer.price.toString(),
       photos: getImages(offer.images),
+      img: {
+        alt: offer.id.toString(),
+        src: offer.preview_image,
+      },
       isPremium: offer.is_premium,
       type: offer.type,
       rate: offer.rating,
@@ -120,7 +124,8 @@ export const getOffersDataDetailFromLoadData = (loadData) => {
         }
       },
       description: [offer.description],
-      city: offer.city
+      city: offer.city,
+      cords: [offer.location.latitude, offer.location.longitude],
     };
   });
 };
@@ -134,13 +139,11 @@ export const getFilteredOffersByCity = (offers) => {
 
 export const getFilteredData = (data) => {
   if (data) {
-    const dataOffers = getOffersDataFromLoadData(data);
-    const dataOffersDetail = getOffersDataDetailFromLoadData(data);
-    const filteredDataOffers = getFilteredOffersByCity(dataOffers);
-    const filteredDataOffersDetail = getFilteredOffersByCity(dataOffersDetail);
-    const citiesList = Object.keys(filteredDataOffers);
+    const offers = getOffersFromLoadData(data);
+    const filteredOffers = getFilteredOffersByCity(offers);
+    const cities = Object.keys(filteredOffers);
 
-    return {loadCityOffers: filteredDataOffers, citiesNames: citiesList, loadCityOffersDetail: filteredDataOffersDetail};
+    return {loadCityOffers: filteredOffers, citiesNames: cities};
   }
   return null;
 };
@@ -191,9 +194,12 @@ export const getFavoriteHotelsData = (hotels) => {
 };
 
 export const getNearHotelsIdWithActiveHotel = (state, activeId, response) => {
-  if (state.loadCityOffers !== null) {
-    const nearOffersId = getOffersDataFromLoadData(response).map((hotel) => hotel.id);
-    nearOffersId.push(activeId);
+  if (response && state.data.loadCityOffers) {
+    const activeOffer = getAllOffers(state.data.loadCityOffers).find((offer) => offer.id === activeId);
+    const nearOffers = getOffersFromLoadData(response);
+    nearOffers.push(activeOffer);
+    const nearOffersId = nearOffers.map((offer) => offer.id)
+
     return nearOffersId;
   }
   return null;
@@ -207,6 +213,13 @@ export const getFallingSortByDate = (array) => {
 
       return dateB - dateA;
     });
+  }
+  return null;
+};
+
+export const getOfferById = (offers, id) => {
+  if (offers) {
+    return getAllOffers(offers).find((offer) => offer.id === id);
   }
   return null;
 };
