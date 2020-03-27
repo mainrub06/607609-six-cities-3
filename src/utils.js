@@ -1,4 +1,4 @@
-import {STAR_PARAMS, cities} from "./const";
+import {STAR_PARAMS, CITIES} from "./const";
 
 export const getRandomNum = (min, max) => {
   let rand = min + Math.random() * (max + 1 - min);
@@ -59,7 +59,7 @@ export const getCityObj = (offers, city) => {
 
 export const getFirstCity = (citiesIn) => {
   if (citiesIn !== null) {
-    return cities[0];
+    return CITIES[0];
   }
   return null;
 };
@@ -76,26 +76,6 @@ export const getImages = (images) => {
   return images.map((image, index) => ({src: image, alt: index.toString()}));
 };
 
-// export const getOffersDataFromLoadData = (loadData) => {
-//   return loadData.map((offer) => {
-//     return {
-//       id: offer.id.toString(),
-//       name: offer.title,
-//       price: offer.price.toString(),
-//       img: {
-//         alt: offer.id.toString(),
-//         src: offer.preview_image,
-//       },
-//       isPremium: offer.is_premium,
-//       type: offer.type,
-//       rate: offer.rating,
-//       cords: [offer.location.latitude, offer.location.longitude],
-//       favorite: offer.is_favorite,
-//       city: offer.city
-//     };
-//   });
-// };
-
 export const getOffersFromLoadData = (loadData) => {
   return loadData.map((offer) => {
     return {
@@ -103,17 +83,17 @@ export const getOffersFromLoadData = (loadData) => {
       name: offer.title,
       price: offer.price.toString(),
       photos: getImages(offer.images),
-      img: {
+      previewImage: {
         alt: offer.id.toString(),
         src: offer.preview_image,
       },
       isPremium: offer.is_premium,
       type: offer.type,
       rate: offer.rating,
-      rooms: offer.bedrooms,
-      guests: offer.max_adults,
+      bedrooms: offer.bedrooms,
+      maxAdults: offer.max_adults,
       facilities: offer.goods,
-      favorite: offer.is_favorite,
+      isFavorite: offer.is_favorite,
       owner: {
         id: offer.host.id,
         name: offer.host.name,
@@ -131,7 +111,7 @@ export const getOffersFromLoadData = (loadData) => {
 };
 
 export const getFilteredOffersByCity = (offers) => {
-  const getСollectedDataByCity = cities.map((city) => {
+  const getСollectedDataByCity = CITIES.map((city) => {
     return {[city]: offers.filter((item) => item.city.name === city)};
   });
   return Object.assign({}, ...getСollectedDataByCity);
@@ -181,16 +161,16 @@ export const getReviewsList = (reviews) => {
 
 export const getFavoriteTargetByCityAndId = (offers, obj) => {
   if (offers && obj) {
-    const newExtendArr = offers[obj.cityName].map((hotel) => {
-      return hotel.id === obj.id ? extend(hotel, {favorite: obj.favorite}) : hotel;
+    const newExtendArr = offers[obj.cityName].map((offer) => {
+      return offer.id === obj.id ? extend(offer, {isFavorite: obj.isFavorite}) : offer;
     });
     return extend(offers, {[obj.cityName]: newExtendArr});
   }
   return null;
 };
 
-export const getFavoriteHotelsData = (hotels) => {
-  return hotels.length !== 0 ? getFilteredData(hotels) : null;
+export const getFavoriteHotelsData = (offers) => {
+  return offers.length !== 0 ? getFilteredData(offers) : null;
 };
 
 export const getNearHotelsIdWithActiveHotel = (state, activeId, response) => {
@@ -198,7 +178,7 @@ export const getNearHotelsIdWithActiveHotel = (state, activeId, response) => {
     const activeOffer = getAllOffers(state.data.loadCityOffers).find((offer) => offer.id === activeId);
     const nearOffers = getOffersFromLoadData(response);
     nearOffers.push(activeOffer);
-    const nearOffersId = nearOffers.map((offer) => offer.id)
+    const nearOffersId = nearOffers.map((offer) => offer.id);
 
     return nearOffersId;
   }

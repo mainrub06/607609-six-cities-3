@@ -52,7 +52,7 @@ class App extends PureComponent {
     }
 
     if (authStatus === AUTHORIZATION_STATUS.AUTH) {
-      changeFavoriteFlag({id, favorite: bool, cityName});
+      changeFavoriteFlag({id, isFavorite: bool, cityName});
       getUpdatedFavoriteHotel(id, bool);
       getFavoritesServerData();
     }
@@ -77,7 +77,7 @@ class App extends PureComponent {
           activePointId = {activeHotelId}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           onChangeCity = {onChangeCity}
-          dataCards = {offers}
+          offers = {offers}
           city = {city}
           onChangeFilterType = {onChangeFilterType}
           activeFilter = {activeFilter}
@@ -169,34 +169,26 @@ App.propTypes = {
         id: PropTypes.string,
         name: PropTypes.string,
         price: PropTypes.string,
-        img: PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
-        }),
-        isPremium: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number
-      })
-  ),
-  offersDetail: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
         photos: PropTypes.arrayOf(
             PropTypes.shape({
               alt: PropTypes.string,
               src: PropTypes.string
             })
         ),
+        previewImage: PropTypes.shape({
+          alt: PropTypes.string,
+          src: PropTypes.string
+        }),
         isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number,
-        rooms: PropTypes.number,
-        guests: PropTypes.number,
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
         facilities: PropTypes.arrayOf(
             PropTypes.string
         ),
+        isFavorite: PropTypes.bool,
         owner: PropTypes.shape({
           name: PropTypes.string,
           super: PropTypes.bool,
@@ -204,7 +196,18 @@ App.propTypes = {
             src: PropTypes.string,
             alt: PropTypes.string
           })
-        })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
       })
   ),
   reviews: PropTypes.arrayOf(

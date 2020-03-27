@@ -23,17 +23,17 @@ class OfferDetail extends PureComponent {
   }
 
   componentDidMount() {
-    const {offer, getComments, getNearOffers} = this.props;
+    const {offer, getComments, getNearOffersData} = this.props;
 
-    getNearOffers(offer.id);
+    getNearOffersData(offer.id);
     getComments(offer.id);
   }
 
   componentDidUpdate(prevProps) {
-    const {match, offer, getNearOffers, getComments} = this.props;
+    const {match, offer, getNearOffersData, getComments} = this.props;
 
     if (prevProps.match.params.id !== match.params.id) {
-      getNearOffers(offer.id);
+      getNearOffersData(offer.id);
       getComments(offer.id);
     }
   }
@@ -126,7 +126,7 @@ class OfferDetail extends PureComponent {
                   <div className="property__name-wrapper">
                     <h1 className="property__name">{offer.name}</h1>
                     <button
-                      className={`${offer.favorite ? `property__bookmark-button--active` : ``} property__bookmark-button button`}
+                      className={`${offer.isFavorite ? `property__bookmark-button--active` : ``} property__bookmark-button button`}
                       type="button"
                       onClick = {() => {
                         this.setFavoriteStatus(offer);
@@ -158,10 +158,10 @@ class OfferDetail extends PureComponent {
                       {offer.type}
                     </li>
                     <li className="property__feature property__feature--bedrooms">
-                      {offer.rooms} Bedrooms
+                      {offer.bedrooms} Bedrooms
                     </li>
                     <li className="property__feature property__feature--adults">
-                      Max {offer.guests} adults
+                      Max {offer.maxAdults} adults
                     </li>
                   </ul>
                   <div className="property__price">
@@ -219,7 +219,7 @@ class OfferDetail extends PureComponent {
               </div>
 
               {nearOffers &&
-                <Map city = {offer.city} activePointId = {offer.id} points={nearOffers} nearMap={true} />
+                <Map city = {offer.city} activePointId = {offer.id} offers={nearOffers} nearMap={true} />
               }
             </section>
             <div className="container">
@@ -233,7 +233,7 @@ class OfferDetail extends PureComponent {
                     offersCssClasses = {offersCssClasses}
                     cardsLength = {DETAIL_PAGE_PARAMS.NEAR_OFFERS_MAX}
                     onOfferClick = {onOfferClick}
-                    dataCards = {nearOffers}
+                    offers = {nearOffers}
                     favoriteResponse = {favoriteResponse}
                     handleClickFavoriteButton = {handleClickFavoriteButton}
                   />
@@ -248,37 +248,28 @@ class OfferDetail extends PureComponent {
 }
 
 OfferDetail.propTypes = {
-  element: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.string,
-    photos: PropTypes.arrayOf(
-        PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
-        })
-    ),
-    isPremium: PropTypes.bool,
-    type: PropTypes.string,
-    rate: PropTypes.number,
-    rooms: PropTypes.number,
-    guests: PropTypes.number,
-    description: PropTypes.arrayOf(
-        PropTypes.string
-    ),
-    facilities: PropTypes.arrayOf(
-        PropTypes.string
-    ),
-    owner: PropTypes.shape({
-      name: PropTypes.string,
-      super: PropTypes.bool,
-      img: PropTypes.shape({
-        src: PropTypes.string,
-        alt: PropTypes.string
-      })
+  onOfferClick: PropTypes.func,
+  authStatus: PropTypes.string,
+  userInfo: PropTypes.shape({
+    id: PropTypes.number,
+    userEmail: PropTypes.string,
+    userName: PropTypes.string,
+    userAvatar: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
+  handleClickFavoriteButton: PropTypes.func,
+  offersCssClasses: PropTypes.shape({
+    LIST: PropTypes.string.isRequired,
+    ITEM: PropTypes.string.isRequired,
+    IMAGE_WRAPPER: PropTypes.string.isRequired,
+    ITEM_INFO: PropTypes.string.isRequired,
+    IMAGE_SIZE: PropTypes.shape({
+      WIDTH: PropTypes.number.isRequired,
+      HEIGHT: PropTypes.number.isRequired
     })
   }),
-  onOfferClick: PropTypes.func,
+  favoriteResponse: PropTypes.bool,
+  reviewsResponse: PropTypes.number,
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
@@ -293,33 +284,50 @@ OfferDetail.propTypes = {
         })
       })
   ),
-  userInfo: PropTypes.shape({
-    id: PropTypes.number,
-    userEmail: PropTypes.string,
-    userName: PropTypes.string,
-    userAvatar: PropTypes.string,
-    isPro: PropTypes.bool
+  offer: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.string,
+    photos: PropTypes.arrayOf(
+        PropTypes.shape({
+          alt: PropTypes.string,
+          src: PropTypes.string
+        })
+    ),
+    previewImage: PropTypes.shape({
+      alt: PropTypes.string,
+      src: PropTypes.string
+    }),
+    isPremium: PropTypes.bool,
+    type: PropTypes.string,
+    rate: PropTypes.number,
+    bedrooms: PropTypes.number,
+    maxAdults: PropTypes.number,
+    description: PropTypes.string,
+    facilities: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    isFavorite: PropTypes.bool,
+    owner: PropTypes.shape({
+      name: PropTypes.string,
+      super: PropTypes.bool,
+      img: PropTypes.shape({
+        src: PropTypes.string,
+        alt: PropTypes.string
+      })
+    }),
+    city: PropTypes.shape({
+      name: PropTypes.string,
+      location: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number
+      })
+    }),
+    location: PropTypes.arrayOf(
+        PropTypes.number
+    )
   }),
-  authStatus: PropTypes.string,
-  handleAuthToggle: PropTypes.func,
-  handleSubmitFeedback: PropTypes.func,
-  handleClickFavoriteButton: PropTypes.func,
-  offersCssClasses: PropTypes.shape({
-    LIST: PropTypes.string.isRequired,
-    ITEM: PropTypes.string.isRequired,
-    IMAGE_WRAPPER: PropTypes.string.isRequired,
-    ITEM_INFO: PropTypes.string.isRequired,
-    IMAGE_SIZE: PropTypes.shape({
-      WIDTH: PropTypes.number.isRequired,
-      HEIGHT: PropTypes.number.isRequired
-    })
-  }),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string
-    })
-  }),
-  getNearHotels: PropTypes.func,
   nearOffers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
@@ -331,14 +339,20 @@ OfferDetail.propTypes = {
               src: PropTypes.string
             })
         ),
+        previewImage: PropTypes.shape({
+          alt: PropTypes.string,
+          src: PropTypes.string
+        }),
         isPremium: PropTypes.bool,
         type: PropTypes.string,
         rate: PropTypes.number,
-        rooms: PropTypes.number,
-        guests: PropTypes.number,
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
         facilities: PropTypes.arrayOf(
             PropTypes.string
         ),
+        isFavorite: PropTypes.bool,
         owner: PropTypes.shape({
           name: PropTypes.string,
           super: PropTypes.bool,
@@ -346,12 +360,28 @@ OfferDetail.propTypes = {
             src: PropTypes.string,
             alt: PropTypes.string
           })
-        })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
       })
   ),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    })
+  }),
+  getNearOffersData: PropTypes.func,
   getComments: PropTypes.func,
-  favoriteResponse: PropTypes.bool,
-  reviewsResponse: PropTypes.number
+  postComment: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -362,7 +392,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getNearOffers(id) {
+  getNearOffersData(id) {
     dispatch(DataOperation.getNearOffers(id));
   },
   getComments(id) {

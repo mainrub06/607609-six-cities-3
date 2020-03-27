@@ -8,23 +8,18 @@ import {
 } from "../../utils";
 
 export const getloadCityOffers = (state) => state.data.loadCityOffers;
+
 export const getCitiesNames = (state) => state.data.citiesNames;
+
 export const getCity = (state) => {
   return getCityObj(state.data.loadCityOffers, state.main.cityName);
 };
-
-// export const getOffersDetail = (state) => getAllOffers(state.data.loadCityOffersDetail);
-
-
 export const getActiveFilter = (state) => state.main.activeFilterItem;
 
 export const getOffersMain = (state) => getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName));
 
-
-/*------------------------------------------ */
-
 export const getNearOffers = (state) => {
-  if(state.data.nearOffers) {
+  if (state.data.nearOffers) {
     return state.data.nearOffers.map((id) => getAllOffers(state.data.loadCityOffers).find((offer) => offer.id === id));
   }
   return null;

@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import ReviewsForm from "../reviews-form/reviews-form.jsx";
 import withFormData from "../../hocs/with-form-data/with-form-data.jsx";

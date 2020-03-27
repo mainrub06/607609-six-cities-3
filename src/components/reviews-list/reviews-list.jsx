@@ -12,7 +12,7 @@ const ReviewsList = ({reviews}) => {
     );
   }
   return null;
-}
+};
 
 ReviewsList.propTypes = {
   reviews: PropTypes.arrayOf(

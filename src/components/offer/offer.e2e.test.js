@@ -17,7 +17,7 @@ Enzyme.configure({
 it(`end-to-end test <Offer/> event: mouseover <article>`, () => {
   const OfferEl = shallow(
       <Offer
-        element={MOCK_EL}
+        offer={MOCK_EL}
         onOfferClick={() => {}}
         handleOfferHover={() => {
           onHoverArticle(MOCK_EL.id);
@@ -35,7 +35,7 @@ it(`end-to-end test <Offer/> event: mouseover <article>`, () => {
 it(`end-to-end test <Offer/> event: click on element with css-class place-card__name`, () => {
   const OfferEl = shallow(
       <Offer
-        element={MOCK_EL}
+        offer={MOCK_EL}
         onOfferClick={() => {
           onClickArticleName(MOCK_EL.id);
         }}

@@ -34,7 +34,7 @@ const ReviewsItem = ({element}) => {
     );
   }
   return null;
-}
+};
 
 ReviewsItem.propTypes = {
   element: PropTypes.shape({

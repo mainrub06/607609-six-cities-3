@@ -9,7 +9,8 @@ import {AUTHORIZATION_STATUS, LINKS} from "../../const";
 
 const CityListWrapper = withActiveIndex(CityList);
 
-const Main = ({dataCards,
+const Main = ({
+  offers,
   onOfferClick,
   onChangeCity,
   city,
@@ -57,12 +58,12 @@ const Main = ({dataCards,
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <CityListWrapper citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
-      {dataCards.length !== 0 ?
+      {offers.length !== 0 ?
         <MainInner activeFilter = {activeFilter}
           activePointId = {activePointId}
           handleOfferHover = {handleOfferHover}
           onChangeFilterType = {onChangeFilterType}
-          dataCards = {dataCards}
+          offers = {offers}
           onOfferClick = {onOfferClick}
           city = {city}
           handleClickFavoriteButton = {handleClickFavoriteButton}
@@ -76,23 +77,52 @@ const Main = ({dataCards,
 );
 
 Main.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
-        img: PropTypes.shape({
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        previewImage: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }).isRequired,
         isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
-        cords: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired
-      }).isRequired
-  ).isRequired,
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        isFavorite: PropTypes.bool,
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
+      })
+  ),
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
   city: PropTypes.shape({

@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import CityList from "./city-list.jsx";
-import {cities as CITIES} from "../../const";
+import {CITIES} from "../../const";
 
 it(`Render snapshot <CityList/>`, () => {
   const tree = renderer

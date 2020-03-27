@@ -24,7 +24,7 @@ it(`Render snapshot <Main/>`, () => {
             handleOfferHover={() => {}}
             city={CITY_MOCK}
             onOfferClick={() => {}}
-            dataCards={PLACE_MOCK}
+            offers={PLACE_MOCK}
             onChangeFilterType={() => {}}
             handleClickFavoriteButton = {() => {}}
             offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}

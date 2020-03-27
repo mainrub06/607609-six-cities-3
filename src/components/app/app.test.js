@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
 import PLACE_MOCK from "../../mock/offers";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
-import {OFFERS_SORT_ITEMS, cities as CITIES, OFFERS_CSS_CLASSES} from "../../const";
+import {OFFERS_SORT_ITEMS, CITIES, OFFERS_CSS_CLASSES} from "../../const";
 
 const CITY_MOCK = {
   name: `Paris`,

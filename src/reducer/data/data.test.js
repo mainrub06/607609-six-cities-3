@@ -12,8 +12,7 @@ const mockNullPayload = null;
 const initialState = {
   loadCityOffers: null,
   citiesNames: null,
-  loadCityOffersDetail: null,
-  nearHotels: null
+  nearOffers: null
 };
 
 const api = createAPI();
@@ -41,7 +40,7 @@ describe(`test Operation from reducer/data`, () => {
   it(`=> getNearHotels should return mockGetNearHotelsPayload`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const loader = Operation.getNearHotels(mockId);
+    const loader = Operation.getNearOffers(mockId);
 
     apiMock
       .onGet(`/hotels/${mockId}/nearby`)
@@ -51,7 +50,7 @@ describe(`test Operation from reducer/data`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.GET_NEAR_HOTELS,
+          type: ActionType.GET_NEAR_OFFERS,
           payload: mockNullPayload,
         });
       });
@@ -69,7 +68,7 @@ describe(`test ActionCreator from reducer/data`, () => {
     expect(reducer(initialState, mockChangeFavoriteById)).toEqual(initialState);
   });
 
-  const mockGetNearHotels = ActionCreator.getNearHotels(mockNullPayload);
+  const mockGetNearHotels = ActionCreator.getNearOffers(mockNullPayload);
   it(`=> ActionCreator.changeFavoriteById should return initialState`, () => {
     expect(reducer(initialState, mockGetNearHotels)).toEqual(initialState);
   });

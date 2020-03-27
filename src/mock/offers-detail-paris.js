@@ -29,6 +29,10 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
+    previewImage: {
+      alt: `ap-1`,
+      src: `img/apartment-01.jpg`
+    },
     isPremium: true,
     type: `room`,
     rate: 3.2,
@@ -43,10 +47,7 @@ const OFFERS_DETAILS_PARIS = [
       },
       super: true
     },
-    description: [
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-    ],
+    description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
@@ -60,7 +61,15 @@ const OFFERS_DETAILS_PARIS = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    city: {
+      name: `Paris`,
+      location: {
+        latitude: 1.1,
+        longitude: 1.2,
+        zoom: 13
+      }
+    }
   },
   {
     id: `5464564`,
@@ -92,6 +101,10 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
+    previewImage: {
+      alt: `ap-1`,
+      src: `img/apartment-01.jpg`
+    },
     isPremium: true,
     type: `apartment`,
     rate: 4,
@@ -106,10 +119,7 @@ const OFFERS_DETAILS_PARIS = [
       },
       super: false
     },
-    description: [
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-    ],
+    description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
@@ -123,7 +133,15 @@ const OFFERS_DETAILS_PARIS = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    city: {
+      name: `Paris`,
+      location: {
+        latitude: 1.1,
+        longitude: 1.2,
+        zoom: 13
+      }
+    }
   },
   {
     id: `4589512`,
@@ -155,6 +173,10 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
+    previewImage: {
+      alt: `ap-1`,
+      src: `img/apartment-01.jpg`
+    },
     isPremium: true,
     type: `hotel`,
     rate: 3.6,
@@ -169,10 +191,7 @@ const OFFERS_DETAILS_PARIS = [
       },
       super: false
     },
-    description: [
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-    ],
+    description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
@@ -186,7 +205,15 @@ const OFFERS_DETAILS_PARIS = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    city: {
+      name: `Paris`,
+      location: {
+        latitude: 1.1,
+        longitude: 1.2,
+        zoom: 13
+      }
+    }
   },
   {
     id: `7513497`,
@@ -218,6 +245,10 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-03.jpg`
       }
     ],
+    previewImage: {
+      alt: `ap-1`,
+      src: `img/apartment-01.jpg`
+    },
     isPremium: true,
     type: `hotel`,
     rate: 4.5,
@@ -241,10 +272,7 @@ const OFFERS_DETAILS_PARIS = [
       },
       super: true
     },
-    description: [
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-    ],
+    description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
@@ -258,7 +286,15 @@ const OFFERS_DETAILS_PARIS = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    city: {
+      name: `Paris`,
+      location: {
+        latitude: 1.1,
+        longitude: 1.2,
+        zoom: 13
+      }
+    }
   },
   {
     id: `9431675`,
@@ -290,6 +326,10 @@ const OFFERS_DETAILS_PARIS = [
         src: `img/apartment-02.jpg`
       }
     ],
+    previewImage: {
+      alt: `ap-1`,
+      src: `img/apartment-01.jpg`
+    },
     isPremium: true,
     type: `house`,
     rate: 0.5,
@@ -304,10 +344,7 @@ const OFFERS_DETAILS_PARIS = [
       },
       super: true
     },
-    description: [
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-    ],
+    description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
@@ -321,7 +358,15 @@ const OFFERS_DETAILS_PARIS = [
         id: `7513497`,
         cords: [52.3809553943508, 4.939309666406198]
       }
-    ]
+    ],
+    city: {
+      name: `Paris`,
+      location: {
+        latitude: 1.1,
+        longitude: 1.2,
+        zoom: 13
+      }
+    }
   }
 ];
 
