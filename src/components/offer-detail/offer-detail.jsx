@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 import {getStarsFromNum} from "../../utils";
 import {MAX_PHOTOS_OFFER_DETAIL} from "../../const";
 import Reviews from "../reviews/reviews.jsx";
-import MapDetail from "../map/map.jsx";
+import Map from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import {Link} from "react-router-dom";
 import {AUTHORIZATION_STATUS, LINKS, DETAIL_PAGE_PARAMS} from "../../const";
-
 import {Operation as DataOperation} from "../../reducer/data/data";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews";
 import {getReviews, getReviewsResponse} from "../../reducer/reviews/selectors";
@@ -18,40 +17,49 @@ import {withRouter} from "react-router-dom";
 class OfferDetail extends PureComponent {
   constructor(props) {
     super(props);
+
     this.setFavoriteStatus = this.setFavoriteStatus.bind(this);
     this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
   }
 
   componentDidMount() {
     const {offer, getComments, getNearOffers} = this.props;
+
     getNearOffers(offer.id);
     getComments(offer.id);
   }
 
-  setFavoriteStatus(element) {
-    const {favoriteResponse, handleClickFavoriteButton} = this.props;
+  componentDidUpdate(prevProps) {
+    const {match, offer, getNearOffers, getComments} = this.props;
 
-    if (!favoriteResponse) {
-      handleClickFavoriteButton(element.id, !element.favorite);
+    if (prevProps.match.params.id !== match.params.id) {
+      getNearOffers(offer.id);
+      getComments(offer.id);
     }
   }
 
-  handleSubmitFeedback(feedbackData, activeHotelId) {
+  setFavoriteStatus(offer) {
+    const {favoriteResponse, handleClickFavoriteButton} = this.props;
+
+    if (!favoriteResponse) {
+      handleClickFavoriteButton(offer.id, !offer.favorite);
+    }
+  }
+
+  handleSubmitFeedback(feedback, activeHotelId) {
     const {postComment} = this.props;
 
-    postComment(feedbackData, activeHotelId);
+    postComment(feedback, activeHotelId);
   }
 
   render() {
     const {
       onOfferClick,
-      handleOfferHover,
       authStatus,
       userInfo,
       handleClickFavoriteButton,
       offersCssClasses,
       favoriteResponse,
-
       reviewsResponse,
       reviews,
       offer,
@@ -101,8 +109,8 @@ class OfferDetail extends PureComponent {
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {offer.photos.slice(0, MAX_PHOTOS_OFFER_DETAIL).map((el, id) => (<div key={el.alt + id} className="property__image-wrapper">
-                    <img className="property__image" src={el.src} alt={el.alt}/>
+                  {offer.photos.slice(0, MAX_PHOTOS_OFFER_DETAIL).map((photo, index) => (<div key={photo.alt + index} className="property__image-wrapper">
+                    <img className="property__image" src={photo.src} alt={photo.alt}/>
                   </div>)
                   )}
                 </div>
@@ -167,9 +175,9 @@ class OfferDetail extends PureComponent {
                       What&apos;s inside
                     </h2>
                     <ul className="property__inside-list">
-                      {offer.facilities.map((it, id) => (
-                        <li key={it + id} className="property__inside-item">
-                          {it}
+                      {offer.facilities.map((facility, index) => (
+                        <li key={facility + index} className="property__inside-item">
+                          {facility}
                         </li>
                       ))}
                     </ul>
@@ -197,11 +205,7 @@ class OfferDetail extends PureComponent {
                       </span>
                     </div>
                     <div className="property__description">
-                      {offer.description.map((it, id) => (
-                        <p key={it + id} className="property__text">
-                          {it}
-                        </p>
-                      ))}
+                      {offer.description}
                     </div>
                   </div>
                   <Reviews
@@ -215,7 +219,7 @@ class OfferDetail extends PureComponent {
               </div>
 
               {nearOffers &&
-                <MapDetail city = {offer.city} activePointId = {offer.id} points={nearOffers} nearMap={true} />
+                <Map city = {offer.city} activePointId = {offer.id} points={nearOffers} nearMap={true} />
               }
             </section>
             <div className="container">
@@ -228,10 +232,9 @@ class OfferDetail extends PureComponent {
                   <OfferList
                     offersCssClasses = {offersCssClasses}
                     cardsLength = {DETAIL_PAGE_PARAMS.NEAR_OFFERS_MAX}
-                    onOfferClick={onOfferClick}
-                    dataCards={nearOffers}
+                    onOfferClick = {onOfferClick}
+                    dataCards = {nearOffers}
                     favoriteResponse = {favoriteResponse}
-                    handleOfferHover = {handleOfferHover}
                     handleClickFavoriteButton = {handleClickFavoriteButton}
                   />
                 }
@@ -275,50 +278,7 @@ OfferDetail.propTypes = {
       })
     })
   }),
-  dataCardsDetail: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
-        photos: PropTypes.arrayOf(
-            PropTypes.shape({
-              alt: PropTypes.string,
-              src: PropTypes.string
-            })
-        ),
-        isPremium: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number,
-        rooms: PropTypes.number,
-        guests: PropTypes.number,
-        facilities: PropTypes.arrayOf(
-            PropTypes.string
-        ),
-        owner: PropTypes.shape({
-          name: PropTypes.string,
-          super: PropTypes.bool,
-          img: PropTypes.shape({
-            src: PropTypes.string,
-            alt: PropTypes.string
-          })
-        })
-      })
-  ),
   onOfferClick: PropTypes.func,
-  dataCards: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
-        img: PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string
-        }),
-        isPremium: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number
-      })
-  ),
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
@@ -333,16 +293,6 @@ OfferDetail.propTypes = {
         })
       })
   ),
-  handleOfferHover: PropTypes.func,
-  activePointId: PropTypes.string,
-  city: PropTypes.shape({
-    name: PropTypes.string,
-    location: PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-      zoom: PropTypes.number,
-    })
-  }),
   userInfo: PropTypes.shape({
     id: PropTypes.number,
     userEmail: PropTypes.string,
@@ -370,7 +320,7 @@ OfferDetail.propTypes = {
     })
   }),
   getNearHotels: PropTypes.func,
-  offersNear: PropTypes.arrayOf(
+  nearOffers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
         name: PropTypes.string,
@@ -403,8 +353,6 @@ OfferDetail.propTypes = {
   favoriteResponse: PropTypes.bool,
   reviewsResponse: PropTypes.number
 };
-
-// не перерендеривается nearOffer при переходе на деталке(т.е. здесь)
 
 const mapStateToProps = (state, ownProps) => ({
   offer: getOffer(state, ownProps),

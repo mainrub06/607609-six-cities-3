@@ -123,7 +123,7 @@ export const getOffersFromLoadData = (loadData) => {
           alt: offer.host.id.toString()
         }
       },
-      description: [offer.description],
+      description: offer.description,
       city: offer.city,
       cords: [offer.location.latitude, offer.location.longitude],
     };
