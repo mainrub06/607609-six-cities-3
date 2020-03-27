@@ -1,8 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Favorites from "./favorites.jsx";
-import CITY_OFFERS from "../../mock/city-offers";
-import CITY_OFFERS_DETAIL from "../../mock/city-offers-detail";
+import PLACE_DETAIL_MOCK from "../../mock/offers-detail";
 import {OFFERS_CSS_CLASSES, CITIES} from "../../const";
 import {MemoryRouter} from "react-router-dom";
 
@@ -20,7 +19,14 @@ it(`Render snapshot <Favorite/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>
-          <Favorites getFavoritesServerData = {() => {}} favorites = {{loadCityOffers: CITY_OFFERS, citiesNames: CITIES, loadCityOffersDetail: CITY_OFFERS_DETAIL}} userInfo = {userInfo} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {() => {}} onOfferClick = {() => {}} offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}/>
+          <Favorites getFavoritesServerData = {() => {}}
+            citiesNames = {CITIES}
+            favorites = {PLACE_DETAIL_MOCK}
+            userInfo = {userInfo}
+            favoriteResponse = {favoriteResponse}
+            handleClickFavoriteButton = {() => {}}
+            onOfferClick = {() => {}}
+            offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}/>
         </MemoryRouter>
     )
     .toJSON();

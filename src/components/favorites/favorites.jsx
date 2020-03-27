@@ -15,7 +15,14 @@ class Favorites extends PureComponent {
   }
 
   render() {
-    const {favorites, userInfo, favoriteResponse, handleClickFavoriteButton, onOfferClick, offersCssClasses} = this.props;
+    const {
+      favorites,
+      userInfo,
+      favoriteResponse,
+      handleClickFavoriteButton,
+      onOfferClick,
+      offersCssClasses,
+      citiesNames} = this.props;
 
     return (
       <div className="page">
@@ -48,20 +55,29 @@ class Favorites extends PureComponent {
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
                   {
-                    favorites.citiesNames.map((city, index) => {
-                      if (favorites.loadCityOffers[city].length === 0) {
+                    citiesNames.map((city, index) => {
+                      return favorites.map((offer) => {
+                        if (offer.city.name === city) {
+                          return (
+                            <li key= {index + city} className="favorites__locations-items">
+                              <div className="favorites__locations locations locations--current">
+                                <div className="locations__item">
+                                  <a className="locations__item-link" href="#">
+                                    <span>{city}</span>
+                                  </a>
+                                </div>
+                              </div>
+                              <OfferList offersCssClasses = {offersCssClasses}
+                                favoriteResponse = {favoriteResponse}
+                                handleClickFavoriteButton = {handleClickFavoriteButton}
+                                onOfferClick={onOfferClick}
+                                offers={offer}
+                              />
+                            </li>
+                          );
+                        }
                         return null;
-                      }
-                      return <li key= {index + city} className="favorites__locations-items">
-                        <div className="favorites__locations locations locations--current">
-                          <div className="locations__item">
-                            <a className="locations__item-link" href="#">
-                              <span>{city}</span>
-                            </a>
-                          </div>
-                        </div>
-                        <OfferList offersCssClasses = {offersCssClasses} favoriteResponse = {favoriteResponse} handleClickFavoriteButton = {handleClickFavoriteButton} onOfferClick={onOfferClick} offers={favorites.loadCityOffers[city]}/>
-                      </li>;
+                      });
                     })
                   }
                 </ul>
@@ -90,13 +106,52 @@ class Favorites extends PureComponent {
 
 
 Favorites.propTypes = {
-  favorites: PropTypes.shape({
-    citiesNames: PropTypes.arrayOf(
-        PropTypes.string
-    ),
-    loadCityOffers: PropTypes.shape(),
-    loadCityOffersDetail: PropTypes.shape()
-  }),
+  favorites: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        previewImage: PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }).isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        isFavorite: PropTypes.bool,
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
+      })
+  ),
   userInfo: PropTypes.shape({
     id: PropTypes.number,
     userEmail: PropTypes.string,
@@ -117,7 +172,10 @@ Favorites.propTypes = {
       HEIGHT: PropTypes.number.isRequired
     })
   }),
-  getFavoritesServerData: PropTypes.func
+  getFavoritesServerData: PropTypes.func,
+  citiesNames: PropTypes.arrayOf(
+      PropTypes.string
+  )
 };
 
 export default Favorites;

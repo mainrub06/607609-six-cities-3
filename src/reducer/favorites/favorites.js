@@ -3,7 +3,7 @@ import {FAVORITE_REQUESTS} from "../../const";
 
 const initialState = {
   isError: false,
-  favoritesData: null
+  favorites: null
 };
 
 const ActionType = {
@@ -55,7 +55,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_FAVORITE_RESPONSE:
       return extend(state, {isError: action.payload});
     case ActionType.GET_FAVORITES_DATA:
-      return extend(state, {favoritesData: getFavoriteHotelsData(action.payload)});
+      return extend(state, {favorites: getFavoriteHotelsData(action.payload)});
   }
   return state;
 };

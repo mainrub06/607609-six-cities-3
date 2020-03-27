@@ -170,7 +170,7 @@ export const getFavoriteTargetByCityAndId = (offers, obj) => {
 };
 
 export const getFavoriteHotelsData = (offers) => {
-  return offers.length !== 0 ? getFilteredData(offers) : null;
+  return offers.length !== 0 ? getOffersFromLoadData(offers) : null;
 };
 
 export const getNearHotelsIdWithActiveHotel = (state, activeId, response) => {

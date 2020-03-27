@@ -112,7 +112,7 @@ class App extends PureComponent {
   }
 
   renderFavoritesPage() {
-    const {userInfo, favorites, favoriteResponse, getFavoritesServerData} = this.props;
+    const {userInfo, favorites, favoriteResponse, getFavoritesServerData, citiesNames} = this.props;
 
     return (
       <Favorites
@@ -123,7 +123,9 @@ class App extends PureComponent {
         favoriteResponse = {favoriteResponse}
         offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}
         getFavoritesServerData = {getFavoritesServerData}
+        citiesNames = {citiesNames}
       />
+
     );
   }
 
