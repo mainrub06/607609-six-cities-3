@@ -9,7 +9,7 @@ const initialState = {
   offersDetail: null,
   reviews: mockReviews,
   activeFilterItem: OFFERS_SORT_ITEMS[0],
-  activeHotelId: null
+  activeOfferId: null
 };
 
 const ActionType = {
@@ -27,7 +27,7 @@ const ActionCreator = {
     type: ActionType.SET_FILTERED_OFFERS,
     payload: type
   }),
-  setActiveHotelId: (id) => ({
+  setActiveOfferId: (id) => ({
     type: ActionType.SET_ACTIVE_HOTEL_ID,
     payload: id
   })

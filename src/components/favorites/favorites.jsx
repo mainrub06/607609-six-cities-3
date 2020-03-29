@@ -7,11 +7,23 @@ import OfferList from "../offers-list/offers-list.jsx";
 class Favorites extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.getFavoritesByCity = this.getFavoritesByCity.bind(this);
   }
 
   componentDidMount() {
     const {getFavoritesServerData} = this.props;
     getFavoritesServerData();
+  }
+
+  getFavoritesByCity(city) {
+    const {favorites} = this.props;
+
+    if (favorites) {
+      return favorites.filter((offer) => offer.city.name === city);
+    }
+
+    return null;
   }
 
   render() {
@@ -56,28 +68,26 @@ class Favorites extends PureComponent {
                 <ul className="favorites__list">
                   {
                     citiesNames.map((city, index) => {
-                      return favorites.map((offer) => {
-                        if (offer.city.name === city) {
-                          return (
-                            <li key= {index + city} className="favorites__locations-items">
-                              <div className="favorites__locations locations locations--current">
-                                <div className="locations__item">
-                                  <a className="locations__item-link" href="#">
-                                    <span>{city}</span>
-                                  </a>
-                                </div>
+                      if (favorites.some((offer) => offer.city.name === city)) {
+                        return (
+                          <li key= {index + city} className="favorites__locations-items">
+                            <div className="favorites__locations locations locations--current">
+                              <div className="locations__item">
+                                <a className="locations__item-link" href="#">
+                                  <span>{city}</span>
+                                </a>
                               </div>
-                              <OfferList offersCssClasses = {offersCssClasses}
-                                favoriteResponse = {favoriteResponse}
-                                handleClickFavoriteButton = {handleClickFavoriteButton}
-                                onOfferClick={onOfferClick}
-                                offers={offer}
-                              />
-                            </li>
-                          );
-                        }
-                        return null;
-                      });
+                            </div>
+                            <OfferList offersCssClasses = {offersCssClasses}
+                              favoriteResponse = {favoriteResponse}
+                              handleClickFavoriteButton = {handleClickFavoriteButton}
+                              onOfferClick={onOfferClick}
+                              offers={this.getFavoritesByCity(city)}
+                            />
+                          </li>
+                        );
+                      }
+                      return null;
                     })
                   }
                 </ul>

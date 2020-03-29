@@ -9,7 +9,7 @@ import {ActionCreator as DataAC} from "../../reducer/data/data";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
 import {LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES} from "../../const";
 import {connect} from "react-redux";
-import {getCityName, getActiveHotelId} from "../../reducer/main/selectors";
+import {getCityName, getActiveOfferId} from "../../reducer/main/selectors";
 import {getCitiesNames, getCity, getOffersMain, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
 import {getResponseStatusFavorite, getFavoritesData} from "../../reducer/favorites/selectors";
@@ -35,17 +35,17 @@ class App extends PureComponent {
   }
 
   handleOfferClick() {
-    const {onHoverHotel} = this.props;
+    const {onHoverOffer} = this.props;
 
-    onHoverHotel(null);
+    onHoverOffer(null);
   }
 
   handleOfferHover(id) {
-    this.props.onHoverHotel(id);
+    this.props.onHoverOffer(id);
   }
 
   handleClickFavoriteButton(id, bool) {
-    const {getUpdatedFavoriteHotel, changeFavoriteFlag, cityName, getFavoritesServerData, authStatus} = this.props;
+    const {getUpdatedFavoriteOffer, changeFavoriteFlag, cityName, getFavoritesServerData, authStatus} = this.props;
 
     if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
       this.redirectToLoginPage();
@@ -53,7 +53,7 @@ class App extends PureComponent {
 
     if (authStatus === AUTHORIZATION_STATUS.AUTH) {
       changeFavoriteFlag({id, isFavorite: bool, cityName});
-      getUpdatedFavoriteHotel(id, bool);
+      getUpdatedFavoriteOffer(id, bool);
       getFavoritesServerData();
     }
   }
@@ -67,14 +67,14 @@ class App extends PureComponent {
   }
 
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse, activeHotelId} = this.props;
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse, activeOfferId} = this.props;
 
     if (citiesNames !== null) {
       return (
         <Main
           onOfferClick = {this.handleOfferClick}
           handleOfferHover = {this.handleOfferHover}
-          activePointId = {activeHotelId}
+          activePointId = {activeOfferId}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           onChangeCity = {onChangeCity}
           offers = {offers}
@@ -212,20 +212,6 @@ App.propTypes = {
         )
       })
   ),
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        rate: PropTypes.number,
-        comment: PropTypes.string,
-        date: PropTypes.string,
-        user: PropTypes.shape({
-          id: PropTypes.number,
-          isPro: PropTypes.bool,
-          name: PropTypes.string,
-          avatar: PropTypes.string
-        })
-      })
-  ),
   onChangeCity: PropTypes.func.isRequired,
   city: PropTypes.shape({
     name: PropTypes.string,
@@ -246,20 +232,57 @@ App.propTypes = {
     isPro: PropTypes.bool
   }),
   login: PropTypes.func,
-  getComments: PropTypes.func,
-  postComment: PropTypes.func,
-  getUpdatedFavoriteHotel: PropTypes.func,
+  getUpdatedFavoriteOffer: PropTypes.func,
   getAuthorizationStatus: PropTypes.func,
   favoriteResponse: PropTypes.bool,
   changeFavoriteFlag: PropTypes.func,
   cityName: PropTypes.string,
-  favorites: PropTypes.shape({
-    citiesNames: PropTypes.arrayOf(
-        PropTypes.string
-    ),
-    loadCityOffers: PropTypes.shape(),
-    loadCityOffersDetail: PropTypes.shape()
-  }),
+  favorites: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        previewImage: PropTypes.shape({
+          alt: PropTypes.string.isRequired,
+          src: PropTypes.string.isRequired
+        }).isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        type: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        isFavorite: PropTypes.bool,
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
+      })
+  ),
   getFavoritesServerData: PropTypes.func,
   offersCssClasses: PropTypes.shape({
     LIST: PropTypes.string.isRequired,
@@ -271,43 +294,12 @@ App.propTypes = {
       HEIGHT: PropTypes.number.isRequired
     })
   }),
-  getNearHotels: PropTypes.func,
-  offersNear: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
-        photos: PropTypes.arrayOf(
-            PropTypes.shape({
-              alt: PropTypes.string,
-              src: PropTypes.string
-            })
-        ),
-        isPremium: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number,
-        rooms: PropTypes.number,
-        guests: PropTypes.number,
-        facilities: PropTypes.arrayOf(
-            PropTypes.string
-        ),
-        owner: PropTypes.shape({
-          name: PropTypes.string,
-          super: PropTypes.bool,
-          img: PropTypes.shape({
-            src: PropTypes.string,
-            alt: PropTypes.string
-          })
-        })
-      })
-  ),
-  reviewsResponse: PropTypes.number,
-  onHoverHotel: PropTypes.func.isRequired,
-  activeHotelId: PropTypes.string
+  onHoverOffer: PropTypes.func.isRequired,
+  activeOfferId: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-  activeHotelId: getActiveHotelId(state),
+  activeOfferId: getActiveOfferId(state),
   cityOffers: getloadCityOffers(state),
   cityName: getCityName(state),
   citiesNames: getCitiesNames(state),
@@ -333,7 +325,7 @@ const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.setAuthorizationStatus(authData));
   },
-  getUpdatedFavoriteHotel(id, value) {
+  getUpdatedFavoriteOffer(id, value) {
     dispatch(FavoritesOperation.getFavoriteResponse(id, value));
   },
   changeFavoriteFlag(value) {
@@ -342,8 +334,8 @@ const mapDispatchToProps = (dispatch) => ({
   getFavoritesServerData() {
     dispatch(FavoritesOperation.getFavoritesData());
   },
-  onHoverHotel(id) {
-    dispatch(ActionCreator.setActiveHotelId({activeHotelId: id}));
+  onHoverOffer(id) {
+    dispatch(ActionCreator.setActiveOfferId({activeOfferId: id}));
   }
 });
 
