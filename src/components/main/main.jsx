@@ -56,14 +56,15 @@ const Main = ({
       <h1 className="visually-hidden">Cities</h1>
       <CityList activeCity = {activeCity} citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
       {offers.length !== 0 ?
-        <MainInner activeFilter = {activeFilter}
+        <MainInner
+          activeCity = {activeCity}
+          activeFilter = {activeFilter}
           activeOfferId = {activeOfferId}
           handleOfferHover = {handleOfferHover}
-          onChangeFilterType = {onChangeFilterType}
-          offers = {offers}
-          onOfferClick = {onOfferClick}
-          activeCity = {activeCity}
           handleClickFavoriteButton = {handleClickFavoriteButton}
+          onChangeFilterType = {onChangeFilterType}
+          onOfferClick = {onOfferClick}
+          offers = {offers}
           favoriteResponse = {favoriteResponse}
           offersCssClasses = {offersCssClasses}/>
         :

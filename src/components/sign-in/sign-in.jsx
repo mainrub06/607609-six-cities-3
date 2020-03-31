@@ -25,7 +25,6 @@ class SignIn extends PureComponent {
   }
 
   render() {
-
     return (
       <div className="page page--gray page--login">
         <header className="header">
