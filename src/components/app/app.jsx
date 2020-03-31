@@ -35,9 +35,7 @@ class App extends PureComponent {
   }
 
   handleOfferClick() {
-    const {onHoverOffer} = this.props;
-
-    onHoverOffer(null);
+    this.props.onHoverOffer(null);
   }
 
   handleOfferHover(id) {
@@ -74,7 +72,7 @@ class App extends PureComponent {
         <Main
           onOfferClick = {this.handleOfferClick}
           handleOfferHover = {this.handleOfferHover}
-          activePointId = {activeOfferId}
+          activeOfferId = {activeOfferId}
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           onChangeCity = {onChangeCity}
           offers = {offers}

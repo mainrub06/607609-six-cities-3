@@ -7,7 +7,7 @@ const ReviewsList = ({reviews}) => {
   if (reviews) {
     return (
       <ul className="reviews__list">
-        {reviews.slice(0, REVIEWS_PARAMS.MAX_REVIEWS).map((review) => <ReviewsItem key = {review.id} element = {review}/>)}
+        {reviews.slice(0, REVIEWS_PARAMS.MAX_REVIEWS).map((review) => <ReviewsItem key = {review.id} review = {review}/>)}
       </ul>
     );
   }

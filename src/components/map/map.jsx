@@ -53,7 +53,7 @@ class Map extends PureComponent {
   }
 
   componentDidUpdate(prevState) {
-    if (prevState.offers !== this.props.offers || prevState.activePointId !== this.props.activePointId) {
+    if (prevState.offers !== this.props.offers || prevState.activeOfferId !== this.props.activeOfferId) {
 
       const {layerGroup} = this.layerGroupStorage;
       const {city} = this.props;
@@ -71,11 +71,11 @@ class Map extends PureComponent {
   }
 
   updateMap() {
-    const {offers, activePointId} = this.props;
+    const {offers, activeOfferId} = this.props;
     const {layerGroup} = this.layerGroupStorage;
 
     offers.forEach((offer) => {
-      const icon = activePointId && activePointId === offer.id ? this.icons.iconOrange : this.icons.iconBlue;
+      const icon = activeOfferId && activeOfferId === offer.id ? this.icons.iconOrange : this.icons.iconBlue;
 
       leaflet
       .marker(offer.cords, {icon})
@@ -138,7 +138,7 @@ Map.propTypes = {
         )
       })
   ),
-  activePointId: PropTypes.string,
+  activeOfferId: PropTypes.string,
   city: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({

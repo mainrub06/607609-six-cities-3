@@ -16,7 +16,7 @@ const Main = ({
   city,
   onChangeFilterType,
   handleOfferHover,
-  activePointId,
+  activeOfferId,
   activeFilter,
   citiesNames,
   authStatus,
@@ -60,7 +60,7 @@ const Main = ({
       <CityListWrapper citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
       {offers.length !== 0 ?
         <MainInner activeFilter = {activeFilter}
-          activePointId = {activePointId}
+          activeOfferId = {activeOfferId}
           handleOfferHover = {handleOfferHover}
           onChangeFilterType = {onChangeFilterType}
           offers = {offers}
@@ -135,7 +135,7 @@ Main.propTypes = {
   }),
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func.isRequired,
-  activePointId: PropTypes.string,
+  activeOfferId: PropTypes.string,
   activeFilter: PropTypes.string.isRequired,
   citiesNames: PropTypes.arrayOf(
       PropTypes.string.isRequired

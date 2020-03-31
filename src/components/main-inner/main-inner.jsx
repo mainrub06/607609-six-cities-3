@@ -15,7 +15,7 @@ const MainInner = ({
   city,
   onChangeFilterType,
   handleOfferHover,
-  activePointId,
+  activeOfferId,
   activeFilter,
   handleClickFavoriteButton,
   favoriteResponse,
@@ -45,7 +45,7 @@ const MainInner = ({
       <div className="cities__right-section">
         <Map
           city={city}
-          activePointId={activePointId}
+          activeOfferId={activeOfferId}
           offers={offers}
         />
       </div>
@@ -112,7 +112,7 @@ MainInner.propTypes = {
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,
   activeFilter: PropTypes.string.isRequired,
-  activePointId: PropTypes.string,
+  activeOfferId: PropTypes.string,
   handleClickFavoriteButton: PropTypes.func.isRequired,
   favoriteResponse: PropTypes.bool,
   offersCssClasses: PropTypes.shape({

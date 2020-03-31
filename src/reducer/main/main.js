@@ -15,7 +15,7 @@ const initialState = {
 const ActionType = {
   CHENGE_CITY: `CHENGE_CITY`,
   SET_FILTERED_OFFERS: `SET_FILTERED_OFFERS`,
-  SET_ACTIVE_HOTEL_ID: `SET_ACTIVE_HOTEL_ID`
+  SET_ACTIVE_OFFER_ID: `SET_ACTIVE_HOTEL_ID`
 };
 
 const ActionCreator = {
@@ -28,7 +28,7 @@ const ActionCreator = {
     payload: type
   }),
   setActiveOfferId: (id) => ({
-    type: ActionType.SET_ACTIVE_HOTEL_ID,
+    type: ActionType.SET_ACTIVE_OFFER_ID,
     payload: id
   })
 };
@@ -39,7 +39,7 @@ const reducer = (state = initialState, action)=>{
       return extend(state, action.payload);
     case ActionType.SET_FILTERED_OFFERS:
       return extend(state, action.payload);
-    case ActionType.SET_ACTIVE_HOTEL_ID:
+    case ActionType.SET_ACTIVE_OFFER_ID:
       return extend(state, action.payload);
   }
   return state;
