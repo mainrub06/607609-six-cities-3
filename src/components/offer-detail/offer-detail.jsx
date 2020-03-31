@@ -219,7 +219,7 @@ class OfferDetail extends PureComponent {
               </div>
 
               {nearOffers &&
-                <Map city = {offer.city} activePointId = {offer.id} offers={nearOffers} nearMap={true} />
+                <Map city = {offer.city} activeOfferId = {offer.id} offers={nearOffers} nearMap={true} />
               }
             </section>
             <div className="container">

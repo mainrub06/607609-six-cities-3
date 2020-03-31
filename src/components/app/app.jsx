@@ -9,8 +9,8 @@ import {ActionCreator as DataAC} from "../../reducer/data/data";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
 import {LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES} from "../../const";
 import {connect} from "react-redux";
-import {getCityName, getActiveOfferId} from "../../reducer/main/selectors";
-import {getCitiesNames, getCity, getOffersMain, getActiveFilter, getloadCityOffers} from "../../reducer/data/selectors";
+import {getActiveOfferId} from "../../reducer/main/selectors";
+import {getCitiesNames, getCity, getOffersMain, getActiveFilter} from "../../reducer/data/selectors";
 import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
 import {getResponseStatusFavorite, getFavoritesData} from "../../reducer/favorites/selectors";
 import SignIn from "../sign-in/sign-in.jsx";
@@ -43,14 +43,14 @@ class App extends PureComponent {
   }
 
   handleClickFavoriteButton(id, bool) {
-    const {getUpdatedFavoriteOffer, changeFavoriteFlag, cityName, getFavoritesServerData, authStatus} = this.props;
+    const {getUpdatedFavoriteOffer, changeFavoriteFlag, activeCity, getFavoritesServerData, authStatus} = this.props;
 
     if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
       this.redirectToLoginPage();
     }
 
     if (authStatus === AUTHORIZATION_STATUS.AUTH) {
-      changeFavoriteFlag({id, isFavorite: bool, cityName});
+      changeFavoriteFlag({id, isFavorite: bool, city: activeCity.name});
       getUpdatedFavoriteOffer(id, bool);
       getFavoritesServerData();
     }
@@ -65,7 +65,7 @@ class App extends PureComponent {
   }
 
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, city, userInfo, favoriteResponse, activeOfferId} = this.props;
+    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, activeCity, userInfo, favoriteResponse, activeOfferId} = this.props;
 
     if (citiesNames !== null) {
       return (
@@ -76,7 +76,7 @@ class App extends PureComponent {
           handleClickFavoriteButton = {this.handleClickFavoriteButton}
           onChangeCity = {onChangeCity}
           offers = {offers}
-          city = {city}
+          activeCity = {activeCity}
           onChangeFilterType = {onChangeFilterType}
           activeFilter = {activeFilter}
           citiesNames = {citiesNames}
@@ -211,7 +211,7 @@ App.propTypes = {
       })
   ),
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.shape({
+  activeCity: PropTypes.shape({
     name: PropTypes.string,
     location: PropTypes.shape({
       latitude: PropTypes.number,
@@ -234,7 +234,6 @@ App.propTypes = {
   getAuthorizationStatus: PropTypes.func,
   favoriteResponse: PropTypes.bool,
   changeFavoriteFlag: PropTypes.func,
-  cityName: PropTypes.string,
   favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -297,22 +296,20 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeOfferId: getActiveOfferId(state),
-  cityOffers: getloadCityOffers(state),
-  cityName: getCityName(state),
-  citiesNames: getCitiesNames(state),
-  city: getCity(state),
-  offers: getOffersMain(state),
+  activeCity: getCity(state),
   activeFilter: getActiveFilter(state),
+  activeOfferId: getActiveOfferId(state),
+  offers: getOffersMain(state),
+  favorites: getFavoritesData(state),
+  citiesNames: getCitiesNames(state),
   authStatus: getAuthStatus(state),
   userInfo: getUserInfo(state),
   favoriteResponse: getResponseStatusFavorite(state),
-  favorites: getFavoritesData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeCity(cityIn) {
-    dispatch(ActionCreator.changeCity({cityName: cityIn}));
+  onChangeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
   },
   onChangeFilterType(type) {
     dispatch(ActionCreator.setActiveFilter({activeFilterItem: type}));

@@ -36,7 +36,7 @@ const ActionCreator = {
 const reducer = (state = initialState, action)=>{
   switch (action.type) {
     case ActionType.CHENGE_CITY:
-      return extend(state, action.payload);
+      return extend(state, {cityName: action.payload});
     case ActionType.SET_FILTERED_OFFERS:
       return extend(state, action.payload);
     case ActionType.SET_ACTIVE_OFFER_ID:

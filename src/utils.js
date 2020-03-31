@@ -161,10 +161,10 @@ export const getReviewsList = (reviews) => {
 
 export const getFavoriteTargetByCityAndId = (offers, obj) => {
   if (offers && obj) {
-    const newExtendArr = offers[obj.cityName].map((offer) => {
+    const newExtendArr = offers[obj.city].map((offer) => {
       return offer.id === obj.id ? extend(offer, {isFavorite: obj.isFavorite}) : offer;
     });
-    return extend(offers, {[obj.cityName]: newExtendArr});
+    return extend(offers, {[obj.city]: newExtendArr});
   }
   return null;
 };

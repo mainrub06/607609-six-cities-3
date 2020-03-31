@@ -56,7 +56,7 @@ it(`Render snapshot <App/>`, () => {
     .create(
         <App
           citiesNames = {CITIES}
-          city={CITY_MOCK}
+          activeCity={CITY_MOCK}
           offersDetail={PLACE_MOCK_DETAIL}
           reviews={REVIEWS}
           onChangeCity={() => {}}

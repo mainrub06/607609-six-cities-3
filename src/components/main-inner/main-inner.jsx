@@ -12,7 +12,7 @@ const OffersSortWrapped = withActiveFlag(OffersSort);
 const MainInner = ({
   offers,
   onOfferClick,
-  city,
+  activeCity,
   onChangeFilterType,
   handleOfferHover,
   activeOfferId,
@@ -26,7 +26,7 @@ const MainInner = ({
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">
-          {offers.length} places to stay in {city.name}
+          {offers.length} places to stay in {activeCity.name}
         </b>
         <OffersSortWrapped
           activeFilter={activeFilter}
@@ -44,7 +44,7 @@ const MainInner = ({
       </section>
       <div className="cities__right-section">
         <Map
-          city={city}
+          city={activeCity}
           activeOfferId={activeOfferId}
           offers={offers}
         />
@@ -101,7 +101,7 @@ MainInner.propTypes = {
       })
   ),
   onOfferClick: PropTypes.func.isRequired,
-  city: PropTypes.shape({
+  activeCity: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,

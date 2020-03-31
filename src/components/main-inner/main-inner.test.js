@@ -22,7 +22,7 @@ it(`Render snapshot <Main/>`, () => {
             activeFilter={OFFERS_SORT_ITEMS[0]}
             activePointId={PLACE_MOCK[0].id}
             handleOfferHover={() => {}}
-            city={CITY_MOCK}
+            activeCity={CITY_MOCK}
             onOfferClick={() => {}}
             offers={PLACE_MOCK}
             onChangeFilterType={() => {}}

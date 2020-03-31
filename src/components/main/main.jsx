@@ -3,17 +3,14 @@ import PropTypes from "prop-types";
 import CityList from "../city-list/city-list.jsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
-import withActiveIndex from "../../hocs/with-active-index/with-active-index.jsx";
 import {Link} from "react-router-dom";
 import {AUTHORIZATION_STATUS, LINKS} from "../../const";
-
-const CityListWrapper = withActiveIndex(CityList);
 
 const Main = ({
   offers,
   onOfferClick,
   onChangeCity,
-  city,
+  activeCity,
   onChangeFilterType,
   handleOfferHover,
   activeOfferId,
@@ -57,7 +54,7 @@ const Main = ({
     </header>
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <CityListWrapper citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
+      <CityList activeCity = {activeCity} citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
       {offers.length !== 0 ?
         <MainInner activeFilter = {activeFilter}
           activeOfferId = {activeOfferId}
@@ -65,7 +62,7 @@ const Main = ({
           onChangeFilterType = {onChangeFilterType}
           offers = {offers}
           onOfferClick = {onOfferClick}
-          city = {city}
+          activeCity = {activeCity}
           handleClickFavoriteButton = {handleClickFavoriteButton}
           favoriteResponse = {favoriteResponse}
           offersCssClasses = {offersCssClasses}/>
@@ -125,7 +122,7 @@ Main.propTypes = {
   ),
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.shape({
+  activeCity: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,

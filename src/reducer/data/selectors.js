@@ -3,7 +3,6 @@ import {
   getCityObj,
   getOffers,
   getAllOffers,
-
   getOfferById
 } from "../../utils";
 
@@ -14,6 +13,7 @@ export const getCitiesNames = (state) => state.data.citiesNames;
 export const getCity = (state) => {
   return getCityObj(state.data.loadCityOffers, state.main.cityName);
 };
+
 export const getActiveFilter = (state) => state.main.activeFilterItem;
 
 export const getOffersMain = (state) => getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName));

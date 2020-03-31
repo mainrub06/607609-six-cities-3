@@ -31,7 +31,7 @@ it(`Render snapshot <OfferDetail/>`, () => {
     .create(
         <MemoryRouter>
           <OfferDetail
-            city = {CITY_MOCK}
+            activeCity = {CITY_MOCK}
             review={REVIEWS[0]}
             onOfferClick={() => {}}
             activeId={PLACE_MOCK_DETAIL[0].id}

@@ -11,7 +11,7 @@ const initialState = {
   activeOfferId: null
 };
 
-const mockActionChangeCity = ActionCreator.changeCity({cityName: `Rostov-on-Don`});
+const mockActionChangeCity = ActionCreator.changeCity(`Rostov-on-Don`);
 const newStateChangeCity = {
   cityName: `Rostov-on-Don`,
   offers: null,
@@ -21,7 +21,7 @@ const newStateChangeCity = {
   activeOfferId: null
 };
 
-const mockActionChangeActiveFilter = ActionCreator.changeCity({activeFilterItem: OFFERS_SORT_ITEMS[1]});
+const mockActionChangeActiveFilter = ActionCreator.setActiveFilter({activeFilterItem: OFFERS_SORT_ITEMS[1]});
 const newStateChangeActiveFilter = {
   cityName: `Paris`,
   offers: null,

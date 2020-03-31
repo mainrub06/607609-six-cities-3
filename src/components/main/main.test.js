@@ -35,7 +35,7 @@ it(`Render snapshot <Main/>`, () => {
             onChangeCity={() => {}}
             onOfferClick={() => {}}
             offers={PLACE_MOCK}
-            city={CITY_MOCK}
+            activeCity={CITY_MOCK}
             onChangeFilterType={() => {}}
             handleOfferHover={() => {}}
             userInfo = {USER_INFO_MOCK}
