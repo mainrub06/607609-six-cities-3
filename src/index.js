@@ -24,7 +24,7 @@ store.dispatch(UserOperation.getAuthorizationStatus());
 
 ReactDOM.render(
     <Provider store = {store}>
-      <App />
+      <App/>
     </Provider>,
     document.getElementById(`root`)
 );

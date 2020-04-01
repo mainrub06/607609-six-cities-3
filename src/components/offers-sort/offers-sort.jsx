@@ -1,72 +1,36 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import {OFFERS_SORT_ITEMS} from "../../const";
 import PropTypes from "prop-types";
 
-class OffersSort extends PureComponent {
-  constructor(props) {
-    super(props);
+const OffersSort = ({onChangeFilterType, activeFilter, isActiveFlag, handleItemChange}) => (
+  <form className="places__sorting" action="#" method="get" onMouseLeave = {() => handleItemChange(false)} onMouseEnter = {() => handleItemChange(true)}>
+    <span className="places__sorting-caption">Sort by</span>
+    <span className="places__sorting-type" tabIndex="0">
+      {activeFilter}
+      <svg className="places__sorting-arrow" width="7" height="4">
+        <use xlinkHref="#icon-arrow-select"></use>
+      </svg>
+    </span>
 
-    this.handleSortEnter = this.handleSortEnter.bind(this);
-    this.handleSortLeave = this.handleSortLeave.bind(this);
-
-    this.state = {
-      isOpenedOptions: false
-    };
-  }
-
-  handleSortEnter() {
-    this.setState({
-      isOpenedOptions: true
-    });
-  }
-
-  handleSortLeave() {
-    this.setState({
-      isOpenedOptions: false
-    });
-  }
-
-  render() {
-    const {onChangeFilterType, activeFilter} = this.props;
-    return (
-      <form className="places__sorting" action="#" method="get" onMouseLeave = {this.handleSortLeave} onMouseEnter = {this.handleSortEnter}>
-        <span className="places__sorting-caption">Sort by</span>
-        <span className="places__sorting-type" tabIndex="0">
-          {activeFilter}
-          <svg className="places__sorting-arrow" width="7" height="4">
-            <use xlinkHref="#icon-arrow-select"></use>
-          </svg>
-        </span>
-
-        <ul className={`places__options places__options--custom ${this.state.isOpenedOptions ? `places__options--opened` : ``}`}>
-          {
-            OFFERS_SORT_ITEMS.map((sortItem, index) => (
-              <li key={sortItem + index} className={`${activeFilter === sortItem ? `places__option--active` : ``} places__option`} tabIndex="0" onClick={() => {
-                onChangeFilterType(sortItem);
-              }}>
-                {sortItem}
-              </li>
-            ))
-          }
-
-        </ul>
-
-        {
-          // <select className="places__sorting-type visually-hidden" id="places-sorting">
-          //         <option className="places__option" value="popular" selected="">Popular</option>
-          //         <option className="places__option" value="to-high">Price: low to high</option>
-          //         <option className="places__option" value="to-low">Price: high to low</option>
-          //         <option className="places__option" value="top-rated">Top rated first</option>
-          // </select>
-        }
-      </form>
-    );
-  }
-}
+    <ul className={`places__options places__options--custom ${isActiveFlag ? `places__options--opened` : ``}`}>
+      {
+        OFFERS_SORT_ITEMS.map((sortItem, index) => (
+          <li key={sortItem + index} className={`${activeFilter === sortItem ? `places__option--active` : ``} places__option`} tabIndex="0" onClick={() => {
+            onChangeFilterType(sortItem);
+          }}>
+            {sortItem}
+          </li>
+        ))
+      }
+    </ul>
+  </form>
+);
 
 OffersSort.propTypes = {
   onChangeFilterType: PropTypes.func.isRequired,
-  activeFilter: PropTypes.string.isRequired
+  activeFilter: PropTypes.string.isRequired,
+  isActiveFlag: PropTypes.bool.isRequired,
+  handleItemChange: PropTypes.func.isRequired
 };
 
 export default OffersSort;

@@ -7,7 +7,15 @@ const activeHotelId = `1`;
 it(`Render snapshot <ReviewsForm/>`, () => {
   const tree = renderer
     .create(
-        <ReviewsForm activeHotelId = {activeHotelId} handleSubmitFeedback = {() => {}}/>
+        <ReviewsForm isButtonActive = {false}
+          resetForm = {() => {}}
+          handleTextareaChange = {() => {}}
+          activeHotelId = {activeHotelId}
+          handleSubmitFeedback = {() => {}}
+          handleRadioChange = {() => {}}
+          rateData = {null}
+          textData = {null}
+        />
     )
     .toJSON();
 

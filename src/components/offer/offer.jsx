@@ -11,23 +11,23 @@ class Offer extends PureComponent {
   }
 
   setFavoriteStatus() {
-    const {favoriteResponse, handleClickFavoriteButton, element} = this.props;
+    const {favoriteResponse, handleClickFavoriteButton, offer} = this.props;
     if (!favoriteResponse) {
-      handleClickFavoriteButton(element.id, !element.favorite);
+      handleClickFavoriteButton(offer.id, !offer.isFavorite);
     }
   }
 
   render() {
-    const {element, handleOfferHover, onOfferClick, offersCssClasses} = this.props;
+    const {offer, handleOfferHover, onOfferClick, offersCssClasses} = this.props;
 
     return (
       <article onMouseOver={() => {
-        handleOfferHover(element.id);
+        handleOfferHover(offer.id);
       }} onMouseLeave={()=> {
         handleOfferHover(null);
       }} className= {`${offersCssClasses.ITEM} place-card`}>
 
-        {element.isPremium &&
+        {offer.isPremium &&
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
@@ -35,18 +35,18 @@ class Offer extends PureComponent {
 
         <div className={`${offersCssClasses.IMAGE_WRAPPER} place-card__image-wrapper`}>
           <a href="#">
-            <img className="place-card__image" src={element.img.src} width={`${offersCssClasses.IMAGE_SIZE.WIDTH}`} height={`${offersCssClasses.IMAGE_SIZE.HEIGHT}`} alt="Place image" />
+            <img className="place-card__image" src={offer.previewImage.src} width={`${offersCssClasses.IMAGE_SIZE.WIDTH}`} height={`${offersCssClasses.IMAGE_SIZE.HEIGHT}`} alt="Place image" />
           </a>
         </div>
         <div className={`${offersCssClasses.ITEM_INFO} place-card__info`}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
-              <b className="place-card__price-value">&euro;{element.price}</b>
+              <b className="place-card__price-value">&euro;{offer.price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button onClick = {() => {
               this.setFavoriteStatus();
-            }} className={`${element.favorite ? `place-card__bookmark-button--active` : ``} place-card__bookmark-button button`} type="button">
+            }} className={`${offer.isFavorite ? `place-card__bookmark-button--active` : ``} place-card__bookmark-button button`} type="button">
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -55,16 +55,16 @@ class Offer extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: getStarsFromNum(element.rate) + `%`}} ></span>
+              <span style={{width: getStarsFromNum(offer.rate) + `%`}} ></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
           <h2 onClick={() => {
-            onOfferClick(element.id);
+            onOfferClick(offer.id);
           }} className="place-card__name">
-            <Link to={LINKS.OFFER_DETAIL + `${element.id}`}>{element.name}</Link>
+            <Link to={LINKS.OFFER_DETAIL + `${offer.id}`}>{offer.name}</Link>
           </h2>
-          <p className="place-card__type">{element.type}</p>
+          <p className="place-card__type">{offer.type}</p>
         </div>
       </article>
     );
@@ -72,19 +72,50 @@ class Offer extends PureComponent {
 }
 
 Offer.propTypes = {
-  element: PropTypes.shape({
+  offer: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
-    img: PropTypes.shape({
+    photos: PropTypes.arrayOf(
+        PropTypes.shape({
+          alt: PropTypes.string,
+          src: PropTypes.string
+        })
+    ),
+    previewImage: PropTypes.shape({
       alt: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired
     }).isRequired,
     isPremium: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired,
-    favorite: PropTypes.bool.isRequired
-  }).isRequired,
+    bedrooms: PropTypes.number,
+    maxAdults: PropTypes.number,
+    description: PropTypes.string,
+    facilities: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    isFavorite: PropTypes.bool.isRequired,
+    owner: PropTypes.shape({
+      name: PropTypes.string,
+      super: PropTypes.bool,
+      img: PropTypes.shape({
+        src: PropTypes.string,
+        alt: PropTypes.string
+      })
+    }),
+    city: PropTypes.shape({
+      name: PropTypes.string,
+      location: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number
+      })
+    }),
+    location: PropTypes.arrayOf(
+        PropTypes.number
+    )
+  }),
   handleOfferHover: PropTypes.func.isRequired,
   onOfferClick: PropTypes.func.isRequired,
   isOfferDetailItem: PropTypes.bool,

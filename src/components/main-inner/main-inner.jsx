@@ -1,19 +1,21 @@
 import React from "react";
 import OffersSort from "../offers-sort/offers-sort.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
-import MapMain from "../map/map.jsx";
+import Map from "../map/map.jsx";
 import withActiveIndex from "../../hocs/with-active-index/with-active-index.jsx";
+import withActiveFlag from "../../hocs/with-active-flag/with-active-flag.jsx";
 import PropTypes from "prop-types";
 
 const OfferListWrapped = withActiveIndex(OfferList);
+const OffersSortWrapped = withActiveFlag(OffersSort);
 
 const MainInner = ({
-  dataCards,
+  offers,
   onOfferClick,
-  city,
+  activeCity,
   onChangeFilterType,
   handleOfferHover,
-  activePointId,
+  activeOfferId,
   activeFilter,
   handleClickFavoriteButton,
   favoriteResponse,
@@ -24,9 +26,9 @@ const MainInner = ({
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">
-          {dataCards.length} places to stay in {city.name}
+          {offers.length} places to stay in {activeCity.name}
         </b>
-        <OffersSort
+        <OffersSortWrapped
           activeFilter={activeFilter}
           onChangeFilterType={onChangeFilterType}
         />
@@ -34,17 +36,17 @@ const MainInner = ({
         <OfferListWrapped
           offersCssClasses={offersCssClasses}
           onOfferClick={onOfferClick}
-          dataCards={dataCards}
+          offers={offers}
           handleOfferHover={handleOfferHover}
           favoriteResponse={favoriteResponse}
           handleClickFavoriteButton={handleClickFavoriteButton}
         />
       </section>
       <div className="cities__right-section">
-        <MapMain
-          city={city}
-          activePointId={activePointId}
-          points={dataCards}
+        <Map
+          city={activeCity}
+          activeOfferId={activeOfferId}
+          offers={offers}
         />
       </div>
     </div>
@@ -52,23 +54,54 @@ const MainInner = ({
 );
 
 MainInner.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
-        img: PropTypes.shape({
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        previewImage: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
-        }),
+        }).isRequired,
         isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
-        cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        isFavorite: PropTypes.bool,
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
       })
-  ).isRequired,
+  ),
   onOfferClick: PropTypes.func.isRequired,
-  city: PropTypes.shape({
+  activeCity: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
@@ -79,7 +112,7 @@ MainInner.propTypes = {
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,
   activeFilter: PropTypes.string.isRequired,
-  activePointId: PropTypes.string,
+  activeOfferId: PropTypes.string,
   handleClickFavoriteButton: PropTypes.func.isRequired,
   favoriteResponse: PropTypes.bool,
   offersCssClasses: PropTypes.shape({

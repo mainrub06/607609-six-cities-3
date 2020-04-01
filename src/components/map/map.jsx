@@ -2,11 +2,11 @@ import React, {PureComponent, createRef} from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
 
-class MapMain extends PureComponent {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.city = [52.38333, 4.9]; // Amsterdam
+    this.city = [52.38333, 4.9];
     this.zoomMap = 12;
 
     this.mapConfig = {
@@ -53,7 +53,8 @@ class MapMain extends PureComponent {
   }
 
   componentDidUpdate(prevState) {
-    if (prevState.points !== this.props.points || prevState.activePointId === null) {
+    if (prevState.offers !== this.props.offers || prevState.activeOfferId !== this.props.activeOfferId) {
+
       const {layerGroup} = this.layerGroupStorage;
       const {city} = this.props;
       const cityLocation = [city.location.latitude, city.location.longitude];
@@ -65,21 +66,21 @@ class MapMain extends PureComponent {
     }
   }
 
-  updateMap() {
-    const {points, activePointId} = this.props;
-    const {layerGroup} = this.layerGroupStorage;
-
-    points.forEach((point) => {
-      const icon = activePointId && activePointId === point.id ? this.icons.iconOrange : this.icons.iconBlue;
-
-      leaflet
-      .marker(point.cords, {icon})
-      .addTo(layerGroup);
-    });
-  }
-
   componentWillUnmount() {
     this.map = null;
+  }
+
+  updateMap() {
+    const {offers, activeOfferId} = this.props;
+    const {layerGroup} = this.layerGroupStorage;
+
+    offers.forEach((offer) => {
+      const icon = activeOfferId && activeOfferId === offer.id ? this.icons.iconOrange : this.icons.iconBlue;
+
+      leaflet
+      .marker(offer.cords, {icon})
+      .addTo(layerGroup);
+    });
   }
 
   render() {
@@ -89,24 +90,55 @@ class MapMain extends PureComponent {
   }
 }
 
-MapMain.propTypes = {
+Map.propTypes = {
   nearMap: PropTypes.bool,
-  points: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
-        img: PropTypes.shape({
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        previewImage: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }).isRequired,
         isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
-        cords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        isFavorite: PropTypes.bool,
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
       })
-  ).isRequired,
-  activePointId: PropTypes.string,
+  ),
+  activeOfferId: PropTypes.string,
   city: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
@@ -117,4 +149,4 @@ MapMain.propTypes = {
   })
 };
 
-export default MapMain;
+export default Map;

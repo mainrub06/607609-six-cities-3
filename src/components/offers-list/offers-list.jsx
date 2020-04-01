@@ -18,13 +18,13 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {dataCards, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse, cardsLength} = this.props;
+    const {offers, onOfferClick, offersCssClasses, handleClickFavoriteButton, favoriteResponse, cardsLength} = this.props;
 
     return (
       <div className={`${offersCssClasses.LIST} places__list`}>
-        {dataCards.slice(0, cardsLength).map((it) => (
-          <Offer key={it.id}
-            element={it}
+        {offers.slice(0, cardsLength).map((offer) => (
+          <Offer key={offer.id}
+            offer={offer}
             handleOfferHover={this.setIdState}
             onOfferClick={onOfferClick}
             offersCssClasses = {offersCssClasses}
@@ -38,20 +38,52 @@ class OfferList extends PureComponent {
 }
 
 OfferList.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
-        img: PropTypes.shape({
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        previewImage: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
-        }),
+        }).isRequired,
         isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired
+        rate: PropTypes.number.isRequired,
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        isFavorite: PropTypes.bool,
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
       })
-  ).isRequired,
+  ),
   onOfferClick: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func,
   activeItemIndex: PropTypes.number,

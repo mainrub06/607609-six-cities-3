@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import OfferDetail from "./offer-detail.jsx";
+import {OfferDetail} from "./offer-detail.jsx";
 import PLACE_MOCK_DETAIL from "../../mock/offers-detail";
 import PLACE_MOCK from "../../mock/offers";
 import REVIEWS from "../../mock/reviews";
@@ -31,19 +31,20 @@ it(`Render snapshot <OfferDetail/>`, () => {
     .create(
         <MemoryRouter>
           <OfferDetail
-            city = {CITY_MOCK}
+            activeCity = {CITY_MOCK}
             review={REVIEWS[0]}
             onOfferClick={() => {}}
             activeId={PLACE_MOCK_DETAIL[0].id}
-            dataCards={PLACE_MOCK}
-            dataCardsDetail={PLACE_MOCK_DETAIL}
-            element={PLACE_MOCK_DETAIL[0]}
+            offer={PLACE_MOCK_DETAIL[0]}
+            nearOffers= {PLACE_MOCK_DETAIL}
             handleOfferHover={() => {}}
             activePointId={PLACE_MOCK[0].id}
             userInfo = {USER_INFO_MOCK}
             authStatus = {authStatus}
             handleClickFavoriteButton = {() => {}}
             offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
+            getNearOffersData = {() => {}}
+            getComments = {() => {}}
           />
         </MemoryRouter>
     )

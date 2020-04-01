@@ -9,7 +9,7 @@ it(`Render snapshot <Offer/>`, () => {
   const tree = renderer
     .create(
         <MemoryRouter>
-          <Offer offersCssClasses = {OFFERS_CSS_CLASSES.MAIN} handleClickFavoriteButton = {() => {}} onOfferClick={() => {}} handleOfferHover={() => {}} element={PLACE_MOCK[1]} />
+          <Offer offersCssClasses = {OFFERS_CSS_CLASSES.MAIN} handleClickFavoriteButton = {() => {}} onOfferClick={() => {}} handleOfferHover={() => {}} offer={PLACE_MOCK[1]} />
         </MemoryRouter>
     )
     .toJSON();

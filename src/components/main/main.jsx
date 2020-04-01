@@ -3,19 +3,17 @@ import PropTypes from "prop-types";
 import CityList from "../city-list/city-list.jsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
-import withActiveIndex from "../../hocs/with-active-index/with-active-index.jsx";
 import {Link} from "react-router-dom";
 import {AUTHORIZATION_STATUS, LINKS} from "../../const";
 
-const CityListWrapper = withActiveIndex(CityList);
-
-const Main = ({dataCards,
+const Main = ({
+  offers,
   onOfferClick,
   onChangeCity,
-  city,
+  activeCity,
   onChangeFilterType,
   handleOfferHover,
-  activePointId,
+  activeOfferId,
   activeFilter,
   citiesNames,
   authStatus,
@@ -56,16 +54,17 @@ const Main = ({dataCards,
     </header>
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <CityListWrapper citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
-      {dataCards.length !== 0 ?
-        <MainInner activeFilter = {activeFilter}
-          activePointId = {activePointId}
+      <CityList activeCity = {activeCity} citiesNames = {citiesNames} onChangeCity = {onChangeCity} />
+      {offers.length !== 0 ?
+        <MainInner
+          activeCity = {activeCity}
+          activeFilter = {activeFilter}
+          activeOfferId = {activeOfferId}
           handleOfferHover = {handleOfferHover}
-          onChangeFilterType = {onChangeFilterType}
-          dataCards = {dataCards}
-          onOfferClick = {onOfferClick}
-          city = {city}
           handleClickFavoriteButton = {handleClickFavoriteButton}
+          onChangeFilterType = {onChangeFilterType}
+          onOfferClick = {onOfferClick}
+          offers = {offers}
           favoriteResponse = {favoriteResponse}
           offersCssClasses = {offersCssClasses}/>
         :
@@ -76,26 +75,55 @@ const Main = ({dataCards,
 );
 
 Main.propTypes = {
-  dataCards: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
-        img: PropTypes.shape({
+        photos: PropTypes.arrayOf(
+            PropTypes.shape({
+              alt: PropTypes.string,
+              src: PropTypes.string
+            })
+        ),
+        previewImage: PropTypes.shape({
           alt: PropTypes.string.isRequired,
           src: PropTypes.string.isRequired
         }).isRequired,
         isPremium: PropTypes.bool.isRequired,
         type: PropTypes.string.isRequired,
         rate: PropTypes.number.isRequired,
-        cords: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired
-      }).isRequired
-  ).isRequired,
+        bedrooms: PropTypes.number,
+        maxAdults: PropTypes.number,
+        description: PropTypes.string,
+        facilities: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        isFavorite: PropTypes.bool,
+        owner: PropTypes.shape({
+          name: PropTypes.string,
+          super: PropTypes.bool,
+          img: PropTypes.shape({
+            src: PropTypes.string,
+            alt: PropTypes.string
+          })
+        }),
+        city: PropTypes.shape({
+          name: PropTypes.string,
+          location: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            zoom: PropTypes.number
+          })
+        }),
+        location: PropTypes.arrayOf(
+            PropTypes.number
+        )
+      })
+  ),
   onOfferClick: PropTypes.func,
   onChangeCity: PropTypes.func.isRequired,
-  city: PropTypes.shape({
+  activeCity: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
@@ -105,7 +133,7 @@ Main.propTypes = {
   }),
   onChangeFilterType: PropTypes.func.isRequired,
   handleOfferHover: PropTypes.func.isRequired,
-  activePointId: PropTypes.string,
+  activeOfferId: PropTypes.string,
   activeFilter: PropTypes.string.isRequired,
   citiesNames: PropTypes.arrayOf(
       PropTypes.string.isRequired

@@ -15,7 +15,7 @@ const CITY_MOCK = {
 it(`Render snapshot <Map/>`, () => {
   const tree = renderer
     .create(
-        <Map city = {CITY_MOCK} activePointId = {PLACE_MOCK[0].id} points={PLACE_MOCK} />
+        <Map city = {CITY_MOCK} activePointId = {PLACE_MOCK[0].id} offers={PLACE_MOCK} />
     )
     .toJSON();
 

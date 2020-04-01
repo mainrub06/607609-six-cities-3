@@ -8,12 +8,12 @@ export const LINKS = {
   INDEX: `/`,
   OFFER_DETAIL: `/offer/`,
   LOGIN: `/login`,
-  FAVORITES: `/my-list`
+  FAVORITES: `/favorites`
 };
 
 export const OFFERS_SORT_ITEMS = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
-export const cities = [
+export const CITIES = [
   `Paris`,
   `Cologne`,
   `Brussels`,
@@ -81,4 +81,8 @@ export const FORM_PARAMS = {
   MIN_TEXTAREA_VALUE: 50,
   MAX_TEXTAREA_VALUE: 300,
   MIN_STARS_CHECKED: 1
+};
+
+export const REVIEWS_PARAMS = {
+  MAX_REVIEWS: 10
 };

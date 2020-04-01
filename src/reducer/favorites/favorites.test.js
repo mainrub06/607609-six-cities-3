@@ -7,7 +7,7 @@ const mockId = `1`;
 const mockOperationAdd = `1`;
 const initialState = {
   isError: false,
-  favoritesData: null
+  favorites: null
 };
 
 const api = createAPI();
