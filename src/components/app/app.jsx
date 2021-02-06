@@ -1,22 +1,30 @@
-import React, {PureComponent} from "react";
-import Main from "../main/main.jsx";
-import OfferDetail from "../offer-detail/offer-detail.jsx";
+import React, { PureComponent } from "react";
+import Main from "../main/main";
+import OfferDetail from "../offer-detail/offer-detail";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../reducer/main/main";
-import {Operation as UserOperation} from "../../reducer/user/user";
-import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites";
-import {ActionCreator as DataAC} from "../../reducer/data/data";
-import {Router, Route, Switch, Redirect} from "react-router-dom";
-import {LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES} from "../../const";
-import {connect} from "react-redux";
-import {getActiveOfferId} from "../../reducer/main/selectors";
-import {getCitiesNames, getCity, getOffersMain, getActiveFilter} from "../../reducer/data/selectors";
-import {getAuthStatus, getUserInfo} from "../../reducer/user/selectors";
-import {getResponseStatusFavorite, getFavoritesData} from "../../reducer/favorites/selectors";
-import SignIn from "../sign-in/sign-in.jsx";
+import { ActionCreator } from "../../reducer/main/main";
+import { Operation as UserOperation } from "../../reducer/user/user";
+import { Operation as FavoritesOperation } from "../../reducer/favorites/favorites";
+import { ActionCreator as DataAC } from "../../reducer/data/data";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { LINKS, AUTHORIZATION_STATUS, OFFERS_CSS_CLASSES } from "../../const";
+import { connect } from "react-redux";
+import { getActiveOfferId } from "../../reducer/main/selectors";
+import {
+  getCitiesNames,
+  getCity,
+  getOffersMain,
+  getActiveFilter,
+} from "../../reducer/data/selectors";
+import { getAuthStatus, getUserInfo } from "../../reducer/user/selectors";
+import {
+  getResponseStatusFavorite,
+  getFavoritesData,
+} from "../../reducer/favorites/selectors";
+import SignIn from "../sign-in/sign-in";
 import history from "../../history";
-import Favorites from "../favorites/favorites.jsx";
-import PrivateRoute from "../private-route/private-route.jsx";
+import Favorites from "../favorites/favorites";
+import PrivateRoute from "../private-route/private-route";
 
 class App extends PureComponent {
   constructor(props) {
@@ -30,7 +38,7 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    const {getAuthorizationStatus} = this.props;
+    const { getAuthorizationStatus } = this.props;
     getAuthorizationStatus();
   }
 
@@ -43,14 +51,20 @@ class App extends PureComponent {
   }
 
   handleClickFavoriteButton(id, bool) {
-    const {getUpdatedFavoriteOffer, changeFavoriteFlag, activeCity, getFavoritesServerData, authStatus} = this.props;
+    const {
+      getUpdatedFavoriteOffer,
+      changeFavoriteFlag,
+      activeCity,
+      getFavoritesServerData,
+      authStatus,
+    } = this.props;
 
     if (authStatus === AUTHORIZATION_STATUS.NO_AUTH) {
       this.redirectToLoginPage();
     }
 
     if (authStatus === AUTHORIZATION_STATUS.AUTH) {
-      changeFavoriteFlag({id, isFavorite: bool, city: activeCity.name});
+      changeFavoriteFlag({ id, isFavorite: bool, city: activeCity.name });
       getUpdatedFavoriteOffer(id, bool);
       getFavoritesServerData();
     }
@@ -65,25 +79,36 @@ class App extends PureComponent {
   }
 
   renderIndexPage() {
-    const {offers, onChangeCity, onChangeFilterType, activeFilter, authStatus, citiesNames, activeCity, userInfo, favoriteResponse, activeOfferId} = this.props;
+    const {
+      offers,
+      onChangeCity,
+      onChangeFilterType,
+      activeFilter,
+      authStatus,
+      citiesNames,
+      activeCity,
+      userInfo,
+      favoriteResponse,
+      activeOfferId,
+    } = this.props;
 
     if (citiesNames !== null) {
       return (
         <Main
-          onOfferClick = {this.handleOfferClick}
-          handleOfferHover = {this.handleOfferHover}
-          activeOfferId = {activeOfferId}
-          handleClickFavoriteButton = {this.handleClickFavoriteButton}
-          onChangeCity = {onChangeCity}
-          offers = {offers}
-          activeCity = {activeCity}
-          onChangeFilterType = {onChangeFilterType}
-          activeFilter = {activeFilter}
-          citiesNames = {citiesNames}
-          authStatus = {authStatus}
-          userInfo = {userInfo}
-          favoriteResponse = {favoriteResponse}
-          offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
+          onOfferClick={this.handleOfferClick}
+          handleOfferHover={this.handleOfferHover}
+          activeOfferId={activeOfferId}
+          handleClickFavoriteButton={this.handleClickFavoriteButton}
+          onChangeCity={onChangeCity}
+          offers={offers}
+          activeCity={activeCity}
+          onChangeFilterType={onChangeFilterType}
+          activeFilter={activeFilter}
+          citiesNames={citiesNames}
+          authStatus={authStatus}
+          userInfo={userInfo}
+          favoriteResponse={favoriteResponse}
+          offersCssClasses={OFFERS_CSS_CLASSES.MAIN}
         />
       );
     }
@@ -91,18 +116,18 @@ class App extends PureComponent {
   }
 
   renderDetailPage() {
-    const {authStatus, userInfo, citiesNames, favoriteResponse} = this.props;
+    const { authStatus, userInfo, citiesNames, favoriteResponse } = this.props;
 
     if (citiesNames !== null) {
       return (
         <OfferDetail
-          onOfferClick = {this.handleOfferClick}
-          handleOfferHover = {this.handleOfferHover}
-          handleClickFavoriteButton = {this.handleClickFavoriteButton}
-          authStatus = {authStatus}
-          userInfo = {userInfo}
-          offersCssClasses = {OFFERS_CSS_CLASSES.OFFER_DETAIL}
-          favoriteResponse = {favoriteResponse}
+          onOfferClick={this.handleOfferClick}
+          handleOfferHover={this.handleOfferHover}
+          handleClickFavoriteButton={this.handleClickFavoriteButton}
+          authStatus={authStatus}
+          userInfo={userInfo}
+          offersCssClasses={OFFERS_CSS_CLASSES.OFFER_DETAIL}
+          favoriteResponse={favoriteResponse}
         />
       );
     }
@@ -110,47 +135,56 @@ class App extends PureComponent {
   }
 
   renderFavoritesPage() {
-    const {userInfo, favorites, favoriteResponse, getFavoritesServerData, citiesNames} = this.props;
+    const {
+      userInfo,
+      favorites,
+      favoriteResponse,
+      getFavoritesServerData,
+      citiesNames,
+    } = this.props;
 
     return (
       <Favorites
-        handleClickFavoriteButton = {this.handleClickFavoriteButton}
-        onOfferClick = {this.handleOfferClick}
-        favorites = {favorites}
-        userInfo = {userInfo}
-        favoriteResponse = {favoriteResponse}
-        offersCssClasses = {OFFERS_CSS_CLASSES.FAVORITE}
-        getFavoritesServerData = {getFavoritesServerData}
-        citiesNames = {citiesNames}
+        handleClickFavoriteButton={this.handleClickFavoriteButton}
+        onOfferClick={this.handleOfferClick}
+        favorites={favorites}
+        userInfo={userInfo}
+        favoriteResponse={favoriteResponse}
+        offersCssClasses={OFFERS_CSS_CLASSES.FAVORITE}
+        getFavoritesServerData={getFavoritesServerData}
+        citiesNames={citiesNames}
       />
-
     );
   }
 
   renderLoginPage() {
-    const {login, authStatus} = this.props;
+    const { login, authStatus } = this.props;
 
-    return this.isUserAuth(authStatus) ? <Redirect to = {{pathname: LINKS.INDEX}}/> : <SignIn onSubmitAuth = {login} handleAuthToggle = {this.handleAuthToggle}/>;
+    return this.isUserAuth(authStatus) ? (
+      <Redirect to={{ pathname: LINKS.INDEX }} />
+    ) : (
+      <SignIn onSubmitAuth={login} handleAuthToggle={this.handleAuthToggle} />
+    );
   }
 
   render() {
     return (
-      <Router history = {history}>
+      <Router history={history}>
         <Switch>
-          <Route exact path = {LINKS.LOGIN}>
+          <Route exact path={LINKS.LOGIN}>
             {this.renderLoginPage()}
           </Route>
-          <Route exact path = {LINKS.INDEX}>
+          <Route exact path={LINKS.INDEX}>
             {this.renderIndexPage()}
           </Route>
-          <Route exact path = {`${LINKS.OFFER_DETAIL}:id`}>
+          <Route exact path={`${LINKS.OFFER_DETAIL}:id`}>
             {this.renderDetailPage()}
           </Route>
           <PrivateRoute
             exact
-            path= {LINKS.FAVORITES}
-            redirectLink = {LINKS.LOGIN}
-            render = {() => {
+            path={LINKS.FAVORITES}
+            redirectLink={LINKS.LOGIN}
+            render={() => {
               return this.renderFavoritesPage();
             }}
           />
@@ -161,54 +195,48 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  citiesNames: PropTypes.arrayOf(
-      PropTypes.string
-  ),
+  citiesNames: PropTypes.arrayOf(PropTypes.string),
   offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.string,
-        photos: PropTypes.arrayOf(
-            PropTypes.shape({
-              alt: PropTypes.string,
-              src: PropTypes.string
-            })
-        ),
-        previewImage: PropTypes.shape({
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.string,
+      photos: PropTypes.arrayOf(
+        PropTypes.shape({
           alt: PropTypes.string,
-          src: PropTypes.string
+          src: PropTypes.string,
+        })
+      ),
+      previewImage: PropTypes.shape({
+        alt: PropTypes.string,
+        src: PropTypes.string,
+      }),
+      isPremium: PropTypes.bool,
+      type: PropTypes.string,
+      rate: PropTypes.number,
+      bedrooms: PropTypes.number,
+      maxAdults: PropTypes.number,
+      description: PropTypes.string,
+      facilities: PropTypes.arrayOf(PropTypes.string),
+      isFavorite: PropTypes.bool,
+      owner: PropTypes.shape({
+        name: PropTypes.string,
+        super: PropTypes.bool,
+        img: PropTypes.shape({
+          src: PropTypes.string,
+          alt: PropTypes.string,
         }),
-        isPremium: PropTypes.bool,
-        type: PropTypes.string,
-        rate: PropTypes.number,
-        bedrooms: PropTypes.number,
-        maxAdults: PropTypes.number,
-        description: PropTypes.string,
-        facilities: PropTypes.arrayOf(
-            PropTypes.string
-        ),
-        isFavorite: PropTypes.bool,
-        owner: PropTypes.shape({
-          name: PropTypes.string,
-          super: PropTypes.bool,
-          img: PropTypes.shape({
-            src: PropTypes.string,
-            alt: PropTypes.string
-          })
+      }),
+      city: PropTypes.shape({
+        name: PropTypes.string,
+        location: PropTypes.shape({
+          latitude: PropTypes.number,
+          longitude: PropTypes.number,
+          zoom: PropTypes.number,
         }),
-        city: PropTypes.shape({
-          name: PropTypes.string,
-          location: PropTypes.shape({
-            latitude: PropTypes.number,
-            longitude: PropTypes.number,
-            zoom: PropTypes.number
-          })
-        }),
-        location: PropTypes.arrayOf(
-            PropTypes.number
-        )
-      })
+      }),
+      location: PropTypes.arrayOf(PropTypes.number),
+    })
   ),
   onChangeCity: PropTypes.func.isRequired,
   activeCity: PropTypes.shape({
@@ -217,7 +245,7 @@ App.propTypes = {
       latitude: PropTypes.number,
       longitude: PropTypes.number,
       zoom: PropTypes.number,
-    })
+    }),
   }),
   onChangeFilterType: PropTypes.func.isRequired,
   activeFilter: PropTypes.string,
@@ -227,7 +255,7 @@ App.propTypes = {
     userEmail: PropTypes.string,
     userName: PropTypes.string,
     userAvatar: PropTypes.string,
-    isPro: PropTypes.bool
+    isPro: PropTypes.bool,
   }),
   login: PropTypes.func,
   getUpdatedFavoriteOffer: PropTypes.func,
@@ -235,50 +263,46 @@ App.propTypes = {
   favoriteResponse: PropTypes.bool,
   changeFavoriteFlag: PropTypes.func,
   favorites: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
-        photos: PropTypes.arrayOf(
-            PropTypes.shape({
-              alt: PropTypes.string,
-              src: PropTypes.string
-            })
-        ),
-        previewImage: PropTypes.shape({
-          alt: PropTypes.string.isRequired,
-          src: PropTypes.string.isRequired
-        }).isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        type: PropTypes.string.isRequired,
-        rate: PropTypes.number.isRequired,
-        bedrooms: PropTypes.number,
-        maxAdults: PropTypes.number,
-        description: PropTypes.string,
-        facilities: PropTypes.arrayOf(
-            PropTypes.string
-        ),
-        isFavorite: PropTypes.bool,
-        owner: PropTypes.shape({
-          name: PropTypes.string,
-          super: PropTypes.bool,
-          img: PropTypes.shape({
-            src: PropTypes.string,
-            alt: PropTypes.string
-          })
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.string.isRequired,
+      photos: PropTypes.arrayOf(
+        PropTypes.shape({
+          alt: PropTypes.string,
+          src: PropTypes.string,
+        })
+      ),
+      previewImage: PropTypes.shape({
+        alt: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+      }).isRequired,
+      isPremium: PropTypes.bool.isRequired,
+      type: PropTypes.string.isRequired,
+      rate: PropTypes.number.isRequired,
+      bedrooms: PropTypes.number,
+      maxAdults: PropTypes.number,
+      description: PropTypes.string,
+      facilities: PropTypes.arrayOf(PropTypes.string),
+      isFavorite: PropTypes.bool,
+      owner: PropTypes.shape({
+        name: PropTypes.string,
+        super: PropTypes.bool,
+        img: PropTypes.shape({
+          src: PropTypes.string,
+          alt: PropTypes.string,
         }),
-        city: PropTypes.shape({
-          name: PropTypes.string,
-          location: PropTypes.shape({
-            latitude: PropTypes.number,
-            longitude: PropTypes.number,
-            zoom: PropTypes.number
-          })
+      }),
+      city: PropTypes.shape({
+        name: PropTypes.string,
+        location: PropTypes.shape({
+          latitude: PropTypes.number,
+          longitude: PropTypes.number,
+          zoom: PropTypes.number,
         }),
-        location: PropTypes.arrayOf(
-            PropTypes.number
-        )
-      })
+      }),
+      location: PropTypes.arrayOf(PropTypes.number),
+    })
   ),
   getFavoritesServerData: PropTypes.func,
   offersCssClasses: PropTypes.shape({
@@ -288,11 +312,11 @@ App.propTypes = {
     ITEM_INFO: PropTypes.string.isRequired,
     IMAGE_SIZE: PropTypes.shape({
       WIDTH: PropTypes.number.isRequired,
-      HEIGHT: PropTypes.number.isRequired
-    })
+      HEIGHT: PropTypes.number.isRequired,
+    }),
   }),
   onHoverOffer: PropTypes.func.isRequired,
-  activeOfferId: PropTypes.string
+  activeOfferId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
@@ -312,7 +336,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(city));
   },
   onChangeFilterType(type) {
-    dispatch(ActionCreator.setActiveFilter({activeFilterItem: type}));
+    dispatch(ActionCreator.setActiveFilter({ activeFilterItem: type }));
   },
   getAuthorizationStatus() {
     dispatch(UserOperation.getAuthorizationStatus());
@@ -330,9 +354,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(FavoritesOperation.getFavoritesData());
   },
   onHoverOffer(id) {
-    dispatch(ActionCreator.setActiveOfferId({activeOfferId: id}));
-  }
+    dispatch(ActionCreator.setActiveOfferId({ activeOfferId: id }));
+  },
 });
 
-export {App};
+export { App };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
