@@ -1,12 +1,17 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import OfferSort from "./offers-sort.jsx";
-import {OFFERS_SORT_ITEMS} from "../../const";
+import { OFFERS_SORT_ITEMS } from "../../const";
 
 it(`Render snapshot <OfferSort/>`, () => {
   const tree = renderer
     .create(
-        <OfferSort handleItemChange = {() => {}} isActiveFlag = {false} activeFilter = {OFFERS_SORT_ITEMS[0]} onChangeFilterType={() => {}} />
+      <OfferSort
+        handleItemChange={() => {}}
+        isActiveFlag={false}
+        activeFilter={OFFERS_SORT_ITEMS[0]}
+        onChangeFilterType={() => {}}
+      />
     )
     .toJSON();
 

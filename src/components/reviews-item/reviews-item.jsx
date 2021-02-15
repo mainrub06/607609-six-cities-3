@@ -1,8 +1,8 @@
 import React from "react";
-import {getStarsFromNum} from "../../utils";
+import { getStarsFromNum } from "../../utils";
 import PropTypes from "prop-types";
 
-const ReviewsItem = ({review}) => {
+const ReviewsItem = ({ review }) => {
   if (review) {
     return (
       <li className="reviews__item">
@@ -21,7 +21,7 @@ const ReviewsItem = ({review}) => {
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{width: getStarsFromNum(review.rate)}}></span>
+              <span style={{ width: getStarsFromNum(review.rate) }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
@@ -46,9 +46,9 @@ ReviewsItem.propTypes = {
       id: PropTypes.number.isRequired,
       isPro: PropTypes.bool.isRequired,
       name: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired
-    })
-  })
+      avatar: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 export default ReviewsItem;

@@ -3,7 +3,7 @@ import {
   getCityObj,
   getOffers,
   getAllOffers,
-  getOfferById
+  getOfferById,
 } from "../../utils";
 
 export const getloadCityOffers = (state) => state.data.loadCityOffers;
@@ -16,11 +16,17 @@ export const getCity = (state) => {
 
 export const getActiveFilter = (state) => state.main.activeFilterItem;
 
-export const getOffersMain = (state) => getFilteredOffers(state.main.activeFilterItem, getOffers(state.data.loadCityOffers, state.main.cityName));
+export const getOffersMain = (state) =>
+  getFilteredOffers(
+    state.main.activeFilterItem,
+    getOffers(state.data.loadCityOffers, state.main.cityName)
+  );
 
 export const getNearOffers = (state) => {
   if (state.data.nearOffers) {
-    return state.data.nearOffers.map((id) => getAllOffers(state.data.loadCityOffers).find((offer) => offer.id === id));
+    return state.data.nearOffers.map((id) =>
+      getAllOffers(state.data.loadCityOffers).find((offer) => offer.id === id)
+    );
   }
   return null;
 };

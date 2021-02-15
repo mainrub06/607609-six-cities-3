@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
-import Main from "../main/main";
-import OfferDetail from "../offer-detail/offer-detail";
+import Main from "../main/main.jsx";
+import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
-import { ActionCreator } from "../../reducer/main/main";
+import { ActionCreator } from "../../reducer/main/main.js";
 import { Operation as UserOperation } from "../../reducer/user/user";
 import { Operation as FavoritesOperation } from "../../reducer/favorites/favorites";
 import { ActionCreator as DataAC } from "../../reducer/data/data";
@@ -21,10 +21,10 @@ import {
   getResponseStatusFavorite,
   getFavoritesData,
 } from "../../reducer/favorites/selectors";
-import SignIn from "../sign-in/sign-in";
+import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history";
-import Favorites from "../favorites/favorites";
-import PrivateRoute from "../private-route/private-route";
+import Favorites from "../favorites/favorites.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
 
 class App extends PureComponent {
   constructor(props) {

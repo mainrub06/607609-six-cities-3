@@ -1,30 +1,29 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Offer from "./offer.jsx";
-import {OFFERS_CSS_CLASSES} from "../../const";
+import { OFFERS_CSS_CLASSES } from "../../const";
 import PLACE_MOCK from "../../mock/offers";
-
 
 const MOCK_EL = PLACE_MOCK[0];
 const onHoverArticle = jest.fn((data) => data);
 const onClickArticleName = jest.fn((data) => data);
 
 Enzyme.configure({
-  adapter: new Adapter()
+  adapter: new Adapter(),
 });
 
 it(`end-to-end test <Offer/> event: mouseover <article>`, () => {
   const OfferEl = shallow(
-      <Offer
-        offer={MOCK_EL}
-        onOfferClick={() => {}}
-        handleOfferHover={() => {
-          onHoverArticle(MOCK_EL.id);
-        }}
-        handleClickFavoriteButton = {() => {}}
-        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
-      />
+    <Offer
+      offer={MOCK_EL}
+      onOfferClick={() => {}}
+      handleOfferHover={() => {
+        onHoverArticle(MOCK_EL.id);
+      }}
+      handleClickFavoriteButton={() => {}}
+      offersCssClasses={OFFERS_CSS_CLASSES.MAIN}
+    />
   );
 
   OfferEl.simulate(`mouseover`);
@@ -34,15 +33,15 @@ it(`end-to-end test <Offer/> event: mouseover <article>`, () => {
 
 it(`end-to-end test <Offer/> event: click on element with css-class place-card__name`, () => {
   const OfferEl = shallow(
-      <Offer
-        offer={MOCK_EL}
-        onOfferClick={() => {
-          onClickArticleName(MOCK_EL.id);
-        }}
-        handleOfferHover={() => {}}
-        handleClickFavoriteButton = {() => {}}
-        offersCssClasses = {OFFERS_CSS_CLASSES.MAIN}
-      />
+    <Offer
+      offer={MOCK_EL}
+      onOfferClick={() => {
+        onClickArticleName(MOCK_EL.id);
+      }}
+      handleOfferHover={() => {}}
+      handleClickFavoriteButton={() => {}}
+      offersCssClasses={OFFERS_CSS_CLASSES.MAIN}
+    />
   );
 
   const name = OfferEl.find(`.place-card__name`);

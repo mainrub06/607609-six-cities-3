@@ -1,24 +1,24 @@
-import {extend} from "../../utils.js";
+import { extend } from "../../utils";
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`
+  NO_AUTH: `NO_AUTH`,
 };
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  userInfo: null
+  userInfo: null,
 };
 
 const ActionType = {
-  SET_AUTHORIZATION_STATUS: `SET_AUTHORIZATION_STATUS`
+  SET_AUTHORIZATION_STATUS: `SET_AUTHORIZATION_STATUS`,
 };
 
 const ActionCreator = {
   setAuthorizationStatus: (value) => ({
     type: ActionType.SET_AUTHORIZATION_STATUS,
-    payload: value
-  })
+    payload: value,
+  }),
 };
 
 const Operation = {
@@ -27,10 +27,10 @@ const Operation = {
       .get(`/login`)
       .then((response) => {
         dispatch(
-            ActionCreator.setAuthorizationStatus({
-              authorizationStatus: AuthorizationStatus.AUTH,
-              userInfo: response.data
-            })
+          ActionCreator.setAuthorizationStatus({
+            authorizationStatus: AuthorizationStatus.AUTH,
+            userInfo: response.data,
+          })
         );
       })
       .catch((err) => err);
@@ -39,17 +39,17 @@ const Operation = {
     return api
       .post(`/login`, {
         email: authData.email,
-        password: authData.password
+        password: authData.password,
       })
       .then((response) => {
         dispatch(
-            ActionCreator.setAuthorizationStatus({
-              authorizationStatus: AuthorizationStatus.AUTH,
-              userInfo: response.data
-            })
+          ActionCreator.setAuthorizationStatus({
+            authorizationStatus: AuthorizationStatus.AUTH,
+            userInfo: response.data,
+          })
         );
       });
-  }
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -60,4 +60,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, Operation, ActionType, ActionCreator};
+export { reducer, Operation, ActionType, ActionCreator };
