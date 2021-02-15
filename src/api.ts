@@ -1,17 +1,17 @@
-import axios from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 
 export const createAPI = () => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-3.appspot.com/six-cities`,
     timeout: 5000,
-    withCredentials: true
+    withCredentials: true,
   });
 
-  const onSuccess = (response) => {
+  const onSuccess = (response: AxiosResponse) => {
     return response;
   };
 
-  const onFail = (err) => {
+  const onFail = (err: AxiosError) => {
     throw err;
   };
 

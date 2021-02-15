@@ -17,6 +17,7 @@
     "@babel/preset-env": "7.12.13",
     "@babel/preset-react": "7.12.13",
     "@babel/preset-typescript": "^7.12.13",
+    "@types/history": "4.7.8",
     "@types/react": "^17.0.1",
     "axios-mock-adapter": "1.17.0",
     "babel-jest": "25.1.0",
