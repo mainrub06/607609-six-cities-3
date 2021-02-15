@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render snapshot <ReviewsList/> 1`] = `
+exports[`Testing reviews Render snapshot <ReviewItem/> 1`] = `null`;
+
+exports[`Testing reviews Render snapshot <ReviewList/> 1`] = `
 <ul
   className="reviews__list"
 >

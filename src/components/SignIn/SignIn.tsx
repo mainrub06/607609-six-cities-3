@@ -1,27 +1,42 @@
-import React, { PureComponent, createRef } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { LINKS } from "../../const";
-import PropTypes from "prop-types";
 
-class SignIn extends PureComponent {
-  constructor(props) {
+interface IProps {
+  onSubmitAuth: Function;
+}
+
+interface IState {
+  email: string;
+  password: string;
+}
+
+class SignIn extends PureComponent<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
 
-    this.emailRef = createRef();
-    this.passwordRef = createRef();
+    this.state = {
+      email: "",
+      password: "",
+    };
 
+    this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(evt) {
+  handleChangeInput(event: React.ChangeEvent<HTMLInputElement>): void {
+    this.setState({
+      [event.currentTarget.name]: event.currentTarget.value,
+    } as { [K in keyof IState]: IState[K] });
+  }
+
+  handleSubmit(evt: React.SyntheticEvent): void {
+    const { onSubmitAuth } = this.props;
     evt.preventDefault();
 
-    const { onSubmitAuth } = this.props;
-
-    onSubmitAuth({
-      email: this.emailRef.current.value,
-      password: this.passwordRef.current.value,
-    });
+    if (this.state.email && this.state.email) {
+      onSubmitAuth(this.state);
+    }
   }
 
   render() {
@@ -75,23 +90,23 @@ class SignIn extends PureComponent {
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
-                    ref={this.emailRef}
+                    onChange={this.handleChangeInput}
                     className="login__input form__input"
                     type="email"
                     name="email"
                     placeholder="Email"
-                    required=""
+                    required
                   />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
                   <input
-                    ref={this.passwordRef}
+                    onChange={this.handleChangeInput}
                     className="login__input form__input"
                     type="password"
                     name="password"
                     placeholder="Password"
-                    required=""
+                    required
                   />
                 </div>
                 <button
@@ -119,9 +134,5 @@ class SignIn extends PureComponent {
     );
   }
 }
-
-SignIn.propTypes = {
-  onSubmitAuth: PropTypes.func.isRequired,
-};
 
 export default SignIn;

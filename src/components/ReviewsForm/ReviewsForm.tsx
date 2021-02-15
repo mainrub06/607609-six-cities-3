@@ -1,15 +1,19 @@
 import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
 import { FORM_PARAMS, REQUEST_STATUS } from "../../const";
+import { IReviewForm } from "../../types/Reviews/ReviewForm";
 
-class ReviewsForm extends PureComponent {
-  constructor(props) {
+interface IProps extends IReviewForm {}
+
+class ReviewsForm extends PureComponent<IProps, {}> {
+  constructor(props: IProps) {
     super(props);
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleFormSubmit(evt) {
+  // todo типы для методов
+
+  handleFormSubmit(evt: React.SyntheticEvent<HTMLElement>) {
     const {
       handleSubmitFeedback,
       activeHotelId,
@@ -97,17 +101,5 @@ class ReviewsForm extends PureComponent {
     );
   }
 }
-
-ReviewsForm.propTypes = {
-  activeHotelId: PropTypes.string.isRequired,
-  handleSubmitFeedback: PropTypes.func,
-  reviewsResponse: PropTypes.number,
-  isButtonActive: PropTypes.bool.isRequired,
-  resetForm: PropTypes.func.isRequired,
-  handleTextareaChange: PropTypes.func.isRequired,
-  handleRadioChange: PropTypes.func.isRequired,
-  rateData: PropTypes.string,
-  textData: PropTypes.string,
-};
 
 export default ReviewsForm;

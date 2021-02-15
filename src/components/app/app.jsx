@@ -21,7 +21,7 @@ import {
   getResponseStatusFavorite,
   getFavoritesData,
 } from "../../reducer/favorites/selectors";
-import SignIn from "../sign-in/sign-in.jsx";
+import SignIn from "../SignIn/SignIn";
 import history from "../../history";
 import Favorites from "../favorites/favorites.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";

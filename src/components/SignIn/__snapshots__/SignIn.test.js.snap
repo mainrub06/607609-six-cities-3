@@ -89,8 +89,9 @@ exports[`Render snapshot <SignIn/> 1`] = `
             <input
               className="login__input form__input"
               name="email"
+              onChange={[Function]}
               placeholder="Email"
-              required=""
+              required={true}
               type="email"
             />
           </div>
@@ -105,8 +106,9 @@ exports[`Render snapshot <SignIn/> 1`] = `
             <input
               className="login__input form__input"
               name="password"
+              onChange={[Function]}
               placeholder="Password"
-              required=""
+              required={true}
               type="password"
             />
           </div>

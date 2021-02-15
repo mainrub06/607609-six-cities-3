@@ -1,8 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Reviews from "./Reviews.jsx";
-
-const activeHotelId = `1`;
+import ReviewList from "./ReviewList";
+import ReviewItem from "./ReviewItem";
 
 const REVIEWS = [
   {
@@ -31,10 +30,16 @@ const REVIEWS = [
   },
 ];
 
-it(`Render snapshot <Reviews/>`, () => {
-  const tree = renderer
-    .create(<Reviews activeHotelId={activeHotelId} review={REVIEWS[0]} />)
-    .toJSON();
+describe(`Testing reviews`, () => {
+  it(`Render snapshot <ReviewList/>`, () => {
+    const tree = renderer.create(<ReviewList reviews={REVIEWS} />).toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`Render snapshot <ReviewItem/>`, () => {
+    const tree = renderer.create(<ReviewItem element={REVIEWS[0]} />).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });
