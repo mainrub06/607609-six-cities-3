@@ -67,7 +67,7 @@ class ReviewsForm extends PureComponent<IProps, {}> {
                   title={value}
                 >
                   <svg className="form__star-image" width="37" height="33">
-                    <use xlinkHref="#icon-star"></use>
+                    <use xlinkHref="#icon-star" />
                   </svg>
                 </label>
               </React.Fragment>
@@ -81,7 +81,7 @@ class ReviewsForm extends PureComponent<IProps, {}> {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"
-        ></textarea>
+        />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set{` `}

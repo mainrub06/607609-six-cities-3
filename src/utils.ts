@@ -216,7 +216,7 @@ export const getNearHotelsIdWithActiveHotel = (
     nearOffers.push(activeOffer);
     const nearOffersId = nearOffers.map((offer) => offer.id);
 
-    return nearOffersId;
+    return nearOffersId as any;
   }
   return null;
 };
@@ -228,7 +228,7 @@ export const getFallingSortByDate = (array: any) => {
       const dateB = new Date(b.date).getTime();
       const sorted = dateB - dateA;
 
-      return sorted;
+      return sorted as number;
     });
   }
   return null;

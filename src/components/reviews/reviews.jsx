@@ -1,6 +1,6 @@
 import React from "react";
 import ReviewsList from "../ReviewList/ReviewList";
-import ReviewsForm from "../ReviewsForm/ReviewsForm.jsx";
+import ReviewsForm from "../ReviewsForm/ReviewsForm.tsx";
 import withFormData from "../../hocs/with-form-data/with-form-data.jsx";
 import { AUTHORIZATION_STATUS } from "../../const";
 import PropTypes from "prop-types";
