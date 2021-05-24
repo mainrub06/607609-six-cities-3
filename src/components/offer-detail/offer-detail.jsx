@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { getStarsFromNum } from "../../utils";
 import { MAX_PHOTOS_OFFER_DETAIL } from "../../const";
-import Reviews from "../reviews/reviews.jsx";
+import Reviews from "../reviews/reviews.tsx";
 import Map from "../map/map.jsx";
 import OfferList from "../offers-list/offers-list.jsx";
 import { Link } from "react-router-dom";

@@ -1,19 +1,13 @@
 import { ChangeEvent } from "react";
 
-interface IEvent {
-  event: ChangeEvent<HTMLInputElement>;
-}
-
 export interface IReviewForm {
-  activeHotelId: string;
-  handleSubmitFeedback: Function;
-  reviewsResponse: number;
+  activeHotelId?: string;
+  handleSubmitFeedback?(): void;
+  reviewsResponse?: number;
+  resetForm?(): void;
   isButtonActive: boolean;
-  resetForm: Function;
-
-  // todo
-  handleTextareaChange: IEvent;
-  handleRadioChange: IEvent;
-  rateData: string;
+  handleTextareaChange(e: ChangeEvent<HTMLTextAreaElement>): void;
+  handleRadioChange(e: ChangeEvent<HTMLInputElement>): void;
+  rateData: string | number;
   textData: string;
 }

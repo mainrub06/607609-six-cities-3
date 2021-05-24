@@ -1,9 +1,26 @@
-import React, { PureComponent } from "react";
+import React, { ChangeEvent, PureComponent } from "react";
 import { FORM_PARAMS } from "../../const";
 
-const withFormData = (Component) => {
-  class withFormDataComponent extends PureComponent {
-    constructor(props) {
+interface IState {
+  rate: number | string;
+  text: string;
+  activeBtn: boolean;
+}
+
+export interface IWithFormData {
+  rateData: string | number;
+  textData: string;
+  isButtonActive: boolean;
+  handleTextareaChange(e: ChangeEvent<HTMLTextAreaElement>): void;
+  handleRadioChange(e: ChangeEvent<HTMLInputElement>): void;
+  resetForm(): void;
+}
+
+function withFormData<T extends IWithFormData>(
+  Component: React.ComponentType<T>
+) {
+  return class withFormDataComponent extends PureComponent<T, IState> {
+    constructor(props: T) {
       super(props);
 
       this.handleTextareaChange = this.handleTextareaChange.bind(this);
@@ -33,13 +50,13 @@ const withFormData = (Component) => {
       });
     }
 
-    handleRadioChange(evt) {
+    handleRadioChange(evt: ChangeEvent<HTMLInputElement>) {
       this.setState({
         rate: evt.target.value,
       });
     }
 
-    handleTextareaChange(evt) {
+    handleTextareaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
       evt.preventDefault();
       this.setState({
         text: evt.target.value,
@@ -68,11 +85,7 @@ const withFormData = (Component) => {
         />
       );
     }
-  }
-
-  withFormDataComponent.propTypes = {};
-
-  return withFormDataComponent;
-};
+  };
+}
 
 export default withFormData;

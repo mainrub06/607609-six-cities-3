@@ -1,17 +1,14 @@
 import React, { PureComponent } from "react";
 import { FORM_PARAMS, REQUEST_STATUS } from "../../const";
 import { IReviewForm } from "../../types/Reviews/ReviewForm";
+import { IFormWrapper } from "../reviews/reviews";
 
-interface IProps extends IReviewForm {}
-
-class ReviewsForm extends PureComponent<IProps, {}> {
-  constructor(props: IProps) {
+class ReviewsForm extends PureComponent<IReviewForm, {}> {
+  constructor(props: IReviewForm) {
     super(props);
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
-
-  // todo типы для методов
 
   handleFormSubmit(evt: React.SyntheticEvent<HTMLElement>) {
     const {
