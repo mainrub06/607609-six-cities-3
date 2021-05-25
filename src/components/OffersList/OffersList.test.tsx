@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import OfferList from "./offers-list.jsx";
+import OfferList from "./OffersList";
 import PLACE_MOCK from "../../mock/offers";
 import { OFFERS_CSS_CLASSES } from "../../const";
 import { MemoryRouter } from "react-router-dom";
@@ -15,6 +15,7 @@ it(`Render snapshot <OfferList/>`, () => {
           handleOfferHover={() => {}}
           onOfferClick={() => {}}
           offers={PLACE_MOCK}
+          cardsLength={10}
         />
       </MemoryRouter>
     )

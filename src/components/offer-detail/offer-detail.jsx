@@ -4,7 +4,7 @@ import { getStarsFromNum } from "../../utils";
 import { MAX_PHOTOS_OFFER_DETAIL } from "../../const";
 import Reviews from "../Reviews/Reviews.tsx";
 import Map from "../map/map.jsx";
-import OfferList from "../offers-list/offers-list.jsx";
+import OfferList from "../OffersList/OffersList.tsx";
 import { Link } from "react-router-dom";
 import { AUTHORIZATION_STATUS, LINKS, DETAIL_PAGE_PARAMS } from "../../const";
 import { Operation as DataOperation } from "../../reducer/data/data";

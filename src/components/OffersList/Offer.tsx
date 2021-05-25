@@ -5,18 +5,19 @@ import { LINKS } from "../../const";
 import { IOffer } from "../../types/offer";
 import { IConstCss } from "../../types/const-css";
 
-interface IProps {
-  isOfferDetailItem: boolean;
-  favoriteResponse: boolean;
+export interface IOfferProps {
+  isOfferDetailItem?: boolean;
+  favoriteResponse?: boolean;
   offer: IOffer;
   offersCssClasses: IConstCss;
   onOfferClick(firstArg: string): void;
   handleClickFavoriteButton(firstArg: string, secondArg: boolean): void;
   handleOfferHover(firstArg: string | null): void;
+  setIdState?(firstArg: string | null): void;
 }
 
-class Offer extends PureComponent<IProps, {}> {
-  constructor(props: IProps) {
+class Offer extends PureComponent<IOfferProps, {}> {
+  constructor(props: IOfferProps) {
     super(props);
     this.setFavoriteStatus = this.setFavoriteStatus.bind(this);
   }

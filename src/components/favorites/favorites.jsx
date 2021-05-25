@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { LINKS } from "../../const";
-import OfferList from "../offers-list/offers-list.jsx";
+import OfferList from "../OffersList/OffersList.tsx";
 
 class Favorites extends PureComponent {
   constructor(props) {
