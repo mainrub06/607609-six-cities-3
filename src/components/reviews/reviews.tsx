@@ -1,25 +1,26 @@
 import React from "react";
 import ReviewsList from "../ReviewList/ReviewList";
 import ReviewsForm from "../ReviewsForm/ReviewsForm";
-import withFormData, {
-  IWithFormData,
-} from "../../hocs/with-form-data/with-form-data";
+import withFormData from "../../hocs/with-form-data/with-form-data";
 import { AUTHORIZATION_STATUS } from "../../const";
 import { IReview } from "../../types/Reviews/Review";
-import { IReviewForm } from "../../types/Reviews/ReviewForm";
+import { IReviewForm, IReviewFormSubmit } from "../../types/Reviews/ReviewForm";
 
-export interface IFormWrapper extends IWithFormData {
+export interface IFormWrapper {
   activeHotelId: string;
-  handleSubmitFeedback(): void;
+  handleSubmitFeedback(
+    firstArg: IReviewFormSubmit,
+    secondArg: string | undefined
+  ): void;
   reviewsResponse: number;
 }
 
-interface IReviews extends IFormWrapper {
+interface IReviews extends IReviewForm {
   reviews: Array<IReview>;
   authStatus: string;
 }
 
-const ReviewsFormWrapper = withFormData<IReviewForm>(ReviewsForm);
+const ReviewsFormWrapper = withFormData<IFormWrapper>(ReviewsForm);
 
 const Reviews = ({
   reviews,

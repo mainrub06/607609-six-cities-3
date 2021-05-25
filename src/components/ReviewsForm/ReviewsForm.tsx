@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { FORM_PARAMS, REQUEST_STATUS } from "../../const";
 import { IReviewForm } from "../../types/Reviews/ReviewForm";
-import { IFormWrapper } from "../reviews/reviews";
 
 class ReviewsForm extends PureComponent<IReviewForm, {}> {
   constructor(props: IReviewForm) {

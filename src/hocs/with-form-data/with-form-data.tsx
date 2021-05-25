@@ -16,11 +16,14 @@ export interface IWithFormData {
   resetForm(): void;
 }
 
-function withFormData<T extends IWithFormData>(
-  Component: React.ComponentType<T>
-) {
-  return class withFormDataComponent extends PureComponent<T, IState> {
-    constructor(props: T) {
+/*
+Ниже приведен пример инкапсулирования типов в классе.
+Сам же HOC принимает только типы для сквозных пропсов.
+ */
+
+function withFormData<P>(Component: React.ComponentType<P & IWithFormData>) {
+  return class withFormDataComponent extends PureComponent<P, IState> {
+    constructor(props: P) {
       super(props);
 
       this.handleTextareaChange = this.handleTextareaChange.bind(this);
@@ -73,9 +76,10 @@ function withFormData<T extends IWithFormData>(
 
     render() {
       const { text, rate, activeBtn } = this.state;
+
       return (
         <Component
-          {...this.props}
+          {...(this.props as P)}
           rateData={rate}
           textData={text}
           isButtonActive={activeBtn}
