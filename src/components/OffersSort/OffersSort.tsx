@@ -1,13 +1,19 @@
 import React from "react";
 import { OFFERS_SORT_ITEMS } from "../../const";
-import PropTypes from "prop-types";
+
+interface IOffersSort {
+  activeFilter: string;
+  isActiveFlag: boolean;
+  onChangeFilterType(firstArg: string): void;
+  handleItemChange(firstArg: boolean): void;
+}
 
 const OffersSort = ({
   onChangeFilterType,
   activeFilter,
   isActiveFlag,
   handleItemChange,
-}) => (
+}: IOffersSort) => (
   <form
     className="places__sorting"
     action="#"
@@ -16,10 +22,10 @@ const OffersSort = ({
     onMouseEnter={() => handleItemChange(true)}
   >
     <span className="places__sorting-caption">Sort by</span>
-    <span className="places__sorting-type" tabIndex="0">
+    <span className="places__sorting-type" tabIndex={0}>
       {activeFilter}
       <svg className="places__sorting-arrow" width="7" height="4">
-        <use xlinkHref="#icon-arrow-select"></use>
+        <use xlinkHref="#icon-arrow-select" />
       </svg>
     </span>
 
@@ -34,7 +40,7 @@ const OffersSort = ({
           className={`${
             activeFilter === sortItem ? `places__option--active` : ``
           } places__option`}
-          tabIndex="0"
+          tabIndex={0}
           onClick={() => {
             onChangeFilterType(sortItem);
           }}
@@ -45,12 +51,5 @@ const OffersSort = ({
     </ul>
   </form>
 );
-
-OffersSort.propTypes = {
-  onChangeFilterType: PropTypes.func.isRequired,
-  activeFilter: PropTypes.string.isRequired,
-  isActiveFlag: PropTypes.bool.isRequired,
-  handleItemChange: PropTypes.func.isRequired,
-};
 
 export default OffersSort;

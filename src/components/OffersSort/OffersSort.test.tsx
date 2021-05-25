@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import OfferSort from "./offers-sort.jsx";
+import OfferSort from "./OffersSort";
 import { OFFERS_SORT_ITEMS } from "../../const";
 
 it(`Render snapshot <OfferSort/>`, () => {

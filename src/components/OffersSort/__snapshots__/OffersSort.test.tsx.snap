@@ -15,7 +15,7 @@ exports[`Render snapshot <OfferSort/> 1`] = `
   </span>
   <span
     className="places__sorting-type"
-    tabIndex="0"
+    tabIndex={0}
   >
     Popular
     <svg
@@ -34,28 +34,28 @@ exports[`Render snapshot <OfferSort/> 1`] = `
     <li
       className="places__option--active places__option"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Popular
     </li>
     <li
       className=" places__option"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: low to high
     </li>
     <li
       className=" places__option"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: high to low
     </li>
     <li
       className=" places__option"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Top rated first
     </li>

@@ -1,5 +1,5 @@
 import React from "react";
-import OffersSort from "../offers-sort/offers-sort.jsx";
+import OffersSort from "../OffersSort/OffersSort.tsx";
 import OfferList from "../OffersList/OffersList.tsx";
 import Map from "../map/map.jsx";
 import withActiveIndex from "../../hocs/with-active-index/with-active-index.tsx";
