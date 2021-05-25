@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Offer from "./offer.jsx";
+import Offer from "./Offer";
 import { OFFERS_CSS_CLASSES } from "../../const";
 import PLACE_MOCK from "../../mock/offers";
 
@@ -23,6 +23,8 @@ it(`end-to-end test <Offer/> event: mouseover <article>`, () => {
       }}
       handleClickFavoriteButton={() => {}}
       offersCssClasses={OFFERS_CSS_CLASSES.MAIN}
+      isOfferDetailItem={true}
+      favoriteResponse={true}
     />
   );
 
@@ -41,6 +43,8 @@ it(`end-to-end test <Offer/> event: click on element with css-class place-card__
       handleOfferHover={() => {}}
       handleClickFavoriteButton={() => {}}
       offersCssClasses={OFFERS_CSS_CLASSES.MAIN}
+      isOfferDetailItem={true}
+      favoriteResponse={true}
     />
   );
 

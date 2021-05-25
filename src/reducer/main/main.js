@@ -19,7 +19,7 @@ const ActionType = {
 
 const ActionCreator = {
   changeCity: (city) => ({
-    type: ActionType.CHENGE_CITY,
+    type: ActionType.CHANGE_CITY,
     payload: city,
   }),
   setActiveFilter: (type) => ({

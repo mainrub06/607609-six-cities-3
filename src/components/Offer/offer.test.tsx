@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Offer from "./offer.jsx";
+import Offer from "./Offer";
 import PLACE_MOCK from "../../mock/offers";
 import { OFFERS_CSS_CLASSES } from "../../const";
 import { MemoryRouter } from "react-router-dom";
@@ -15,6 +15,8 @@ it(`Render snapshot <Offer/>`, () => {
           onOfferClick={() => {}}
           handleOfferHover={() => {}}
           offer={PLACE_MOCK[1]}
+          isOfferDetailItem={true}
+          favoriteResponse={true}
         />
       </MemoryRouter>
     )
