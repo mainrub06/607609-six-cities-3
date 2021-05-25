@@ -1,7 +1,7 @@
 import React from "react";
 import ReviewsItem from "./ReviewItem";
 import { REVIEWS_PARAMS } from "../../const";
-import { IReview } from "../../types/reviews/review";
+import { IReview } from "../../types/reviews";
 
 interface IProps {
   reviews: Array<IReview>;

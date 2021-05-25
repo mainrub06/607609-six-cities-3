@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Favorites from "./favorites.jsx";
+import Favorites from "./Favorites.tsx";
 import PLACE_DETAIL_MOCK from "../../mock/offers-detail";
 import { OFFERS_CSS_CLASSES, CITIES } from "../../const";
 import { MemoryRouter } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React from "react";
 import { getStarsFromNum } from "../../utils";
-import { IReview } from "../../types/reviews/review";
+import { IReview } from "../../types/reviews";
 
 interface IProps {
   review: IReview;

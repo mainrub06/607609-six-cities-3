@@ -23,7 +23,7 @@ import {
 } from "../../reducer/favorites/selectors";
 import SignIn from "../SignIn/SignIn";
 import history from "../../history";
-import Favorites from "../favorites/favorites.jsx";
+import Favorites from "../Favorites/Favorites.tsx";
 import PrivateRoute from "../PrivateRoute/PrivateRoute.tsx";
 
 class App extends PureComponent {

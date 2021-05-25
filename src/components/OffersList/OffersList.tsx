@@ -6,12 +6,12 @@ import { IConstCss } from "../../types/const-css";
 export interface IOfferListProps {
   isOfferDetailItem?: boolean;
   favoriteResponse?: boolean;
-  cardsLength: number;
+  cardsLength?: number;
   offers: IOffer[];
   offersCssClasses: IConstCss;
   onOfferClick(firstArg: string): void;
   handleClickFavoriteButton(firstArg: string, secondArg: boolean): void;
-  handleOfferHover(firstArg: string | null): void;
+  handleOfferHover?(firstArg: string | null): void;
   setIdState?(firstArg: string | null): void;
 }
 
