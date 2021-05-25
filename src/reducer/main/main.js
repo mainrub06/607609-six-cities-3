@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const ActionType = {
-  CHENGE_CITY: `CHENGE_CITY`,
+  CHANGE_CITY: `CHANGE_CITY`,
   SET_FILTERED_OFFERS: `SET_FILTERED_OFFERS`,
   SET_ACTIVE_OFFER_ID: `SET_ACTIVE_HOTEL_ID`,
 };
@@ -34,7 +34,7 @@ const ActionCreator = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHENGE_CITY:
+    case ActionType.CHANGE_CITY:
       return extend(state, { cityName: action.payload });
     case ActionType.SET_FILTERED_OFFERS:
       return extend(state, action.payload);

@@ -24,7 +24,7 @@ import {
 import SignIn from "../SignIn/SignIn";
 import history from "../../history";
 import Favorites from "../favorites/favorites.jsx";
-import PrivateRoute from "../private-route/private-route.jsx";
+import PrivateRoute from "../PrivateRoute/PrivateRoute.tsx";
 
 class App extends PureComponent {
   constructor(props) {

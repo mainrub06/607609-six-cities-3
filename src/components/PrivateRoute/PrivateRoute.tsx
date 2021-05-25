@@ -1,9 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { AUTHORIZATION_STATUS } from "../../const";
 import { getAuthStatus } from "../../reducer/user/selectors";
+import { IUser } from "../../types/user";
+
+interface IPrivateRoute {
+  render(): any;
+  path: string;
+  exact: boolean;
+  authorizationStatus: string;
+  redirectLink: string;
+}
 
 const PrivateRoute = ({
   render,
@@ -11,7 +19,7 @@ const PrivateRoute = ({
   exact,
   authorizationStatus,
   redirectLink,
-}) => {
+}: IPrivateRoute) => {
   return (
     <Route
       path={path}
@@ -27,15 +35,7 @@ const PrivateRoute = ({
   );
 };
 
-PrivateRoute.propTypes = {
-  render: PropTypes.func.isRequired,
-  path: PropTypes.string.isRequired,
-  exact: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  redirectLink: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: IUser) => ({
   authorizationStatus: getAuthStatus(state),
 });
 
