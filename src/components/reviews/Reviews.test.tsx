@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Reviews from "./Reviews.jsx";
+import Reviews from "./Reviews";
 
 const activeHotelId = `1`;
 
@@ -33,7 +33,15 @@ const REVIEWS = [
 
 it(`Render snapshot <Reviews/>`, () => {
   const tree = renderer
-    .create(<Reviews activeHotelId={activeHotelId} review={REVIEWS[0]} />)
+    .create(
+      <Reviews
+        activeHotelId={activeHotelId}
+        reviews={REVIEWS}
+        authStatus={"200"}
+        handleSubmitFeedback={() => {}}
+        reviewsResponse={200}
+      />
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -6,6 +6,7 @@
   "scripts": {
     "eslint": "eslint --ext .jsx --ext .js src/",
     "test": "npm run eslint && npm run test.jest",
+    "test.snap": "yarn run test.jest -u",
     "build": "webpack --mode production",
     "start": "webpack-dev-server",
     "test.jest": "jest"
@@ -38,6 +39,7 @@
     "webpack-dev-server": "3.10.3"
   },
   "dependencies": {
+    "@types/react-test-renderer": "^17.0.1",
     "axios": "0.19.2",
     "history": "4.10.1",
     "leaflet": "1.6.0",

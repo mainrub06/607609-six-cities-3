@@ -15,7 +15,7 @@ export interface IFormWrapper {
   reviewsResponse: number;
 }
 
-interface IReviews extends IReviewForm {
+interface IReviews extends IFormWrapper {
   reviews: Array<IReview>;
   authStatus: string;
 }

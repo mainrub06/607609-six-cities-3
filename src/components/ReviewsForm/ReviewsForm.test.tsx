@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import ReviewsForm from "./ReviewsForm.jsx";
+import ReviewsForm from "./ReviewsForm";
 
 const activeHotelId = `1`;
 
@@ -14,8 +14,9 @@ it(`Render snapshot <ReviewsForm/>`, () => {
         activeHotelId={activeHotelId}
         handleSubmitFeedback={() => {}}
         handleRadioChange={() => {}}
-        rateData={null}
-        textData={null}
+        rateData={""}
+        textData={""}
+        reviewsResponse={200}
       />
     )
     .toJSON();

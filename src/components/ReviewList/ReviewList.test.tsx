@@ -38,7 +38,7 @@ describe(`Testing reviews`, () => {
   });
 
   it(`Render snapshot <ReviewItem/>`, () => {
-    const tree = renderer.create(<ReviewItem element={REVIEWS[0]} />).toJSON();
+    const tree = renderer.create(<ReviewItem review={REVIEWS[0]} />).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

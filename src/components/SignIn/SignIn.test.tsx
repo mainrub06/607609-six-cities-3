@@ -7,7 +7,7 @@ it(`Render snapshot <SignIn/>`, () => {
   const tree = renderer
     .create(
       <MemoryRouter>
-        <SignIn onSubmitAuth={() => {}} handleAuthToggle={() => {}} />
+        <SignIn onSubmitAuth={() => {}} />
       </MemoryRouter>
     )
     .toJSON();
