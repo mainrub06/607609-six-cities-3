@@ -1,9 +1,10 @@
 import { IUser } from "./user";
+import { IReviewsReducer } from "./reviews";
 
 export interface IReducer {
   data: any;
   main: any;
   user: IUser;
-  reviews: any;
+  reviews: IReviewsReducer;
   favorites: any;
 }

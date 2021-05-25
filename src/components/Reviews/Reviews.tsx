@@ -3,11 +3,7 @@ import ReviewsList from "../ReviewList/ReviewList";
 import ReviewsForm from "../ReviewsForm/ReviewsForm";
 import withFormData from "../../hocs/with-form-data/with-form-data";
 import { AUTHORIZATION_STATUS } from "../../const";
-import { IReview } from "../../types/reviews/review";
-import {
-  IReviewForm,
-  IReviewFormSubmit,
-} from "../../types/reviews/review-form";
+import { IReview, IReviewFormSubmit } from "../../types/reviews";
 
 export interface IFormWrapper {
   activeHotelId: string;

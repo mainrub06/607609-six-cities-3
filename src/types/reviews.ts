@@ -1,5 +1,13 @@
 import { ChangeEvent } from "react";
 
+export interface IReview {
+  id: number;
+  rate: number;
+  comment: string;
+  date: string;
+  user: IUser;
+}
+
 export interface IReviewFormSubmit {
   rate: string | number;
   text: string;
@@ -18,4 +26,16 @@ export interface IReviewForm {
   handleRadioChange(e: ChangeEvent<HTMLInputElement>): void;
   rateData: string | number;
   textData: string;
+}
+
+export interface IUser {
+  id: number;
+  isPro: boolean;
+  name: string;
+  avatar: string;
+}
+
+export interface IReviewsReducer {
+  reviews: IReview[];
+  reviewResponse: string;
 }
