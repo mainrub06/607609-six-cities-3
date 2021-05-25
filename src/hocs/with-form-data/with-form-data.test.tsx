@@ -1,21 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withFormData from "./with-form-data.tsx";
+import withFormData from "./with-form-data";
 
-const MockComponent = (props) => {
-  const { children } = props;
-
-  return <div>{children}</div>;
-};
-
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-};
-
+const MockComponent = ({ children }: any) => <div>{children}</div>;
 const MockComponentWrapped = withFormData(MockComponent);
 
 it(`Render snapshot HOC <withFormData/> with mock Component`, () => {
