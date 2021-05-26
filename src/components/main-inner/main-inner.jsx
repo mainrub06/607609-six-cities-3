@@ -3,7 +3,7 @@ import OffersSort from "../OffersSort/OffersSort.tsx";
 import OfferList from "../OffersList/OffersList.tsx";
 import Map from "../map/map.jsx";
 import withActiveIndex from "../../hocs/with-active-index/with-active-index.tsx";
-import withActiveFlag from "../../hocs/with-active-flag/with-active-flag.jsx";
+import withActiveFlag from "../../hocs/with-active-flag/with-active-flag.tsx";
 import PropTypes from "prop-types";
 
 const OfferListWrapped = withActiveIndex(OfferList);

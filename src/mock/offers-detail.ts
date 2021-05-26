@@ -1,4 +1,4 @@
-const PLACE_DETAIL_MOCK = [
+const PLACE_DETAIL_MOCK: any = [
   {
     id: `0221552`,
     name: `Beautiful & luxurious apartment at great location`,
@@ -6,32 +6,32 @@ const PLACE_DETAIL_MOCK = [
     photos: [
       {
         alt: `ap-1`,
-        src: `img/apartment-01.jpg`
+        src: `img/apartment-01.jpg`,
       },
       {
         alt: `ap-2`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-3`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-4`,
-        src: `img/apartment-01.jpg`
+        src: `img/apartment-01.jpg`,
       },
       {
         alt: `ap-5`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-6`,
-        src: `img/apartment-03.jpg`
-      }
+        src: `img/apartment-03.jpg`,
+      },
     ],
     previewImage: {
       alt: `ap-1`,
-      src: `img/apartment-01.jpg`
+      src: `img/apartment-01.jpg`,
     },
     isPremium: true,
     type: `room`,
@@ -43,24 +43,24 @@ const PLACE_DETAIL_MOCK = [
       name: `Mr. Anderson`,
       img: {
         src: `img/avatar-max.jpg`,
-        alt: `Mr. Anderson Avatar`
+        alt: `Mr. Anderson Avatar`,
       },
-      super: true
+      super: true,
     },
     description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
-        cords: [52.369553943508, 4.85309666406198]
+        cords: [52.369553943508, 4.85309666406198],
       },
       {
         id: `4589512`,
-        cords: [52.3909553943508, 4.929309666406198]
+        cords: [52.3909553943508, 4.929309666406198],
       },
       {
         id: `7513497`,
-        cords: [52.3809553943508, 4.939309666406198]
-      }
+        cords: [52.3809553943508, 4.939309666406198],
+      },
     ],
     isFavorite: false,
     city: {
@@ -68,9 +68,9 @@ const PLACE_DETAIL_MOCK = [
       location: {
         latitude: 1.1,
         longitude: 1.2,
-        zoom: 13
-      }
-    }
+        zoom: 13,
+      },
+    },
   },
   {
     id: `5464564`,
@@ -79,32 +79,32 @@ const PLACE_DETAIL_MOCK = [
     photos: [
       {
         alt: `ap-1`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-2`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-3`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-4`,
-        src: `img/apartment-01.jpg`
+        src: `img/apartment-01.jpg`,
       },
       {
         alt: `ap-5`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-6`,
-        src: `img/apartment-03.jpg`
-      }
+        src: `img/apartment-03.jpg`,
+      },
     ],
     previewImage: {
       alt: `ap-1`,
-      src: `img/apartment-01.jpg`
+      src: `img/apartment-01.jpg`,
     },
     isPremium: true,
     type: `apartment`,
@@ -116,24 +116,24 @@ const PLACE_DETAIL_MOCK = [
       name: `Mr. Anderson`,
       img: {
         src: `img/avatar-max.jpg`,
-        alt: `Mr. Anderson Avatar`
+        alt: `Mr. Anderson Avatar`,
       },
-      super: false
+      super: false,
     },
     description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
-        cords: [52.369553943508, 4.85309666406198]
+        cords: [52.369553943508, 4.85309666406198],
       },
       {
         id: `4589512`,
-        cords: [52.3909553943508, 4.929309666406198]
+        cords: [52.3909553943508, 4.929309666406198],
       },
       {
         id: `7513497`,
-        cords: [52.3809553943508, 4.939309666406198]
-      }
+        cords: [52.3809553943508, 4.939309666406198],
+      },
     ],
     isFavorite: false,
     city: {
@@ -141,9 +141,9 @@ const PLACE_DETAIL_MOCK = [
       location: {
         latitude: 1.1,
         longitude: 1.2,
-        zoom: 13
-      }
-    }
+        zoom: 13,
+      },
+    },
   },
   {
     id: `4589512`,
@@ -152,32 +152,32 @@ const PLACE_DETAIL_MOCK = [
     photos: [
       {
         alt: `ap-1`,
-        src: `img/apartment-01.jpg`
+        src: `img/apartment-01.jpg`,
       },
       {
         alt: `ap-2`,
-        src: `img/apartment-01.jpg`
+        src: `img/apartment-01.jpg`,
       },
       {
         alt: `ap-3`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-4`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-5`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-6`,
-        src: `img/apartment-03.jpg`
-      }
+        src: `img/apartment-03.jpg`,
+      },
     ],
     previewImage: {
       alt: `ap-1`,
-      src: `img/apartment-01.jpg`
+      src: `img/apartment-01.jpg`,
     },
     isPremium: true,
     type: `hotel`,
@@ -189,24 +189,24 @@ const PLACE_DETAIL_MOCK = [
       name: `Mr. Anderson`,
       img: {
         src: `img/avatar-max.jpg`,
-        alt: `Mr. Anderson Avatar`
+        alt: `Mr. Anderson Avatar`,
       },
-      super: false
+      super: false,
     },
     description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
-        cords: [52.369553943508, 4.85309666406198]
+        cords: [52.369553943508, 4.85309666406198],
       },
       {
         id: `4589512`,
-        cords: [52.3909553943508, 4.929309666406198]
+        cords: [52.3909553943508, 4.929309666406198],
       },
       {
         id: `7513497`,
-        cords: [52.3809553943508, 4.939309666406198]
-      }
+        cords: [52.3809553943508, 4.939309666406198],
+      },
     ],
     isFavorite: false,
     city: {
@@ -214,9 +214,9 @@ const PLACE_DETAIL_MOCK = [
       location: {
         latitude: 1.1,
         longitude: 1.2,
-        zoom: 13
-      }
-    }
+        zoom: 13,
+      },
+    },
   },
   {
     id: `7513497`,
@@ -225,32 +225,32 @@ const PLACE_DETAIL_MOCK = [
     photos: [
       {
         alt: `ap-1`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-2`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-3`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-4`,
-        src: `img/apartment-01.jpg`
+        src: `img/apartment-01.jpg`,
       },
       {
         alt: `ap-5`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-6`,
-        src: `img/apartment-03.jpg`
-      }
+        src: `img/apartment-03.jpg`,
+      },
     ],
     previewImage: {
       alt: `ap-1`,
-      src: `img/apartment-01.jpg`
+      src: `img/apartment-01.jpg`,
     },
     isPremium: true,
     type: `hotel`,
@@ -265,30 +265,30 @@ const PLACE_DETAIL_MOCK = [
       `Wifi`,
       `Heating`,
       `Kitchen`,
-      `Cable TV`
+      `Cable TV`,
     ],
     owner: {
       name: `Mr. Anderson`,
       img: {
         src: `img/avatar-max.jpg`,
-        alt: `Mr. Anderson Avatar`
+        alt: `Mr. Anderson Avatar`,
       },
-      super: true
+      super: true,
     },
     description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
-        cords: [52.369553943508, 4.85309666406198]
+        cords: [52.369553943508, 4.85309666406198],
       },
       {
         id: `4589512`,
-        cords: [52.3909553943508, 4.929309666406198]
+        cords: [52.3909553943508, 4.929309666406198],
       },
       {
         id: `7513497`,
-        cords: [52.3809553943508, 4.939309666406198]
-      }
+        cords: [52.3809553943508, 4.939309666406198],
+      },
     ],
     isFavorite: false,
     city: {
@@ -296,9 +296,9 @@ const PLACE_DETAIL_MOCK = [
       location: {
         latitude: 1.1,
         longitude: 1.2,
-        zoom: 13
-      }
-    }
+        zoom: 13,
+      },
+    },
   },
   {
     id: `9431675`,
@@ -307,32 +307,32 @@ const PLACE_DETAIL_MOCK = [
     photos: [
       {
         alt: `ap-1`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-2`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-3`,
-        src: `img/apartment-03.jpg`
+        src: `img/apartment-03.jpg`,
       },
       {
         alt: `ap-4`,
-        src: `img/apartment-01.jpg`
+        src: `img/apartment-01.jpg`,
       },
       {
         alt: `ap-5`,
-        src: `img/apartment-02.jpg`
+        src: `img/apartment-02.jpg`,
       },
       {
         alt: `ap-6`,
-        src: `img/apartment-02.jpg`
-      }
+        src: `img/apartment-02.jpg`,
+      },
     ],
     previewImage: {
       alt: `ap-1`,
-      src: `img/apartment-01.jpg`
+      src: `img/apartment-01.jpg`,
     },
     isPremium: true,
     type: `house`,
@@ -344,24 +344,24 @@ const PLACE_DETAIL_MOCK = [
       name: `Mr. Anderson`,
       img: {
         src: `img/avatar-max.jpg`,
-        alt: `Mr. Anderson Avatar`
+        alt: `Mr. Anderson Avatar`,
       },
-      super: true
+      super: true,
     },
     description: `some mock info`,
     nearCords: [
       {
         id: `5464564`,
-        cords: [52.369553943508, 4.85309666406198]
+        cords: [52.369553943508, 4.85309666406198],
       },
       {
         id: `4589512`,
-        cords: [52.3909553943508, 4.929309666406198]
+        cords: [52.3909553943508, 4.929309666406198],
       },
       {
         id: `7513497`,
-        cords: [52.3809553943508, 4.939309666406198]
-      }
+        cords: [52.3809553943508, 4.939309666406198],
+      },
     ],
     isFavorite: false,
     city: {
@@ -369,10 +369,10 @@ const PLACE_DETAIL_MOCK = [
       location: {
         latitude: 1.1,
         longitude: 1.2,
-        zoom: 13
-      }
-    }
-  }
+        zoom: 13,
+      },
+    },
+  },
 ];
 
 export default PLACE_DETAIL_MOCK;

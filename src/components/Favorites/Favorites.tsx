@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-// import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { LINKS } from "../../const";
 import OfferList from "../OffersList/OffersList";
@@ -15,10 +14,14 @@ interface IFavoriteProps {
   offersCssClasses: IConstCss;
   onOfferClick(): void;
   getFavoritesServerData(): void;
-  handleClickFavoriteButton?(): void;
+  handleClickFavoriteButton(firstArg: string, secondArg: boolean): void;
 }
 
-class Favorites extends PureComponent<IFavoriteProps, {}> {
+interface IFavoritesState {
+  getFavoritesByCity(firstArg: string): IOffer[] | null;
+}
+
+class Favorites extends PureComponent<IFavoriteProps, IFavoritesState> {
   constructor(props: IFavoriteProps) {
     super(props);
 
@@ -154,72 +157,5 @@ class Favorites extends PureComponent<IFavoriteProps, {}> {
     );
   }
 }
-
-// Favorites.propTypes = {
-//   Favorites: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       price: PropTypes.string.isRequired,
-//       photos: PropTypes.arrayOf(
-//         PropTypes.shape({
-//           alt: PropTypes.string,
-//           src: PropTypes.string,
-//         })
-//       ),
-//       previewImage: PropTypes.shape({
-//         alt: PropTypes.string.isRequired,
-//         src: PropTypes.string.isRequired,
-//       }).isRequired,
-//       isPremium: PropTypes.bool.isRequired,
-//       type: PropTypes.string.isRequired,
-//       rate: PropTypes.number.isRequired,
-//       bedrooms: PropTypes.number,
-//       maxAdults: PropTypes.number,
-//       description: PropTypes.string,
-//       facilities: PropTypes.arrayOf(PropTypes.string),
-//       isFavorite: PropTypes.bool,
-//       owner: PropTypes.shape({
-//         name: PropTypes.string,
-//         super: PropTypes.bool,
-//         img: PropTypes.shape({
-//           src: PropTypes.string,
-//           alt: PropTypes.string,
-//         }),
-//       }),
-//       city: PropTypes.shape({
-//         name: PropTypes.string,
-//         location: PropTypes.shape({
-//           latitude: PropTypes.number,
-//           longitude: PropTypes.number,
-//           zoom: PropTypes.number,
-//         }),
-//       }),
-//       location: PropTypes.arrayOf(PropTypes.number),
-//     })
-//   ),
-//   userInfo: PropTypes.shape({
-//     id: PropTypes.number,
-//     userEmail: PropTypes.string,
-//     userName: PropTypes.string,
-//     userAvatar: PropTypes.string,
-//     isPro: PropTypes.bool,
-//   }),
-//   favoriteResponse: PropTypes.bool,
-//   handleClickFavoriteButton: PropTypes.func,
-//   onOfferClick: PropTypes.func,
-//   offersCssClasses: PropTypes.shape({
-//     LIST: PropTypes.string.isRequired,
-//     ITEM: PropTypes.string.isRequired,
-//     IMAGE_WRAPPER: PropTypes.string.isRequired,
-//     ITEM_INFO: PropTypes.string.isRequired,
-//     IMAGE_SIZE: PropTypes.shape({
-//       WIDTH: PropTypes.number.isRequired,
-//       HEIGHT: PropTypes.number.isRequired,
-//     }),
-//   }),
-//   getFavoritesServerData: PropTypes.func,
-//   citiesNames: PropTypes.arrayOf(PropTypes.string),
-// };
 
 export default Favorites;

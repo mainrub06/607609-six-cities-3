@@ -7,7 +7,7 @@ export interface IOfferListProps {
   isOfferDetailItem?: boolean;
   favoriteResponse?: boolean;
   cardsLength?: number;
-  offers: IOffer[];
+  offers: IOffer[] | null;
   offersCssClasses: IConstCss;
   onOfferClick(firstArg: string): void;
   handleClickFavoriteButton(firstArg: string, secondArg: boolean): void;
@@ -42,17 +42,20 @@ class OfferList extends PureComponent<IOfferListProps, {}> {
 
     return (
       <div className={`${offersCssClasses.LIST} places__list`}>
-        {offers.slice(0, cardsLength).map((offer) => (
-          <Offer
-            key={offer.id}
-            offer={offer}
-            handleOfferHover={this.setIdState}
-            onOfferClick={onOfferClick}
-            offersCssClasses={offersCssClasses}
-            handleClickFavoriteButton={handleClickFavoriteButton}
-            favoriteResponse={favoriteResponse}
-          />
-        ))}
+        {offers &&
+          offers
+            .slice(0, cardsLength)
+            .map((offer) => (
+              <Offer
+                key={offer.id}
+                offer={offer}
+                handleOfferHover={this.setIdState}
+                onOfferClick={onOfferClick}
+                offersCssClasses={offersCssClasses}
+                handleClickFavoriteButton={handleClickFavoriteButton}
+                favoriteResponse={favoriteResponse}
+              />
+            ))}
       </div>
     );
   }

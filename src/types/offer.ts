@@ -9,7 +9,7 @@ interface IOwner {
   img: IPhoto;
 }
 
-interface IPoint {
+export interface IPoint {
   latitude: number;
   longitude: number;
   zoom: number;
@@ -37,4 +37,5 @@ export interface IOffer {
   owner: IOwner;
   city: ICity;
   location: number[];
+  cords: [number, number];
 }

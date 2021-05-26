@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CityList from "../city-list/city-list.jsx";
+import CityList from "../CityList/CityList.tsx";
 import MainInner from "../main-inner/main-inner.jsx";
 import MainEmpty from "../MainEmpty/MainEmpty.tsx";
 import { Link } from "react-router-dom";

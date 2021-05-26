@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import CityList from "./city-list.jsx";
+import CityList from "./CityList";
 import { CITIES } from "../../const";
 
 const CITY_MOCK = {
