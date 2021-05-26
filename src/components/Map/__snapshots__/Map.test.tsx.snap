@@ -2,6 +2,6 @@
 
 exports[`Render snapshot <Map/> 1`] = `
 <section
-  className="cities__map map"
+  className="property__map map"
 />
 `;

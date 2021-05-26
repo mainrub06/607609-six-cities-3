@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { getStarsFromNum } from "../../utils";
 import { MAX_PHOTOS_OFFER_DETAIL } from "../../const";
 import Reviews from "../Reviews/Reviews.tsx";
-import Map from "../map/map.jsx";
+import Map from "../Map/Map.tsx";
 import OfferList from "../OffersList/OffersList.tsx";
 import { Link } from "react-router-dom";
 import { AUTHORIZATION_STATUS, LINKS, DETAIL_PAGE_PARAMS } from "../../const";

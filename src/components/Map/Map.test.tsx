@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Map from "./map.jsx";
-import PLACE_MOCK from "../../mock/offers.ts";
+import Map from "./Map";
+import PLACE_MOCK from "../../mock/offers";
 
 const CITY_MOCK = {
   name: `Paris`,
@@ -17,8 +17,9 @@ it(`Render snapshot <Map/>`, () => {
     .create(
       <Map
         city={CITY_MOCK}
-        activePointId={PLACE_MOCK[0].id}
+        activeOfferId={PLACE_MOCK[0].id}
         offers={PLACE_MOCK}
+        nearMap={true}
       />
     )
     .toJSON();
