@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CityList from "../CityList/CityList.tsx";
-import MainInner from "../main-inner/main-inner.jsx";
+import MainContainer from "../MainContainer/MainContainer.tsx";
 import MainEmpty from "../MainEmpty/MainEmpty.tsx";
 import { Link } from "react-router-dom";
 import { AUTHORIZATION_STATUS, LINKS } from "../../const";
@@ -76,7 +76,7 @@ const Main = ({
         onChangeCity={onChangeCity}
       />
       {offers.length !== 0 ? (
-        <MainInner
+        <MainContainer
           activeCity={activeCity}
           activeFilter={activeFilter}
           activeOfferId={activeOfferId}

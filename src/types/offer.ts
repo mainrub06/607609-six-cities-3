@@ -15,7 +15,7 @@ export interface IPoint {
   zoom: number;
 }
 
-interface ICity {
+export interface ICity {
   name: string;
   location: IPoint;
 }

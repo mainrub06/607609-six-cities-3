@@ -15,9 +15,9 @@ interface IMapState {
 }
 
 interface IMapProps {
-  nearMap: boolean;
-  offers: IOffer[];
-  activeOfferId: string;
+  nearMap?: boolean;
+  offers: IOffer[] | null;
+  activeOfferId?: string;
   city: {
     name: string;
     location: IPoint;
@@ -88,7 +88,7 @@ class Map extends PureComponent<IMapProps, IMapState> {
     const { offers, activeOfferId } = this.props;
     const { layerGroup } = this.layerGroupStorage;
 
-    offers.forEach((offer) => {
+    offers && offers.forEach((offer) => {
       const icon =
         activeOfferId && activeOfferId === offer.id
           ? this.icons.iconOrange

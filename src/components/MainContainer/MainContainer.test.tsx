@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MainInner from "./main-inner.jsx";
-import PLACE_MOCK from "../../mock/offers.ts";
+import MainContainer from "./MainContainer";
+import PLACE_MOCK from "../../mock/offers";
 import { OFFERS_SORT_ITEMS, OFFERS_CSS_CLASSES } from "../../const";
 import { MemoryRouter } from "react-router-dom";
 
@@ -18,9 +18,9 @@ it(`Render snapshot <Main/>`, () => {
   const tree = renderer
     .create(
       <MemoryRouter>
-        <MainInner
+        <MainContainer
+          favoriteResponse={true}
           activeFilter={OFFERS_SORT_ITEMS[0]}
-          activePointId={PLACE_MOCK[0].id}
           handleOfferHover={() => {}}
           activeCity={CITY_MOCK}
           onOfferClick={() => {}}
