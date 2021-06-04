@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import Main from "../main/main.jsx";
+import Main from "../Main/Main.tsx";
 import OfferDetail from "../offer-detail/offer-detail.jsx";
 import PropTypes from "prop-types";
 import { ActionCreator } from "../../reducer/main/main.js";

@@ -1,9 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-import PLACE_MOCK from "../../mock/offers.ts";
+import Main from "./Main";
+import PLACE_MOCK from "../../mock/offers";
 import { OFFERS_SORT_ITEMS, CITIES, OFFERS_CSS_CLASSES } from "../../const";
 import { MemoryRouter } from "react-router-dom";
+import {IUserInfo} from "../../types/user";
 
 const CITY_MOCK = {
   name: `Paris`,
@@ -15,12 +16,12 @@ const CITY_MOCK = {
 };
 
 const USER_INFO_MOCK = {
-  id: 1,
-  name: `mainrub`,
-  email: `mainrub06@gmail.com`,
-  avatar_url: `/static/avatar/8.jpg`,
-  is_pro: false,
-};
+  id: "1",
+  userName: `mainrub`,
+  userEmail: `mainrub06@gmail.com`,
+  userAvatar: `/static/avatar/8.jpg`,
+  isPro: false,
+} as IUserInfo;
 
 const authStatus = `AUTH`;
 
@@ -29,7 +30,8 @@ it(`Render snapshot <Main/>`, () => {
     .create(
       <MemoryRouter>
         <Main
-          activePointId={PLACE_MOCK[0].id}
+          favoriteResponse={true}
+          activeOfferId={PLACE_MOCK[0].id}
           activeFilter={OFFERS_SORT_ITEMS[0]}
           citiesNames={CITIES}
           onChangeCity={() => {}}
@@ -41,6 +43,7 @@ it(`Render snapshot <Main/>`, () => {
           userInfo={USER_INFO_MOCK}
           authStatus={authStatus}
           handleClickFavoriteButton={() => {}}
+          handleFavoriteClick={() => {}}
           offersCssClasses={OFFERS_CSS_CLASSES.MAIN}
         />
       </MemoryRouter>

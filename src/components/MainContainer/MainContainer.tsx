@@ -3,23 +3,9 @@ import OffersSort from "../OffersSort/OffersSort";
 import OffersList from "../OffersList/OffersList";
 import Map from "../Map/Map";
 import withActiveFlag from "../../hocs/with-active-flag/with-active-flag";
-import {ICity, IOffer} from "../../types/offer";
-import {IConstCss} from "../../types/const-css";
+import {IMainContainer} from "../Main/Main";
 
 const OffersSortWrapped = withActiveFlag(OffersSort);
-
-interface IMainContainer {
-  activeOfferId?: string;
-  activeFilter: string;
-  favoriteResponse: boolean;
-  offers: IOffer[] | null;
-  activeCity: ICity;
-  offersCssClasses: IConstCss;
-  onOfferClick(): void;
-  onChangeFilterType(): void;
-  handleOfferHover(): void;
-  handleClickFavoriteButton(): void;
-}
 
 const MainContainer = ({
   offers,
