@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import Main from "../Main/Main.tsx";
-import OfferDetail from "../offer-detail/offer-detail.jsx";
+import OfferDetail from "../offer-detail/OfferDetail.tsx";
 import PropTypes from "prop-types";
 import { ActionCreator } from "../../reducer/main/main.js";
 import { Operation as UserOperation } from "../../reducer/user/user";

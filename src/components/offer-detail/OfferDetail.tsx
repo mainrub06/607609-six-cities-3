@@ -1,10 +1,9 @@
 import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
 import { getStarsFromNum } from "../../utils";
 import { MAX_PHOTOS_OFFER_DETAIL } from "../../const";
-import Reviews from "../Reviews/Reviews.tsx";
-import Map from "../Map/Map.tsx";
-import OfferList from "../OffersList/OffersList.tsx";
+import Reviews from "../Reviews/Reviews";
+import Map from "../Map/Map";
+import OfferList from "../OffersList/OffersList";
 import { Link } from "react-router-dom";
 import { AUTHORIZATION_STATUS, LINKS, DETAIL_PAGE_PARAMS } from "../../const";
 import { Operation as DataOperation } from "../../reducer/data/data";
@@ -16,9 +15,34 @@ import {
 import { getOffer, getNearOffers } from "../../reducer/data/selectors";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import {IOffer} from "../../types/offer";
+import {IUserInfo} from "../../types/user";
+import {IConstCss} from "../../types/const-css";
+import {IReview, IReviewFormSubmit} from "../../types/reviews";
+import {match} from "../../types/router";
+import {IRootApp} from "../../types/reducers";
 
-class OfferDetail extends PureComponent {
-  constructor(props) {
+interface IOfferDetail {
+  favoriteResponse: boolean;
+  reviewsResponse: number;
+  authStatus: string;
+  activeHotelId: string;
+  offer: IOffer;
+  nearOffers: IOffer[];
+  reviews: IReview[];
+  userInfo: IUserInfo;
+  offersCssClasses: IConstCss;
+  onOfferClick(): void;
+  handleClickFavoriteButton(id: string, isFavorite: boolean): void;
+  getComments(id: string): void;
+  getNearOffersData(id: string): void;
+  postComment(review: IReviewFormSubmit, activeHotelId: string | undefined): void;
+
+  match: match<{id: string}>
+}
+
+class OfferDetail extends PureComponent<IOfferDetail> {
+  constructor(props: IOfferDetail) {
     super(props);
 
     this.setFavoriteStatus = this.setFavoriteStatus.bind(this);
@@ -32,7 +56,7 @@ class OfferDetail extends PureComponent {
     getComments(offer.id);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: IOfferDetail) {
     const { match, offer, getNearOffersData, getComments } = this.props;
 
     if (prevProps.match.params.id !== match.params.id) {
@@ -41,15 +65,15 @@ class OfferDetail extends PureComponent {
     }
   }
 
-  setFavoriteStatus(offer) {
+  setFavoriteStatus(offer: IOffer) {
     const { favoriteResponse, handleClickFavoriteButton } = this.props;
 
     if (!favoriteResponse) {
-      handleClickFavoriteButton(offer.id, !offer.favorite);
+      handleClickFavoriteButton(offer.id, !offer.isFavorite);
     }
   }
 
-  handleSubmitFeedback(feedback, activeHotelId) {
+  handleSubmitFeedback(feedback: IReviewFormSubmit, activeHotelId: string) {
     const { postComment } = this.props;
 
     postComment(feedback, activeHotelId);
@@ -100,7 +124,7 @@ class OfferDetail extends PureComponent {
                         to={LINKS.FAVORITES}
                         className="header__nav-link header__nav-link--profile"
                       >
-                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <div className="header__avatar-wrapper user__avatar-wrapper" />
                         <span className="header__user-name user__name">
                           {userInfo.userEmail}
                         </span>
@@ -160,7 +184,7 @@ class OfferDetail extends PureComponent {
                         width="31"
                         height="33"
                       >
-                        <use xlinkHref="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark"/>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
@@ -169,7 +193,7 @@ class OfferDetail extends PureComponent {
                     <div className="property__stars rating__stars">
                       <span
                         style={{ width: getStarsFromNum(offer.rate) + `%` }}
-                      ></span>
+                      />
                       <span className="visually-hidden">Rating</span>
                     </div>
                     <span className="property__rating-value rating__value">
@@ -276,136 +300,7 @@ class OfferDetail extends PureComponent {
   }
 }
 
-OfferDetail.propTypes = {
-  onOfferClick: PropTypes.func,
-  authStatus: PropTypes.string,
-  userInfo: PropTypes.shape({
-    id: PropTypes.number,
-    userEmail: PropTypes.string,
-    userName: PropTypes.string,
-    userAvatar: PropTypes.string,
-    isPro: PropTypes.bool,
-  }),
-  handleClickFavoriteButton: PropTypes.func,
-  offersCssClasses: PropTypes.shape({
-    LIST: PropTypes.string.isRequired,
-    ITEM: PropTypes.string.isRequired,
-    IMAGE_WRAPPER: PropTypes.string.isRequired,
-    ITEM_INFO: PropTypes.string.isRequired,
-    IMAGE_SIZE: PropTypes.shape({
-      WIDTH: PropTypes.number.isRequired,
-      HEIGHT: PropTypes.number.isRequired,
-    }),
-  }),
-  favoriteResponse: PropTypes.bool,
-  reviewsResponse: PropTypes.number,
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      rate: PropTypes.number,
-      comment: PropTypes.string,
-      date: PropTypes.string,
-      user: PropTypes.shape({
-        id: PropTypes.number,
-        isPro: PropTypes.bool,
-        name: PropTypes.string,
-        avatar: PropTypes.string,
-      }),
-    })
-  ),
-  offer: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.string,
-    photos: PropTypes.arrayOf(
-      PropTypes.shape({
-        alt: PropTypes.string,
-        src: PropTypes.string,
-      })
-    ),
-    previewImage: PropTypes.shape({
-      alt: PropTypes.string,
-      src: PropTypes.string,
-    }),
-    isPremium: PropTypes.bool,
-    type: PropTypes.string,
-    rate: PropTypes.number,
-    bedrooms: PropTypes.number,
-    maxAdults: PropTypes.number,
-    description: PropTypes.string,
-    facilities: PropTypes.arrayOf(PropTypes.string),
-    isFavorite: PropTypes.bool,
-    owner: PropTypes.shape({
-      name: PropTypes.string,
-      super: PropTypes.bool,
-      img: PropTypes.shape({
-        src: PropTypes.string,
-        alt: PropTypes.string,
-      }),
-    }),
-    city: PropTypes.shape({
-      name: PropTypes.string,
-      location: PropTypes.shape({
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
-        zoom: PropTypes.number,
-      }),
-    }),
-    location: PropTypes.arrayOf(PropTypes.number),
-  }),
-  nearOffers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      price: PropTypes.string,
-      photos: PropTypes.arrayOf(
-        PropTypes.shape({
-          alt: PropTypes.string,
-          src: PropTypes.string,
-        })
-      ),
-      previewImage: PropTypes.shape({
-        alt: PropTypes.string,
-        src: PropTypes.string,
-      }),
-      isPremium: PropTypes.bool,
-      type: PropTypes.string,
-      rate: PropTypes.number,
-      bedrooms: PropTypes.number,
-      maxAdults: PropTypes.number,
-      description: PropTypes.string,
-      facilities: PropTypes.arrayOf(PropTypes.string),
-      isFavorite: PropTypes.bool,
-      owner: PropTypes.shape({
-        name: PropTypes.string,
-        super: PropTypes.bool,
-        img: PropTypes.shape({
-          src: PropTypes.string,
-          alt: PropTypes.string,
-        }),
-      }),
-      city: PropTypes.shape({
-        name: PropTypes.string,
-        location: PropTypes.shape({
-          latitude: PropTypes.number,
-          longitude: PropTypes.number,
-          zoom: PropTypes.number,
-        }),
-      }),
-      location: PropTypes.arrayOf(PropTypes.number),
-    })
-  ),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }),
-  getNearOffersData: PropTypes.func,
-  getComments: PropTypes.func,
-  postComment: PropTypes.func,
-};
-
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IRootApp, ownProps: any) => ({
   offer: getOffer(state, ownProps),
   nearOffers: getNearOffers(state),
   reviews: getReviews(state),
